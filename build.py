@@ -2689,13 +2689,28 @@ def main():
             shutil.copy(ROOT / extra, OUT / extra)
 
     # /contact.html and /thanks.html were live URLs until 2026-09-07. The page
-    # is gone, but the links people already have are not, so they redirect to
-    # the block that replaced them rather than 404ing. Written as _redirects in
-    # the publish directory, which is read on every deploy including a CLI one.
-    (OUT / "_redirects").write_text(
-        "/contact.html   /#contact   301\n"
-        "/thanks.html    /           301\n",
-        encoding="utf-8")
+    # is gone; the links people already have are not, so both keep a stub.
+    #
+    # Stub pages rather than a Netlify _redirects file, because GitHub Pages
+    # has no redirect layer at all: a real 301 would work on one host and 404
+    # on the other. A meta refresh works on every static host, and the visible
+    # link means it still works if the refresh is blocked.
+    for src, dest, what in (("contact.html", "/#contact", "contact section"),
+                            ("thanks.html", "/", "homepage")):
+        (OUT / src).write_text(
+            '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+            f'<title>Moved &middot; {SITE["name"]}</title>'
+            f'<link rel="canonical" href="{dest}">'
+            f'<meta http-equiv="refresh" content="0; url={dest}">'
+            '<meta name="robots" content="noindex">'
+            '</head><body style="font:16px/1.6 system-ui;padding:3rem">'
+            f'<p>This page has moved. <a href="{dest}">Continue to the {what}</a>.</p>'
+            '</body></html>',
+            encoding="utf-8")
+
+    # GitHub Pages runs Jekyll unless told otherwise, which drops any path whose
+    # name starts with an underscore. Nothing here needs Jekyll.
+    (OUT / ".nojekyll").write_text("", encoding="utf-8")
 
     print(f"built {len(studies)} case studies + index -> {OUT}")
     missing = [k for k in ("email", "linkedin") if not CONTACT.get(k)]
