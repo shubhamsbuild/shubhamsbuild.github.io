@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 739 686" width="739" height="686" role="img" aria-label="1,121,622 emails across 13 client accounts">
+<style>
+  :root{--ink:#E7E9EC;--mut:#79828D;--rule:#2C3239;--bg:#101216;
+        --a:#F0A244;--b:#5B646E;--c:#3A424B;--fill:#181C21}
+  @media (prefers-color-scheme:light){:root:not([data-theme=dark]){
+        --ink:#14161A;--mut:#68707A;--rule:#D8D8CF;--bg:#FFFFFF;
+        --a:#8A4A06;--b:#9AA0A8;--c:#C3C8CE;--fill:#F1F1ED}}
+  :root[data-theme=light]{--ink:#14161A;--mut:#68707A;--rule:#D8D8CF;--bg:#FFFFFF;
+        --a:#8A4A06;--b:#9AA0A8;--c:#C3C8CE;--fill:#F1F1ED}
+  .bg{fill:var(--bg)}
+  .ttl{fill:var(--ink);font:500 17px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;letter-spacing:-.4px}
+  .sub{fill:var(--mut);font:400 12.5px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  .lbl{fill:var(--ink);font:400 13px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  .val{fill:var(--ink);font:500 13px 'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.2px}
+  .note{fill:var(--mut);font:400 11.5px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  .rule{stroke:var(--rule);stroke-width:1}
+  .ba{fill:var(--a)} .bb{fill:var(--b)} .bc{fill:var(--c)} .bf{fill:var(--fill)}
+</style>
+<rect class="bg" width="739" height="686"/>
+<text class="ttl" x="28" y="30">1,121,622 emails across 13 client accounts</text>
+<text class="sub" x="28" y="51">Volume by account, anonymised by type. 336 campaigns run or operated.</text>
+<line class="rule" x1="28" y1="63" x2="711" y2="63"/>
+<text class="lbl" x="28" y="96">Enterprise loyalty platform</text>
+<rect class="bf" x="290" y="84" width="330" height="17" rx="3"/>
+<rect class="ba" x="290" y="84" width="330.0" height="17" rx="3"/>
+<text class="val" x="632" y="97">201,525</text>
+<text class="lbl" x="28" y="138">B2B marketing agency</text>
+<rect class="bf" x="290" y="126" width="330" height="17" rx="3"/>
+<rect class="ba" x="290" y="126" width="240.8" height="17" rx="3"/>
+<text class="val" x="632" y="139">147,029</text>
+<text class="lbl" x="28" y="180">Boutique investment bank</text>
+<rect class="bf" x="290" y="168" width="330" height="17" rx="3"/>
+<rect class="ba" x="290" y="168" width="240.3" height="17" rx="3"/>
+<text class="val" x="632" y="181">146,772</text>
+<text class="lbl" x="28" y="222">DTC conversion agency</text>
+<rect class="bf" x="290" y="210" width="330" height="17" rx="3"/>
+<rect class="ba" x="290" y="210" width="216.9" height="17" rx="3"/>
+<text class="val" x="632" y="223">132,460</text>
+<text class="lbl" x="28" y="264">Ringless-voicemail SaaS</text>
+<rect class="bf" x="290" y="252" width="330" height="17" rx="3"/>
+<rect class="ba" x="290" y="252" width="213.2" height="17" rx="3"/>
+<text class="val" x="632" y="265">130,175</text>
+<text class="lbl" x="28" y="306">Speed-to-lead SaaS</text>
+<rect class="bf" x="290" y="294" width="330" height="17" rx="3"/>
+<rect class="bb" x="290" y="294" width="162.4" height="17" rx="3"/>
+<text class="val" x="632" y="307">99,168</text>
+<text class="lbl" x="28" y="348">Automation agency</text>
+<rect class="bf" x="290" y="336" width="330" height="17" rx="3"/>
+<rect class="bb" x="290" y="336" width="143.9" height="17" rx="3"/>
+<text class="val" x="632" y="349">87,896</text>
+<text class="lbl" x="28" y="390">Interview-prep SaaS</text>
+<rect class="bf" x="290" y="378" width="330" height="17" rx="3"/>
+<rect class="bb" x="290" y="378" width="129.6" height="17" rx="3"/>
+<text class="val" x="632" y="391">79,145</text>
+<text class="lbl" x="28" y="432">US tax advisory</text>
+<rect class="bf" x="290" y="420" width="330" height="17" rx="3"/>
+<rect class="bb" x="290" y="420" width="73.8" height="17" rx="3"/>
+<text class="val" x="632" y="433">45,097</text>
+<text class="lbl" x="28" y="474">DTC profit advisory</text>
+<rect class="bf" x="290" y="462" width="330" height="17" rx="3"/>
+<rect class="bb" x="290" y="462" width="72.8" height="17" rx="3"/>
+<text class="val" x="632" y="475">44,450</text>
+<text class="lbl" x="28" y="516">Automotive analytics SaaS</text>
+<rect class="bf" x="290" y="504" width="330" height="17" rx="3"/>
+<rect class="bb" x="290" y="504" width="9.9" height="17" rx="3"/>
+<text class="val" x="632" y="517">6,021</text>
+<text class="lbl" x="28" y="558">Performance PR firm</text>
+<rect class="bf" x="290" y="546" width="330" height="17" rx="3"/>
+<rect class="bb" x="290" y="546" width="3.1" height="17" rx="3"/>
+<text class="val" x="632" y="559">1,878</text>
+<text class="lbl" x="28" y="600">Knowledge-management consultancy</text>
+<rect class="bf" x="290" y="588" width="330" height="17" rx="3"/>
+<rect class="bb" x="290" y="588" width="2.0" height="17" rx="3"/>
+<text class="val" x="632" y="601">6</text>
+<line class="rule" x1="28" y1="640" x2="711" y2="640"/>
+<text class="note" x="28" y="660">Pulled live from the sending platform. 957 positive replies, 0.73% blended bounce rate.</text>
+</svg>

@@ -1,0 +1,1367 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>One sentence about the first fold beat five about the store · Shubham Sharma</title>
+<meta name="description" content="An AI agent reviewing a prospect&#x27;s whole store produced five observations that fitted any store. Narrowing it to one weakness in the mobile first fold, quoting their real headline, is what made the output specific.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="One sentence about the first fold beat five about the store · Shubham Sharma">
+<meta property="og:description" content="An AI agent reviewing a prospect&#x27;s whole store produced five observations that fitted any store. Narrowing it to one weakness in the mobile first fold, quoting their real headline, is what made the output specific.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Concept: an engineering drawing on a near-white ground, hairline grid, corner
+   crop marks, mono title blocks with right-aligned metadata, sheet numbering.
+   Light is the authored default; dark is a supported alternate built from the
+   same family. Display type is Inter at 700 with tight negative tracking; the
+   mono is the system stack, so only one webfont ships.
+
+   The palette is monochrome plus one pop: near-white #FCFCFC, near-black
+   #14181F, and an acid lime #DFFF00 that is ONLY ever a background behind dark
+   text. Lime on white is about 1.1:1, as a text or border colour it does not
+   exist. Its readable sibling (--accent) is a dark olive on light and the lime
+   itself on dark. Every pair is verified against WCAG AA in both themes. */
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --on-ok:#FCFCFC; --no:#B42318;
+  /* Buttons are the one place the flat palette gets a bit of dimension: a
+     vertical gradient, a lit top edge, a dark bottom edge, and two shadows,      one tight to seat the pill, one soft to lift it off the page. */
+  --btn-p1:#2C323C; --btn-p2:#14181F;
+  --btn-s1:#FFFFFF; --btn-s2:#F1F3F5;
+  --btn-hi:rgba(255,255,255,.18); --btn-lo:rgba(0,0,0,.28);
+  --bx-hi:rgba(255,255,255,.7);
+  --btn-sh:0 1px 2px rgba(20,24,31,.16),0 8px 20px -6px rgba(20,24,31,.28);
+  --btn-sh-hi:0 2px 4px rgba(20,24,31,.18),0 14px 28px -8px rgba(20,24,31,.36);
+  --grid:rgba(0,0,0,.04);
+  --sec:clamp(64px,8vw,116px);   /* vertical rhythm between sections */
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#4ADE80; --on-ok:#0E1014; --no:#F97066;
+  --btn-p1:#FFFFFF; --btn-p2:#D9DDE3;
+  --btn-s1:#20252E; --btn-s2:#161A21;
+  --btn-hi:rgba(255,255,255,.80); --btn-lo:rgba(0,0,0,.14);
+  --bx-hi:rgba(255,255,255,.06);
+  --btn-sh:0 1px 2px rgba(0,0,0,.5),0 10px 24px -8px rgba(0,0,0,.6);
+  --btn-sh-hi:0 2px 5px rgba(0,0,0,.55),0 16px 32px -8px rgba(0,0,0,.7);
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#4ADE80; --on-ok:#0E1014; --no:#F97066;
+  --btn-p1:#FFFFFF; --btn-p2:#D9DDE3;
+  --btn-s1:#20252E; --btn-s2:#161A21;
+  --btn-hi:rgba(255,255,255,.80); --btn-lo:rgba(0,0,0,.14);
+  --bx-hi:rgba(255,255,255,.06);
+  --btn-sh:0 1px 2px rgba(0,0,0,.5),0 10px 24px -8px rgba(0,0,0,.6);
+  --btn-sh-hi:0 2px 5px rgba(0,0,0,.55),0 16px 32px -8px rgba(0,0,0,.7);
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+/* The full-bleed bands (.marq, .hero) use 100vw, which on a platform with a
+   visible scrollbar is wider than the content box, that overshoot would scroll
+   the page sideways. `clip` trims it without creating a scroll container, so the
+   sticky header keeps working (overflow-x:hidden would break it). It has to be
+   on body too: on the root element overflow propagates to the viewport instead
+   of clipping, so html alone leaves the overshoot scrollable. */
+html,body{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:400 16px/1.62 var(--sans);
+  font-feature-settings:"tnum" 1;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+/* 1256 - 56px padding = 1200px of content, the width the hero was already
+   built to. Everything on the site now shares it: header, hero, bento, cards,
+   footer. Running prose gets its own measure further down, because 1200px of
+   body text is about 130 characters a line and unreadable. */
+.wrap{max-width:1256px;margin:0 auto;padding:0 28px}
+/* the top gutter belongs to the content container, not to the hero — every
+   page needs it, and only the homepage opens with a hero */
+main > .wrap{padding-top:40px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* --- masthead ---------------------------------------------------------- */
+header.site{border-bottom:1px solid var(--rule);background:var(--bg);
+  position:sticky;top:0;z-index:20;backdrop-filter:saturate(180%) blur(8px)}
+/* padding-block only: .hin shares its element with .wrap, so a `padding`
+   shorthand here silently wipes .wrap's horizontal padding and the header
+   loses its side gutters, the hamburger ends up flush to the screen edge. */
+.hin{display:flex;align-items:center;gap:13px;
+  padding-top:32px;padding-bottom:32px}
+.hin .mk{width:9px;height:9px;border:1.5px solid var(--accent);flex:none;
+  transform:rotate(45deg)}
+.hin .nm{font:500 14px/1 var(--mono);letter-spacing:.4px;text-transform:uppercase}
+.hin .nm a{color:var(--ink)}
+.hin nav{margin-left:auto;display:flex;gap:34px;font:400 12px/1 var(--mono);
+  letter-spacing:.7px;text-transform:uppercase}
+.hin nav a{color:var(--ink2);padding:4px 0}
+.hin nav a:hover{color:var(--accent);text-decoration:none}
+
+/* --- hamburger ----------------------------------------------------------- */
+/* Hidden above the breakpoint. The bars are one span plus its two pseudo
+   elements, which is enough to animate into a cross without extra markup. */
+.ham{display:none;margin-left:auto;width:42px;height:42px;flex:none;
+  align-items:center;justify-content:center;cursor:pointer;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+  color:var(--ink);transition:border-color .12s,background .12s}
+.ham:hover{border-color:var(--ink3);background:var(--raised)}
+.ham:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ham span,.ham span::before,.ham span::after{position:absolute;display:block;
+  width:18px;height:1.5px;border-radius:2px;background:currentColor;
+  transition:transform .2s ease,opacity .15s ease}
+.ham span::before,.ham span::after{content:""}
+.ham span::before{transform:translateY(-5.5px)}
+.ham span::after{transform:translateY(5.5px)}
+.hin.open .ham span{background:transparent}
+.hin.open .ham span::before{transform:rotate(45deg)}
+.hin.open .ham span::after{transform:rotate(-45deg)}
+@media (prefers-reduced-motion:reduce){
+  .ham span,.ham span::before,.ham span::after{transition:none}
+}
+
+/* --- the drawing frame -------------------------------------------------- */
+/* borderless: the grid texture defines the block, so the frame and its corner
+   crop marks are gone. Kept .cr in the markup as a no-op rather than touching
+   every template that emits it. */
+/* No border, no grid. It carries the same gradient-and-shadow treatment as the
+   diagram panel opposite so the two columns read as one pair; flat --surface
+   alone measures ~1.2 against the page and would disappear. */
+.sheet{position:relative;margin:38px 0 8px;padding:52px 40px 44px;
+  border-radius:16px;
+  background:linear-gradient(158deg,var(--raised),var(--surface) 62%);
+  box-shadow:inset 0 1px 0 var(--bx-hi),
+    0 24px 60px -28px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.18)}
+.sheet .cr{display:none}
+
+.chip{display:inline-flex;align-items:center;gap:9px;padding:6px 13px;
+  border:1px solid var(--rule);border-radius:100px;background:var(--bg);
+  font:500 10.5px/1 var(--mono);letter-spacing:1px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:26px}
+.chip .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+
+h1{font:700 clamp(34px,6vw,66px)/1.0 var(--sans);margin:0 0 22px;
+  letter-spacing:-.052em;max-width:17ch}
+h1 .dim{color:var(--ink3)}
+h2{font:700 28px/1.14 var(--sans);margin:0 0 16px;letter-spacing:-.04em}
+h3{font:550 18px/1.35 var(--sans);margin:34px 0 9px;letter-spacing:-.014em}
+h4{font:550 15px/1.4 var(--sans);margin:26px 0 6px;color:var(--ink2)}
+p{margin:0 0 18px}
+/* Only the top-level prose of a page is constrained. Tables, grids, metric
+   strips and card layouts are direct children too but are excluded by name,
+   because they are meant to use the full 1200px. */
+main > .wrap > p,
+main > .wrap > h2,
+main > .wrap > h3,
+main > .wrap > ul,
+main > .wrap > ol,
+main > .wrap > blockquote{max-width:74ch}
+.lede{font-size:18.5px;line-height:1.58;color:var(--ink2);margin:0 0 26px;max-width:62ch}
+.sheet .lede{margin-bottom:30px;max-width:56ch}
+hr{border:0;border-top:1px solid var(--rule);margin:38px 0}
+strong{font-weight:550;color:var(--ink)}
+em{color:var(--ink2)}
+code{font:400 13px var(--mono);background:var(--raised);padding:2px 6px;
+  border-radius:4px;border:1px solid var(--rule2)}
+pre{background:var(--surface);border:1px solid var(--rule);border-radius:8px;
+  padding:18px 20px;overflow-x:auto;margin:24px 0}
+pre code{background:none;border:0;padding:0;font:400 12.5px/1.85 var(--mono);
+  color:var(--ink2)}
+blockquote{margin:28px 0;padding:18px 22px;background:var(--accent-bg);
+  border:1px solid var(--rule);border-left:2px solid var(--accent);border-radius:0 6px 6px 0}
+blockquote p{margin:0}
+ul,ol{margin:0 0 18px;padding-left:22px}
+li{margin:0 0 8px}
+
+/* --- numbered sections -------------------------------------------------- */
+section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
+.snum{display:flex;align-items:center;gap:11px;margin-bottom:14px;
+  font:500 11px/1 var(--mono);letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--accent)}
+.snum::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+/* --- readout band ------------------------------------------------------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(124px,1fr));
+  border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin:0 0 36px;
+  background:var(--bg)}
+.stat{padding:15px 17px;border-right:1px solid var(--rule)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font:600 23px/1.05 var(--sans);letter-spacing:-.035em;
+  font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:7px;font:400 10px var(--mono);color:var(--ink3);
+  text-transform:uppercase;letter-spacing:.8px}
+/* The definition under each number, lower-case on purpose, so it reads as a
+   footnote rather than a second label competing with the first. */
+.stat .def{margin-top:5px;text-transform:none;letter-spacing:0;font-size:10.5px;
+  line-height:1.4;color:var(--ink3);opacity:.82}
+.prov{margin:-28px 0 34px;font:400 11px/1.5 var(--mono);color:var(--ink3);max-width:62ch}
+/* The negative top margin above is tuned to tuck under a stats grid. On
+   the case-study index it follows a paragraph that has its own bottom
+   margin, so the two collapsed to touching. */
+.ix-head .prov{margin:18px 0 0}
+
+/* --- hero: two columns, wider than the reading measure ------------------- */
+/* Breaks out of the 880px .wrap without restructuring the markup: centre on
+   the viewport, then pull back by half its own width. Prose below stays at
+   880 because line length past ~75 characters gets hard to read. */
+.hero{width:100%;
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:34px;align-items:stretch;margin-bottom:var(--sec)}
+/* the sheet's own 38px top margin was setting the row height, so the panel
+   stretched to 532 while the sheet sat 38px lower and their tops did not
+   line up. The spacing moves to the hero, and both columns start together. */
+.hero{position:relative;isolation:isolate}
+/* A soft ambient wash behind both columns. Two wide radials, no blur filter:
+   the gradients are already soft, and blurring a block this size costs a
+   repaint on every scroll for no visible gain. */
+.hero::before{content:"";position:absolute;z-index:-1;pointer-events:none;
+  inset:-14% -8% -10%;
+  background:
+    radial-gradient(46% 42% at 16% 18%,
+      color-mix(in srgb,var(--accent) 13%,transparent),transparent 68%),
+    radial-gradient(40% 38% at 84% 74%,
+      color-mix(in srgb,var(--ok) 11%,transparent),transparent 70%)}
+.hero .sheet{margin:0}
+
+.art{position:relative;min-width:0;display:flex;justify-content:center;
+  align-items:stretch}
+
+/* --- scroll reveal -------------------------------------------------------- */
+/* .rv is added by script, never by the build, so with JavaScript off no
+   element is ever left hidden. `will-change` is deliberately absent: these
+   animate once and then never again, so promoting every section to its own
+   layer for the life of the page costs more than it saves. */
+/* The offset uses the individual `translate` property, NOT `transform`. The
+   full-bleed bands centre themselves with transform:translateX(-50%), and a
+   transform here would replace that outright, which knocked the client band
+   sideways off the page. `translate` composes with an existing transform
+   instead of clobbering it. */
+.rv{opacity:0;translate:0 22px;
+  transition:opacity .6s ease,translate .6s cubic-bezier(.22,.61,.36,1)}
+.rv.in{opacity:1;translate:none}
+@media (prefers-reduced-motion:reduce){
+  .rv,.rv.in{opacity:1;translate:none;transition:none}
+}
+
+/* --- rotating headline word ---------------------------------------------- */
+/* The last word cycles under an accent swash. Only .on is displayed, so the
+   headline reads as one sentence with JavaScript off and for screen readers;
+   the rotation is decoration layered on top of a headline that already works. */
+.rot{display:inline-block;position:relative}
+.rot i{display:none;position:relative;font-style:normal;white-space:nowrap}
+.rot i.on{display:inline-block;animation:rotin .42s cubic-bezier(.2,.7,.3,1) both}
+/* the swash sits under the descenders rather than through them, and draws
+   itself in each time the word changes */
+.rot i::after{content:"";position:absolute;left:-.015em;right:-.015em;
+  bottom:-.02em;height:.1em;border-radius:.05em;background:var(--hl);
+  transform-origin:left center;animation:rotline .5s .1s cubic-bezier(.2,.7,.3,1) both}
+@keyframes rotin{from{opacity:0;transform:translateY(.16em)}
+  to{opacity:1;transform:none}}
+@keyframes rotline{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){
+  .rot i.on,.rot i::after{animation:none}
+}
+
+/* --- hero: a branch in a sending sequence -------------------------------- */
+/* A product surface, so it stays dark in both themes and carries its own
+   palette. Nodes are markup (real text); the fork is one SVG behind them,
+   which is what allows a gradient stroke and a travelling dash. */
+.sq{
+  --sq-bg:#0F1114; --sq-node:#191D24; --sq-edge:#2E343E;
+  --sq-ink:#F2F4F6; --sq-ink2:#9AA1AC; --sq-line:#626B7A;
+  --sq-line-dim:#3D444F;
+  --sq-ok:#22C55E; --sq-no:#F97066;
+  position:relative;width:100%;max-width:470px;padding:26px 22px 28px;
+  display:flex;flex-direction:column;justify-content:center;
+  border-radius:16px;background:var(--sq-bg);color:var(--sq-ink);
+  background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:22px 22px;
+  box-shadow:0 24px 60px -28px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.18)}
+/* the bloom behind the taken branch, the thing that makes it feel lit */
+.sq-glow{position:absolute;left:20%;bottom:6%;width:200px;height:160px;
+  transform:translateX(-50%);
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(34,197,94,.22),transparent 72%);
+  filter:blur(6px)}
+
+.sq-node{position:relative;display:flex;align-items:center;gap:11px;
+  padding:11px 13px;min-width:0;border-radius:11px;background:var(--sq-node);
+  border:1px solid var(--sq-edge);font:500 13.5px/1.2 var(--sans);
+  color:var(--sq-ink);
+  box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 2px 6px rgba(0,0,0,.28)}
+.sq-node b{font-weight:600;letter-spacing:-.012em}
+.sq-node i{font-style:normal;font-weight:600;color:var(--sq-ink2)}
+.sq-node.sm{font-size:12.5px;padding:9px 11px}
+/* the grouped nodes carry an icon, a label, and a trailing pencil or
+   avatar in one row, so they run tighter than the standalone cards */
+.sq-group .sq-node{gap:9px;padding-left:11px;padding-right:11px}
+
+.sq-ic{display:inline-flex;align-items:center;justify-content:center;
+  width:27px;height:27px;border-radius:50%;flex:none;color:var(--sq-ink);
+  background:linear-gradient(180deg,#242932,#1A1E25);
+  border:1px solid var(--sq-edge)}
+.sq-ic svg{width:14px;height:14px}
+.sq-ic.edit{margin-left:auto;width:18px;height:18px;border:0;background:none;
+  color:var(--sq-ink2)}
+/* the two badges that carry brand colour in the reference */
+.sq-ic.in{background:linear-gradient(160deg,#4C8DFF,#1D4ED8);border-color:#2B5FD9;
+  color:#fff}
+.sq-ic.call{width:31px;height:31px;border:0;color:#06210F;
+  background:linear-gradient(180deg,#4ADE80,#16A34A);
+  box-shadow:0 0 0 4px rgba(34,197,94,.16),0 0 18px rgba(34,197,94,.5)}
+
+.sq-face{margin-left:auto;width:24px;height:24px;border-radius:50%;flex:none;
+  display:inline-flex;align-items:center;justify-content:center;overflow:hidden;
+  color:rgba(255,255,255,.86)}
+.sq-face svg{width:15px;height:15px}
+.sq-face.g1{background:linear-gradient(150deg,#7C8BA1,#46505F)}
+.sq-face.g2{background:linear-gradient(150deg,#6E8BFF,#3B4E8F)}
+
+/* --- the connectors ------------------------------------------------------ */
+/* the stem has to leave from the same x the fork arrives at, or the trunk
+   visibly steps sideways between the two nodes */
+.sq-stem{flex:1 1 13px;min-height:13px;max-height:52px;
+  display:flex;justify-content:center}
+.sq-stem i{display:block;width:0;height:100%;
+  border-left:1.5px dashed var(--sq-line)}
+/* the flow is the fork gap plus the columns; the wire is drawn across all of
+   it in one go. The fork gap is fixed so the branch geometry stays predictable
+   -- the stem above takes whatever slack the column height leaves. */
+.sq-flow{position:relative;display:flex;flex-direction:column}
+.sq-fork{height:72px;flex:none}
+.sq-wire{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.sq-wire .w{fill:none;stroke-width:1.5;stroke-linecap:round;
+  stroke-dasharray:5 6}
+.sq-wire .wy{stroke:url(#wy);animation:sqdash 1.15s linear infinite}
+.sq-wire .wn{stroke:url(#wn);animation:sqdash 1.15s linear infinite .38s}
+@keyframes sqdash{to{stroke-dashoffset:-11}}
+
+.sq-lbl{position:absolute;top:13%;z-index:1;padding:1px 7px;border-radius:5px;
+  background:var(--sq-bg);font:600 10px var(--mono);letter-spacing:.7px}
+.sq-lbl{transform:translate(-50%,-50%)}
+.sq-lbl.yes{left:36%;color:var(--sq-ok)}
+.sq-lbl.no{left:62%;color:var(--sq-no)}
+
+/* Both columns carry two-word labels now ("Meeting booked", "LinkedIn
+   Message"), so the panel widened and the split is near-even with a little
+   more for the right, which also holds a pencil and an avatar. The wire
+   x-coordinates below are derived from this ratio -- change one, redo both. */
+.sq-cols{position:relative;z-index:1;display:grid;
+  grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+  gap:12px;align-items:stretch}
+.sq-lane{display:flex;flex-direction:column;justify-content:center}
+/* the No branch is one box holding two steps, not two loose cards */
+.sq-group{display:flex;flex-direction:column;gap:7px;padding:6px;
+  border-radius:13px;background:#151920;border:1px solid var(--sq-edge)}
+.sq-node.hit{border:1.5px solid var(--sq-ok);padding:10px 12px;
+  box-shadow:0 0 0 3px rgba(34,197,94,.12),0 2px 10px rgba(0,0,0,.3)}
+
+@media (prefers-reduced-motion:reduce){
+  /* hold the dash still rather than freezing it mid-gap */
+  .sq-wire .wy,.sq-wire .wn{animation:none;stroke-dasharray:none;opacity:.9}
+}
+
+@media (max-width:900px){
+  .hero{width:auto;margin-left:0;transform:none;grid-template-columns:1fr;gap:24px}
+  /* the illustration is an argument, not information, it goes first to lose
+     on small screens rather than pushing the CTAs down the page */
+  .art{order:2;max-width:460px}
+}
+
+/* --- client band ---------------------------------------------------------- */
+/* Edge to edge: same breakout trick as .hero but the full viewport width. */
+.marq{width:100vw;margin-left:50%;transform:translateX(-50%);
+  padding:52px 0 56px;margin-bottom:var(--sec);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  background:var(--surface)}
+/* sans, not mono: the system mono stack is hard to read at label sizes, and
+   these two are the smallest type on the page. Uppercase and the tracking stay,
+   so it still reads as an eyebrow alongside the rest of the site. */
+.marq-h{margin:0 0 34px;text-align:center;font:600 12.5px var(--sans);
+  letter-spacing:1.3px;text-transform:uppercase;color:var(--ink2)}
+/* fade the ends so items enter and leave rather than being cut off */
+.marq-vp{overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.marq-tr{display:flex;width:max-content;animation:marq 62s linear infinite}
+.marq-tr>span[aria-hidden]{display:flex}
+.marq:hover .marq-tr{animation-play-state:paused}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.mq{display:inline-flex;flex-direction:column;gap:7px;padding:0 34px;
+  border-right:1px solid var(--rule2);white-space:nowrap;flex:none}
+.mq b{font:650 19px var(--sans);letter-spacing:-.022em;color:var(--ink)}
+.mq i{font:500 13px var(--sans);font-style:normal;letter-spacing:-.005em;
+  color:var(--ink2)}
+
+@media (prefers-reduced-motion:reduce){
+  .marq-tr{animation:none;width:100%;flex-wrap:wrap;justify-content:center;
+    gap:10px 0}
+  /* the duplicate exists only to make the loop seamless, with no loop it is noise */
+  .marq-tr>span[aria-hidden]{display:none}
+  .marq-vp{-webkit-mask-image:none;mask-image:none}
+}
+
+/* --- findings bento ------------------------------------------------------- */
+.hl{margin:0 0 var(--sec)}
+/* sans at a readable size: mono at 10px was the same legibility problem the
+   marquee had, and these are section labels people are meant to scan. */
+.hl-eyebrow{display:flex;align-items:center;margin:0 0 16px;
+  font:600 13px var(--sans);letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--accent)}
+.hl-h{margin:0 0 10px;font:600 clamp(26px,3.4vw,38px)/1.12 var(--sans);
+  letter-spacing:-.035em;text-wrap:balance}
+.hl-lede{margin:0 0 22px;font-size:15.5px;color:var(--ink2);max-width:56ch}
+
+/* Asymmetric on purpose: the biggest finding gets the biggest cell, so the
+   grid reads as a ranking rather than a wall of equal tiles.
+     a a b c
+     a a d d
+     e e f f                                                              */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  grid-template-areas:"a a b c" "a a d d" "e e f f"}
+.bx-a{grid-area:a} .bx-b{grid-area:b} .bx-c{grid-area:c}
+.bx-d{grid-area:d} .bx-e{grid-area:e} .bx-f{grid-area:f}
+
+/* Layout and type only. The surface, the shadow, the rim, the bloom and the
+   hover all come from the card system near the end of this sheet, so the six
+   findings cells look like every other card without restating any of it. */
+.bx{overflow:hidden;display:flex;flex-direction:column;
+  justify-content:space-between;gap:14px;padding:20px 22px;
+  color:inherit;text-decoration:none;min-height:132px}
+
+.bx b{position:relative;font:650 clamp(28px,3vw,40px)/1 var(--sans);
+  letter-spacing:-.045em;color:var(--accent);font-variant-numeric:tabular-nums}
+/* sans, not mono, these captions are the smallest type in the section */
+.bx span{font:450 12.5px/1.55 var(--sans);letter-spacing:-.005em;
+  color:var(--ink2)}
+/* the hero cell earns more room, so give its number and caption more weight */
+.bx-a{min-height:280px;padding:26px 28px}
+.bx-a b{font-size:clamp(44px,5.6vw,72px)}
+.bx-a span{font-size:14px;max-width:34ch}
+
+@media (max-width:820px){
+  .bento{grid-template-columns:repeat(2,1fr);
+    grid-template-areas:"a a" "b c" "d d" "e e" "f f"}
+  .bx-a{min-height:200px}
+}
+@media (max-width:520px){
+  .bento{grid-template-columns:1fr;
+    grid-template-areas:"a" "b" "c" "d" "e" "f"}
+  .bx-a{min-height:170px}
+}
+
+/* --- case study cards ----------------------------------------------------- */
+.csx{margin:0 0 var(--sec)}
+.cs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
+  margin-top:26px}
+.cs{display:flex;flex-direction:column;gap:11px;padding:20px 22px 18px;
+  border:1px solid var(--rule);border-radius:10px;background:var(--surface);
+  color:inherit;text-decoration:none;
+  transition:border-color .14s,background .14s,transform .14s}
+.cs:hover{background:var(--raised);border-color:var(--line-2);
+  text-decoration:none;transform:translateY(-1px)}
+.cs:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cs-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cs-ico{display:inline-flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border:1px solid var(--rule);border-radius:8px;
+  color:var(--ink2);flex:none}
+.cs-ico svg{width:16px;height:16px}
+.cs-path{font:400 10.5px var(--mono);color:var(--ink3);letter-spacing:.3px}
+.cs h3{margin:2px 0 0;font:600 17px/1.32 var(--sans);letter-spacing:-.02em;
+  color:var(--ink);text-wrap:balance}
+.cs p{margin:0;font-size:14px;line-height:1.6;color:var(--ink2);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+  overflow:hidden}
+.cs-tags{font:400 10.5px var(--mono);color:var(--ink3);letter-spacing:.4px}
+.cs-tags .sep{margin:0 7px;color:var(--accent);opacity:.6}
+/* the number sits on its own rule at the foot, so it reads as the result
+   rather than another line of the description */
+.cs-foot{display:flex;align-items:baseline;gap:9px;margin-top:auto;padding-top:13px;
+  border-top:1px solid var(--rule2)}
+.cs-foot b{font:600 19px/1 var(--sans);letter-spacing:-.03em;color:var(--accent);
+  font-variant-numeric:tabular-nums;flex:none}
+.cs-foot i{font:400 11px/1.45 var(--mono);font-style:normal;color:var(--ink3)}
+.cs-foot .arw{margin-left:auto;color:var(--ink3);align-self:center;flex:none;
+  transition:color .14s,transform .14s}
+.cs:hover .cs-foot .arw{color:var(--accent);transform:translateX(3px)}
+.cs-cta{margin-top:22px}
+
+@media (max-width:760px){.cs-grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  .cs,.cs-foot .arw{transition:none}
+  .cs:hover{transform:none}
+  .cs:hover .cs-foot .arw{transform:none}
+}
+
+/* --- range ---------------------------------------------------------------- */
+.range{margin:0 0 var(--sec)}
+.rg-lede{margin:0 0 32px;font-size:15.5px;line-height:1.66;color:var(--ink2);
+  max-width:62ch}
+/* Pills, not a run-on line: at 1200px the old list left two thirds of the row
+   empty, and a market is a discrete thing anyway. Mono uppercase is kept, it
+   is the label voice used everywhere else on the page. */
+.rg-list{display:flex;flex-wrap:wrap;gap:10px}
+.rg-t{--d:calc(var(--i)*.045s + .1s);
+  display:inline-flex;align-items:center;gap:9px;padding:9px 15px 9px 12px;
+  border:1px solid var(--rule);border-radius:999px;
+  background:linear-gradient(150deg,var(--raised),var(--surface) 70%);
+  box-shadow:inset 0 1px 0 var(--bx-hi);
+  font:400 11px var(--mono);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink2);
+  transition:color .3s ease,border-color .3s ease,box-shadow .3s ease}
+.rg-t::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;
+  background:var(--ink3);transition:background .3s ease,box-shadow .3s ease}
+/* .lit is driven from JS, one pill at a time; :hover has to look the same or
+   the cursor would appear to turn the effect off */
+.rg-t:hover,.rg-t.lit{color:var(--ink);
+  border-color:color-mix(in srgb,var(--accent) 55%,var(--rule));
+  box-shadow:inset 0 1px 0 var(--bx-hi),
+    0 0 0 3px color-mix(in srgb,var(--accent) 13%,transparent)}
+.rg-t:hover::before,.rg-t.lit::before{background:var(--accent);
+  box-shadow:0 0 9px color-mix(in srgb,var(--accent) 70%,transparent)}
+/* The stagger hangs off .rv, which the reveal script only adds when it is
+   actually going to animate. Under reduced motion .rv never lands, so the
+   pills are simply visible and none of this applies. */
+.range.rv .rg-t{opacity:0;translate:0 10px}
+.range.in .rg-t{opacity:1;translate:0 0;
+  transition:opacity .45s ease var(--d),
+    translate .45s cubic-bezier(.22,.61,.36,1) var(--d),
+    color .3s ease,border-color .3s ease,box-shadow .3s ease}
+
+/* --- about ---------------------------------------------------------------- */
+.about{margin:0 0 var(--sec);display:grid;align-items:start;
+  gap:clamp(30px,4vw,64px);
+  grid-template-columns:minmax(0,1fr) minmax(0,392px)}
+.ab-l{max-width:64ch}
+.ab-lead{margin:26px 0 22px;font:450 clamp(19px,2.2vw,23px)/1.45 var(--sans);
+  letter-spacing:-.018em;color:var(--ink);text-wrap:pretty}
+.ab-body p{margin:0 0 16px;font-size:15.5px;line-height:1.66;color:var(--ink2)}
+.ab-body p:last-child{margin-bottom:0}
+/* one highlighted phrase, the pivot the whole section turns on */
+/* the reference's signature: an acid-lime block behind dark text, never lime
+   text on a pale ground. --on-hl is pinned dark so it holds in both themes. */
+.ab-body em{font-style:normal;background:var(--hl);color:var(--on-hl);
+  box-shadow:none;padding:2px 6px;border-radius:3px;font-weight:500}
+
+/* the handoff panel: the same surface language as the findings bento, so the
+   page reads as one system rather than a series of one-off treatments */
+.ab-r{margin-top:6px}
+.hop{position:relative;overflow:hidden;padding:18px 20px 16px;
+  border:1px solid var(--rule);border-radius:14px;
+  background:linear-gradient(158deg,var(--raised),var(--surface) 62%);
+  box-shadow:inset 0 1px 0 var(--bx-hi),
+    0 1px 2px rgba(0,0,0,.10),0 10px 26px -14px rgba(0,0,0,.42)}
+.hop-k{margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid var(--rule);
+  font:400 10.5px var(--mono);letter-spacing:.8px;text-transform:uppercase;
+  color:var(--ink3)}
+.hop-l{list-style:none;margin:0;padding:0;position:relative}
+/* the rail, and the lime fill that runs down it */
+.hop-l::before,.hop-l::after{content:"";position:absolute;left:5px;
+  top:16px;bottom:16px;width:1px}
+.hop-l::before{background:var(--rule)}
+.hop-l::after{transform-origin:top;
+  background:linear-gradient(var(--accent),
+    color-mix(in srgb,var(--accent) 25%,transparent))}
+.hop-r{--d:calc(var(--i)*.13s + .18s);
+  position:relative;display:flex;align-items:center;gap:12px;
+  padding:11px 0 11px 26px}
+.hop-d{position:absolute;left:0;top:16px;width:11px;height:11px;flex:none;
+  border-radius:50%;border:1px solid var(--accent);background:var(--surface);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}
+.hop-tx{min-width:0}
+.hop-tx b{display:block;font:550 13px/1.3 var(--sans);letter-spacing:-.01em;
+  color:var(--ink)}
+.hop-tx i{display:block;margin-top:3px;font:400 11px/1.45 var(--mono);
+  font-style:normal;color:var(--ink3)}
+.hop-f{margin:14px 0 0;padding-top:13px;border-top:1px solid var(--rule);
+  font:400 11px var(--mono);letter-spacing:.6px;text-transform:uppercase;
+  color:var(--ink3)}
+
+/* Same contract as the pills above: the pre-animation state only exists while
+   .rv is on the section, so nothing can get stuck invisible. */
+.about.rv .hop-l::after{transform:scaleY(0)}
+.about.in .hop-l::after{transform:scaleY(1);
+  transition:transform 1.05s cubic-bezier(.4,0,.2,1) .15s}
+.about.rv .hop-r{opacity:0;translate:0 8px}
+.about.in .hop-r{opacity:1;translate:0 0;
+  transition:opacity .5s ease var(--d),
+    translate .5s cubic-bezier(.22,.61,.36,1) var(--d)}
+.about.rv .hop-d{border-color:var(--rule);box-shadow:0 0 0 3px transparent}
+.about.in .hop-d{border-color:var(--accent);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent);
+  transition:border-color .35s ease calc(var(--d) + .1s),
+    box-shadow .35s ease calc(var(--d) + .1s)}
+
+@media (max-width:920px){
+  .about{grid-template-columns:minmax(0,1fr)}
+  .ab-r{margin-top:0;max-width:440px}
+}
+
+/* --- hero system panel --------------------------------------------------- */
+.sys{margin:0 0 26px;padding:18px 20px 0;border:1px solid var(--rule);border-radius:10px;
+  background:var(--surface);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:26px 26px}
+.sys-h{display:flex;align-items:center;gap:11px;margin:0 0 16px;
+  font:400 11px var(--mono);color:var(--ink3)}
+.sys-live{display:inline-flex;align-items:center;gap:6px;color:var(--ink2)}
+.sys-live i{width:6px;height:6px;border-radius:50%;background:var(--ok);flex:none;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 18%,transparent);animation:sysp 2.4s ease-in-out infinite}
+@keyframes sysp{0%,100%{opacity:1}50%{opacity:.45}}
+.sys-t{letter-spacing:.4px}
+
+.sys-src{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.sn{padding:9px 11px;border:1px solid var(--rule);border-radius:7px;background:var(--raised)}
+.sn b{display:block;font:600 12px var(--sans);letter-spacing:-.01em}
+.sn span{display:block;margin-top:3px;font:400 9.5px/1.35 var(--mono);color:var(--ink3)}
+
+/* Stems down from each source into one rail, then a single feed to the engine.
+   One span per source, laid out on the same grid as the cards, so the stems stay
+   centred under them at any width instead of being pinned to fixed percentages. */
+/* gap must match .sys-src or the stems drift a few px off the card centres */
+.sys-join{position:relative;height:28px;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:9px}
+.sys-join span{position:relative}
+.sys-join span::before{content:"";position:absolute;left:50%;top:0;width:1px;height:14px;
+  background-color:var(--rule)}
+/* the rail, spanning only between the outermost stems */
+.sys-join::before{content:"";position:absolute;left:12.5%;right:12.5%;top:14px;height:1px;
+  background-color:var(--rule)}
+/* the single feed down into the engine */
+.sys-join::after{content:"";position:absolute;left:50%;top:14px;width:1px;height:14px;
+  background-color:var(--rule)}
+
+/* --- one signal travelling the path -------------------------------------
+   Every segment carries the same oversized gradient and scrolls it; the
+   delays are cumulative so a single bright band appears to move source →
+   rail → engine → record rather than four things blinking independently.
+   Base colour stays var(--rule), so with motion off nothing is lost. */
+.sys-join span::before,.sys-join::before,.sys-join::after,.sys-stem::after{
+  background-repeat:no-repeat}
+.sys-join span::before,.sys-join::after,.sys-stem::after{
+  background-image:linear-gradient(180deg,transparent 0,var(--ok) 45%,
+    var(--ok) 55%,transparent 100%);
+  background-size:100% 260%;
+  animation:sysdrop var(--sysdur) linear infinite}
+.sys-join::before{
+  background-image:linear-gradient(90deg,transparent 0,var(--ok) 46%,
+    var(--ok) 54%,transparent 100%);
+  background-size:230% 100%;
+  animation:sysrail var(--sysdur) linear infinite}
+.sys{--sysdur:3.6s}
+/* stems fire left to right, then the rail, then the drop, then the outfeed */
+.sys-join span:nth-child(1)::before{animation-delay:0s}
+.sys-join span:nth-child(2)::before{animation-delay:.09s}
+.sys-join span:nth-child(3)::before{animation-delay:.18s}
+.sys-join span:nth-child(4)::before{animation-delay:.27s}
+.sys-join::before{animation-delay:.42s}
+.sys-join::after{animation-delay:.95s}
+.sys-stem::after{animation-delay:1.55s}
+@keyframes sysdrop{
+  0%{background-position:0 -160%}
+  38%,100%{background-position:0 260%}}
+@keyframes sysrail{
+  0%{background-position:-130% 0}
+  38%,100%{background-position:230% 0}}
+/* the engine lights as the signal arrives, not on its own clock */
+.sys-eng{animation:syseng var(--sysdur) ease-in-out infinite;animation-delay:1.15s}
+@keyframes syseng{
+  0%,26%,100%{box-shadow:0 0 0 0 transparent}
+  8%{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 16%,transparent)}}
+
+.sys-eng{padding:11px 14px;border:1px solid var(--accent);border-radius:7px;
+  background:var(--accent-bg);text-align:center}
+.sys-eng b{display:block;font:600 12.5px var(--sans);color:var(--accent)}
+.sys-eng span{display:block;margin-top:3px;font:400 9.5px var(--mono);color:var(--ink2)}
+.sys-stem{height:20px;position:relative}
+.sys-stem::after{content:"";position:absolute;left:50%;top:0;width:1px;height:100%;
+  background-color:var(--rule)}
+
+.sys-out{display:grid;grid-template-columns:1.35fr 1fr;gap:11px}
+.sys-rec,.sys-res{border:1px solid var(--rule);border-radius:7px;background:var(--raised);
+  padding:10px 12px}
+.sys-rec-h{display:flex;justify-content:space-between;align-items:center;
+  font:600 11px var(--sans);margin-bottom:7px}
+.sys-rec-h span{font:400 9px var(--mono);color:var(--accent);border:1px solid var(--accent);
+  border-radius:3px;padding:1px 5px;text-transform:uppercase;letter-spacing:.6px}
+.sys-rec ul{margin:0;padding:0;list-style:none;display:grid;gap:4px}
+.sys-rec li{font:400 10px/1.4 var(--mono);color:var(--ink2);padding-left:14px;position:relative}
+.sys-rec li::before{position:absolute;left:0;top:0}
+.sys-rec li.ok::before{content:"\2713";color:var(--ok)}
+.sys-rec li.warn::before{content:"!";color:var(--accent);font-weight:700}
+.sys-res{display:flex;flex-direction:column;justify-content:center;text-align:center}
+.sys-res b{font:600 12px var(--sans);color:var(--ok)}
+.sys-res span{margin-top:4px;font:400 9.5px/1.45 var(--mono);color:var(--ink3)}
+
+.sys-f{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:16px;
+  padding:11px 0;border-top:1px solid var(--rule);font:400 10px var(--mono);color:var(--ink3)}
+.sys-f b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.sys-real{margin-left:auto;color:var(--accent)}
+
+@media (max-width:640px){
+  .sys{padding:15px 14px 0}
+  .sys-src{grid-template-columns:repeat(2,1fr)}
+  .sys-join{grid-template-columns:repeat(2,1fr)}
+  .sys-join span:nth-child(n+3){display:none}
+  .sys-join::before{left:25%;right:25%}
+  .sys-out{grid-template-columns:1fr}
+  .sys-real{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .sys-live i,.sys-eng,.sys-join span::before,.sys-join::before,.sys-join::after,
+  .sys-stem::after{animation:none}
+  /* drop the gradient entirely so no half-lit segment is frozen in place */
+  .sys-join span::before,.sys-join::before,.sys-join::after,.sys-stem::after{
+    background-image:none}
+}
+
+.btns{display:flex;gap:11px;flex-wrap:wrap;margin:0}
+/* Reference shape: a fully rounded pill, sans not mono, semibold, sentence
+   case. The primary fill is the ink, not the accent, the accent's lime is a
+   highlight colour and cannot carry text at any size. */
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;
+  position:relative;border:1px solid var(--rule2);border-radius:999px;
+  background:linear-gradient(180deg,var(--btn-s1),var(--btn-s2));
+  color:var(--ink);font:600 14px/1 var(--sans);letter-spacing:-.01em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),
+    0 1px 2px rgba(20,24,31,.10),0 4px 12px -5px rgba(20,24,31,.18);
+  transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease}
+.btn:hover{border-color:var(--ink3);color:var(--ink);text-decoration:none;
+  transform:translateY(-1px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),
+    0 2px 4px rgba(20,24,31,.12),0 10px 22px -6px rgba(20,24,31,.26)}
+/* pressed state matters more than it looks: without it a lifted button feels
+   unresponsive, because the hover transform has nowhere to go on click */
+.btn:active{transform:translateY(0);
+  box-shadow:inset 0 1px 2px rgba(20,24,31,.18),0 1px 2px rgba(20,24,31,.14)}
+
+.btn.primary{border-color:transparent;color:var(--bg);
+  background:linear-gradient(180deg,var(--btn-p1),var(--btn-p2));
+  box-shadow:inset 0 1px 0 var(--btn-hi),inset 0 -1px 0 var(--btn-lo),
+    var(--btn-sh)}
+.btn.primary:hover{color:var(--bg);transform:translateY(-1px);
+  box-shadow:inset 0 1px 0 var(--btn-hi),inset 0 -1px 0 var(--btn-lo),
+    var(--btn-sh-hi)}
+.btn.primary:active{transform:translateY(0);
+  box-shadow:inset 0 2px 4px var(--btn-lo),0 1px 2px rgba(20,24,31,.2)}
+
+@media (prefers-reduced-motion:reduce){
+  .btn,.btn:hover,.btn:active{transform:none;transition:box-shadow .14s ease}
+}
+
+/* --- work index: drawing rows, not cards -------------------------------- */
+.cards{border:1px solid var(--rule);border-radius:8px;overflow:hidden;
+  background:var(--surface);margin:6px 0 0}
+.card{display:grid;grid-template-columns:132px 1fr;gap:24px;padding:24px 26px;
+  border-bottom:1px solid var(--rule2);color:inherit;position:relative;
+  transition:background .12s}
+.card:last-child{border-bottom:0}
+.card:hover{background:var(--raised);text-decoration:none}
+.card::after{content:"→";position:absolute;right:26px;top:24px;color:var(--ink3);
+  font-size:15px;transition:color .12s,transform .12s}
+.card:hover::after{color:var(--accent);transform:translateX(3px)}
+.card .met{border-right:1px solid var(--rule);padding-right:22px}
+.card .met b{display:block;font:600 31px/1 var(--sans);color:var(--accent);
+  letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.card .met span{display:block;margin-top:9px;font-size:11.5px;line-height:1.45;
+  color:var(--ink3)}
+.card .tag{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:1px;
+  color:var(--ink3)}
+.card h3{margin:9px 40px 8px 0;font:550 19px/1.3 var(--sans);letter-spacing:-.02em;
+  color:var(--ink)}
+.card p{margin:0;font-size:14.5px;color:var(--ink2);line-height:1.55}
+.card .who{margin-top:11px;font:400 11.5px var(--mono);color:var(--ink3);
+  letter-spacing:.3px}
+
+/* --- problem / system / output ------------------------------------------ */
+.glance{border:1px solid var(--rule);border-radius:8px;overflow:hidden;
+  background:var(--surface);margin:32px 0}
+.gl{padding:18px 22px;border-bottom:1px solid var(--rule2);display:grid;
+  grid-template-columns:88px 1fr;gap:20px}
+.gl:last-child{border-bottom:0}
+.gl dt{font:500 10.5px/1.7 var(--mono);letter-spacing:1.1px;text-transform:uppercase;
+  color:var(--ink3)}
+.gl dd{margin:0;font-size:15.5px;line-height:1.55;color:var(--ink2)}
+.gl.out{background:var(--accent-bg)}
+.gl.out dt{color:var(--accent)}
+.gl.out dd{color:var(--ink);font-weight:450}
+
+/* --- tables ------------------------------------------------------------- */
+.tw{overflow-x:auto;margin:26px 0;border:1px solid var(--rule);border-radius:8px;
+  background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px;
+  font-variant-numeric:tabular-nums}
+th,td{padding:10px 15px;border-bottom:1px solid var(--rule2);text-align:left;
+  white-space:nowrap}
+th{background:var(--raised);font:500 10.5px var(--mono);letter-spacing:.9px;
+  text-transform:uppercase;color:var(--ink3)}
+tbody tr:last-child td{border-bottom:0}
+td.a-right,th.a-right{text-align:right}
+td.a-center,th.a-center{text-align:center}
+
+/* --- stack -------------------------------------------------------------- */
+.sk{border:1px solid var(--rule);border-radius:8px;background:var(--surface);
+  overflow:hidden}
+.sk-row{display:grid;grid-template-columns:176px 1fr;gap:22px;padding:17px 22px;
+  border-bottom:1px solid var(--rule2)}
+.sk-row:last-child{border-bottom:0}
+.sk-row h3{margin:2px 0 0;font:500 10.5px/1.6 var(--mono);letter-spacing:1px;
+  text-transform:uppercase;color:var(--ink3)}
+.sk-chips{display:flex;flex-wrap:wrap;gap:6px}
+.sk-chips span{font:400 12.5px var(--mono);padding:4px 10px;border:1px solid var(--rule);
+  border-radius:5px;background:var(--bg);color:var(--ink2)}
+
+/* --- timeline ----------------------------------------------------------- */
+.tl-item{border:1px solid var(--rule);border-radius:8px;background:var(--surface);
+  padding:22px 24px;margin-bottom:14px}
+.tl-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--rule2)}
+.tl-role{font:600 17px/1.3 var(--sans);letter-spacing:-.018em}
+.tl-meta{margin-left:auto;font:400 11.5px var(--mono);color:var(--ink3);
+  letter-spacing:.4px;text-transform:uppercase}
+.tl-item p{font-size:15.5px;margin-bottom:14px}
+.tl-item p:last-child{margin-bottom:0}
+.tl-note{border-left:2px solid var(--accent);background:var(--accent-bg);
+  padding:18px 22px;border-radius:0 6px 6px 0;color:var(--ink2);font-size:15px}
+.tl-note p:last-child{margin-bottom:0}
+
+.exhibit{margin:32px 0;border:1px solid var(--rule);border-radius:8px;
+  overflow:hidden;background:var(--surface)}
+.exhibit img{display:block;width:100%;height:auto}
+
+/* --- case study head + pager -------------------------------------------- */
+.meta{display:flex;gap:12px;align-items:center;font:400 11px var(--mono);
+  color:var(--ink3);margin:52px 0 14px;text-transform:uppercase;letter-spacing:1px}
+.meta .sep{width:16px;height:1px;background:var(--rule)}
+.pager{display:flex;gap:14px;justify-content:space-between;margin:52px 0 0;
+  padding-top:24px;border-top:1px solid var(--rule);font-size:14.5px}
+.pager a{max-width:47%}
+.pager .lbl{display:block;font:400 10px var(--mono);text-transform:uppercase;
+  letter-spacing:1px;color:var(--ink3);margin-bottom:5px}
+
+/* --- case-study index: featured panel, filters, cards ------------------- */
+.ix-head{margin:0 0 46px}
+.ix-head h1{margin:0 0 18px}
+
+.ft{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:0;
+  margin:0 0 var(--sec);border:1px solid var(--rule);border-radius:14px;
+  overflow:hidden;background:var(--surface)}
+.ft-l{padding:34px 34px 36px}
+.ft-l h2{margin:0 0 14px;font:600 clamp(23px,2.8vw,30px)/1.22 var(--sans);
+  letter-spacing:-.032em}
+.ft-sum{margin:0 0 20px;font-size:15.5px;line-height:1.62;color:var(--ink2)}
+.ft-cta{margin-top:22px}
+.ft-r{padding:34px 30px;background:var(--raised);
+  border-left:1px solid var(--rule);display:flex;flex-direction:column;
+  justify-content:space-between;gap:26px}
+/* Not a client testimonial -- the question the work had to answer. Marked as
+   a quote because it is one, and attributed as what it actually is. */
+.ft-q{margin:0;padding:0;background:none;border:0;border-left:2px solid var(--accent);
+  padding-left:16px;border-radius:0}
+.ft-q p{margin:0 0 12px;font:500 16.5px/1.5 var(--sans);color:var(--ink);
+  letter-spacing:-.012em}
+.ft-q cite{font:400 11px var(--mono);letter-spacing:.9px;text-transform:uppercase;
+  /* --ink3 measures 4.43 against --raised on the light theme, i.e. under AA
+     for 11px text. --ink2 is the nearest token that clears it in both. */
+  font-style:normal;color:var(--ink2)}
+.ft-m b{display:block;font:600 clamp(34px,4.4vw,46px)/1 var(--sans);
+  letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums}
+.ft-m span{display:block;margin-top:10px;font-size:13px;line-height:1.5;color:var(--ink2)}
+
+.fb-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  flex-wrap:wrap;margin:0 0 18px}
+.fb-h .hl-eyebrow{margin:0}
+.fb-count{margin:0;font:400 12px var(--mono);color:var(--ink3)}
+.fb{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px;padding-bottom:26px;
+  border-bottom:1px solid var(--rule)}
+.fb-b{font:500 11px var(--mono);letter-spacing:.9px;text-transform:uppercase;
+  color:var(--ink2);background:var(--surface);border:1px solid var(--rule);
+  border-radius:999px;padding:7px 14px;cursor:pointer;
+  transition:border-color .12s,color .12s,background .12s}
+.fb-b:hover{border-color:var(--accent);color:var(--accent)}
+.fb-b:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fb-b.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+
+.gc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:16px;margin:0 0 var(--sec)}
+.gc{display:flex;flex-direction:column;padding:24px 24px 20px;color:inherit;
+  background:var(--surface);border:1px solid var(--rule);border-radius:11px;
+  transition:background .12s,border-color .12s,transform .12s}
+.gc:hover{background:var(--raised);border-color:var(--line-2,var(--rule));
+  text-decoration:none;transform:translateY(-2px)}
+.gc:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.gc-tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.gc-tags span{font:500 9.5px var(--mono);letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--ink3);border:1px solid var(--rule);border-radius:999px;padding:4px 9px}
+.gc h3{margin:0 0 10px;font:600 17px/1.34 var(--sans);letter-spacing:-.024em;
+  color:var(--ink)}
+.gc p{margin:0 0 20px;font-size:14px;line-height:1.6;color:var(--ink2)}
+.gc-foot{margin-top:auto;padding-top:16px;border-top:1px solid var(--rule2);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:9px}
+.gc-foot b{font:600 19px/1 var(--sans);letter-spacing:-.03em;color:var(--accent);
+  font-variant-numeric:tabular-nums}
+.gc-foot i{flex:1 1 120px;font-style:normal;font-size:12px;line-height:1.45;
+  color:var(--ink3)}
+.gc-go{flex:1 0 100%;margin-top:12px;font:500 11px var(--mono);letter-spacing:.9px;
+  text-transform:uppercase;color:var(--ink3);transition:color .12s}
+.gc:hover .gc-go{color:var(--accent)}
+.gc-go .arw{display:inline-block;transition:transform .12s}
+.gc:hover .gc-go .arw{transform:translateX(3px)}
+@media (prefers-reduced-motion:reduce){
+  .gc,.gc-go,.gc-go .arw{transition:none}
+  .gc:hover{transform:none}
+}
+
+/* --- case-study breakdown ----------------------------------------------- */
+.cse-tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.cse-tags span{font:500 10px var(--mono);letter-spacing:1.3px;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--rule);border-radius:999px;padding:5px 11px}
+.mtrs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;
+  overflow:hidden;margin:34px 0 var(--sec)}
+.mtr{background:var(--surface);padding:22px 20px}
+.mtr b{display:block;font:600 clamp(26px,3.4vw,36px)/1 var(--sans);
+  letter-spacing:-.035em;color:var(--accent);font-variant-numeric:tabular-nums}
+.mtr span{display:block;margin-top:9px;font-size:13px;line-height:1.5;color:var(--ink2)}
+.fct{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:26px 30px;
+  margin:0 0 var(--sec);padding:26px 0;border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule)}
+.fct dt{font:500 10px var(--mono);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:8px}
+.fct dd{margin:0;font-size:14.5px;line-height:1.55;color:var(--ink)}
+
+/* The pull-out. One question, set large, with nothing else on the row --
+   it is the sentence the whole engagement had to answer. */
+.qst{margin:0 0 var(--sec);padding:30px 32px;border-radius:12px;
+  background:var(--accent-bg);border:1px solid var(--rule);
+  border-left:2px solid var(--accent)}
+.qst .hl-eyebrow{margin-bottom:14px}
+.qst-q{margin:0;max-width:32ch;font:600 clamp(21px,2.7vw,28px)/1.32 var(--sans);
+  letter-spacing:-.025em;color:var(--ink)}
+
+.stp{margin:0 0 var(--sec)}
+.stp-l{list-style:none;margin:22px 0 0;padding:0;counter-reset:none}
+.stp-l li{display:grid;grid-template-columns:56px 1fr;gap:22px;
+  padding:26px 0;border-top:1px solid var(--rule2)}
+.stp-l li:first-child{border-top:1px solid var(--rule)}
+.stp-l li:last-child{border-bottom:1px solid var(--rule)}
+.stp-n{font:500 13px var(--mono);color:var(--accent);padding-top:3px;
+  font-variant-numeric:tabular-nums}
+.stp-b h3{margin:0 0 9px;font:600 17.5px/1.35 var(--sans);letter-spacing:-.02em;
+  color:var(--ink)}
+.stp-b p{margin:0;max-width:66ch;font-size:15px;line-height:1.66;color:var(--ink2)}
+/* The chip is the transformation the step produced -- the thing that changed,
+   not a restatement of the step's title. */
+.stp-chip{display:inline-block;margin-top:14px;padding:6px 12px;border-radius:5px;
+  background:var(--raised);border:1px solid var(--rule);
+  font:500 10.5px var(--mono);letter-spacing:1px;text-transform:uppercase;
+  color:var(--accent)}
+
+.val{margin:0 0 var(--sec)}
+.val-l{list-style:none;margin:22px 0 0;padding:0;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.val-l li{background:var(--surface);padding:20px 22px 20px 44px;position:relative;
+  font-size:14.5px;line-height:1.55;color:var(--ink)}
+.val-l li::before{content:"¹3";position:absolute;left:20px;top:20px;
+  font:600 13px var(--sans);color:var(--ok)}
+
+.rel{margin:0 0 var(--sec)}
+.rel-h{display:flex;justify-content:space-between;align-items:baseline;gap:18px;
+  flex-wrap:wrap;margin:0 0 24px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
+.rel-h h2{margin:0;font:600 21px/1.2 var(--sans);letter-spacing:-.03em}
+.rel-h a{font:500 12px var(--mono);letter-spacing:.6px;text-transform:uppercase}
+
+/* --- recommendations ------------------------------------------------------ */
+/* Two quotes, side by side, in the same card material as everything else. The
+   only colour is the pair of quote marks. */
+.pf{margin:0 0 var(--sec)}
+.pf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
+  margin-top:28px;align-items:stretch}
+.pf-q{display:flex;flex-direction:column;margin:0;padding:28px 30px 24px}
+.pf-q blockquote{margin:0 0 auto;padding:0;border:0;background:none;
+  border-radius:0}
+.pf-q blockquote p{margin:0 0 15px;max-width:34ch;
+  font:500 17.5px/1.52 var(--sans);letter-spacing:-.018em;color:var(--ink)}
+.pf-q blockquote p:last-child{margin-bottom:0}
+/* The literal quote characters, not CSS numeric escapes. A CSS escape for a
+   curly quote, written inside this non-raw Python string, is read by Python as
+   an octal escape plus a stray letter, and that is what shipped to every page.
+   Writing the character itself removes the trap rather than working around it. */
+.pf-q blockquote p:first-child::before{content:"“";color:var(--accent)}
+.pf-q blockquote p:last-child::after{content:"”";color:var(--accent)}
+
+.pf-q figcaption{display:flex;align-items:center;gap:14px;
+  margin-top:26px;padding-top:20px;border-top:1px solid var(--rule2)}
+.pf-ph{width:44px;height:44px;flex:none;border-radius:50%;
+  border:1px solid var(--rule);background:var(--raised);object-fit:cover}
+/* the fallback when there is no portrait on disk */
+.pf-ini{display:inline-flex;align-items:center;justify-content:center;
+  font:600 13px var(--sans);letter-spacing:.02em;color:var(--ink2)}
+.pf-who{min-width:0}
+.pf-who b{display:block;font:600 14.5px/1.3 var(--sans);letter-spacing:-.012em;
+  color:var(--ink)}
+.pf-who span{display:block;margin-top:3px;font-size:12.5px;line-height:1.45;
+  color:var(--ink3)}
+.pf-meta{margin:14px 0 0;font:400 10px var(--mono);letter-spacing:1px;
+  text-transform:uppercase;color:var(--ink3)}
+.pf-meta span{opacity:.75}
+
+@media (max-width:760px){
+  .pf-grid{grid-template-columns:1fr}
+  .pf-q{padding:24px 22px 20px}
+  .pf-q blockquote p{font-size:16.5px;max-width:none}
+}
+
+/* --- closing band -------------------------------------------------------- */
+/* This used to invert against the page in both themes, with a dotted grid and
+   its own olive accent pair, on the theory that the opposite of everything
+   above it is what makes a closing block stop the reader. That held while it
+   was the only special surface. Once every other panel joined the card system
+   it was simply the one element from a different design, so it is a card now
+   and it stops the page on size and on the button instead. */
+.book{margin:0 0 var(--sec);
+  padding:clamp(30px,3.6vw,42px) clamp(26px,4vw,46px)}
+/* 20px, not 14: the swash hangs about 8px below the h2 box, so a tighter
+   margin puts the underline almost on top of the line beneath it. */
+.book h2{margin:0 0 20px;max-width:16ch;color:var(--ink);
+  font:600 clamp(28px,4.2vw,44px)/1.1 var(--sans);letter-spacing:-.035em}
+/* The swash: a 4px rule tucked under the last phrase, not a text-decoration,
+   so it clears the descenders instead of cutting through them. */
+.book h2 .uline{position:relative;white-space:nowrap}
+.book h2 .uline::after{content:"";position:absolute;left:0;right:0;bottom:-.1em;
+  height:4px;border-radius:2px;background:var(--accent)}
+.book-lede{margin:0 0 26px;max-width:48ch;color:var(--ink2);
+  font-size:16px;line-height:1.6}
+.book-act{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+/* No overrides on .btn: the closing CTA is the same button as the hero, which
+   is the whole point of bringing this block back onto the page. */
+.book-meta{font:400 12.5px/1.7 var(--mono);color:var(--ink3)}
+
+/* --- footer ------------------------------------------------------------- */
+footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surface)}
+.fin{padding:56px 0 34px}
+.fin-top{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(2,minmax(0,1fr));
+  gap:36px;padding-bottom:40px}
+.fin-brand b{display:block;font:600 21px/1 var(--sans);letter-spacing:-.03em;
+  color:var(--ink);margin-bottom:14px}
+.fin-brand b i{font-style:normal;color:var(--accent)}
+.fin-brand p{margin:0;max-width:34ch;font:400 12.5px/1.75 var(--mono);color:var(--ink3)}
+.fin-col h3{margin:0 0 16px;font:500 10px var(--mono);letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--ink3)}
+.fin-col a{display:flex;align-items:center;gap:9px;margin-bottom:11px;
+  font-size:14.5px;color:var(--ink2)}
+.fin-col a:hover{color:var(--accent);text-decoration:none}
+.fin-col svg{width:15px;height:15px;flex:none;opacity:.75}
+.fin-base{display:flex;justify-content:space-between;align-items:center;gap:18px;
+  flex-wrap:wrap;padding-top:22px;border-top:1px solid var(--rule);
+  font:400 12px var(--mono);color:var(--ink3)}
+.fin-base a{color:var(--ink3)}
+.fin-base a:hover{color:var(--accent);text-decoration:none}
+.fin-base .sep{margin:0 8px;opacity:.5}
+
+/* ===================== card system ======================================= */
+/* Every card on the site is built from the same four things: a gradient fill
+   that is lighter at the top-left, a 1px inset highlight along the top edge, a
+   two-stage drop shadow (a tight contact shadow plus a wide soft one), and a
+   masked gradient rim. Component rules above set the layout; this sets the
+   material. Kept in one place so a change to the material is one edit.
+
+   The rim is a pseudo-element with two masks composited to exclude, which
+   paints only the 1px border ring. That is the only way to get a *gradient*
+   border, since border-image cannot follow border-radius. */
+
+/* --- the surface --------------------------------------------------------- */
+.bx,.cs,.gc,.hop,.ft,.qst,.sk,.tl-item,.exhibit,.cards,
+.glance,.tw,.mtrs,.val-l,.pf-q,.book{
+  position:relative;isolation:isolate;
+  border:1px solid var(--rule);
+  box-shadow:inset 0 1px 0 var(--bx-hi),
+    0 1px 2px rgba(0,0,0,.09),
+    0 12px 30px -16px rgba(0,0,0,.45)}
+
+/* Radius on a two-step scale: the panels a visitor reads as cards, and the
+   containers that hold data. Anything larger on a table starts to clip its
+   own first cell. */
+.bx,.cs,.gc,.hop,.ft,.qst,.pf-q,.book{border-radius:14px}
+.sk,.tl-item,.exhibit,.cards,.glance,.tw,.mtrs,.val-l{border-radius:12px}
+
+/* The gradient fill, for the surfaces whose background is not already doing
+   another job. `background-image` rather than the shorthand, so a component
+   rule that sets only a background-colour still shows through underneath. */
+.bx,.cs,.gc,.hop,.ft,.sk,.tl-item,.exhibit,.cards,.glance,
+.tw,.pf-q,.book{
+  background-image:linear-gradient(158deg,var(--raised),var(--surface) 62%)}
+
+/* .mtrs and .val-l paint their 1px gridlines with the container background,
+   so the gradient has to go on the cells or the lines disappear. */
+.mtr,.val-l li{background-image:linear-gradient(158deg,
+  var(--raised),var(--surface) 68%)}
+
+/* .qst keeps its accent left border and tinted ground; it gets depth only. */
+.qst{border-left:2px solid var(--accent)}
+
+/* --- the rim ------------------------------------------------------------- */
+.bx::after,.cs::after,.gc::after,.hop::after,
+.ft::after,.sk::after,.exhibit::after,.mtrs::after,.val-l::after,
+.pf-q::after,.book::after{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+  pointer-events:none;padding:1px;
+  background:linear-gradient(140deg,
+    color-mix(in srgb,var(--accent) 52%,transparent),
+    transparent 36%,transparent 64%,
+    color-mix(in srgb,var(--accent) 22%,transparent));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  opacity:0;transition:opacity .25s ease}
+
+/* Static panels wear the rim permanently but faintly, so they read as lit-edge
+   cards without ever suggesting they can be clicked. */
+.hop::after,.ft::after,.sk::after,
+.exhibit::after,.mtrs::after,.val-l::after,.pf-q::after{opacity:.34}
+/* the closing block earns a brighter edge than the panels above it */
+.book::after{opacity:.62}
+
+/* --- interactive cards --------------------------------------------------- */
+/* The bloom: an accent glow parked off the top-right corner, scaled to nothing
+   until hover. Its own layer under the content, so it can never wash out the
+   number sitting on top of it. */
+/* Small, faint and parked well off the corner. An earlier pass had this at
+   26% of the accent over 78% of the card, which lit the whole right half and
+   fought the number sitting on it. */
+.bx::before,.cs::before,.gc::before{
+  content:"";position:absolute;z-index:-1;top:-56%;right:-34%;
+  width:60%;aspect-ratio:1;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,
+    color-mix(in srgb,var(--accent) 10%,transparent),transparent 68%);
+  opacity:0;transform:scale(.82);
+  transition:opacity .32s ease,transform .5s cubic-bezier(.22,.61,.36,1)}
+
+.bx,.cs,.gc{overflow:hidden;
+  transition:transform .22s cubic-bezier(.22,.61,.36,1),
+    box-shadow .22s ease,border-color .22s ease}
+
+/* The hover state sets background-image, not the shorthand: several component
+   rules used `background:var(--raised)` here, which silently reset the
+   gradient to none the moment the cursor arrived. */
+.bx:hover,.cs:hover,.gc:hover{
+  text-decoration:none;transform:translateY(-3px);border-color:transparent;
+  background-image:linear-gradient(158deg,
+    var(--raised),color-mix(in srgb,var(--raised) 55%,var(--surface)) 62%);
+  box-shadow:inset 0 1px 0 var(--bx-hi),
+    0 2px 6px rgba(0,0,0,.13),
+    0 24px 48px -18px rgba(0,0,0,.58)}
+.bx:hover::before,.cs:hover::before,.gc:hover::before{opacity:1;transform:scale(1)}
+.bx:hover::after,.cs:hover::after,.gc:hover::after{opacity:1}
+.bx:active,.cs:active,.gc:active{transform:translateY(-1px)}
+.bx:focus-visible,.cs:focus-visible,.gc:focus-visible{
+  outline:2px solid var(--accent);outline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){
+  .bx,.cs,.gc,.bx::before,.cs::before,.gc::before,
+  .bx::after,.cs::after,.gc::after{transition:none}
+  .bx:hover,.cs:hover,.gc:hover,.bx:active,.cs:active,.gc:active{transform:none}
+}
+
+/* Nav collapses at tablet width, not phone width: three uppercase mono links
+   plus the wordmark get tight well before 680px. */
+@media (max-width:860px){
+  .ham{display:inline-flex}
+  /* The panel is always laid out; it is revealed with clip-path rather than
+     toggled with display, because display cannot be transitioned and that is
+     what made it snap. inset() clips from the bottom edge upward, so opening
+     wipes the panel downward like a curtain. visibility keeps the closed
+     links out of the tab order and the accessibility tree. */
+  .hin nav{position:absolute;left:0;right:0;top:100%;z-index:20;
+    margin:0;display:flex;flex-direction:column;gap:0;
+    background:var(--surface);border-bottom:1px solid var(--rule);
+    box-shadow:0 18px 36px -18px rgba(0,0,0,.35);
+    visibility:hidden;clip-path:inset(0 0 100% 0);
+    transition:clip-path .36s cubic-bezier(.22,.61,.36,1),
+      visibility 0s .36s}
+  .hin.open nav{visibility:visible;clip-path:inset(0 0 0 0);
+    transition:clip-path .4s cubic-bezier(.22,.61,.36,1),visibility 0s}
+  .hin nav a{padding:16px 24px;border-top:1px solid var(--rule2);
+    font-size:13px;letter-spacing:.8px;
+    opacity:0;transform:translateY(-9px);
+    transition:opacity .2s ease,transform .2s ease}
+  /* each link trails the one above it, so the list reads as arriving rather
+     than as one block appearing */
+  .hin.open nav a{opacity:1;transform:none;
+    transition:opacity .26s ease,transform .3s cubic-bezier(.22,.61,.36,1)}
+  .hin.open nav a:nth-child(1){transition-delay:.08s}
+  .hin.open nav a:nth-child(2){transition-delay:.15s}
+  .hin.open nav a:nth-child(3){transition-delay:.22s}
+  .hin.open nav a:nth-child(4){transition-delay:.29s}
+  header.site{position:relative}
+}
+
+@media (max-width:860px) and (prefers-reduced-motion:reduce){
+  .hin nav,.hin.open nav,.hin nav a,.hin.open nav a{
+    transition:none;transition-delay:0s}
+}
+
+@media (max-width:680px){
+  .wrap{padding:0 24px}
+  th,td{white-space:normal}
+  .hin{padding-top:20px;padding-bottom:20px}
+  .hin nav a{padding:15px 24px}
+  .sheet{padding:36px 22px 32px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat{border-bottom:1px solid var(--rule)}
+  .stat:nth-child(odd){border-right:1px solid var(--rule)}
+  .stat:last-child{grid-column:1/-1;border-right:0;border-bottom:0}
+  .card{grid-template-columns:1fr;gap:16px;padding:20px}
+  .card::after{display:none}
+  .card h3{margin-right:0}
+  .card .met{border-right:0;border-bottom:1px solid var(--rule);
+    padding-right:0;padding-bottom:14px;display:flex;align-items:baseline;gap:12px}
+  .card .met span{margin-top:0}
+  .gl,.sk-row{grid-template-columns:1fr;gap:9px}
+  .book h2{max-width:none}
+  .fin-top{grid-template-columns:1fr;gap:30px}
+  /* 29px is under every touch-target guideline; 44px is the floor */
+  .fb-b{min-height:44px;padding-top:0;padding-bottom:0}
+  /* Footer links sat 23px tall and the base row 14px, which is fiddly to hit
+     on a phone. Height comes from padding so the visual rhythm is unchanged. */
+  .fin-col a{min-height:44px;margin-bottom:2px}
+  .fin-base a{display:inline-block;padding:11px 0}
+  .fin-base{gap:4px}
+  .hin .nm a{display:inline-block;padding:12px 0}
+  .stp-l li{grid-template-columns:1fr;gap:10px}
+  .qst{padding:24px 22px}
+  .ft{grid-template-columns:1fr}
+  .ft-l{padding:28px 22px 30px}
+  .ft-r{padding:26px 22px;border-left:0;border-top:1px solid var(--rule)}
+  .gc-grid{grid-template-columns:1fr}
+  .tl-meta{margin-left:0;width:100%}
+  h1{max-width:none}
+}
+</style>
+</head><body>
+<header class="site"><div class="wrap hin">
+  <span class="mk" aria-hidden="true"></span>
+  <span class="nm"><a href="/">Shubham Sharma</a></span>
+  <button class="ham" type="button" aria-expanded="false" aria-controls="sitenav"
+    aria-label="Menu"><span aria-hidden="true"></span></button>
+  <nav id="sitenav"><a href="/">Home</a><a href="/case-studies.html">Case study</a><a href="/#contact">Contact</a></nav>
+</div></header>
+<main><div class="wrap">
+<p class="cse-tags"><span>Personalisation</span><span>WeConvert</span></p>
+<h1>One sentence about the first fold beat five about the store</h1>
+<p class="lede">An AI agent reviewing a prospect's whole store produced five observations that fitted any store. Narrowing it to one weakness in the mobile first fold, quoting their real headline, is what made the output specific.</p>
+<div class="mtrs"><div class="mtr"><b>88</b><span>positive replies from 132,460 sends, at 0.81% bounce</span></div><div class="mtr"><b>72</b><span>calls booked across the current and legacy workspaces</span></div><div class="mtr"><b>4:1</b><span>offer-led angles beat observation-led ones, on the same account</span></div></div>
+<dl class="fct"><div><dt>Sector</dt><dd>Conversion-rate optimisation for DTC Shopify brands</dd></div><div><dt>Their buyer</dt><dd>DTC Shopify brands doing $100K+ a month</dd></div><div><dt>Discipline</dt><dd>Personalisation</dd></div><div><dt>Client since</dt><dd>23 June 2026</dd></div><div><dt>Constraint</dt><dd>The agency&rsquo;s own pitch is that the first fold decides cold paid traffic, so the outbound had to demonstrate that claim rather than assert it</dd></div><div><dt>Sheet</dt><dd>07 / 08</dd></div></dl>
+<section class="qst"><p class="hl-eyebrow">The core question</p><p class="qst-q">Why does a personalised opener written by an AI agent read like a template to the person receiving it?</p></section>
+<dl class="glance"><div class="gl"><dt>Problem</dt><dd>The account's flagship personalisation was a full store teardown. It failed because asking an agent to find problems with an entire store returns five vague observations that could have been written about any Shopify site, and prospects read them as a template, because functionally they were one.</dd></div><div class="gl"><dt>System</dt><dd>Rebuilt the personalisation around a single verifiable observation: render the prospect's homepage at 390px mobile width, return exactly one weakness quoting their real hero text, and give the agent explicit permission to return nothing.</dd></div><div class="gl out"><dt>Output</dt><dd>Roughly 80% send and 20% skip on live dry runs, with the skipped fifth routed to an offer that needs no personalisation at all, so no lead is wasted and nobody is told about a flaw the agent invented.</dd></div></dl>
+<section class="stp"><p class="hl-eyebrow">What I built</p><ol class="stp-l"><li><span class="stp-n">01</span><div class="stp-b"><h3>Read the failure before rebuilding</h3><p>The flagship campaign asked an agent to review a prospect&rsquo;s whole store. It returned five observations that could have been written about any Shopify site, and prospects read them as a template because functionally they were one.</p><span class="stp-chip">Five vague findings &rarr; worse than none</span></div></li><li><span class="stp-n">02</span><div class="stp-b"><h3>Narrowed the scope until the output had to be specific</h3><p>One weakness, in the first fold, at 390px mobile width, quoting the store&rsquo;s real hero text. There is only one hero headline, the agent either has something concrete to say about it or it does not.</p><span class="stp-chip">The store &rarr; the first fold at 390px</span></div></li><li><span class="stp-n">03</span><div class="stp-b"><h3>Rendered mobile properly</h3><p>Resizing a desktop browser does not change the render viewport, so a desktop-rendered &ldquo;mobile&rdquo; screenshot shows the desktop layout at a narrow width, and produces confident observations about a layout the prospect has never seen.</p><span class="stp-chip">Real device emulation, not a narrow window</span></div></li><li><span class="stp-n">04</span><div class="stp-b"><h3>Gave the agent permission to return nothing</h3><p>It skips when the fold is already strong, and is explicitly forbidden from manufacturing a nitpick, because manufacturing nitpicks is what killed the previous version. Live dry runs settled at roughly 80% send, 20% skip.</p><span class="stp-chip">80% send &middot; 20% skip</span></div></li><li><span class="stp-n">05</span><div class="stp-b"><h3>Routed the skipped fifth somewhere useful</h3><p>They go to a guarantee-led sequence needing no personalisation at all, so every lead is touched and nobody with a good first fold is told about a flaw the agent invented.</p><span class="stp-chip">No lead wasted &middot; no invented flaws</span></div></li><li><span class="stp-n">06</span><div class="stp-b"><h3>Gated every launch on a sameness check</h3><p>Manual QA on the first twenty AI rows before each send. If twenty rows read alike the agent has drifted back into templating, and the campaign does not go out.</p><span class="stp-chip">20 rows checked before every launch</span></div></li></ol></section>
+<h3>The client</h3>
+<p>A conversion-rate-optimisation agency for DTC Shopify brands doing $100K+ a month. Their entire pitch is that the first fold of a store makes or breaks cold paid traffic, so the outbound had to demonstrate that claim, not assert it.</p>
+<h3>The problem: personalisation that signalled nobody looked</h3>
+<p>The earlier flagship campaign was a <strong>full store teardown</strong>, an AI agent reviewing a prospect's whole store and returning a list of conversion issues as the personalised opener.</p>
+<p><strong>It failed, and it failed for an instructive reason.</strong> Asked to find problems with an entire store, the agent produced five vague observations that could have been written about any Shopify site. Prospects read them as a template because functionally they were one.</p>
+<p>The diagnosis: <strong>a single sharp, verifiable observation beats five vague ones</strong>, and the generic version is worse than no personalisation at all, it actively signals that nobody looked.</p>
+<h3>What I built instead</h3>
+<p>The <strong>first-fold teardown.</strong> An agent renders the prospect's homepage at <strong>390px mobile width</strong> and returns exactly one specific weakness, <strong>quoting their real hero text.</strong> That sentence becomes the opener.</p>
+<p>Narrowing the scope from "the store" to "the first fold at mobile width" is what forced specificity. There is only one hero headline. The agent either has something concrete to say about it or it does not.</p>
+<p>Three implementation details carried the whole thing.</p>
+<p><strong>Mobile rendering is not window resizing.</strong> Resizing a desktop browser does not change the render viewport, so a desktop-rendered "mobile" screenshot shows the desktop layout at a narrow width. It needs a genuine mobile render, mobile user agent, real device emulation. Getting this wrong produces confident observations about a layout the prospect has never seen.</p>
+<p><strong>A skip path, and permission to use it.</strong> Live dry-run hit rate was roughly <strong>80% send, 20% skip.</strong> The agent skips when the fold is already strong, scoring at or above four, with clarity, an offer and trust signals present. <strong>It is explicitly forbidden from manufacturing a nitpick</strong>, because manufacturing nitpicks is precisely what killed the previous version.</p>
+<p><strong>Nothing gets wasted.</strong> Skipped leads route to a separate guarantee-led sequence, a 10%-lift-in-90-days-or-free offer that needs no personalisation at all. Every lead is touched, and the fifth with genuinely good first folds get an offer that does not insult them by inventing a flaw.</p>
+<p>Manual QA ran on the first twenty AI rows before every launch, checking for sameness. The finding must quote each store's actual hero text. If twenty rows read alike, the agent has drifted back into templating and the campaign does not go out.</p>
+<h3>The Slack bot</h3>
+<p>A related tool for the same client: a Slack command that returns conversion-optimised desktop and mobile hero mockups of any e-commerce site, in thread, with the reasoning attached.</p>
+<p><strong>It renders the prospect's actual product.</strong> The scrape pulls the real hero or Open Graph image, so the mockup shows <em>their</em> product in a better layout, not a generic template. That is the difference between a mockup that gets a reply and one that gets ignored.</p>
+<p><strong>It runs on no API key, by founder constraint.</strong> The instruction was to use the existing server rather than add a metered key, so the generator shells out to a local CLI in headless mode on the same droplet and strips the API-key variable from the child environment so subscription auth is used instead.</p>
+<p>That is a small piece of engineering, but it is the kind that matters commercially: the founder's constraint was a cost one, and the answer was an architecture that respected it rather than a request to relax it.</p>
+<h3>The numbers</h3>
+<p><strong>132,460 sent, 1,546 unique replies at 1.17%, 88 positive at 0.066%, bounce 0.81%.</strong></p>
+<div class="tw"><table><thead><tr><th class="a-left">Campaign</th><th class="a-right">Sent</th><th class="a-right">uReply</th><th class="a-right">Interested</th><th class="a-right">Pos rate</th></tr></thead><tbody><tr><td class="a-left">CRO audit angle</td><td class="a-right">9,615</td><td class="a-right">127</td><td class="a-right"><strong>10</strong></td><td class="a-right"><strong>0.104%</strong></td></tr><tr><td class="a-left">Cheapest-revenue angle, 3rd batch</td><td class="a-right">8,713</td><td class="a-right">177</td><td class="a-right"><strong>7</strong></td><td class="a-right">0.080%</td></tr><tr><td class="a-left">Page-speed angle, 3rd batch</td><td class="a-right">9,154</td><td class="a-right">152</td><td class="a-right">2</td><td class="a-right">0.022%</td></tr></tbody></table></div>
+<p>The pattern across the account is consistent: <strong>offer-led angles outperformed observation-led ones roughly four to one.</strong> The page-speed observation is verifiable and specific and still converted worse than simply naming the outcome.</p>
+<p>That is a genuine tension with the first-fold work and it belongs in the write-up rather than being smoothed over. The best reading is that <strong>specificity earns the read and the offer earns the reply</strong>, and the first-fold campaign put its effort into only one of the two.</p>
+<h3>What I would do differently</h3>
+<p><strong>The first-fold observation was never tested against a strong offer in the same email.</strong> The account's own data says the winning combination was available and never assembled.</p>
+<p><strong>The 20% skip cohort was never measured separately.</strong> Whether the guarantee fallback outperformed the personalised path is knowable and was not checked, and given the pattern above, it might well have.</p>
+<p><strong>Re-runs were used heavily and decayed hard</strong>, and that was not instrumented until late.</p>
+<h3>The transferable lesson</h3>
+<p><strong>Narrow the scope of an AI personalisation task until the output has to be specific.</strong> "Review this store" produces five sentences that fit any store. "Look at the first fold at 390px and name one weakness, quoting their headline" produces one sentence that fits exactly one store.</p>
+<p>And the guardrail that makes it safe to run at volume: <strong>give the agent permission to return nothing, and route those leads somewhere useful.</strong> An AI personalisation step without a skip path is a machine that manufactures fake observations for the fifth of prospects who are doing fine, which is the same fifth most likely to be worth talking to.</p>
+<section class="val"><p class="hl-eyebrow">What they kept</p><ul class="val-l"><li>A personalisation step that fails safe instead of fabricating</li><li>A reusable rule: narrow the task until the output cannot be generic</li><li>A second offer for the prospects the agent deliberately skips</li><li>An in-Slack mockup tool that renders the prospect&rsquo;s own product</li></ul></section>
+<div class="pager"><a href="/work/where-they-publish.html"><span class="lbl">Previous</span>Where they publish beat what a database calls them</a><a href="/work/query-axis.html" style="text-align:right"><span class="lbl">Next</span>The buyer was buried until I changed the query axis</a></div>
+<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/query-axis.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/query-axis</span></span><h3>The buyer was buried until I changed the query axis</h3><p>Searching maps for "car dealership" buries franchise rooftops under used-car lots. Querying by manufacturer brand instead makes the platform do the classification for you, and its own type field becomes the franchise signal.</p><span class="cs-foot"><b>6</b><i>positive replies at 0.100%, against a 0.085% portfolio average</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/income-proxy.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/income-proxy</span></span><h3>The ICP was a number no database sells</h3><p>"Business owners whose taxable income is over $600,000" is a sound commercial definition and an unusable targeting one. Personal income is not a field anybody sells, so the threshold had to be proxied by something that implies it and can actually be sourced.</p><span class="cs-foot"><b>313</b><i>positive replies from 446,457 sends, across eleven months</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
+<section class="book" id="contact"><p class="hl-eyebrow">Get in touch</p><h2>Bring me the list <span class="uline">you can&rsquo;t buy.</span></h2><p class="book-lede">Tell me the audience you cannot reach and I will show you how I would assemble it.</p><div class="book-act"><a class="btn primary" href="mailto:shubhamsharma220802@gmail.com">shubhamsharma220802@gmail.com</a><a class="btn" href="https://www.linkedin.com/in/shubhambuild/">LinkedIn</a><span class="book-meta">Open to GTM engineering roles</span></div></section>
+</div></main>
+<footer class="site"><div class="wrap fin"><div class="fin-top"><div class="fin-brand"><b>Shubham Sharma<i>.</i></b><p>GTM Engineer &middot; lists, enrichment, deliverability and the measurement that says which half worked</p></div><div class="fin-col"><h3>Site</h3><a href="/#findings">Findings</a><a href="/#about">About</a><a href="/#range">Range</a><a href="/case-studies.html">Case studies</a><a href="/#contact">Contact</a></div><div class="fin-col"><h3>Elsewhere</h3><a href="https://www.linkedin.com/in/shubhambuild/"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.8" y="1.8" width="12.4" height="12.4" rx="2"/><path d="M4.6 6.8v4.6M4.6 4.4v.1M7.6 11.4V6.8m0 1.5c0-.9.7-1.5 1.6-1.5s1.6.6 1.6 1.5v3.1"/></svg>LinkedIn</a><a href="https://x.com/shubhamsbuilds"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.2 3.2 9.6 9.6M12.8 3.2 3.2 12.8"/></svg>X</a><a href="https://github.com/shubhamsbuild"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12.5c-3 .9-3-1.5-4.2-1.8m8.4 4.3v-2.4c0-.7.1-1-.3-1.3 2-.2 3.6-1 3.6-3.9a3 3 0 0 0-.8-2.1 2.8 2.8 0 0 0-.1-2.1s-.7-.2-2.3.9a7.8 7.8 0 0 0-4 0C4.7 2.9 4 3.1 4 3.1a2.8 2.8 0 0 0-.1 2.1 3 3 0 0 0-.8 2.1c0 2.9 1.6 3.7 3.6 3.9-.3.3-.3.6-.3 1.1v2.3"/></svg>GitHub</a><a href="mailto:shubhamsharma220802@gmail.com"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.6" y="3.2" width="12.8" height="9.6" rx="1.6"/><path d="m2 4.6 6 4 6-4"/></svg>Email</a></div></div><div class="fin-base"><span>&copy; 2026 Shubham Sharma</span><span><a href="/case-studies.html">Case studies</a></span></div></div></footer>
+<script>
+(function(){
+  var bar=document.querySelector('.hin'); if(!bar) return;
+  var btn=bar.querySelector('.ham'), nav=bar.querySelector('nav');
+  if(!btn||!nav) return;
+  function set(open){
+    bar.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',open?'true':'false');
+  }
+  btn.addEventListener('click',function(){
+    set(btn.getAttribute('aria-expanded')!=='true');
+  });
+  nav.addEventListener('click',function(e){ if(e.target.closest('a')) set(false); });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&btn.getAttribute('aria-expanded')==='true'){set(false);btn.focus();}
+  });
+})();
+</script>
+<script>
+(function(){
+  if(!('IntersectionObserver' in window)) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var wrap=document.querySelector('main > .wrap'); if(!wrap) return;
+  var sel=':scope > section, :scope > .marq, :scope > .hl, :scope > .mtrs,'
+    +':scope > .fct, :scope > .glance, :scope > .exhibit, :scope > .pager,'
+    +':scope > .ix-l, :scope > .gc-grid, :scope > .fb, :scope > .fb-h';
+  var items;
+  try{ items=[].slice.call(wrap.querySelectorAll(sel)); }catch(e){ return; }
+  items=items.filter(function(el){ return el!==wrap.firstElementChild; });
+  if(!items.length) return;
+  items.forEach(function(el){ el.classList.add('rv'); });
+  var fired=false;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      fired=true;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    });
+  },{rootMargin:'0px 0px -10% 0px',threshold:0.05});
+  items.forEach(function(el){ io.observe(el); });
+  // Safety net. If the observer has reported nothing at all after a few
+  // seconds it is not working, so reveal everything and drop the effect:
+  // a page with no animation is fine, a page of invisible sections is not.
+  // Guarded on `fired` so it never interrupts a working scroll reveal.
+  setTimeout(function(){
+    if(fired) return;
+    io.disconnect();
+    items.forEach(function(el){ el.classList.add('in'); });
+  },3000);
+})();
+</script>
+</body></html>

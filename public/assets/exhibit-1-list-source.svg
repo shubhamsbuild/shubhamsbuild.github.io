@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 867 308" width="867" height="308" role="img" aria-label="List source outweighed copy by 8.6x">
+<style>
+  :root{--ink:#E7E9EC;--mut:#79828D;--rule:#2C3239;--bg:#101216;
+        --a:#F0A244;--b:#5B646E;--c:#3A424B;--fill:#181C21}
+  @media (prefers-color-scheme:light){:root:not([data-theme=dark]){
+        --ink:#14161A;--mut:#68707A;--rule:#D8D8CF;--bg:#FFFFFF;
+        --a:#8A4A06;--b:#9AA0A8;--c:#C3C8CE;--fill:#F1F1ED}}
+  :root[data-theme=light]{--ink:#14161A;--mut:#68707A;--rule:#D8D8CF;--bg:#FFFFFF;
+        --a:#8A4A06;--b:#9AA0A8;--c:#C3C8CE;--fill:#F1F1ED}
+  .bg{fill:var(--bg)}
+  .ttl{fill:var(--ink);font:500 17px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;letter-spacing:-.4px}
+  .sub{fill:var(--mut);font:400 12.5px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  .lbl{fill:var(--ink);font:400 13px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  .val{fill:var(--ink);font:500 13px 'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.2px}
+  .note{fill:var(--mut);font:400 11.5px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  .rule{stroke:var(--rule);stroke-width:1}
+  .ba{fill:var(--a)} .bb{fill:var(--b)} .bc{fill:var(--c)} .bf{fill:var(--fill)}
+</style>
+<rect class="bg" width="867" height="308"/>
+<text class="ttl" x="28" y="30">List source outweighed copy by 8.6x</text>
+<text class="sub" x="28" y="51">One client, one offer, same inboxes and same window. Only the list source changed.</text>
+<line class="rule" x1="28" y1="63" x2="839" y2="63"/>
+<text class="lbl" x="28" y="96">Mined positive-repliers</text>
+<rect class="bf" x="250" y="84" width="380" height="17" rx="3"/>
+<rect class="ba" x="250" y="84" width="380.0" height="17" rx="3"/>
+<text class="val" x="642" y="97">0.455%  (228 / 50,060)</text>
+<text class="lbl" x="28" y="138">Clay-sourced</text>
+<rect class="bf" x="250" y="126" width="380" height="17" rx="3"/>
+<rect class="bb" x="250" y="126" width="76.7" height="17" rx="3"/>
+<text class="val" x="642" y="139">0.092%  (48 / 52,240)</text>
+<text class="lbl" x="28" y="180">ZoomInfo-sourced</text>
+<rect class="bf" x="250" y="168" width="380" height="17" rx="3"/>
+<rect class="bb" x="250" y="168" width="43.9" height="17" rx="3"/>
+<text class="val" x="642" y="181">0.053%  (20 / 38,030)</text>
+<text class="lbl" x="28" y="222">Prospeo-sourced</text>
+<rect class="bf" x="250" y="210" width="380" height="17" rx="3"/>
+<rect class="bc" x="250" y="210" width="29.2" height="17" rx="3"/>
+<text class="val" x="642" y="223">0.035%  (1 / 2,862)</text>
+<line class="rule" x1="28" y1="262" x2="839" y2="262"/>
+<text class="note" x="28" y="282">Positive-reply rate, pulled live from the sending platform. 51 campaigns, 146,772 sends.</text>
+</svg>

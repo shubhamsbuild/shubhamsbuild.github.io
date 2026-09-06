@@ -1,0 +1,21 @@
+# No build command on purpose.
+#
+# public/ is committed, so Netlify serves it directly and no remote build runs.
+# On the Free plan a remote build draws down the 300 included credits; publishing
+# pre-built output costs zero. Build locally with `python build.py`, commit the
+# result, and deploying stays free.
+[build]
+  publish = "public"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

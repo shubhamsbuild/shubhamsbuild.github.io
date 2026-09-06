@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 872 224" width="872" height="224" role="img" aria-label="Same list, same copy, 12x reply-rate gap by mail provider">
+<style>
+  :root{--ink:#E7E9EC;--mut:#79828D;--rule:#2C3239;--bg:#101216;
+        --a:#F0A244;--b:#5B646E;--c:#3A424B;--fill:#181C21}
+  @media (prefers-color-scheme:light){:root:not([data-theme=dark]){
+        --ink:#14161A;--mut:#68707A;--rule:#D8D8CF;--bg:#FFFFFF;
+        --a:#8A4A06;--b:#9AA0A8;--c:#C3C8CE;--fill:#F1F1ED}}
+  :root[data-theme=light]{--ink:#14161A;--mut:#68707A;--rule:#D8D8CF;--bg:#FFFFFF;
+        --a:#8A4A06;--b:#9AA0A8;--c:#C3C8CE;--fill:#F1F1ED}
+  .bg{fill:var(--bg)}
+  .ttl{fill:var(--ink);font:500 17px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;letter-spacing:-.4px}
+  .sub{fill:var(--mut);font:400 12.5px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  .lbl{fill:var(--ink);font:400 13px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  .val{fill:var(--ink);font:500 13px 'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:-.2px}
+  .note{fill:var(--mut);font:400 11.5px Geist,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  .rule{stroke:var(--rule);stroke-width:1}
+  .ba{fill:var(--a)} .bb{fill:var(--b)} .bc{fill:var(--c)} .bf{fill:var(--fill)}
+</style>
+<rect class="bg" width="872" height="224"/>
+<text class="ttl" x="28" y="30">Same list, same copy, 12x reply-rate gap by mail provider</text>
+<text class="sub" x="28" y="51">One insurance-agency list, split by the recipient's receiving mail platform.</text>
+<line class="rule" x1="28" y1="63" x2="844" y2="63"/>
+<text class="lbl" x="28" y="96">Google &amp; CMS recipients</text>
+<rect class="bf" x="270" y="84" width="380" height="17" rx="3"/>
+<rect class="ba" x="270" y="84" width="380.0" height="17" rx="3"/>
+<text class="val" x="662" y="97">2.31%  (162 / 7,028)</text>
+<text class="lbl" x="28" y="138">Microsoft recipients</text>
+<rect class="bf" x="270" y="126" width="380" height="17" rx="3"/>
+<rect class="bc" x="270" y="126" width="30.8" height="17" rx="3"/>
+<text class="val" x="662" y="139">0.19%  (22 / 11,771)</text>
+<line class="rule" x1="28" y1="178" x2="844" y2="178"/>
+<text class="note" x="28" y="198">Unique reply rate. The same gap appeared independently on a second, unrelated account.</text>
+</svg>

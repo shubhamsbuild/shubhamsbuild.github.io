@@ -1,0 +1,17 @@
+# Netlify link state — machine-specific
+.netlify/
+
+# Never commit: screenshots go in only after the redaction pass
+assets/screenshots/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Private blocklist for leakcheck.py — names of individuals, never committed
+leakcheck_private.py
