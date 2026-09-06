@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+# Publishes the already-built public/ directory. It does NOT run build.py here,
+# on purpose:
+#
+#   leakcheck.py reads its blocklist of named individuals from
+#   leakcheck_private.py, which is gitignored and therefore absent in CI. Run
+#   without it, leakcheck either exits 2 or has to be told to skip the person
+#   check, and a guard that cannot verify must not be the thing standing
+#   between this repo and a public URL.
+#
+# The real gate is the local pre-commit hook, which has the private file and
+# runs build.py followed by leakcheck.py before any commit is allowed. By the
+# time a commit reaches this workflow, public/ has already been built and
+# checked on a machine that could actually check it.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Pages needs these three; contents stays read-only because nothing is written back.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time. Queue rather than cancel, so a push that lands during a
+# deploy still ships instead of being dropped.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Fails loudly if public/ was never committed, rather than deploying an
+      # empty site and looking like a Pages misconfiguration.
+      - name: Check the built site is present
+        run: |
+          test -f public/index.html || { echo "public/index.html missing — run 'python build.py' and commit public/"; exit 1; }
+          echo "$(find public -type f | wc -l) files to publish"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - id: deployment
+        uses: actions/deploy-pages@v4
