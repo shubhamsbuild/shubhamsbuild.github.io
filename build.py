@@ -2507,6 +2507,9 @@ def page(title, body, desc=""):
 <meta property="og:title" content="{html.escape(title)}">
 <meta property="og:description" content="{html.escape(desc)}">
 <meta property="og:type" content="website">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 {FONTS}
 <style>{CSS}</style>
 </head><body>
@@ -2701,6 +2704,9 @@ def main():
 
     if ASSETS.exists():
         shutil.copytree(ASSETS, OUT / "assets")
+        # browsers ask for /favicon.ico at the root before reading any <link>
+        if (ASSETS / "favicon.ico").exists():
+            shutil.copy(ASSETS / "favicon.ico", OUT / "favicon.ico")
     # field-guide.html is no longer part of the site — not linked, not shipped
     for extra in ("netlify.toml",):
         if (ROOT / extra).exists():
