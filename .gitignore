@@ -15,3 +15,9 @@ Thumbs.db
 
 # Private blocklist for leakcheck.py — names of individuals, never committed
 leakcheck_private.py
+field-guide.locked.html
+
+# The field guide is personal: never in this public repo. It deploys separately,
+# encrypted, to its own Netlify site (see ../SITE-NOTES.md).
+field-guide.html
+lock-fieldguide.js

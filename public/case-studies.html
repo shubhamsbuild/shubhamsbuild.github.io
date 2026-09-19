@@ -384,6 +384,19 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
   .art{order:2;max-width:460px}
 }
 
+/* Phone widths. At 320px the two columns get ~95px and ~120px, narrower than
+   their contents, so labels spilled into the next card. Trim the chrome rather
+   than the ratio -- the wire coordinates are derived from the column split. */
+@media (max-width:420px){
+  .sq{padding:22px 14px 24px}
+  .sq-cols{gap:8px}
+  .sq-group{padding:5px}
+  .sq-group .sq-face,.sq-ic.edit,.sq-node.sm .sq-ic{display:none}
+  .sq-group .sq-node{gap:7px;padding-left:9px;padding-right:9px}
+  .sq-node.sm{font-size:12px;gap:5px}
+  .sq-node.hit{flex-direction:column;text-align:center;gap:7px;padding:12px 8px}
+}
+
 /* --- client band ---------------------------------------------------------- */
 /* Edge to edge: same breakout trick as .hero but the full viewport width. */
 .marq{width:100vw;margin-left:50%;transform:translateX(-50%);
@@ -734,6 +747,9 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 }
 
 .btns{display:flex;gap:11px;flex-wrap:wrap;margin:0}
+/* a long email address wraps inside the pill rather than overflowing it */
+.btns .btn{max-width:100%;justify-content:center;text-align:center}
+@media (max-width:420px){.btns .btn{line-height:1.3}}
 /* Reference shape: a fully rounded pill, sans not mono, semibold, sentence
    case. The primary fill is the ink, not the accent, the accent's lime is a
    highlight colour and cannot carry text at any size. */
