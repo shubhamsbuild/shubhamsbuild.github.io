@@ -37,7 +37,12 @@ DOMAINS = []
 # Kept in leakcheck.private.py so this file can live in a public repo without
 # itself becoming the directory of names it exists to catch.
 try:
-    from leakcheck_private import PEOPLE
+    import leakcheck_private
+    PEOPLE = leakcheck_private.PEOPLE
+    # White-label end clients, authorised 2026-09-26.
+    # Same reasoning as PEOPLE: a blocklist of names it is illegal-ish to publish
+    # cannot itself live in the public repo. See ../portfolio/ANONYMIZATION.md.
+    WHITELABEL = getattr(leakcheck_private, "WHITELABEL", [])
 except ImportError:  # pragma: no cover - the guard must fail loudly, not quietly
     print("leakcheck: leakcheck_private.py not found — the PEOPLE blocklist is\n"
           "  unavailable, so this run cannot verify that no individual is named.\n"
@@ -47,6 +52,7 @@ except ImportError:  # pragma: no cover - the guard must fail loudly, not quietl
     if not os.environ.get("LEAKCHECK_ALLOW_NO_PEOPLE"):
         sys.exit(2)
     PEOPLE = []
+    WHITELABEL = []
 
 PATTERNS = [
     (re.compile(r"\b\d{2,4}\|[A-Za-z0-9]{20,}"), "bearer token"),
@@ -75,14 +81,15 @@ PUBLIC_CLIENTS = set()
 
 
 def literals():
-    for group, kind in ((NAMES, "client name"), (PEOPLE, "person"), (DOMAINS, "domain")):
+    for group, kind in ((NAMES, "client name"), (PEOPLE, "person"),
+                        (WHITELABEL, "client name"), (DOMAINS, "domain")):
         for term in group:
             if term in ALLOWLIST or (kind == "client name" and term in PUBLIC_CLIENTS):
                 continue
             if kind == "domain" and "." not in term:
                 # A bare company name in DOMAINS would also match the authorised
-                # wordmark. Require a TLD so "HoloGrowth" passes but
-                # "hologrowth.com" is still caught.
+                # wordmark, so require a TLD: the wordmark passes, the domain
+                # is still caught.
                 pat = rf"(?<![\w.-]){re.escape(term)}(?=\.[a-z]{{2,}})"
             else:
                 pat = rf"(?<![\w.-]){re.escape(term)}(?![\w-])"
@@ -92,12 +99,22 @@ def literals():
 LITERALS = list(literals())
 
 
+# Some white-label names are ordinary words that also appear inside the name of a
+# client you ARE authorised to publish, where one name is a substring of another.
+# Mask those phrases before the white-label patterns run, or the guard cries wolf
+# on every case study that names the authorised client.
+EXEMPT_PHRASES = ()
+
+
 def scan(path):
     hits = []
     text = path.read_text(encoding="utf-8", errors="replace")
     for line_no, line in enumerate(text.splitlines(), 1):
+        masked = line
+        for phrase in EXEMPT_PHRASES:
+            masked = re.sub(re.escape(phrase), " ", masked, flags=re.I)
         for pat, kind, term in LITERALS:
-            if pat.search(line):
+            if pat.search(masked if kind == "white-label client" else line):
                 hits.append((line_no, kind, term, line.strip()[:90]))
         for pat, kind in PATTERNS:
             for m in pat.finditer(line):

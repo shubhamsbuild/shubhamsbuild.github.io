@@ -50,7 +50,7 @@ LEGACY_SECTIONS = False
 # -----------------------------------------------------------------------------
 
 # (value, label, definition). The definition is the point: a number that dies under
-# the follow-up question was never worth stating — see case study 06.
+# the follow-up question was never worth stating, see case study 06.
 STATS = [("1,121,622", "emails sent", "delivered, excluding bounces"),
          ("336", "campaigns", "across 13 accounts"),
          ("13", "client accounts", "B2B, 2024&ndash;26"),
@@ -88,9 +88,9 @@ SYS_RECORD = [
 # It is the only count on the homepage. The case-studies index states its own,
 # derived from len(studies), and that one sits directly above the list it
 # counts.
-CLIENT_CLAIM = "More than 11 B2B clients served, end to end"
+CLIENT_CLAIM = "More than 23 B2B clients served, end to end"
 
-# The client band. Accounts are NAMED — the owner confirmed on 2026-09-06 that
+# The client band. Accounts are NAMED, the owner confirmed on 2026-09-06 that
 # naming clients and publishing their results is authorised, superseding the
 # anonymise-by-type rule that portfolio/ANONYMIZATION.md used to carry.
 #
@@ -100,24 +100,28 @@ CLIENT_CLAIM = "More than 11 B2B clients served, end to end"
 #
 # Each entry is (client, what they sell into).
 CLIENTS = [
-    ("Astute Advisors", "tax strategy for high-income owners"),
-    ("BlackTern Capital", "growth-capital raises"),
-    ("HavenStone Advisory", "CPA-led tax, for owner-operated trades"),
-    ("InterviewFocus", "higher-ed and K-12"),
-    ("Outreachify", "in-house, the agency itself"),
-    ("Social Brew Toronto", "creators, coaches, course sellers"),
-    ("WeConvert", "DTC Shopify CRO"),
-    ("VIN IQ", "dealer ad-exposure"),
+    ("Clinical research", "trial sites, sponsors and CROs"),
+    ("Patient data", "medical practices"),
+    ("Sales AI", "enterprise sales teams"),
+    ("AI video", "consumer brands"),
+    ("Manufacturing ops", "plant and operations leaders"),
+    ("Data-warehouse cost", "data and analytics teams"),
+    ("Creator economy", "founders and creator teams"),
+    ("GTM data", "seed to Series B founders"),
+    ("Marketing SaaS", "founders and marketing leads"),
 ]
 
 
 def client_band():
     """Edge-to-edge marquee of the accounts, by sector.
 
-    Named, with what each one sold into underneath, because the sector is the
-    part a hiring manager can map onto their own market. These eight are the
-    ones with a case study behind them, so every name here is checkable; the
-    header's count covers the engagements that do not have one.
+    Sector first, with the market each one sells into underneath, because the
+    sector is the part a hiring manager maps onto their own.
+
+    Deliberately unnamed. These are the white-label cohort -- they contracted
+    with the data company, not with us, so they are ours to describe and not
+    ours to name (see ../portfolio/ANONYMIZATION.md). The header's count covers
+    every engagement, named and not.
     """
     items = "".join(
         f'<span class="mq"><b>{html.escape(n)}</b>'
@@ -137,60 +141,29 @@ def client_band():
 
 # Findings, not volume. The stats band already carries how much was sent; this
 # carries what was learned. Every cell is a real result from a case study and
-# links to the page that shows how it was measured — a number you can click
+# links to the page that shows how it was measured, a number you can click
 # through to is a different claim from a number on a tile.
 #
 # (value, caption, work slug, bento cell). Cell letters map to the grid template
 # in .bento below; changing one without the other breaks the layout.
-HIGHLIGHTS = [
-    ("9.1&times;", "swing from the list source alone, with copy held byte-identical",
-     "list-source", "a"),
-    ("72 calls", "booked off a personalisation step that is allowed to return nothing",
-     "first-fold", "b"),
-    ("60,000", "owner-operated trades businesses no vendor sells",
-     "smb-data-acquisition", "c"),
-    ("0.239%", "the best split in the book, from changing the query axis",
-     "query-axis", "d"),
-    ("275 calls", "booked for one account, from the list source rather than the copy",
-     "list-source", "e"),
-    ("2 audiences", "identical copy. one converted, one returned zero",
-     "copy-segment-mismatch", "f"),
-]
-
-
-def highlights_bento():
-    """Asymmetric grid of findings, each linking to its case study."""
-    cells = "".join(
-        f'<a class="bx bx-{cell}" href="/work/{slug}.html">'
-        f'<b>{val}</b><span>{cap}</span></a>'
-        for val, cap, slug, cell in HIGHLIGHTS)
-    return ('<section class="hl" id="findings" aria-label="Selected findings">'
-            '<p class="hl-eyebrow">Findings</p>'
-            '<h2 class="hl-h">What the numbers actually said.</h2>'
-            '<p class="hl-lede">Every finding here links to how it was '
-            'measured.</p>'
-            f'<div class="bento">{cells}</div>'
-            '</section>')
-
-
 # The transition story. Research across ~60 portfolio sites found this does more
 # work than any capability claim: it is the one thing a competitor cannot copy.
-# Edit the copy here — it is deliberately not in markdown because the lead
+# Edit the copy here, it is deliberately not in markdown because the lead
 # paragraph is styled differently from the body.
 ABOUT_LEAD = ("I was the founding GTM engineer at a B2B outbound agency, which "
               "in practice meant I became the fulfilment.")
 ABOUT_BODY = [
-    "Before me, the founder ran delivery himself, the lists, the enrichment, "
-    "the sending infrastructure, the reporting. Every account went through one "
-    "person. When that stopped scaling, <em>he handed it to me</em>.",
+    "The founder ran delivery himself until it stopped scaling, then "
+    "<em>handed it to me</em>. I built the acquisition, wrote the enrichment "
+    "waterfalls, owned deliverability, and <em>answered for the numbers</em> "
+    "when a campaign underperformed.",
 
-    "I built the acquisition, wrote the enrichment waterfalls, owned "
-    "deliverability, and <em>answered for the numbers</em> when a campaign "
-    "underperformed.",
+    "Most of what is on this page is a mistake I watched happen once on a live "
+    "account, and then built a check for.",
 
-    "I learned the failure modes the only way that sticks, on live accounts "
-    "with somebody&rsquo;s revenue attached. Most of what is on this page is a "
-    "mistake I watched happen once and then built a check for.",
+    "The work changed shape this year. Almost everything I run now starts from a "
+    "<em>signal</em> rather than a list. The delivery stack underneath is the "
+    "same one. What decides who enters it is not.",
 ]
 
 
@@ -228,28 +201,44 @@ CS_ICONS = {
 }
 
 
-def case_studies_section(studies):
-    """Card grid of the featured case studies: gist, number, link to the teardown."""
+def case_studies_section(studies, limit=4):
+    """Card grid of the featured case studies: number, gist, link to the teardown.
+
+    Four on the home page, not eight. This sits directly under the marquee now, so
+    its job is to hook rather than to be comprehensive, and the button underneath
+    carries anyone who wants the rest to /case-studies.html where all of them live.
+    """
     feat = [s for s in studies if s.get("featured", "").lower() == "true"]
+    if limit:
+        feat = feat[:limit]
+    # Counter runs over what is actually on screen. Showing 01/08 beside four
+    # cards reads as a bug, and the button underneath already says there is more.
+    total = len(feat)
 
     cards = []
-    for s in feat:
+    for i, s in enumerate(feat, 1):
         icon = CS_ICONS.get(s.get("tag", ""), CS_ICONS["Measurement"])
+        # One short accent per card: the thing that makes the account unusual.
+        # Optional, so a study without one simply renders without it.
+        badge = (f'<span class="cs-badge">{html.escape(s["badge"])}</span>'
+                 if s.get("badge") else "")
+        # Number first. The metric is the thing a scanner stops on, so it sits
+        # above everything else on the card.
         cards.append(
             f'<a class="cs" href="/work/{s["slug"]}.html">'
             '<span class="cs-top">'
-            f'<span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" '
+            f'<span class="cs-cat"><svg viewBox="0 0 16 16" fill="none" '
             'stroke="currentColor" stroke-width="1.3" stroke-linecap="round" '
-            f'stroke-linejoin="round" aria-hidden="true">{icon}</svg></span>'
-            f'<span class="cs-path">work/{s["slug"]}</span></span>'
-            f'<h3>{inline(s["title"])}</h3>'
-            f'<p>{inline(s.get("summary",""))}</p>'
-            f'<span class="cs-tags">{html.escape(s.get("client",""))}'
-            f'<span class="sep">&middot;</span>{html.escape(s.get("tag",""))}</span>'
-            '<span class="cs-foot">'
+            f'stroke-linejoin="round" aria-hidden="true">{icon}</svg>'
+            f'{html.escape(s.get("sector") or s.get("tag",""))}</span>'
+            f'<span class="cs-num">{i:02d}<span class="sl">/</span>{total:02d}</span>'
+            '</span>'
+            f'{badge}'
+            '<span class="cs-metric">'
             f'<b>{html.escape(s.get("metric",""))}</b>'
-            f'<i>{inline(s.get("metric_label",""))}</i>'
-            '<span class="arw" aria-hidden="true">&rarr;</span></span>'
+            f'<i>{inline(s.get("metric_label",""))}</i></span>'
+            '<span class="cs-foot"><span class="cs-read">Read story'
+            '<span class="arw" aria-hidden="true">&rarr;</span></span></span>'
             '</a>')
 
     cta = ('<a class="btn primary cs-cta" href="/case-studies.html">'
@@ -261,9 +250,9 @@ def case_studies_section(studies):
             # hardcoded number in a heading goes stale the moment the roster
             # moves. The marquee is the one place a count is stated.
             '<h2 class="hl-h">The teardowns, with the numbers attached.</h2>'
-            '<p class="rg-lede">Each one is the same shape: what the account looked '
-            'like, what I built, and what it changed. Every figure is reproducible '
-            'from the sending platform&rsquo;s API.</p>'
+            '<p class="rg-lede">Each one is the same shape: what the problem was, '
+            'how I approached it, what I built, and what it produced. Every figure '
+            'names the system it came from and the date it was read.</p>'
             f'<div class="cs-grid">{"".join(cards)}</div>'
             f'{cta}</section>')
 
@@ -271,11 +260,11 @@ def case_studies_section(studies):
 BOOK = {
     "eyebrow": "Get in touch",
     # The underlined half is the promise; keep it short enough not to wrap.
-    "head": ("Bring me the list", "you can&rsquo;t buy."),
+    "head": ("Bring me the signal", "you can&rsquo;t see."),
     # One sentence. This block sits directly above the footer, so anything
     # longer starts competing with it instead of closing the page.
-    "lede": ("Tell me the audience you cannot reach and I will show you how I "
-             "would assemble it."),
+    "lede": ("Name the moment a company becomes worth contacting, and I will "
+             "show you how I would detect it, qualify it and route it."),
     "meta": "Open to GTM engineering roles",
 }
 
@@ -314,20 +303,22 @@ def book_band():
     readers this page is for. Two real destinations replace it, a mailto and
     a profile.
 
-    The email is the primary button because it is the route a recruiter can
-    paste into a thread. If CONTACT has no email the primary falls back to
-    LinkedIn rather than rendering a dead button.
+    LinkedIn is the primary button: it is what a recruiter opens before they
+    write, and it holds the recommendations quoted further up this page. Email
+    sits second, labelled rather than printed, with the address in the mailto.
     """
     lead, uline = BOOK["head"]
     routes = []
-    if CONTACT.get("email"):
-        # <wbr> lets a long address break at the @ on a narrow phone instead
-        # of running out of its card
-        routes.append(('btn primary', f'mailto:{CONTACT["email"]}',
-                       html.escape(CONTACT["email"]).replace("@", "<wbr>@")))
+    # LinkedIn leads: it is the route a recruiter checks before they write, and
+    # it carries the recommendations this page quotes.
     if CONTACT.get("linkedin"):
+        routes.append(('btn primary', CONTACT["linkedin"], "LinkedIn"))
+    if CONTACT.get("email"):
+        # The address is the href, not the label. A raw address set as a button
+        # label wraps badly on a phone and reads as a string rather than an
+        # invitation; the mailto still carries it.
         routes.append(('btn primary' if not routes else 'btn',
-                       CONTACT["linkedin"], "LinkedIn"))
+                       f'mailto:{CONTACT["email"]}', "Email me"))
     if not routes and CONTACT.get("x"):
         routes.append(('btn primary', CONTACT["x"], "X"))
     acts = "".join(f'<a class="{cls}" href="{href}">{label}</a>'
@@ -363,8 +354,9 @@ def footer_html():
     Only rows with a destination render, so an unfilled CONTACT leaves a
     shorter column rather than a dead link.
     """
-    site_links = [("Findings", "/#findings"), ("About", "/#about"),
-                  ("Range", "/#range"), ("Case studies", "/case-studies.html"),
+    # Case studies is dropped here: the top nav carries it, and the grid plus its
+    # button already route there twice from the page body.
+    site_links = [("About", "/#about"), ("Range", "/#range"),
                   ("Contact", "/#contact")]
     elsewhere = [("LinkedIn", CONTACT.get("linkedin")),
                  ("X", CONTACT.get("x")),
@@ -398,7 +390,7 @@ def cs_metrics(s, bd):
     breakdown. Three is the reference shape; fewer renders fine."""
     # The front-matter label is markdown and gets escaped + inlined; the
     # breakdown labels are authored HTML and go in raw, or inline() would
-    # turn their &mdash; into &amp;mdash; and print the entity on the page.
+    # turn their, into &amp;mdash; and print the entity on the page.
     ms = [(s.get("metric", ""), inline(s.get("metric_label", "")))]
     ms += [(v, l) for v, l in bd.get("metrics", [])]
     cells = "".join(f'<div class="mtr"><b>{v}</b><span>{l}</span></div>'
@@ -614,7 +606,7 @@ def index_page(studies):
 
 
 # LinkedIn recommendations, quoted verbatim. Both authors managed me directly,
-# and both wrote these publicly on LinkedIn — this is their text, not a
+# and both wrote these publicly on LinkedIn, this is their text, not a
 # paraphrase, and not something assembled from a conversation.
 #
 # The employer is omitted from the first headline on purpose: that company is
@@ -703,13 +695,13 @@ def testimonials_section():
 
 # Sections ease in as they are scrolled to, rather than being simply present.
 #
-# Two deliberate limits. It only touches top-level blocks — sections and the
-# handful of block-level divs — so prose inside a case study still flows
+# Two deliberate limits. It only touches top-level blocks, sections and the
+# handful of block-level divs, so prose inside a case study still flows
 # normally instead of every paragraph waiting its turn. And the first child is
 # skipped: the hero is above the fold and should never animate in.
 #
 # Everything is added by script, so with JavaScript off nothing is ever hidden
-# — there is no state in which the content depends on this running.
+#, there is no state in which the content depends on this running.
 REVEAL_JS = """<script>
 (function(){
   if(!('IntersectionObserver' in window)) return;
@@ -795,7 +787,7 @@ RANGE_JS = """<script>
 
 
 # Lives in page(), not in the home body, because the header is on every page.
-# Closes on Escape and on any nav click, and keeps aria-expanded in step — a
+# Closes on Escape and on any nav click, and keeps aria-expanded in step, a
 # hamburger that does not report its state is a button screen readers cannot use.
 NAV_JS = """<script>
 (function(){
@@ -833,16 +825,21 @@ HERO_JS = """<script>
 
 
 
-# The five layers of delivery, in the order an account moves through them.
-# This is the About copy shown rather than restated: the founder owned all five,
-# then handed all five over. Each detail is how that layer was actually run, so
-# the panel doubles as a capability list without ever claiming a number.
+# The layers of delivery, in the order an account moves through them.
+# This is the About copy shown rather than restated. Each detail is how that
+# layer was actually run, so the panel doubles as a capability list without
+# ever claiming a number.
+#
+# Signal capture sits FIRST because it is the input, not a sibling step: the
+# trigger decides who goes on the list, which decides everything downstream.
+# Putting it alongside list building would describe the old outbound motion.
 HANDOFF = [
+    ("Signal capture", "hiring, events, registry changes, post engagement"),
     ("List building", "registries and filings, not vendor exports"),
     ("Enrichment", "waterfall, cheapest source first"),
     ("Sending infrastructure", "domains, warmup, rotation"),
     ("Deliverability", "seed tests and placement checks"),
-    ("Reporting", "replies classified by hand"),
+    ("Reporting", "meetings tracked to source"),
 ]
 
 
@@ -888,7 +885,7 @@ def about_section():
             '<aside class="ab-r"><div class="hop">'
             '<p class="hop-k">Delivery stack</p>'
             f'<ol class="hop-l">{rows}</ol>'
-            '<p class="hop-f">Every layer, on every account.</p>'
+            '<p class="hop-f">Six layers. The first one decides the other five.</p>'
             '</div></aside>'
             '</section>')
 
@@ -911,6 +908,10 @@ def hero_art():
                   '<circle cx="4.5" cy="2" r="1.1"/><circle cx="12.4" cy="8.8" r="1.1"/>'
                   '<circle cx="4.5" cy="14" r="1.1"/>',
         "clock": '<circle cx="8" cy="8" r="5.6"/><path d="M8 4.9V8l2.1 1.4"/>',
+        # broadcast arcs: the signal arriving, before anything is sent
+        "sig": '<circle cx="8" cy="11.8" r="1.3"/>'
+               '<path d="M5.4 9.1a3.9 3.9 0 0 1 5.2 0"/>'
+               '<path d="M3.2 6.8a7 7 0 0 1 9.6 0"/>',
         "pen": '<path d="m10.4 2.9 2.7 2.7L6 12.7l-3.2.5.5-3.2Z"/>',
         "in": '<rect x="2" y="2" width="12" height="12" rx="1.8"/>'
               '<path d="M5 6.9v4.4M5 4.7v.1M8 11.3V6.9m0 1.4c0-.8.6-1.4 1.5-1.4'
@@ -958,11 +959,15 @@ def hero_art():
 
     return (
         '<div class="art">'
-        '<div class="sq" role="img" aria-label="A sending sequence: an email is sent, '
-        'then branch on whether a reply arrived within two hours, yes '
-        'books a meeting, no waits a day and sends a LinkedIn message.">'
+        '<div class="sq" role="img" aria-label="A sending sequence: a signal is '
+        'acquired, an email is sent, then branch on whether a reply arrived within '
+        'two hours, yes books a meeting, no waits a day and sends a LinkedIn '
+        'message.">'
         '<div class="sq-glow" aria-hidden="true"></div>'
 
+        f'<div class="sq-node">{ic("sig", "sq-ic sig")}<b>Signal acquired</b>'
+        '<i>new role posted</i></div>'
+        '<div class="sq-stem" aria-hidden="true"><i></i></div>'
         f'<div class="sq-node">{ic("mail")}<b>Email sent</b>{face(1)}</div>'
         '<div class="sq-stem" aria-hidden="true"><i></i></div>'
         f'<div class="sq-node">{ic("branch")}<b>Reply received</b>'
@@ -1228,7 +1233,7 @@ CSS = """
   --hl:#DFFF00; --on-hl:#14181F;
   --ok:#166534; --on-ok:#FCFCFC; --no:#B42318;
   /* Buttons are the one place the flat palette gets a bit of dimension: a
-     vertical gradient, a lit top edge, a dark bottom edge, and two shadows,      one tight to seat the pill, one soft to lift it off the page. */
+     vertical gradient, a lit top edge, a dark bottom edge, and two shadows, one tight to seat the pill, one soft to lift it off the page. */
   --btn-p1:#2C323C; --btn-p2:#14181F;
   --btn-s1:#FFFFFF; --btn-s2:#F1F3F5;
   --btn-hi:rgba(255,255,255,.18); --btn-lo:rgba(0,0,0,.28);
@@ -1239,6 +1244,10 @@ CSS = """
   --sec:clamp(64px,8vw,116px);   /* vertical rhythm between sections */
   --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  /* UI labels are sans, not the code face. A monospace used for nav, counters
+     and badges reads as a terminal, which is not what this site is. --mono is
+     kept for anything genuinely code-like. */
+  --label:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){
   --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
@@ -1284,10 +1293,10 @@ body{margin:0;background:var(--bg);color:var(--ink);
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 /* 1256 - 56px padding = 1200px of content, the width the hero was already
    built to. Everything on the site now shares it: header, hero, bento, cards,
-   footer. Running prose gets its own measure further down, because 1200px of
+footer. Running prose gets its own measure further down, because 1200px of
    body text is about 130 characters a line and unreadable. */
 .wrap{max-width:1256px;margin:0 auto;padding:0 28px}
-/* the top gutter belongs to the content container, not to the hero — every
+/* the top gutter belongs to the content container, not to the hero, every
    page needs it, and only the homepage opens with a hero */
 main > .wrap{padding-top:40px}
 a{color:var(--accent);text-decoration:none}
@@ -1302,12 +1311,24 @@ header.site{border-bottom:1px solid var(--rule);background:var(--bg);
    loses its side gutters, the hamburger ends up flush to the screen edge. */
 .hin{display:flex;align-items:center;gap:13px;
   padding-top:32px;padding-bottom:32px}
-.hin .mk{width:9px;height:9px;border:1.5px solid var(--accent);flex:none;
-  transform:rotate(45deg)}
-.hin .nm{font:500 14px/1 var(--mono);letter-spacing:.4px;text-transform:uppercase}
-.hin .nm a{color:var(--ink)}
-.hin nav{margin-left:auto;display:flex;gap:34px;font:400 12px/1 var(--mono);
-  letter-spacing:.7px;text-transform:uppercase}
+/* The mark is the same broadcast glyph as the "Signal acquired" node in the hero
+   sequence, so the identity points at the thing the work is about rather than at
+   a generic shape. The role sits under the name because a name on its own tells a
+   visitor nothing, and this is the first thing they read. */
+.bm{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.bm-mk{display:inline-flex;align-items:center;justify-content:center;flex:none;
+  width:26px;height:26px;border-radius:8px;border:1px solid var(--rule);
+  color:var(--accent);background:var(--fill,transparent)}
+.bm-mk svg{width:15px;height:15px}
+.bm-t{display:flex;flex-direction:column;gap:3px;min-width:0}
+.bm-t b{font:500 13.5px/1 var(--label);letter-spacing:.5px;
+  color:var(--ink);text-transform:uppercase}
+.bm-t i{font:400 10px/1 var(--label);letter-spacing:.6px;
+  font-style:normal;color:var(--ink3);text-transform:uppercase}
+.bm:hover .bm-mk{border-color:var(--accent)}
+.bm:hover .bm-t i{color:var(--accent)}
+.hin nav{margin-left:auto;display:flex;gap:34px;font:400 12px/1 var(--label);
+  letter-spacing:.5px;;text-transform:uppercase}
 .hin nav a{color:var(--ink2);padding:4px 0}
 .hin nav a:hover{color:var(--accent);text-decoration:none}
 
@@ -1349,8 +1370,8 @@ header.site{border-bottom:1px solid var(--rule);background:var(--bg);
 
 .chip{display:inline-flex;align-items:center;gap:9px;padding:6px 13px;
   border:1px solid var(--rule);border-radius:100px;background:var(--bg);
-  font:500 10.5px/1 var(--mono);letter-spacing:1px;text-transform:uppercase;
-  color:var(--accent);margin-bottom:26px}
+  font:500 10.5px/1 var(--label);letter-spacing:1px;
+  color:var(--accent);margin-bottom:26px;text-transform:uppercase}
 .chip .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);
   box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
 
@@ -1363,7 +1384,7 @@ h4{font:550 15px/1.4 var(--sans);margin:26px 0 6px;color:var(--ink2)}
 p{margin:0 0 18px}
 /* Only the top-level prose of a page is constrained. Tables, grids, metric
    strips and card layouts are direct children too but are excluded by name,
-   because they are meant to use the full 1200px. */
+because they are meant to use the full 1200px. */
 main > .wrap > p,
 main > .wrap > h2,
 main > .wrap > h3,
@@ -1375,11 +1396,11 @@ main > .wrap > blockquote{max-width:74ch}
 hr{border:0;border-top:1px solid var(--rule);margin:38px 0}
 strong{font-weight:550;color:var(--ink)}
 em{color:var(--ink2)}
-code{font:400 13px var(--mono);background:var(--raised);padding:2px 6px;
+code{font:400 13px var(--label);background:var(--raised);padding:2px 6px;
   border-radius:4px;border:1px solid var(--rule2)}
 pre{background:var(--surface);border:1px solid var(--rule);border-radius:8px;
   padding:18px 20px;overflow-x:auto;margin:24px 0}
-pre code{background:none;border:0;padding:0;font:400 12.5px/1.85 var(--mono);
+pre code{background:none;border:0;padding:0;font:400 12.5px/1.85 var(--label);
   color:var(--ink2)}
 blockquote{margin:28px 0;padding:18px 22px;background:var(--accent-bg);
   border:1px solid var(--rule);border-left:2px solid var(--accent);border-radius:0 6px 6px 0}
@@ -1390,8 +1411,8 @@ li{margin:0 0 8px}
 /* --- numbered sections -------------------------------------------------- */
 section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 .snum{display:flex;align-items:center;gap:11px;margin-bottom:14px;
-  font:500 11px/1 var(--mono);letter-spacing:1.2px;text-transform:uppercase;
-  color:var(--accent)}
+  font:500 11px/1 var(--label);letter-spacing:.6px;
+  color:var(--accent);text-transform:uppercase}
 .snum::after{content:"";flex:1;height:1px;background:var(--rule)}
 
 /* --- readout band ------------------------------------------------------- */
@@ -1402,13 +1423,13 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 .stat:last-child{border-right:0}
 .stat b{display:block;font:600 23px/1.05 var(--sans);letter-spacing:-.035em;
   font-variant-numeric:tabular-nums}
-.stat span{display:block;margin-top:7px;font:400 10px var(--mono);color:var(--ink3);
-  text-transform:uppercase;letter-spacing:.8px}
+.stat span{display:block;margin-top:7px;font:400 11.5px var(--label);color:var(--ink3);
+  letter-spacing:.5px;text-transform:uppercase}
 /* The definition under each number, lower-case on purpose, so it reads as a
    footnote rather than a second label competing with the first. */
 .stat .def{margin-top:5px;text-transform:none;letter-spacing:0;font-size:10.5px;
   line-height:1.4;color:var(--ink3);opacity:.82}
-.prov{margin:-28px 0 34px;font:400 11px/1.5 var(--mono);color:var(--ink3);max-width:62ch}
+.prov{margin:-28px 0 34px;font:400 11px/1.5 var(--label);color:var(--ink3);max-width:62ch}
 /* The negative top margin above is tuned to tuck under a stats grid. On
    the case-study index it follows a paragraph that has its own bottom
    margin, so the two collapsed to touching. */
@@ -1432,9 +1453,9 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
   inset:-14% -8% -10%;
   background:
     radial-gradient(46% 42% at 16% 18%,
-      color-mix(in srgb,var(--accent) 13%,transparent),transparent 68%),
-    radial-gradient(40% 38% at 84% 74%,
-      color-mix(in srgb,var(--ok) 11%,transparent),transparent 70%)}
+color-mix(in srgb,var(--accent) 13%,transparent),transparent 68%),
+radial-gradient(40% 38% at 84% 74%,
+color-mix(in srgb,var(--ok) 11%,transparent),transparent 70%)}
 .hero .sheet{margin:0}
 
 .art{position:relative;min-width:0;display:flex;justify-content:center;
@@ -1479,7 +1500,7 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 /* --- hero: a branch in a sending sequence -------------------------------- */
 /* A product surface, so it stays dark in both themes and carries its own
    palette. Nodes are markup (real text); the fork is one SVG behind them,
-   which is what allows a gradient stroke and a travelling dash. */
+which is what allows a gradient stroke and a travelling dash. */
 .sq{
   --sq-bg:#0F1114; --sq-node:#191D24; --sq-edge:#2E343E;
   --sq-ink:#F2F4F6; --sq-ink2:#9AA1AC; --sq-line:#626B7A;
@@ -1551,7 +1572,7 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 @keyframes sqdash{to{stroke-dashoffset:-11}}
 
 .sq-lbl{position:absolute;top:13%;z-index:1;padding:1px 7px;border-radius:5px;
-  background:var(--sq-bg);font:600 10px var(--mono);letter-spacing:.7px}
+  background:var(--sq-bg);font:600 10px var(--label);letter-spacing:.5px}
 .sq-lbl{transform:translate(-50%,-50%)}
 .sq-lbl.yes{left:36%;color:var(--sq-ok)}
 .sq-lbl.no{left:62%;color:var(--sq-no)}
@@ -1603,9 +1624,9 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
   background:var(--surface)}
 /* sans, not mono: the system mono stack is hard to read at label sizes, and
    these two are the smallest type on the page. Uppercase and the tracking stay,
-   so it still reads as an eyebrow alongside the rest of the site. */
+so it still reads as an eyebrow alongside the rest of the site. */
 .marq-h{margin:0 0 34px;text-align:center;font:600 12.5px var(--sans);
-  letter-spacing:1.3px;text-transform:uppercase;color:var(--ink2)}
+  letter-spacing:.6px;color:var(--ink2);text-transform:uppercase}
 /* fade the ends so items enter and leave rather than being cut off */
 .marq-vp{overflow:hidden;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
@@ -1634,55 +1655,23 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 /* sans at a readable size: mono at 10px was the same legibility problem the
    marquee had, and these are section labels people are meant to scan. */
 .hl-eyebrow{display:flex;align-items:center;margin:0 0 16px;
-  font:600 13px var(--sans);letter-spacing:1.2px;text-transform:uppercase;
-  color:var(--accent)}
+  font:600 13px var(--sans);letter-spacing:.6px;
+  color:var(--accent);text-transform:uppercase}
 .hl-h{margin:0 0 10px;font:600 clamp(26px,3.4vw,38px)/1.12 var(--sans);
   letter-spacing:-.035em;text-wrap:balance}
 .hl-lede{margin:0 0 22px;font-size:15.5px;color:var(--ink2);max-width:56ch}
 
-/* Asymmetric on purpose: the biggest finding gets the biggest cell, so the
-   grid reads as a ranking rather than a wall of equal tiles.
-     a a b c
-     a a d d
-     e e f f                                                              */
-.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
-  grid-template-areas:"a a b c" "a a d d" "e e f f"}
-.bx-a{grid-area:a} .bx-b{grid-area:b} .bx-c{grid-area:c}
-.bx-d{grid-area:d} .bx-e{grid-area:e} .bx-f{grid-area:f}
-
-/* Layout and type only. The surface, the shadow, the rim, the bloom and the
-   hover all come from the card system near the end of this sheet, so the six
-   findings cells look like every other card without restating any of it. */
-.bx{overflow:hidden;display:flex;flex-direction:column;
-  justify-content:space-between;gap:14px;padding:20px 22px;
-  color:inherit;text-decoration:none;min-height:132px}
-
-.bx b{position:relative;font:650 clamp(28px,3vw,40px)/1 var(--sans);
-  letter-spacing:-.045em;color:var(--accent);font-variant-numeric:tabular-nums}
-/* sans, not mono, these captions are the smallest type in the section */
-.bx span{font:450 12.5px/1.55 var(--sans);letter-spacing:-.005em;
-  color:var(--ink2)}
-/* the hero cell earns more room, so give its number and caption more weight */
-.bx-a{min-height:280px;padding:26px 28px}
-.bx-a b{font-size:clamp(44px,5.6vw,72px)}
-.bx-a span{font-size:14px;max-width:34ch}
-
-@media (max-width:820px){
-  .bento{grid-template-columns:repeat(2,1fr);
-    grid-template-areas:"a a" "b c" "d d" "e e" "f f"}
-  .bx-a{min-height:200px}
-}
-@media (max-width:520px){
-  .bento{grid-template-columns:1fr;
-    grid-template-areas:"a" "b" "c" "d" "e" "f"}
-  .bx-a{min-height:170px}
-}
+@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.cs-grid{grid-template-columns:1fr}}
 
 /* --- case study cards ----------------------------------------------------- */
 .csx{margin:0 0 var(--sec)}
-.cs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
+.cs-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
   margin-top:26px}
-.cs{display:flex;flex-direction:column;gap:11px;padding:20px 22px 18px;
+/* With an odd number of case studies the last card would sit alone at half
+   width and read as an accident. Span it instead, so the row looks chosen. */
+.cs-grid > .cs:last-child:nth-child(odd){grid-column:1 / -1}
+.cs{display:flex;flex-direction:column;gap:9px;padding:18px 18px 16px;
   border:1px solid var(--rule);border-radius:10px;background:var(--surface);
   color:inherit;text-decoration:none;
   transition:border-color .14s,background .14s,transform .14s}
@@ -1690,26 +1679,49 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
   text-decoration:none;transform:translateY(-1px)}
 .cs:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .cs-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+/* category on the left, position on the right: the counter tells a scanner how
+   much is here without making them count cards. */
+.cs-cat{display:inline-flex;align-items:center;gap:7px;
+  font:600 11px var(--label);letter-spacing:.6px;
+  color:var(--accent);text-transform:uppercase}
+.cs-cat svg{width:14px;height:14px;flex:none}
+.cs-num{font:400 11.5px var(--label);color:var(--ink3);letter-spacing:.5px;
+  font-variant-numeric:tabular-nums}
+.cs-num .sl{margin:0 4px;opacity:.55}
+/* The number is the stop-point, so it leads the card. */
+/* One short accent, pulled from the study. Reads as a label, not a headline. */
+.cs-badge{align-self:flex-start;margin-top:2px;padding:4px 9px;border-radius:99px;
+  border:1px solid var(--rule);
+  font:600 11px var(--label);letter-spacing:.5px;
+  color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:100%;text-transform:uppercase}
+.cs-metric{display:flex;flex-direction:column;gap:5px;margin-top:4px}
+.cs-metric b{font:650 clamp(34px,2.9vw,46px)/1 var(--sans);letter-spacing:-.05em;
+  color:var(--accent);font-variant-numeric:tabular-nums}
+.cs-metric i{font:500 13.5px/1.45 var(--sans);font-style:normal;color:var(--ink)}
 .cs-ico{display:inline-flex;align-items:center;justify-content:center;
   width:32px;height:32px;border:1px solid var(--rule);border-radius:8px;
   color:var(--ink2);flex:none}
 .cs-ico svg{width:16px;height:16px}
-.cs-path{font:400 10.5px var(--mono);color:var(--ink3);letter-spacing:.3px}
+.cs-path{font:400 11.5px var(--label);color:var(--ink3);letter-spacing:.3px}
 .cs h3{margin:2px 0 0;font:600 17px/1.32 var(--sans);letter-spacing:-.02em;
   color:var(--ink);text-wrap:balance}
-.cs p{margin:0;font-size:14px;line-height:1.6;color:var(--ink2);
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+.cs p{margin:0;font-size:13px;line-height:1.55;color:var(--ink2);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
   overflow:hidden}
-.cs-tags{font:400 10.5px var(--mono);color:var(--ink3);letter-spacing:.4px}
+.cs-tags{font:400 11.5px var(--label);color:var(--ink3);letter-spacing:.5px}
 .cs-tags .sep{margin:0 7px;color:var(--accent);opacity:.6}
 /* the number sits on its own rule at the foot, so it reads as the result
    rather than another line of the description */
-.cs-foot{display:flex;align-items:baseline;gap:9px;margin-top:auto;padding-top:13px;
+.cs-read{display:inline-flex;align-items:center;gap:8px;
+  font:600 11px var(--label);letter-spacing:.6px;
+  color:var(--accent);text-transform:uppercase}
+.cs-foot{display:flex;align-items:center;gap:9px;margin-top:auto;padding-top:13px;
   border-top:1px solid var(--rule2)}
 .cs-foot b{font:600 19px/1 var(--sans);letter-spacing:-.03em;color:var(--accent);
   font-variant-numeric:tabular-nums;flex:none}
-.cs-foot i{font:400 11px/1.45 var(--mono);font-style:normal;color:var(--ink3)}
-.cs-foot .arw{margin-left:auto;color:var(--ink3);align-self:center;flex:none;
+.cs-foot i{font:400 11px/1.45 var(--label);font-style:normal;color:var(--ink3)}
+.cs-foot .arw{color:inherit;align-self:center;flex:none;
   transition:color .14s,transform .14s}
 .cs:hover .cs-foot .arw{color:var(--accent);transform:translateX(3px)}
 .cs-cta{margin-top:22px}
@@ -1734,9 +1746,9 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
   border:1px solid var(--rule);border-radius:999px;
   background:linear-gradient(150deg,var(--raised),var(--surface) 70%);
   box-shadow:inset 0 1px 0 var(--bx-hi);
-  font:400 11px var(--mono);letter-spacing:.7px;text-transform:uppercase;
+  font:400 11.5px var(--label);letter-spacing:.5px;
   color:var(--ink2);
-  transition:color .3s ease,border-color .3s ease,box-shadow .3s ease}
+  transition:color .3s ease,border-color .3s ease,box-shadow .3s ease;text-transform:uppercase}
 .rg-t::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;
   background:var(--ink3);transition:background .3s ease,box-shadow .3s ease}
 /* .lit is driven from JS, one pill at a time; :hover has to look the same or
@@ -1753,8 +1765,8 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 .range.rv .rg-t{opacity:0;translate:0 10px}
 .range.in .rg-t{opacity:1;translate:0 0;
   transition:opacity .45s ease var(--d),
-    translate .45s cubic-bezier(.22,.61,.36,1) var(--d),
-    color .3s ease,border-color .3s ease,box-shadow .3s ease}
+translate .45s cubic-bezier(.22,.61,.36,1) var(--d),
+color .3s ease,border-color .3s ease,box-shadow .3s ease}
 
 /* --- about ---------------------------------------------------------------- */
 .about{margin:0 0 var(--sec);display:grid;align-items:start;
@@ -1780,8 +1792,8 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
   box-shadow:inset 0 1px 0 var(--bx-hi),
     0 1px 2px rgba(0,0,0,.10),0 10px 26px -14px rgba(0,0,0,.42)}
 .hop-k{margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid var(--rule);
-  font:400 10.5px var(--mono);letter-spacing:.8px;text-transform:uppercase;
-  color:var(--ink3)}
+  font:400 11.5px var(--label);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
 .hop-l{list-style:none;margin:0;padding:0;position:relative}
 /* the rail, and the lime fill that runs down it */
 .hop-l::before,.hop-l::after{content:"";position:absolute;left:5px;
@@ -1789,7 +1801,7 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 .hop-l::before{background:var(--rule)}
 .hop-l::after{transform-origin:top;
   background:linear-gradient(var(--accent),
-    color-mix(in srgb,var(--accent) 25%,transparent))}
+color-mix(in srgb,var(--accent) 25%,transparent))}
 .hop-r{--d:calc(var(--i)*.13s + .18s);
   position:relative;display:flex;align-items:center;gap:12px;
   padding:11px 0 11px 26px}
@@ -1797,13 +1809,18 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
   border-radius:50%;border:1px solid var(--accent);background:var(--surface);
   box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}
 .hop-tx{min-width:0}
-.hop-tx b{display:block;font:550 13px/1.3 var(--sans);letter-spacing:-.01em;
-  color:var(--ink)}
+/* Caps need positive tracking and sit visually larger, so this drops a point
+   from 13px and swaps the negative tracking for positive. */
+.hop-tx b{display:block;font:600 12px/1.3 var(--sans);letter-spacing:.6px;
+  text-transform:uppercase;color:var(--ink)}
+/* The one place mono earns its keep: this line is a spec list, not prose, and
+   "domains, warmup, rotation" reads as a readout. Everything else on the site
+   uses --label. */
 .hop-tx i{display:block;margin-top:3px;font:400 11px/1.45 var(--mono);
   font-style:normal;color:var(--ink3)}
 .hop-f{margin:14px 0 0;padding-top:13px;border-top:1px solid var(--rule);
-  font:400 11px var(--mono);letter-spacing:.6px;text-transform:uppercase;
-  color:var(--ink3)}
+  font:400 11.5px var(--label);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
 
 /* Same contract as the pills above: the pre-animation state only exists while
    .rv is on the section, so nothing can get stuck invisible. */
@@ -1813,12 +1830,12 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 .about.rv .hop-r{opacity:0;translate:0 8px}
 .about.in .hop-r{opacity:1;translate:0 0;
   transition:opacity .5s ease var(--d),
-    translate .5s cubic-bezier(.22,.61,.36,1) var(--d)}
+translate .5s cubic-bezier(.22,.61,.36,1) var(--d)}
 .about.rv .hop-d{border-color:var(--rule);box-shadow:0 0 0 3px transparent}
 .about.in .hop-d{border-color:var(--accent);
   box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent);
   transition:border-color .35s ease calc(var(--d) + .1s),
-    box-shadow .35s ease calc(var(--d) + .1s)}
+box-shadow .35s ease calc(var(--d) + .1s)}
 
 @media (max-width:920px){
   .about{grid-template-columns:minmax(0,1fr)}
@@ -1829,20 +1846,20 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 .sys{margin:0 0 26px;padding:18px 20px 0;border:1px solid var(--rule);border-radius:10px;
   background:var(--surface);
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),
-    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+linear-gradient(90deg,var(--grid) 1px,transparent 1px);
   background-size:26px 26px}
 .sys-h{display:flex;align-items:center;gap:11px;margin:0 0 16px;
-  font:400 11px var(--mono);color:var(--ink3)}
+  font:400 11.5px var(--label);color:var(--ink3)}
 .sys-live{display:inline-flex;align-items:center;gap:6px;color:var(--ink2)}
 .sys-live i{width:6px;height:6px;border-radius:50%;background:var(--ok);flex:none;
   box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 18%,transparent);animation:sysp 2.4s ease-in-out infinite}
 @keyframes sysp{0%,100%{opacity:1}50%{opacity:.45}}
-.sys-t{letter-spacing:.4px}
+.sys-t{letter-spacing:.5px}
 
 .sys-src{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
 .sn{padding:9px 11px;border:1px solid var(--rule);border-radius:7px;background:var(--raised)}
 .sn b{display:block;font:600 12px var(--sans);letter-spacing:-.01em}
-.sn span{display:block;margin-top:3px;font:400 9.5px/1.35 var(--mono);color:var(--ink3)}
+.sn span{display:block;margin-top:3px;font:400 9.5px/1.35 var(--label);color:var(--ink3)}
 
 /* Stems down from each source into one rail, then a single feed to the engine.
    One span per source, laid out on the same grid as the cards, so the stems stay
@@ -1869,12 +1886,12 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
   background-repeat:no-repeat}
 .sys-join span::before,.sys-join::after,.sys-stem::after{
   background-image:linear-gradient(180deg,transparent 0,var(--ok) 45%,
-    var(--ok) 55%,transparent 100%);
+var(--ok) 55%,transparent 100%);
   background-size:100% 260%;
   animation:sysdrop var(--sysdur) linear infinite}
 .sys-join::before{
   background-image:linear-gradient(90deg,transparent 0,var(--ok) 46%,
-    var(--ok) 54%,transparent 100%);
+var(--ok) 54%,transparent 100%);
   background-size:230% 100%;
   animation:sysrail var(--sysdur) linear infinite}
 .sys{--sysdur:3.6s}
@@ -1901,7 +1918,7 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 .sys-eng{padding:11px 14px;border:1px solid var(--accent);border-radius:7px;
   background:var(--accent-bg);text-align:center}
 .sys-eng b{display:block;font:600 12.5px var(--sans);color:var(--accent)}
-.sys-eng span{display:block;margin-top:3px;font:400 9.5px var(--mono);color:var(--ink2)}
+.sys-eng span{display:block;margin-top:3px;font:400 9.5px var(--label);color:var(--ink2)}
 .sys-stem{height:20px;position:relative}
 .sys-stem::after{content:"";position:absolute;left:50%;top:0;width:1px;height:100%;
   background-color:var(--rule)}
@@ -1911,19 +1928,19 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
   padding:10px 12px}
 .sys-rec-h{display:flex;justify-content:space-between;align-items:center;
   font:600 11px var(--sans);margin-bottom:7px}
-.sys-rec-h span{font:400 9px var(--mono);color:var(--accent);border:1px solid var(--accent);
-  border-radius:3px;padding:1px 5px;text-transform:uppercase;letter-spacing:.6px}
+.sys-rec-h span{font:400 9px var(--label);color:var(--accent);border:1px solid var(--accent);
+  border-radius:3px;padding:1px 5px;letter-spacing:.5px;text-transform:uppercase}
 .sys-rec ul{margin:0;padding:0;list-style:none;display:grid;gap:4px}
-.sys-rec li{font:400 10px/1.4 var(--mono);color:var(--ink2);padding-left:14px;position:relative}
+.sys-rec li{font:400 10px/1.4 var(--label);color:var(--ink2);padding-left:14px;position:relative}
 .sys-rec li::before{position:absolute;left:0;top:0}
 .sys-rec li.ok::before{content:"\\2713";color:var(--ok)}
 .sys-rec li.warn::before{content:"!";color:var(--accent);font-weight:700}
 .sys-res{display:flex;flex-direction:column;justify-content:center;text-align:center}
 .sys-res b{font:600 12px var(--sans);color:var(--ok)}
-.sys-res span{margin-top:4px;font:400 9.5px/1.45 var(--mono);color:var(--ink3)}
+.sys-res span{margin-top:4px;font:400 9.5px/1.45 var(--label);color:var(--ink3)}
 
 .sys-f{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:16px;
-  padding:11px 0;border-top:1px solid var(--rule);font:400 10px var(--mono);color:var(--ink3)}
+  padding:11px 0;border-top:1px solid var(--rule);font:400 11.5px var(--label);color:var(--ink3)}
 .sys-f b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
 .sys-real{margin-left:auto;color:var(--accent)}
 
@@ -1970,10 +1987,10 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 .btn.primary{border-color:transparent;color:var(--bg);
   background:linear-gradient(180deg,var(--btn-p1),var(--btn-p2));
   box-shadow:inset 0 1px 0 var(--btn-hi),inset 0 -1px 0 var(--btn-lo),
-    var(--btn-sh)}
+var(--btn-sh)}
 .btn.primary:hover{color:var(--bg);transform:translateY(-1px);
   box-shadow:inset 0 1px 0 var(--btn-hi),inset 0 -1px 0 var(--btn-lo),
-    var(--btn-sh-hi)}
+var(--btn-sh-hi)}
 .btn.primary:active{transform:translateY(0);
   box-shadow:inset 0 2px 4px var(--btn-lo),0 1px 2px rgba(20,24,31,.2)}
 
@@ -1997,12 +2014,12 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
   letter-spacing:-.045em;font-variant-numeric:tabular-nums}
 .card .met span{display:block;margin-top:9px;font-size:11.5px;line-height:1.45;
   color:var(--ink3)}
-.card .tag{font:500 10px var(--mono);text-transform:uppercase;letter-spacing:1px;
-  color:var(--ink3)}
+.card .tag{font:500 10px var(--label);letter-spacing:1px;
+  color:var(--ink3);text-transform:uppercase}
 .card h3{margin:9px 40px 8px 0;font:550 19px/1.3 var(--sans);letter-spacing:-.02em;
   color:var(--ink)}
 .card p{margin:0;font-size:14.5px;color:var(--ink2);line-height:1.55}
-.card .who{margin-top:11px;font:400 11.5px var(--mono);color:var(--ink3);
+.card .who{margin-top:11px;font:400 11.5px var(--label);color:var(--ink3);
   letter-spacing:.3px}
 
 /* --- problem / system / output ------------------------------------------ */
@@ -2011,8 +2028,8 @@ section.blk{padding:56px 0 0;border-top:1px solid var(--rule);margin-top:56px}
 .gl{padding:18px 22px;border-bottom:1px solid var(--rule2);display:grid;
   grid-template-columns:88px 1fr;gap:20px}
 .gl:last-child{border-bottom:0}
-.gl dt{font:500 10.5px/1.7 var(--mono);letter-spacing:1.1px;text-transform:uppercase;
-  color:var(--ink3)}
+.gl dt{font:500 10.5px/1.7 var(--label);letter-spacing:.6px;
+  color:var(--ink3);text-transform:uppercase}
 .gl dd{margin:0;font-size:15.5px;line-height:1.55;color:var(--ink2)}
 .gl.out{background:var(--accent-bg)}
 .gl.out dt{color:var(--accent)}
@@ -2025,8 +2042,8 @@ table{border-collapse:collapse;width:100%;font-size:14px;
   font-variant-numeric:tabular-nums}
 th,td{padding:10px 15px;border-bottom:1px solid var(--rule2);text-align:left;
   white-space:nowrap}
-th{background:var(--raised);font:500 10.5px var(--mono);letter-spacing:.9px;
-  text-transform:uppercase;color:var(--ink3)}
+th{background:var(--raised);font:500 10.5px var(--label);letter-spacing:.6px;
+  color:var(--ink3);text-transform:uppercase}
 tbody tr:last-child td{border-bottom:0}
 td.a-right,th.a-right{text-align:right}
 td.a-center,th.a-center{text-align:center}
@@ -2037,10 +2054,10 @@ td.a-center,th.a-center{text-align:center}
 .sk-row{display:grid;grid-template-columns:176px 1fr;gap:22px;padding:17px 22px;
   border-bottom:1px solid var(--rule2)}
 .sk-row:last-child{border-bottom:0}
-.sk-row h3{margin:2px 0 0;font:500 10.5px/1.6 var(--mono);letter-spacing:1px;
-  text-transform:uppercase;color:var(--ink3)}
+.sk-row h3{margin:2px 0 0;font:500 10.5px/1.6 var(--label);letter-spacing:1px;
+  color:var(--ink3);text-transform:uppercase}
 .sk-chips{display:flex;flex-wrap:wrap;gap:6px}
-.sk-chips span{font:400 12.5px var(--mono);padding:4px 10px;border:1px solid var(--rule);
+.sk-chips span{font:400 12.5px var(--label);padding:4px 10px;border:1px solid var(--rule);
   border-radius:5px;background:var(--bg);color:var(--ink2)}
 
 /* --- timeline ----------------------------------------------------------- */
@@ -2049,8 +2066,8 @@ td.a-center,th.a-center{text-align:center}
 .tl-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
   padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--rule2)}
 .tl-role{font:600 17px/1.3 var(--sans);letter-spacing:-.018em}
-.tl-meta{margin-left:auto;font:400 11.5px var(--mono);color:var(--ink3);
-  letter-spacing:.4px;text-transform:uppercase}
+.tl-meta{margin-left:auto;font:400 11.5px var(--label);color:var(--ink3);
+  letter-spacing:.5px;;text-transform:uppercase}
 .tl-item p{font-size:15.5px;margin-bottom:14px}
 .tl-item p:last-child{margin-bottom:0}
 .tl-note{border-left:2px solid var(--accent);background:var(--accent-bg);
@@ -2062,14 +2079,14 @@ td.a-center,th.a-center{text-align:center}
 .exhibit img{display:block;width:100%;height:auto}
 
 /* --- case study head + pager -------------------------------------------- */
-.meta{display:flex;gap:12px;align-items:center;font:400 11px var(--mono);
-  color:var(--ink3);margin:52px 0 14px;text-transform:uppercase;letter-spacing:1px}
+.meta{display:flex;gap:12px;align-items:center;font:400 11.5px var(--label);
+  color:var(--ink3);margin:52px 0 14px;letter-spacing:1px;text-transform:uppercase}
 .meta .sep{width:16px;height:1px;background:var(--rule)}
 .pager{display:flex;gap:14px;justify-content:space-between;margin:52px 0 0;
   padding-top:24px;border-top:1px solid var(--rule);font-size:14.5px}
 .pager a{max-width:47%}
-.pager .lbl{display:block;font:400 10px var(--mono);text-transform:uppercase;
-  letter-spacing:1px;color:var(--ink3);margin-bottom:5px}
+.pager .lbl{display:block;font:400 11.5px var(--label);
+  letter-spacing:1px;color:var(--ink3);margin-bottom:5px;text-transform:uppercase}
 
 /* --- case-study index: featured panel, filters, cards ------------------- */
 .ix-head{margin:0 0 46px}
@@ -2092,10 +2109,10 @@ td.a-center,th.a-center{text-align:center}
   padding-left:16px;border-radius:0}
 .ft-q p{margin:0 0 12px;font:500 16.5px/1.5 var(--sans);color:var(--ink);
   letter-spacing:-.012em}
-.ft-q cite{font:400 11px var(--mono);letter-spacing:.9px;text-transform:uppercase;
+.ft-q cite{font:400 11.5px var(--label);letter-spacing:.6px;
   /* --ink3 measures 4.43 against --raised on the light theme, i.e. under AA
      for 11px text. --ink2 is the nearest token that clears it in both. */
-  font-style:normal;color:var(--ink2)}
+  font-style:normal;color:var(--ink2);text-transform:uppercase}
 .ft-m b{display:block;font:600 clamp(34px,4.4vw,46px)/1 var(--sans);
   letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums}
 .ft-m span{display:block;margin-top:10px;font-size:13px;line-height:1.5;color:var(--ink2)}
@@ -2103,13 +2120,13 @@ td.a-center,th.a-center{text-align:center}
 .fb-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
   flex-wrap:wrap;margin:0 0 18px}
 .fb-h .hl-eyebrow{margin:0}
-.fb-count{margin:0;font:400 12px var(--mono);color:var(--ink3)}
+.fb-count{margin:0;font:400 12px var(--label);color:var(--ink3)}
 .fb{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px;padding-bottom:26px;
   border-bottom:1px solid var(--rule)}
-.fb-b{font:500 11px var(--mono);letter-spacing:.9px;text-transform:uppercase;
+.fb-b{font:500 11px var(--label);letter-spacing:.6px;
   color:var(--ink2);background:var(--surface);border:1px solid var(--rule);
   border-radius:999px;padding:7px 14px;cursor:pointer;
-  transition:border-color .12s,color .12s,background .12s}
+  transition:border-color .12s,color .12s,background .12s;text-transform:uppercase}
 .fb-b:hover{border-color:var(--accent);color:var(--accent)}
 .fb-b:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .fb-b.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
@@ -2123,8 +2140,8 @@ td.a-center,th.a-center{text-align:center}
   text-decoration:none;transform:translateY(-2px)}
 .gc:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .gc-tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
-.gc-tags span{font:500 9.5px var(--mono);letter-spacing:1.2px;text-transform:uppercase;
-  color:var(--ink3);border:1px solid var(--rule);border-radius:999px;padding:4px 9px}
+.gc-tags span{font:500 9.5px var(--label);letter-spacing:.6px;
+  color:var(--ink3);border:1px solid var(--rule);border-radius:999px;padding:4px 9px;text-transform:uppercase}
 .gc h3{margin:0 0 10px;font:600 17px/1.34 var(--sans);letter-spacing:-.024em;
   color:var(--ink)}
 .gc p{margin:0 0 20px;font-size:14px;line-height:1.6;color:var(--ink2)}
@@ -2134,8 +2151,8 @@ td.a-center,th.a-center{text-align:center}
   font-variant-numeric:tabular-nums}
 .gc-foot i{flex:1 1 120px;font-style:normal;font-size:12px;line-height:1.45;
   color:var(--ink3)}
-.gc-go{flex:1 0 100%;margin-top:12px;font:500 11px var(--mono);letter-spacing:.9px;
-  text-transform:uppercase;color:var(--ink3);transition:color .12s}
+.gc-go{flex:1 0 100%;margin-top:12px;font:500 11px var(--label);letter-spacing:.6px;
+  color:var(--ink3);transition:color .12s;text-transform:uppercase}
 .gc:hover .gc-go{color:var(--accent)}
 .gc-go .arw{display:inline-block;transition:transform .12s}
 .gc:hover .gc-go .arw{transform:translateX(3px)}
@@ -2146,8 +2163,8 @@ td.a-center,th.a-center{text-align:center}
 
 /* --- case-study breakdown ----------------------------------------------- */
 .cse-tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
-.cse-tags span{font:500 10px var(--mono);letter-spacing:1.3px;text-transform:uppercase;
-  color:var(--accent);border:1px solid var(--rule);border-radius:999px;padding:5px 11px}
+.cse-tags span{font:500 10px var(--label);letter-spacing:.6px;
+  color:var(--accent);border:1px solid var(--rule);border-radius:999px;padding:5px 11px;text-transform:uppercase}
 .mtrs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
   gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;
   overflow:hidden;margin:34px 0 var(--sec)}
@@ -2158,8 +2175,8 @@ td.a-center,th.a-center{text-align:center}
 .fct{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:26px 30px;
   margin:0 0 var(--sec);padding:26px 0;border-top:1px solid var(--rule);
   border-bottom:1px solid var(--rule)}
-.fct dt{font:500 10px var(--mono);letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--ink3);margin-bottom:8px}
+.fct dt{font:500 10px var(--label);letter-spacing:.6px;
+  color:var(--ink3);margin-bottom:8px;text-transform:uppercase}
 .fct dd{margin:0;font-size:14.5px;line-height:1.55;color:var(--ink)}
 
 /* The pull-out. One question, set large, with nothing else on the row --
@@ -2177,17 +2194,17 @@ td.a-center,th.a-center{text-align:center}
   padding:26px 0;border-top:1px solid var(--rule2)}
 .stp-l li:first-child{border-top:1px solid var(--rule)}
 .stp-l li:last-child{border-bottom:1px solid var(--rule)}
-.stp-n{font:500 13px var(--mono);color:var(--accent);padding-top:3px;
+.stp-n{font:500 13px var(--label);color:var(--accent);padding-top:3px;
   font-variant-numeric:tabular-nums}
 .stp-b h3{margin:0 0 9px;font:600 17.5px/1.35 var(--sans);letter-spacing:-.02em;
   color:var(--ink)}
 .stp-b p{margin:0;max-width:66ch;font-size:15px;line-height:1.66;color:var(--ink2)}
 /* The chip is the transformation the step produced -- the thing that changed,
-   not a restatement of the step's title. */
+not a restatement of the step's title. */
 .stp-chip{display:inline-block;margin-top:14px;padding:6px 12px;border-radius:5px;
   background:var(--raised);border:1px solid var(--rule);
-  font:500 10.5px var(--mono);letter-spacing:1px;text-transform:uppercase;
-  color:var(--accent)}
+  font:500 10.5px var(--label);letter-spacing:1px;
+  color:var(--accent);text-transform:uppercase}
 
 .val{margin:0 0 var(--sec)}
 .val-l{list-style:none;margin:22px 0 0;padding:0;display:grid;
@@ -2202,7 +2219,7 @@ td.a-center,th.a-center{text-align:center}
 .rel-h{display:flex;justify-content:space-between;align-items:baseline;gap:18px;
   flex-wrap:wrap;margin:0 0 24px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
 .rel-h h2{margin:0;font:600 21px/1.2 var(--sans);letter-spacing:-.03em}
-.rel-h a{font:500 12px var(--mono);letter-spacing:.6px;text-transform:uppercase}
+.rel-h a{font:500 12px var(--label);letter-spacing:.5px;;text-transform:uppercase}
 
 /* --- recommendations ------------------------------------------------------ */
 /* Two quotes, side by side, in the same card material as everything else. The
@@ -2235,8 +2252,8 @@ td.a-center,th.a-center{text-align:center}
   color:var(--ink)}
 .pf-who span{display:block;margin-top:3px;font-size:12.5px;line-height:1.45;
   color:var(--ink3)}
-.pf-meta{margin:14px 0 0;font:400 10px var(--mono);letter-spacing:1px;
-  text-transform:uppercase;color:var(--ink3)}
+.pf-meta{margin:14px 0 0;font:400 11.5px var(--label);letter-spacing:1px;
+  color:var(--ink3);text-transform:uppercase}
 .pf-meta span{opacity:.75}
 
 @media (max-width:760px){
@@ -2259,7 +2276,7 @@ td.a-center,th.a-center{text-align:center}
 .book h2{margin:0 0 20px;max-width:16ch;color:var(--ink);
   font:600 clamp(28px,4.2vw,44px)/1.1 var(--sans);letter-spacing:-.035em}
 /* The swash: a 4px rule tucked under the last phrase, not a text-decoration,
-   so it clears the descenders instead of cutting through them. */
+so it clears the descenders instead of cutting through them. */
 .book h2 .uline{position:relative;white-space:nowrap}
 .book h2 .uline::after{content:"";position:absolute;left:0;right:0;bottom:-.1em;
   height:4px;border-radius:2px;background:var(--accent)}
@@ -2268,7 +2285,7 @@ td.a-center,th.a-center{text-align:center}
 .book-act{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
 /* No overrides on .btn: the closing CTA is the same button as the hero, which
    is the whole point of bringing this block back onto the page. */
-.book-meta{font:400 12.5px/1.7 var(--mono);color:var(--ink3)}
+.book-meta{font:400 12.5px/1.7 var(--label);color:var(--ink3)}
 
 /* --- footer ------------------------------------------------------------- */
 footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surface)}
@@ -2278,16 +2295,16 @@ footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surfa
 .fin-brand b{display:block;font:600 21px/1 var(--sans);letter-spacing:-.03em;
   color:var(--ink);margin-bottom:14px}
 .fin-brand b i{font-style:normal;color:var(--accent)}
-.fin-brand p{margin:0;max-width:34ch;font:400 12.5px/1.75 var(--mono);color:var(--ink3)}
-.fin-col h3{margin:0 0 16px;font:500 10px var(--mono);letter-spacing:1.5px;
-  text-transform:uppercase;color:var(--ink3)}
+.fin-brand p{margin:0;max-width:34ch;font:400 12.5px/1.75 var(--label);color:var(--ink3)}
+.fin-col h3{margin:0 0 16px;font:500 10px var(--label);letter-spacing:.6px;
+  color:var(--ink3);text-transform:uppercase}
 .fin-col a{display:flex;align-items:center;gap:9px;margin-bottom:11px;
   font-size:14.5px;color:var(--ink2)}
 .fin-col a:hover{color:var(--accent);text-decoration:none}
 .fin-col svg{width:15px;height:15px;flex:none;opacity:.75}
 .fin-base{display:flex;justify-content:space-between;align-items:center;gap:18px;
   flex-wrap:wrap;padding-top:22px;border-top:1px solid var(--rule);
-  font:400 12px var(--mono);color:var(--ink3)}
+  font:400 12px var(--label);color:var(--ink3)}
 .fin-base a{color:var(--ink3)}
 .fin-base a:hover{color:var(--accent);text-decoration:none}
 .fin-base .sep{margin:0 8px;opacity:.5}
@@ -2304,7 +2321,7 @@ footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surfa
    border, since border-image cannot follow border-radius. */
 
 /* --- the surface --------------------------------------------------------- */
-.bx,.cs,.gc,.hop,.ft,.qst,.sk,.tl-item,.exhibit,.cards,
+.cs,.gc,.hop,.ft,.qst,.sk,.tl-item,.exhibit,.cards,
 .glance,.tw,.mtrs,.val-l,.pf-q,.book{
   position:relative;isolation:isolate;
   border:1px solid var(--rule);
@@ -2315,20 +2332,20 @@ footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surfa
 /* Radius on a two-step scale: the panels a visitor reads as cards, and the
    containers that hold data. Anything larger on a table starts to clip its
    own first cell. */
-.bx,.cs,.gc,.hop,.ft,.qst,.pf-q,.book{border-radius:14px}
+.cs,.gc,.hop,.ft,.qst,.pf-q,.book{border-radius:14px}
 .sk,.tl-item,.exhibit,.cards,.glance,.tw,.mtrs,.val-l{border-radius:12px}
 
 /* The gradient fill, for the surfaces whose background is not already doing
    another job. `background-image` rather than the shorthand, so a component
    rule that sets only a background-colour still shows through underneath. */
-.bx,.cs,.gc,.hop,.ft,.sk,.tl-item,.exhibit,.cards,.glance,
+.cs,.gc,.hop,.ft,.sk,.tl-item,.exhibit,.cards,.glance,
 .tw,.pf-q,.book{
   background-image:linear-gradient(158deg,var(--raised),var(--surface) 62%)}
 
 /* .mtrs and .val-l paint their 1px gridlines with the container background,
-   so the gradient has to go on the cells or the lines disappear. */
+so the gradient has to go on the cells or the lines disappear. */
 .mtr,.val-l li{background-image:linear-gradient(158deg,
-  var(--raised),var(--surface) 68%)}
+var(--raised),var(--surface) 68%)}
 
 /* .qst keeps its accent left border and tinted ground; it gets depth only. */
 .qst{border-left:2px solid var(--accent)}
@@ -2340,9 +2357,9 @@ footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surfa
   content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
   pointer-events:none;padding:1px;
   background:linear-gradient(140deg,
-    color-mix(in srgb,var(--accent) 52%,transparent),
-    transparent 36%,transparent 64%,
-    color-mix(in srgb,var(--accent) 22%,transparent));
+color-mix(in srgb,var(--accent) 52%,transparent),
+transparent 36%,transparent 64%,
+color-mix(in srgb,var(--accent) 22%,transparent));
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
   mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
@@ -2367,13 +2384,13 @@ footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surfa
   content:"";position:absolute;z-index:-1;top:-56%;right:-34%;
   width:60%;aspect-ratio:1;border-radius:50%;pointer-events:none;
   background:radial-gradient(closest-side,
-    color-mix(in srgb,var(--accent) 10%,transparent),transparent 68%);
+color-mix(in srgb,var(--accent) 10%,transparent),transparent 68%);
   opacity:0;transform:scale(.82);
   transition:opacity .32s ease,transform .5s cubic-bezier(.22,.61,.36,1)}
 
 .bx,.cs,.gc{overflow:hidden;
   transition:transform .22s cubic-bezier(.22,.61,.36,1),
-    box-shadow .22s ease,border-color .22s ease}
+box-shadow .22s ease,border-color .22s ease}
 
 /* The hover state sets background-image, not the shorthand: several component
    rules used `background:var(--raised)` here, which silently reset the
@@ -2381,7 +2398,7 @@ footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surfa
 .bx:hover,.cs:hover,.gc:hover{
   text-decoration:none;transform:translateY(-3px);border-color:transparent;
   background-image:linear-gradient(158deg,
-    var(--raised),color-mix(in srgb,var(--raised) 55%,var(--surface)) 62%);
+var(--raised),color-mix(in srgb,var(--raised) 55%,var(--surface)) 62%);
   box-shadow:inset 0 1px 0 var(--bx-hi),
     0 2px 6px rgba(0,0,0,.13),
     0 24px 48px -18px rgba(0,0,0,.58)}
@@ -2412,11 +2429,11 @@ footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surfa
     box-shadow:0 18px 36px -18px rgba(0,0,0,.35);
     visibility:hidden;clip-path:inset(0 0 100% 0);
     transition:clip-path .36s cubic-bezier(.22,.61,.36,1),
-      visibility 0s .36s}
+visibility 0s .36s}
   .hin.open nav{visibility:visible;clip-path:inset(0 0 0 0);
     transition:clip-path .4s cubic-bezier(.22,.61,.36,1),visibility 0s}
   .hin nav a{padding:16px 24px;border-top:1px solid var(--rule2);
-    font-size:13px;letter-spacing:.8px;
+    font-size:13px;letter-spacing:.5px;
     opacity:0;transform:translateY(-9px);
     transition:opacity .2s ease,transform .2s ease}
   /* each link trails the one above it, so the list reads as arriving rather
@@ -2461,7 +2478,7 @@ footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surfa
   .fin-col a{min-height:44px;margin-bottom:2px}
   .fin-base a{display:inline-block;padding:11px 0}
   .fin-base{gap:4px}
-  .hin .nm a{display:inline-block;padding:12px 0}
+  .bm{padding:10px 0}
   .stp-l li{grid-template-columns:1fr;gap:10px}
   .qst{padding:24px 22px}
   .ft{grid-template-columns:1fr}
@@ -2481,7 +2498,7 @@ footer.site{border-top:1px solid var(--rule);margin-top:0;background:var(--surfa
 # silently rounds those to the nearest cut.
 #
 # The mono was the system stack, which meant Consolas on Windows and SF Mono on
-# a Mac — two different faces at the small uppercase sizes where most of this
+# a Mac, two different faces at the small uppercase sizes where most of this
 # site's mono lives, and the Windows one reads dated. IBM Plex Mono is one face
 # everywhere: narrow enough that a long market pill or a table cell does not
 # grow, and drawn for running text rather than for a code editor.
@@ -2493,9 +2510,9 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
 
 
 def page(title, body, desc=""):
-    # Only link to sections that actually render — see LEGACY_SECTIONS.
+    # Only link to sections that actually render, see LEGACY_SECTIONS.
     nav = ('<nav id="sitenav"><a href="/">Home</a>'
-           '<a href="/case-studies.html">Case study</a>'
+           '<a href="/case-studies.html">Case studies</a>'
            '<a href="/#contact">Contact</a></nav>')
     return f"""<!doctype html>
 <html lang="en"><head>
@@ -2514,8 +2531,13 @@ def page(title, body, desc=""):
 <style>{CSS}</style>
 </head><body>
 <header class="site"><div class="wrap hin">
-  <span class="mk" aria-hidden="true"></span>
-  <span class="nm"><a href="/">{SITE['name']}</a></span>
+  <a class="bm" href="/">
+    <span class="bm-mk" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"
+      stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle
+      cx="8" cy="11.8" r="1.25"/><path d="M5.4 9.1a3.9 3.9 0 0 1 5.2 0"/><path
+      d="M3.2 6.8a7 7 0 0 1 9.6 0"/></svg></span>
+    <span class="bm-t"><b>{SITE['name']}</b><i>{SITE['role']}</i></span>
+  </a>
   <button class="ham" type="button" aria-expanded="false" aria-controls="sitenav"
     aria-label="Menu"><span aria-hidden="true"></span></button>
   {nav}
@@ -2554,11 +2576,11 @@ def main():
         bd = BREAKDOWNS.get(s["slug"], {})
         parts = [f'<p class="cse-tags"><span>{html.escape(s.get("tag",""))}</span>'
                  f'<span>{html.escape(s.get("client",""))}</span></p>',
-                 f'<h1>{inline(s["title"])}</h1>',
-                 f'<p class="lede">{inline(s.get("summary",""))}</p>',
-                 cs_metrics(s, bd),
-                 cs_facts(s, bd, idx + 1, len(studies)),
-                 cs_question(bd)]
+f'<h1>{inline(s["title"])}</h1>',
+f'<p class="lede">{inline(s.get("summary",""))}</p>',
+cs_metrics(s, bd),
+cs_facts(s, bd, idx + 1, len(studies)),
+cs_question(bd)]
 
         if s.get("problem"):
             parts.append(
@@ -2594,7 +2616,7 @@ def main():
 
         (OUT / "work" / f"{s['slug']}.html").write_text(
             page(f'{s["title"]} · {SITE["name"]}', "\n".join(parts),
-                 s.get("summary", "")), encoding="utf-8")
+s.get("summary", "")), encoding="utf-8")
 
     # ---- home
     hero = load(CONTENT / "index.md")
@@ -2619,7 +2641,7 @@ def main():
         # Only the first word is marked `on`, so with JavaScript off the headline
         # is simply "…that convert." rather than a stack of every variant. The
         # inactive ones are display:none, which keeps them out of the
-        # accessibility tree too — a screen reader gets one clean sentence.
+        # accessibility tree too, a screen reader gets one clean sentence.
         words = "".join(
             f'<i{" class=\"on\"" if i == 0 else ""}>{inline(w)}</i>'
             for i, w in enumerate(rotate))
@@ -2652,13 +2674,12 @@ def main():
             '<div class="btns">' + "".join(cta) + "</div>"
             "</section>"
             + hero_art() + "</div>",
-            client_band(),
-            highlights_bento(),
-            about_section(),
-            range_section(),
-            case_studies_section(studies),
-            testimonials_section(),
-            book_band(),
+client_band(),
+case_studies_section(studies),
+about_section(),
+range_section(),
+testimonials_section(),
+book_band(),
             HERO_JS, RANGE_JS]
 
     # Everything below the About section is parked while the page is rebuilt
@@ -2672,8 +2693,8 @@ def main():
                 f"<div class=stat><b>{v}</b><span>{k}</span>"
                 f"<span class=def>{d}</span></div>"
                 for v, k, d in STATS) + "</div>",
-            f'<p class="prov">{STATS_SOURCE}</p>',
-            render(hero["body"]),
+f'<p class="prov">{STATS_SOURCE}</p>',
+render(hero["body"]),
             '<section class="blk" id="work"><span class="snum">01</span>'
             '<h2>Selected work</h2>',
             '<div class="cards">' + "".join(cards) + "</div>"]
@@ -2696,18 +2717,18 @@ def main():
         page(f'Case studies · {SITE["name"]}', index_page(studies),
              "Seven outbound engagements taken apart: the account as found, the "
              "system built, and what it changed."),
-        encoding="utf-8")
+encoding="utf-8")
 
     (OUT / "index.html").write_text(
         page(f'{SITE["name"]} · {SITE["role"]}', "\n".join(body), SITE["blurb"]),
-        encoding="utf-8")
+encoding="utf-8")
 
     if ASSETS.exists():
         shutil.copytree(ASSETS, OUT / "assets")
         # browsers ask for /favicon.ico at the root before reading any <link>
         if (ASSETS / "favicon.ico").exists():
             shutil.copy(ASSETS / "favicon.ico", OUT / "favicon.ico")
-    # field-guide.html is no longer part of the site — not linked, not shipped
+    # field-guide.html is no longer part of the site, not linked, not shipped
     for extra in ("netlify.toml",):
         if (ROOT / extra).exists():
             shutil.copy(ROOT / extra, OUT / extra)
@@ -2730,7 +2751,7 @@ def main():
             '</head><body style="font:16px/1.6 system-ui;padding:3rem">'
             f'<p>This page has moved. <a href="{dest}">Continue to the {what}</a>.</p>'
             '</body></html>',
-            encoding="utf-8")
+encoding="utf-8")
 
     # GitHub Pages runs Jekyll unless told otherwise, which drops any path whose
     # name starts with an underscore. Nothing here needs Jekyll.

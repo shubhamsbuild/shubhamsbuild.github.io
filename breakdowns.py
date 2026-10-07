@@ -24,7 +24,7 @@ BREAKDOWNS = {
         "question": "Was the other account's copy the thing worth copying, "
                     "or was it the list underneath it?",
         "sector": "Investment banking",
-        "buyer": "Founder-led and mid-market companies raising $5M&ndash;$100M+",
+        "buyer": "Founder-led and mid-market companies raising $5M to $100M+",
         "constraint": "Regulated, securities-adjacent copy cannot promise "
                       "a raise closes, cannot promise returns, and does not quote fees",
         "metrics": [
@@ -115,7 +115,7 @@ BREAKDOWNS = {
              "56% of volume aimed at the worse bucket"),
             ("Priced the proposed fix against the real one",
              "When positives were low the instinct was to buy more market. Canada "
-             "adds roughly 10&ndash;15% to a 29,000-account US base, which at the "
+             "adds roughly 10 to 15% to a 29,000-account US base, which at the "
              "account&rsquo;s measured rate projects to three or four extra "
              "positives per cycle. Fixing one campaign&rsquo;s copy was worth more "
              "than the entire build.",
@@ -142,8 +142,8 @@ BREAKDOWNS = {
         "question": "Where do you get sixty thousand owner-operated trades "
                     "businesses that no data vendor sells?",
         "sector": "CPA-led proactive tax strategy",
-        "buyer": "Owner-operated trades and home services, $1M&ndash;$10M revenue, "
-                 "1&ndash;50 employees",
+        "buyer": "Owner-operated trades and home services, $1M to $10M revenue, "
+                 "1 to 50 employees",
         "constraint": "Regulated, no numeric savings guarantees, and "
                       "no booking link, so every call to action is reply-based",
         "metrics": [
@@ -342,8 +342,8 @@ BREAKDOWNS = {
              "$600K income &rarr; no vendor sells it"),
             ("Found an attribute that implies it and can be sourced",
              "A licensed profession whose partners and firm owners plausibly clear "
-             "the threshold far more often than a randomly drawn business owner "
-             ", and who are the right kind of owner for a pass-through tax "
+             "the threshold far more often than a randomly drawn business owner, "
+             "and who are the right kind of owner for a pass-through tax "
              "strategy pitch.",
              "Income &rarr; profession + state"),
             ("Sourced it from directories, not vendors",

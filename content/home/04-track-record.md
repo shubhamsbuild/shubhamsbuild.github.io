@@ -3,7 +3,7 @@ title: Track record
 layout: timeline
 ---
 
-### GTM Engineer · a B2B outbound agency · 2025 – present
+### GTM Engineer · a B2B outbound agency · 2025 to present
 Ran the go-to-market data layer for **thirteen client accounts simultaneously**, across tax
 advisory, legal, PR, government-contracting consulting, higher-ed SaaS, DTC e-commerce, capital
 markets, insurance, automotive SaaS and loyalty software. Owned the whole surface per account:
