@@ -3,57 +3,59 @@ title: 6 meetings from 11,699 emails
 client: a B2B selling to founders and marketing leads
 year: 2026
 onboarded: 2026-04-21
-tag: Measurement
 sector: Marketing SaaS
-summary: The highest sending volume of any account I run, and the lowest meeting count. It is in the portfolio because it is the account that proves the other three, not because it flatters them.
+tag: Measurement
 badge: Published as a loss
 featured: true
 metric: 6
 metric_label: meetings from 11,699 emails
 card: The most sending in the book, the fewest meetings.
-problem: Outbound credits results to the message and almost never to the person it appears to come from. If the sender moves the number, every copy test run across mixed senders is measuring two things at once.
-system: One campaign specification across three sender identities on the same two days, each working a separate list of comparable size, with version, sender, approach and date written into every campaign name so the arms stayed separable.
-output: 6 meetings from 11,699 emails and 1,123 LinkedIn invites. Against a clinical-research account booking 55 from 2,564 emails, volume and outcome ran in opposite directions.
+summary: The highest sending volume of any account I run and the lowest meeting count. It is published because it is the account that proves the other three, not because it flatters them.
+problem: Outbound credits results to the message and almost never to the person it appears to come from, or to the fact that the opener had nothing specific in it.
+system: One campaign specification across three sender identities on the same two days, each working a separate list, with version, sender, approach and date in every campaign name so the arms stayed separable.
+output: 6 meetings from 11,699 emails. The 200 invitations sent before the rollout produced 14 interested replies; the 1,111 sent during it produced 16.
 ---
 
 | | |
 |---|---|
 | **Meetings booked** | **6** |
-| In the last 7 days | 6 |
 | Emails sent | **11,699** |
 | Email reply rate | 0.3% |
-| Positive email replies | 11 |
 | LinkedIn invites | 1,123 |
 | LinkedIn accepted | 39.2% |
-| LinkedIn replies | 121 |
 
-## Why this one is here
+## Why this one is on the site
 
-This is the weakest account in the book, and it is on the site on purpose.
+It is the weakest account in the book and it is here on purpose.
 
-It sends **more email than any other account I run, 11,699, and books six
-meetings.** The clinical-research account sends 2,564 and books 55. Same operator,
-same months, same tooling underneath.
+**11,699 emails, six meetings.** The clinical-research account sends 2,564 and
+books 55. Same operator, same months, same stack underneath. Volume and outcome
+ran in opposite directions, and this is the account that proves it rather than one
+that flatters it.
 
-Volume and outcome ran in opposite directions. That is the claim the other studies
-make, and this is the account that proves it rather than one that flatters it. A
-portfolio where everything wins is a selection, not a method.
+A portfolio where everything wins is a selection, not a method.
 
-## The problem
+## Problem one: the best campaign was the smallest
 
-Outbound almost always credits the result to the words in the email. Almost nobody
-asks whether it mattered **who the email appeared to come from.**
+The account's strongest campaign was ninety invitations with a named reference in
+the opener — a specific person at a specific company the prospect would recognise.
+**77% accepted. Eight interested.**
 
-That gap matters beyond curiosity: if the sender moves the number, then every copy
-test anyone runs across several sender accounts is quietly measuring two variables
-at once and attributing all of it to the writing.
+Then the account scaled into a standard consultative sequence rolled out across
+three senders.
 
-## What I built
+![A named-reference opener achieved 77 percent acceptance and eight interested replies from 90 sends](/assets/exhibit-14-brew-context.svg)
 
-One campaign specification, run on the same two days by three different people,
-each working a separate list of comparable size. The version, the sender, the
-approach and the date all go into the campaign name, so the three arms can be told
-apart afterwards instead of blurring into an account average.
+**1,111 invitations produced 16. The 200 before them produced 14.** Acceptance fell
+from 77% to 25% as the opener lost the thing that made it specific.
+
+## Problem two: nobody tests the sender
+
+Outbound credits results to the message and almost never to the person it appears
+to come from. If the sender moves the number, every copy test run across mixed
+senders is quietly measuring two variables.
+
+So the rollout ran as one specification, three senders, same two days:
 
 | Sender | Day 1 | Day 2 | Total sent | Interested |
 |---|---|---|---|---|
@@ -61,25 +63,22 @@ apart afterwards instead of blurring into an account average.
 | B | 194 → 7 | 189 → 2 | 383 | **9** |
 | C | 192 → 2 | 191 → 1 | 383 | **3** |
 
-Sender B got three times what Sender C got, on the same number of connections.
+Sender B got three times Sender C's result on the same volume.
 
-## Why I call that a test and not a finding
-
-The campaign names say the three were running the same thing. They do not **prove**
-the message bodies were identical, and I have not compared them line by line yet.
-
-Until I do, this stays a test. Calling it a finding would put it on the same footing
-as a comparison where the wording genuinely was held identical, and that would
-cheapen the one that was.
+**This stays a test, not a finding.** The campaign names assert the specs were
+identical; they do not prove the message bodies were, and I have not compared them
+line by line. Calling it a finding would put it on the same footing as a
+comparison where the wording genuinely was held identical.
 
 ## What was actually wrong here
 
 Not the senders. The targeting.
 
-This list was built the ordinary way: the right job titles at the right kind of
-company, and nothing else. No trigger, no event, no reason why this week. That is
-the exact ingredient the three better-performing accounts added, and the gap
-between 6 meetings and 55 is the size of what it is worth.
+The list was built the ordinary way: right job titles, right company type, nothing
+else. No trigger, no event, no reason why this week. That is the exact ingredient
+the three better accounts added, and the gap between 6 meetings and 55 is the size
+of what it is worth.
 
 *Meetings, email and LinkedIn figures from the client-facing dashboard, 2026-10-07.
-The sender split is from the sending-platform API, 2026-09-26; the two are not mixed.*
+Campaign-level figures from the sending-platform API, 2026-09-26; the two are not
+mixed.*

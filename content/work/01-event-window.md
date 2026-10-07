@@ -3,17 +3,17 @@ title: 55 meetings booked
 client: a clinical-research network
 year: 2026
 onboarded: 2026-06-02
-tag: Data acquisition
 sector: Clinical research
-summary: 2,564 emails and 384 LinkedIn invites, the lowest sending volume of any account I run, booked 55 meetings. Seven of them in the last seven days.
+tag: Data acquisition
 badge: Most meetings, least volume
 featured: true
 metric: 55
 metric_label: meetings booked, 7 in the last week
 card: The smallest account I run, from 2,564 emails.
-problem: Event outreach is usually one list and one message, sent once, to whoever registered. That throws away the two things an event actually gives you, a window with a known expiry, and a population whose relationship to the event varies.
-system: One conference split into role tracks and timed waves, a separate sequence for people who did not attend, a clinical-trial-termination signal taken off a public registry, and an audited email-to-LinkedIn fallback.
-output: 55 meetings booked from 2,564 emails and 384 LinkedIn invites. Lowest volume in the engagement, highest meeting count in it.
+summary: The lowest sending volume of any account I run, and the highest meeting count. Every interested reply on LinkedIn came from a campaign that had a reason to exist that week.
+problem: Event outreach is usually one list and one message, sent once, to whoever registered. That throws away the two things an event gives you: a window with a known expiry, and a population whose relationship to the event varies.
+system: A clinical-trial-termination signal read off a public registry, a conference split into role tracks including one for people who did not attend, and an audited email-to-LinkedIn fallback.
+output: 55 meetings from 2,564 emails and 384 invitations. The 45 invitations that carried a reason produced all nine interested replies. The other 237 produced none.
 ---
 
 | | |
@@ -22,60 +22,44 @@ output: 55 meetings booked from 2,564 emails and 384 LinkedIn invites. Lowest vo
 | In the last 7 days | 7 |
 | Emails sent | 2,564 |
 | LinkedIn invites | 384 |
-| LinkedIn accepted | 10.9% |
-| Positive email replies | 3 |
 
-## The problem
+## Problem one: we started generically and got nothing
 
-This client sells to the people who run clinical trials at hospitals and research
-sites. The obvious way to reach them is a conference: everyone shows up in one
-place, you get the attendee list, you email it.
+The account opened the ordinary way. A cold email list, a first LinkedIn wave, a
+relaunch at a particular clinic type, and a fallback that chased people who had
+ignored the email.
 
-Everybody does that, and it mostly fails. One list, one message, sent once, to
-whoever registered. That ignores the two useful things a conference gives you.
-It gives you a **deadline**, because the reason to mention it expires. And it gives
-you a **crowd of people in very different situations**, who are being sent the
-same sentence.
+**237 invitations across those. Zero interested replies.**
 
-## How I approached it
+## Problem two: a conference is not a list
 
-I stopped treating the event as a list and started treating it as a moment with an
-expiry date. If the reason you are writing is "this is happening this weekend",
-then the message has to change depending on where we are relative to that weekend,
-and who the person is at it.
+Everyone sends to the attendee list, once, with one message. That throws away both
+things an event actually gives you: a deadline, and a crowd whose relationship to
+the event is completely different person to person.
 
-I also went looking for a second kind of timing that has nothing to do with
-conferences: a public registry records when a clinical trial ends. When a trial
-ends, the site that was running it has free capacity and an unsettled relationship
-with its sponsor. That is a real reason to make contact that week, and it is
-published for anyone to read.
+**Solved by splitting one conference three ways** — people who attended, sponsors
+and the agencies that run trials, and site staff who **did not attend**.
+Non-attendance is normally treated as missing data. Here it got its own sequence,
+and it outperformed the attendee track.
 
-## What I built
+## The signal nobody else is reading
 
-Four separate sequences off one conference, not one. Research sites got one. Trial
-sponsors and the agencies that run trials got another. Site staff got a third.
+A public registry records when a clinical trial ends. When one does, the site
+running it has free capacity and an unsettled sponsor relationship. That is a
+dated, public, verifiable reason to make contact that week.
 
-And a fourth went to people who **did not attend**. That is usually treated as
-missing information: if they are not on the attendee list, they are not in the
-campaign. I treated it as information in its own right. Not going to the event your
-peers all went to says something, and it deserves a different letter rather than
-no letter.
+![Trial-termination and conference campaigns produced all nine interested replies from 45 invitations while 237 generic invitations produced none](/assets/exhibit-10-bond-signal.svg)
 
-Each wave runs separately, before, just after, and later again, with its date
-written into the campaign name, so an unsent wave is obvious at a glance instead of
-being noticed a week too late.
+**24 invitations. 71% accepted. Five interested.** Acceptance alone tells you the
+premise landed, before anybody reads a word of the message.
 
-Alongside it, anyone who ignored the email gets re-checked against the ideal
-customer profile and then approached on LinkedIn. Re-checked first, so it is not
-simply pestering everyone who stayed quiet.
+## Why this account matters most
 
-## What it did
+It sends less than any other account in the book — 2,564 emails against another
+account's 11,699 — and books the most meetings in it.
 
-**55 meetings**, from the smallest sending volume of any account I run, 2,564
-emails against another account's 11,699.
+On reply rate it looked negligible for weeks. Volume and outcome were running in
+opposite directions, and only the meeting count showed it.
 
-Judged on reply rate, this account looked like the weakest one in the book. It books
-the most meetings in it. That gap is the entire argument for measuring what you
-actually want rather than what is easy to count.
-
-*Figures from the client-facing dashboard, 2026-10-07.*
+*Meetings and channel figures from the client-facing dashboard, 2026-10-07.
+Campaign-level figures from the sending-platform API, 2026-09-26.*

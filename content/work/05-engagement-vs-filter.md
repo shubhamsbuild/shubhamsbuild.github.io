@@ -3,98 +3,83 @@ title: The list that ignores job titles
 client: a B2B selling to founders and creator teams
 year: 2026
 onboarded: 2025-03-10
-tag: Data acquisition
 sector: Creator tooling
-summary: A list built continuously from people who reacted to a post, feeding four sender accounts. Its audience is deliberately scattered across job titles, and that scatter is the proof it is working.
+tag: Data acquisition
 badge: Signal against cold
 featured: true
 metric: 31 vs 4
 metric_label: interested, from engagement against cold
 card: 307 connections out-pulled 775, same account and window.
-problem: The account ran title-filtered lists at volume. A filter finds people who resemble the customer. It cannot find people who are in the market this week, because interest is not a field anyone sells.
-system: A continuous scrape of people who reacted to a relevant post, feeding four sender accounts, plus a job-posting list on email, run against the account's existing cold campaigns in the same window, through the same senders.
-output: 31 interested from 307 connections built on engagement. The cold campaigns, at two and a half times the volume, returned 4 from 775.
+summary: Six weeks of cold ICP batches and copy rewrites produced single digits. A continuous scrape of people who had reacted to a post took acceptance from 14% to 73%.
+problem: A filter finds people who resemble the customer. It cannot find people thinking about the problem this week, because interest is not a field anyone sells.
+system: A continuous scrape of post reactors feeding four sender accounts, run against the account's existing cold campaigns in the same window and through the same senders.
+output: 31 interested from 307 engagement-sourced connections against 4 from 775 cold. Acceptance moved from 14% to 73% before a single message was read.
 ---
 
-| Source, same account & window | Campaigns | Sent | Interested |
-|---|---|---|---|
-| Built from engagement | 5 | 307 | **31** |
-| Cold, title-filtered | 4 | 775 | **4** |
-| The reactor system alone | 4 senders | 249 | **28** |
+| | |
+|---|---|
+| Connections sent | 2,874 |
+| Conversations started | 575 |
+| Tagged interested | 62 |
+| Emails sent | 9,301 |
+| Marked interested | 27 |
 
-| LinkedIn | | Email | |
-|---|---|---|---|
-| Connections sent | 2,874 | Emails sent | 9,301 |
-| Accepted | 656 | Leads contacted | 7,959 |
-| Conversations started | 575 | Unique replies | 66 |
-| Replies | 105 | Marked interested | 27 |
+## Problem one: six weeks of cold batches
 
-## The problem
+The account opened on ordinary ICP lists. Batch one, batch three, an ICP B, an
+ambassador variant, two cold-outreach rounds. **Roughly 1,100 invitations, six
+interested replies, and acceptance running at 14%.**
 
-The account was buying lists the normal way: pick the job titles, pick the company
-sizes, send to everyone who matches.
+## Problem two: rewriting the copy did not fix it
 
-That finds people who **resemble** the customer. It cannot find people who are
-thinking about the problem this week, because no database has a column for that,
-and nobody is going to sell you one.
+The next instinct was new messaging, and it ran properly: a consultative rewrite
+pushed across founders, ambassadors and co-founders with separate campaigns per
+segment.
 
-## How I approached it
+**608 invitations, six interested.** Acceptance moved from 14% to 21%, which is
+movement, but not the kind that changes an account.
 
-If interest cannot be bought, it has to be observed. People leave traces of what
-they are paying attention to, and the clearest one on LinkedIn is simple: they react
-to a post about it.
+Two different levers had now been pulled — the audience within the ICP, and the
+words — and neither moved it. That leaves the list itself.
 
-Someone who liked a post about the exact problem this product solves has told you
-something a job title never will. It is public, it is dated, and it happened this
-week.
+## The list that ignores job titles
 
-## What I built
+If interest cannot be bought, it has to be observed. The clearest observable on
+LinkedIn is simple: somebody reacted to a post about the exact problem this
+product solves. Public, dated, and it happened this week.
 
-A scrape of those reactions that runs **continuously**, feeding four different
-sender accounts, rather than a batch somebody assembles once a month.
+![Post reactors accepted 73 percent of connection requests against 14 percent for cold ICP batches](/assets/exhibit-13-ghost-acceptance.svg)
 
-That difference matters more than it sounds. A batch is a thing you built and then
-start using up. This one has new people in it tomorrow whether anybody touches it
-or not, it is a machine, not a list.
+**Acceptance went from 14% to 73%** — and acceptance happens before anyone reads
+the message, so that gap is the list talking, not the copy.
 
-On email, a second signal: companies posting job ads. A company advertising for a
-role has a gap and a budget, and the ad is public, so you can mention it without
-being creepy about where you got it.
+It runs **always-on across four sender identities** rather than as a batch. A
+batch is something you built once. This has new people in it tomorrow whether
+anybody touches it or not.
 
 ## The counter-intuitive part
 
-I deliberately did almost no filtering on top.
+I deliberately did almost no filtering on top. An audit of the audience showed job
+titles scattered across operations, marketing, engineering, at companies with
+nothing obvious in common.
 
-When I audited who was actually in these campaigns, the job titles were all over
-the place, operations, marketing, engineering, at companies with nothing obvious
-in common. That looks like a mistake. It is the opposite: it is the proof the list
-is built on behaviour. A title filter returns page after page of near-identical
-titles, which is exactly what this account's cold lists do.
-
-Filtering the engagement list by seniority would have thrown away the only signal
-that put anyone on it.
-
-## What it did
-
-**31 interested replies from 307 connections**, against **4 from 775** on the cold
-lists, same account, same weeks, same sender accounts. Two and a half times the
-volume returned an eighth of the result.
+That looks like a mistake and it is the opposite: it is the proof the list is
+behavioural. A title filter returns page after page of near-identical titles,
+which is exactly what this account's cold lists did. Filtering the scrape by
+seniority would throw away the only signal that put anyone on it.
 
 ## What broke
 
-Scrapes that run continuously drift. People who engage a lot keep re-entering the
-list, so without a check you contact your best prospects over and over, the fault
-lands hardest on exactly the people you least want to annoy.
-
-Four retired campaigns sit in the account, renamed rather than deleted, marking
-where that was caught and fixed.
+Scrapes that run continuously drift. Frequent engagers re-enter the list, so
+without a check you contact your best prospects repeatedly. Four retired campaigns
+sit in the account, renamed rather than deleted, marking where that was caught.
 
 ## The honest limit
 
-The wording was not held identical between the two groups, so this compares *list
-built from engagement plus its copy* against *cold list plus its copy*. It shows
-the combination is worth roughly an order of magnitude. It does not isolate the
-list on its own.
+Wording was not held identical between the cold and engagement groups, so this
+compares *list plus its copy* against *list plus its copy*. It shows the
+combination is worth roughly an order of magnitude. The acceptance gap is the part
+that isolates the list, because it happens before the message is read.
 
 *Figures from the sending-platform API, 2026-09-26. This account is not on the
 client-facing dashboard, so no meeting count exists for it.*

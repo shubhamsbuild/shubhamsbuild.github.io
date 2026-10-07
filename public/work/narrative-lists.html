@@ -3,10 +3,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>13 meetings in 4 days · Shubham Sharma</title>
-<meta name="description" content="1,135 LinkedIn invites at 48% acceptance, the highest of any account I run, and 13 meetings booked between 2 and 5 October. It is also the account where plain title-filtered lists beat the clever ones.">
+<meta name="description" content="Small campaigns built on a story about the person converted at 9.7%. The cold batches that replaced them ran at 2.7%. Five times the volume bought 40% more replies.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="13 meetings in 4 days · Shubham Sharma">
-<meta property="og:description" content="1,135 LinkedIn invites at 48% acceptance, the highest of any account I run, and 13 meetings booked between 2 and 5 October. It is also the account where plain title-filtered lists beat the clever ones.">
+<meta property="og:description" content="Small campaigns built on a story about the person converted at 9.7%. The cold batches that replaced them ran at 2.7%. Five times the volume bought 40% more replies.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -461,8 +461,6 @@ so it still reads as an eyebrow alongside the rest of the site. */
   letter-spacing:-.035em;text-wrap:balance}
 .hl-lede{margin:0 0 22px;font-size:15.5px;color:var(--ink2);max-width:56ch}
 
-@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:620px){.cs-grid{grid-template-columns:1fr}}
 
 /* --- case study cards ----------------------------------------------------- */
 .csx{margin:0 0 var(--sec)}
@@ -526,6 +524,8 @@ so it still reads as an eyebrow alongside the rest of the site. */
 .cs:hover .cs-foot .arw{color:var(--accent);transform:translateX(3px)}
 .cs-cta{margin-top:22px}
 
+/* Four across needs roughly 1200px. Below that, two up, then one. */
+@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.cs-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){
   .cs,.cs-foot .arw{transition:none}
@@ -1255,6 +1255,20 @@ visibility 0s .36s}
 @media (max-width:680px){
   .wrap{padding:0 24px}
   th,td{white-space:normal}
+}
+/* Tables are already in an overflow-x wrapper, but a table that scrolls on a
+   phone is a table most people never see the right-hand column of. Tightening
+   the cells lets the wider ones fit instead of hiding behind a scroll. */
+@media (max-width:520px){
+  table{font-size:12.5px}
+  th,td{padding:8px 10px}
+  th{font-size:9.5px;letter-spacing:.4px}
+}
+@media (max-width:380px){
+  table{font-size:12px}
+  th,td{padding:7px 8px}
+}
+@media (max-width:520px){
   .hin{padding-top:20px;padding-bottom:20px}
   .hin nav a{padding:15px 24px}
   .sheet{padding:36px 22px 32px}
@@ -1305,35 +1319,30 @@ visibility 0s .36s}
 <main><div class="wrap">
 <p class="cse-tags"><span>Personalisation</span><span>a sales-AI platform</span></p>
 <h1>13 meetings in 4 days</h1>
-<p class="lede">1,135 LinkedIn invites at 48% acceptance, the highest of any account I run, and 13 meetings booked between 2 and 5 October. It is also the account where plain title-filtered lists beat the clever ones.</p>
+<p class="lede">Small campaigns built on a story about the person converted at 9.7%. The cold batches that replaced them ran at 2.7%. Five times the volume bought 40% more replies.</p>
 <div class="mtrs"><div class="mtr"><b>13</b><span>meetings booked in four days</span></div></div>
-<dl class="fct"><div><dt>Discipline</dt><dd>Personalisation</dd></div><div><dt>Client since</dt><dd>30 March 2026</dd></div><div><dt>Sheet</dt><dd>04 / 08</dd></div></dl>
+<dl class="fct"><div><dt>Discipline</dt><dd>Personalisation</dd></div><div><dt>Client since</dt><dd>30 March 2026</dd></div></dl>
 
-<dl class="glance"><div class="gl"><dt>Problem</dt><dd>One account produced a clean win for behaviour-based lists, and the temptation is to assume it generalises. This is the account where it does not, and finding that out early is worth more than the tidy version.</dd></div><div class="gl"><dt>System</dt><dd>Title-filtered lists and story-based lists run in the same account and window. The filtered lists qualify on job title; the story-based ones qualify on a biographical detail that only exists in the text of a profile.</dd></div><div class="gl out"><dt>Output</dt><dd>13 meetings in four days. The plain title-filtered campaigns returned 21 interested from 782 connections, better per send than behaviour-based sourcing managed on another account.</dd></div></dl>
+<dl class="glance"><div class="gl"><dt>Problem</dt><dd>Lists built on a biographical story cannot be scaled without weakening the attribute that defines them. Scaling the account meant accepting a worse rate per send, and knowing by how much.</dd></div><div class="gl"><dt>System</dt><dd>Story-led micro-campaigns run first, then cold title-filtered batches at five times the volume, in the same account and window so the trade is measurable rather than assumed.</dd></div><div class="gl out"><dt>Output</dt><dd>13 meetings in four days at 48% LinkedIn acceptance, the highest of any account. The rate per send fell by a factor of 3.6 as volume went up.</dd></div></dl>
 
-<div class="tw"><table><thead><tr><th class="a-left"></th><th class="a-left"></th></tr></thead><tbody><tr><td class="a-left"><strong>Meetings booked</strong></td><td class="a-left"><strong>13</strong></td></tr><tr><td class="a-left">Booked between</td><td class="a-left">2 to 5 Oct 2026</td></tr><tr><td class="a-left">LinkedIn invites</td><td class="a-left">1,135</td></tr><tr><td class="a-left">LinkedIn accepted</td><td class="a-left"><strong>47.9%</strong></td></tr><tr><td class="a-left">LinkedIn replies</td><td class="a-left">66</td></tr><tr><td class="a-left">Emails sent</td><td class="a-left">5,690</td></tr><tr><td class="a-left">Positive email replies</td><td class="a-left">10</td></tr></tbody></table></div>
-<div class="tw"><table><thead><tr><th class="a-left">Approach, same account &amp; window</th><th class="a-left">Sent</th><th class="a-left">Interested</th></tr></thead><tbody><tr><td class="a-left">Story, "sales people who'd make good founders"</td><td class="a-left">56</td><td class="a-left"><strong>7</strong></td></tr><tr><td class="a-left">Story, "athletes who moved into sales"</td><td class="a-left">36</td><td class="a-left"><strong>2</strong></td></tr><tr><td class="a-left">Plain job-title filter</td><td class="a-left">782</td><td class="a-left"><strong>21</strong></td></tr></tbody></table></div>
-<h3>The problem</h3>
-<p>By this point another account had produced a clear result: lists built from what people <em>did</em> beat lists built from what their job title says. The obvious move is to apply that everywhere.</p>
-<p>This account is where that stops being true, and I would rather find that out on purpose than have an interviewer find it for me.</p>
-<h3>How I approached it</h3>
-<p>Run both in the same account, in the same weeks, and compare.</p>
-<p>The customer here is enterprise sales reps at software companies. I pulled a sample of the audience and read it: the job titles came back almost identical, over and over. That is what a correct filter looks like. For this product, the title really is the qualifier. Somebody's job <em>is</em> the reason they need it.</p>
-<p>So the clever approach had nothing to add, and the plain one was not laziness. It was right.</p>
-<h3>The part that did work</h3>
-<p>Alongside the filtered lists I ran two small ones built on a <strong>story about the person</strong> instead of their job title. Sales people whose background suggests they would make good founders. Former professional athletes who moved into enterprise sales.</p>
-<p>Neither of those is a field in any database. "Used to play professionally, now sells software" exists only in the words someone wrote about themselves, so the list has to be assembled by reading profiles. That is why they are 56 and 36 people rather than 200.</p>
-<p>Per person contacted, they were the strongest thing in the account.</p>
-<h3>What it did</h3>
-<p><strong>13 meetings in four days</strong>, and the highest LinkedIn acceptance rate of any account I run, 48%, against 10% on another.</p>
-<p>And the plain filtered lists returned 21 interested from 782, a better return per send than behaviour-based sourcing managed elsewhere.</p>
-<h3>The catch</h3>
-<p>Story-based lists do not scale, and the mistake is trying.</p>
-<p>Take something that got 7 replies from 56 people and rebuild it at 500, and the story has to loosen until it means roughly "works in sales". At that point the opening line is no longer true of the person reading it, and they can tell. The rule I use is that if a list cannot be built at the size you want without weakening the detail that defines it, it is finished. Go and find a different story rather than a bigger version of this one.</p>
-<p><em>Meetings, LinkedIn and email figures from the client-facing dashboard, 2026-10-07. Campaign-level figures from the sending-platform API.</em></p>
+<div class="tw"><table><thead><tr><th class="a-left"></th><th class="a-left"></th></tr></thead><tbody><tr><td class="a-left"><strong>Meetings booked</strong></td><td class="a-left"><strong>13</strong></td></tr><tr><td class="a-left">Booked between</td><td class="a-left">2 to 5 Oct 2026</td></tr><tr><td class="a-left">LinkedIn accepted</td><td class="a-left"><strong>47.9%</strong></td></tr><tr><td class="a-left">LinkedIn invites</td><td class="a-left">1,135</td></tr><tr><td class="a-left">Emails sent</td><td class="a-left">5,690</td></tr></tbody></table></div>
+<h3>Problem one: the buyer is genuinely findable by job title</h3>
+<p>Enterprise sales reps at software companies. I sampled the audience and the titles came back near-identical, over and over.</p>
+<p>That is what a correct filter looks like. For this product the title really is the qualifier, so the clever approach had nothing to add and the plain one was not laziness.</p>
+<h3>Problem two: the best campaigns were the ones that could not scale</h3>
+<p>Alongside the filtered lists I ran small ones built on a <strong>story about the person</strong> rather than their job: sales people whose background suggests they would make good founders, former professional athletes who moved into enterprise sales, people who had just moved into a GTM hiring role.</p>
+<p>None of those is a field in any database. "Used to play professionally, now sells software" exists only in the words someone wrote about themselves, so the list has to be assembled by reading profiles. That is why they are 56 and 36 people rather than 500.</p>
+<div class="exhibit"><img src="/assets/exhibit-12-cedar-scale.svg" alt="Story-led micro campaigns converted at 9.7 percent against 2.7 percent for scaled cold outbound" loading="lazy" decoding="async"></div>
+<p><strong>Then the account scaled, and the rate fell.</strong> Five times the volume bought 40% more interested replies. That is not a failure, it is the trade, and running both in the same window is what made the size of it visible.</p>
+<h3>The rule this account produced</h3>
+<p>Take something that got 7 replies from 56 people and rebuild it at 500, and the story has to loosen until it means roughly "works in sales". At that point the opening line is no longer true of the person reading it, and they can tell.</p>
+<p><strong>If a list cannot be built at the size you want without weakening the attribute that defines it, it is finished.</strong> Go and find a different story rather than a bigger version of this one.</p>
+<h3>What it produced</h3>
+<p><strong>13 meetings in four days</strong>, and 47.9% LinkedIn acceptance, the highest of any account I run against roughly 10% on another.</p>
+<p><em>Meetings, LinkedIn and email figures from the client-facing dashboard, 2026-10-07. Campaign-level figures from the sending-platform API, 2026-09-26.</em></p>
 
 <div class="pager"><a href="/work/where-they-publish.html"><span class="lbl">Previous</span>143 meetings booked, 112 of them held</a><a href="/work/engagement-vs-filter.html" style="text-align:right"><span class="lbl">Next</span>The list that ignores job titles</a></div>
-<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/engagement-vs-filter.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/engagement-vs-filter</span></span><h3>The list that ignores job titles</h3><p>A list built continuously from people who reacted to a post, feeding four sender accounts. Its audience is deliberately scattered across job titles, and that scatter is the proof it is working.</p><span class="cs-foot"><b>31 vs 4</b><i>interested, from engagement against cold</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/sender-identity.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13.5V9"/><path d="M6.2 13.5V5.5"/><path d="M10.4 13.5v-6"/><path d="M14.6 13.5V2.5"/></svg></span><span class="cs-path">work/sender-identity</span></span><h3>6 meetings from 11,699 emails</h3><p>The highest sending volume of any account I run, and the lowest meeting count. It is in the portfolio because it is the account that proves the other three, not because it flatters them.</p><span class="cs-foot"><b>6</b><i>meetings from 11,699 emails</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
+<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/engagement-vs-filter.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/engagement-vs-filter</span></span><h3>The list that ignores job titles</h3><p>Six weeks of cold ICP batches and copy rewrites produced single digits. A continuous scrape of people who had reacted to a post took acceptance from 14% to 73%.</p><span class="cs-foot"><b>31 vs 4</b><i>interested, from engagement against cold</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/sender-identity.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13.5V9"/><path d="M6.2 13.5V5.5"/><path d="M10.4 13.5v-6"/><path d="M14.6 13.5V2.5"/></svg></span><span class="cs-path">work/sender-identity</span></span><h3>6 meetings from 11,699 emails</h3><p>The highest sending volume of any account I run and the lowest meeting count. It is published because it is the account that proves the other three, not because it flatters them.</p><span class="cs-foot"><b>6</b><i>meetings from 11,699 emails</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
 <section class="book" id="contact"><p class="hl-eyebrow">Get in touch</p><h2>Bring me the signal <span class="uline">you can&rsquo;t see.</span></h2><p class="book-lede">Name the moment a company becomes worth contacting, and I will show you how I would detect it, qualify it and route it.</p><div class="book-act"><a class="btn primary" href="https://www.linkedin.com/in/shubhambuild/">LinkedIn</a><a class="btn" href="mailto:shubhamsharma220802@gmail.com">Email me</a><span class="book-meta">Open to GTM engineering roles</span></div></section>
 </div></main>
 <footer class="site"><div class="wrap fin"><div class="fin-top"><div class="fin-brand"><b>Shubham Sharma<i>.</i></b><p>GTM Engineer &middot; lists, enrichment, deliverability and the measurement that says which half worked</p></div><div class="fin-col"><h3>Site</h3><a href="/#about">About</a><a href="/#range">Range</a><a href="/#contact">Contact</a></div><div class="fin-col"><h3>Elsewhere</h3><a href="https://www.linkedin.com/in/shubhambuild/"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.8" y="1.8" width="12.4" height="12.4" rx="2"/><path d="M4.6 6.8v4.6M4.6 4.4v.1M7.6 11.4V6.8m0 1.5c0-.9.7-1.5 1.6-1.5s1.6.6 1.6 1.5v3.1"/></svg>LinkedIn</a><a href="https://x.com/shubhamsbuilds"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.2 3.2 9.6 9.6M12.8 3.2 3.2 12.8"/></svg>X</a><a href="https://github.com/shubhamsbuild"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12.5c-3 .9-3-1.5-4.2-1.8m8.4 4.3v-2.4c0-.7.1-1-.3-1.3 2-.2 3.6-1 3.6-3.9a3 3 0 0 0-.8-2.1 2.8 2.8 0 0 0-.1-2.1s-.7-.2-2.3.9a7.8 7.8 0 0 0-4 0C4.7 2.9 4 3.1 4 3.1a2.8 2.8 0 0 0-.1 2.1 3 3 0 0 0-.8 2.1c0 2.9 1.6 3.7 3.6 3.9-.3.3-.3.6-.3 1.1v2.3"/></svg>GitHub</a><a href="mailto:shubhamsharma220802@gmail.com"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.6" y="3.2" width="12.8" height="9.6" rx="1.6"/><path d="m2 4.6 6 4 6-4"/></svg>Email</a></div></div><div class="fin-base"><span>&copy; 2026 Shubham Sharma</span><span><a href="/case-studies.html">Case studies</a></span></div></div></footer>

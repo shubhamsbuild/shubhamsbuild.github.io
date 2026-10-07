@@ -3,10 +3,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The list that ignores job titles · Shubham Sharma</title>
-<meta name="description" content="A list built continuously from people who reacted to a post, feeding four sender accounts. Its audience is deliberately scattered across job titles, and that scatter is the proof it is working.">
+<meta name="description" content="Six weeks of cold ICP batches and copy rewrites produced single digits. A continuous scrape of people who had reacted to a post took acceptance from 14% to 73%.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="The list that ignores job titles · Shubham Sharma">
-<meta property="og:description" content="A list built continuously from people who reacted to a post, feeding four sender accounts. Its audience is deliberately scattered across job titles, and that scatter is the proof it is working.">
+<meta property="og:description" content="Six weeks of cold ICP batches and copy rewrites produced single digits. A continuous scrape of people who had reacted to a post took acceptance from 14% to 73%.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -461,8 +461,6 @@ so it still reads as an eyebrow alongside the rest of the site. */
   letter-spacing:-.035em;text-wrap:balance}
 .hl-lede{margin:0 0 22px;font-size:15.5px;color:var(--ink2);max-width:56ch}
 
-@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:620px){.cs-grid{grid-template-columns:1fr}}
 
 /* --- case study cards ----------------------------------------------------- */
 .csx{margin:0 0 var(--sec)}
@@ -526,6 +524,8 @@ so it still reads as an eyebrow alongside the rest of the site. */
 .cs:hover .cs-foot .arw{color:var(--accent);transform:translateX(3px)}
 .cs-cta{margin-top:22px}
 
+/* Four across needs roughly 1200px. Below that, two up, then one. */
+@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.cs-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){
   .cs,.cs-foot .arw{transition:none}
@@ -1255,6 +1255,20 @@ visibility 0s .36s}
 @media (max-width:680px){
   .wrap{padding:0 24px}
   th,td{white-space:normal}
+}
+/* Tables are already in an overflow-x wrapper, but a table that scrolls on a
+   phone is a table most people never see the right-hand column of. Tightening
+   the cells lets the wider ones fit instead of hiding behind a scroll. */
+@media (max-width:520px){
+  table{font-size:12.5px}
+  th,td{padding:8px 10px}
+  th{font-size:9.5px;letter-spacing:.4px}
+}
+@media (max-width:380px){
+  table{font-size:12px}
+  th,td{padding:7px 8px}
+}
+@media (max-width:520px){
   .hin{padding-top:20px;padding-bottom:20px}
   .hin nav a{padding:15px 24px}
   .sheet{padding:36px 22px 32px}
@@ -1305,39 +1319,35 @@ visibility 0s .36s}
 <main><div class="wrap">
 <p class="cse-tags"><span>Data acquisition</span><span>a B2B selling to founders and creator teams</span></p>
 <h1>The list that ignores job titles</h1>
-<p class="lede">A list built continuously from people who reacted to a post, feeding four sender accounts. Its audience is deliberately scattered across job titles, and that scatter is the proof it is working.</p>
+<p class="lede">Six weeks of cold ICP batches and copy rewrites produced single digits. A continuous scrape of people who had reacted to a post took acceptance from 14% to 73%.</p>
 <div class="mtrs"><div class="mtr"><b>31 vs 4</b><span>interested, from engagement against cold</span></div></div>
-<dl class="fct"><div><dt>Discipline</dt><dd>Data acquisition</dd></div><div><dt>Client since</dt><dd>10 March 2025</dd></div><div><dt>Sheet</dt><dd>05 / 08</dd></div></dl>
+<dl class="fct"><div><dt>Discipline</dt><dd>Data acquisition</dd></div><div><dt>Client since</dt><dd>10 March 2025</dd></div></dl>
 
-<dl class="glance"><div class="gl"><dt>Problem</dt><dd>The account ran title-filtered lists at volume. A filter finds people who resemble the customer. It cannot find people who are in the market this week, because interest is not a field anyone sells.</dd></div><div class="gl"><dt>System</dt><dd>A continuous scrape of people who reacted to a relevant post, feeding four sender accounts, plus a job-posting list on email, run against the account's existing cold campaigns in the same window, through the same senders.</dd></div><div class="gl out"><dt>Output</dt><dd>31 interested from 307 connections built on engagement. The cold campaigns, at two and a half times the volume, returned 4 from 775.</dd></div></dl>
+<dl class="glance"><div class="gl"><dt>Problem</dt><dd>A filter finds people who resemble the customer. It cannot find people thinking about the problem this week, because interest is not a field anyone sells.</dd></div><div class="gl"><dt>System</dt><dd>A continuous scrape of post reactors feeding four sender accounts, run against the account's existing cold campaigns in the same window and through the same senders.</dd></div><div class="gl out"><dt>Output</dt><dd>31 interested from 307 engagement-sourced connections against 4 from 775 cold. Acceptance moved from 14% to 73% before a single message was read.</dd></div></dl>
 
-<div class="tw"><table><thead><tr><th class="a-left">Source, same account &amp; window</th><th class="a-left">Campaigns</th><th class="a-left">Sent</th><th class="a-left">Interested</th></tr></thead><tbody><tr><td class="a-left">Built from engagement</td><td class="a-left">5</td><td class="a-left">307</td><td class="a-left"><strong>31</strong></td></tr><tr><td class="a-left">Cold, title-filtered</td><td class="a-left">4</td><td class="a-left">775</td><td class="a-left"><strong>4</strong></td></tr><tr><td class="a-left">The reactor system alone</td><td class="a-left">4 senders</td><td class="a-left">249</td><td class="a-left"><strong>28</strong></td></tr></tbody></table></div>
-<div class="tw"><table><thead><tr><th class="a-left">LinkedIn</th><th class="a-left"></th><th class="a-left">Email</th><th class="a-left"></th></tr></thead><tbody><tr><td class="a-left">Connections sent</td><td class="a-left">2,874</td><td class="a-left">Emails sent</td><td class="a-left">9,301</td></tr><tr><td class="a-left">Accepted</td><td class="a-left">656</td><td class="a-left">Leads contacted</td><td class="a-left">7,959</td></tr><tr><td class="a-left">Conversations started</td><td class="a-left">575</td><td class="a-left">Unique replies</td><td class="a-left">66</td></tr><tr><td class="a-left">Replies</td><td class="a-left">105</td><td class="a-left">Marked interested</td><td class="a-left">27</td></tr></tbody></table></div>
-<h3>The problem</h3>
-<p>The account was buying lists the normal way: pick the job titles, pick the company sizes, send to everyone who matches.</p>
-<p>That finds people who <strong>resemble</strong> the customer. It cannot find people who are thinking about the problem this week, because no database has a column for that, and nobody is going to sell you one.</p>
-<h3>How I approached it</h3>
-<p>If interest cannot be bought, it has to be observed. People leave traces of what they are paying attention to, and the clearest one on LinkedIn is simple: they react to a post about it.</p>
-<p>Someone who liked a post about the exact problem this product solves has told you something a job title never will. It is public, it is dated, and it happened this week.</p>
-<h3>What I built</h3>
-<p>A scrape of those reactions that runs <strong>continuously</strong>, feeding four different sender accounts, rather than a batch somebody assembles once a month.</p>
-<p>That difference matters more than it sounds. A batch is a thing you built and then start using up. This one has new people in it tomorrow whether anybody touches it or not, it is a machine, not a list.</p>
-<p>On email, a second signal: companies posting job ads. A company advertising for a role has a gap and a budget, and the ad is public, so you can mention it without being creepy about where you got it.</p>
+<div class="tw"><table><thead><tr><th class="a-left"></th><th class="a-left"></th></tr></thead><tbody><tr><td class="a-left">Connections sent</td><td class="a-left">2,874</td></tr><tr><td class="a-left">Conversations started</td><td class="a-left">575</td></tr><tr><td class="a-left">Tagged interested</td><td class="a-left">62</td></tr><tr><td class="a-left">Emails sent</td><td class="a-left">9,301</td></tr><tr><td class="a-left">Marked interested</td><td class="a-left">27</td></tr></tbody></table></div>
+<h3>Problem one: six weeks of cold batches</h3>
+<p>The account opened on ordinary ICP lists. Batch one, batch three, an ICP B, an ambassador variant, two cold-outreach rounds. <strong>Roughly 1,100 invitations, six interested replies, and acceptance running at 14%.</strong></p>
+<h3>Problem two: rewriting the copy did not fix it</h3>
+<p>The next instinct was new messaging, and it ran properly: a consultative rewrite pushed across founders, ambassadors and co-founders with separate campaigns per segment.</p>
+<p><strong>608 invitations, six interested.</strong> Acceptance moved from 14% to 21%, which is movement, but not the kind that changes an account.</p>
+<p>Two different levers had now been pulled — the audience within the ICP, and the words — and neither moved it. That leaves the list itself.</p>
+<h3>The list that ignores job titles</h3>
+<p>If interest cannot be bought, it has to be observed. The clearest observable on LinkedIn is simple: somebody reacted to a post about the exact problem this product solves. Public, dated, and it happened this week.</p>
+<div class="exhibit"><img src="/assets/exhibit-13-ghost-acceptance.svg" alt="Post reactors accepted 73 percent of connection requests against 14 percent for cold ICP batches" loading="lazy" decoding="async"></div>
+<p><strong>Acceptance went from 14% to 73%</strong> — and acceptance happens before anyone reads the message, so that gap is the list talking, not the copy.</p>
+<p>It runs <strong>always-on across four sender identities</strong> rather than as a batch. A batch is something you built once. This has new people in it tomorrow whether anybody touches it or not.</p>
 <h3>The counter-intuitive part</h3>
-<p>I deliberately did almost no filtering on top.</p>
-<p>When I audited who was actually in these campaigns, the job titles were all over the place, operations, marketing, engineering, at companies with nothing obvious in common. That looks like a mistake. It is the opposite: it is the proof the list is built on behaviour. A title filter returns page after page of near-identical titles, which is exactly what this account's cold lists do.</p>
-<p>Filtering the engagement list by seniority would have thrown away the only signal that put anyone on it.</p>
-<h3>What it did</h3>
-<p><strong>31 interested replies from 307 connections</strong>, against <strong>4 from 775</strong> on the cold lists, same account, same weeks, same sender accounts. Two and a half times the volume returned an eighth of the result.</p>
+<p>I deliberately did almost no filtering on top. An audit of the audience showed job titles scattered across operations, marketing, engineering, at companies with nothing obvious in common.</p>
+<p>That looks like a mistake and it is the opposite: it is the proof the list is behavioural. A title filter returns page after page of near-identical titles, which is exactly what this account's cold lists did. Filtering the scrape by seniority would throw away the only signal that put anyone on it.</p>
 <h3>What broke</h3>
-<p>Scrapes that run continuously drift. People who engage a lot keep re-entering the list, so without a check you contact your best prospects over and over, the fault lands hardest on exactly the people you least want to annoy.</p>
-<p>Four retired campaigns sit in the account, renamed rather than deleted, marking where that was caught and fixed.</p>
+<p>Scrapes that run continuously drift. Frequent engagers re-enter the list, so without a check you contact your best prospects repeatedly. Four retired campaigns sit in the account, renamed rather than deleted, marking where that was caught.</p>
 <h3>The honest limit</h3>
-<p>The wording was not held identical between the two groups, so this compares <em>list built from engagement plus its copy</em> against <em>cold list plus its copy</em>. It shows the combination is worth roughly an order of magnitude. It does not isolate the list on its own.</p>
+<p>Wording was not held identical between the cold and engagement groups, so this compares <em>list plus its copy</em> against <em>list plus its copy</em>. It shows the combination is worth roughly an order of magnitude. The acceptance gap is the part that isolates the list, because it happens before the message is read.</p>
 <p><em>Figures from the sending-platform API, 2026-09-26. This account is not on the client-facing dashboard, so no meeting count exists for it.</em></p>
 
 <div class="pager"><a href="/work/narrative-lists.html"><span class="lbl">Previous</span>13 meetings in 4 days</a><a href="/work/sender-identity.html" style="text-align:right"><span class="lbl">Next</span>6 meetings from 11,699 emails</a></div>
-<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/sender-identity.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13.5V9"/><path d="M6.2 13.5V5.5"/><path d="M10.4 13.5v-6"/><path d="M14.6 13.5V2.5"/></svg></span><span class="cs-path">work/sender-identity</span></span><h3>6 meetings from 11,699 emails</h3><p>The highest sending volume of any account I run, and the lowest meeting count. It is in the portfolio because it is the account that proves the other three, not because it flatters them.</p><span class="cs-foot"><b>6</b><i>meetings from 11,699 emails</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/income-proxy.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/income-proxy</span></span><h3>153 meetings from a customer nobody sells</h3><p>"Business owners earning over $600,000" is a sound description of a customer and an impossible instruction for building a list. Personal income is not for sale, so it had to be reached sideways.</p><span class="cs-foot"><b>153</b><i>meetings from an attribute nobody sells</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
+<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/sender-identity.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13.5V9"/><path d="M6.2 13.5V5.5"/><path d="M10.4 13.5v-6"/><path d="M14.6 13.5V2.5"/></svg></span><span class="cs-path">work/sender-identity</span></span><h3>6 meetings from 11,699 emails</h3><p>The highest sending volume of any account I run and the lowest meeting count. It is published because it is the account that proves the other three, not because it flatters them.</p><span class="cs-foot"><b>6</b><i>meetings from 11,699 emails</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/income-proxy.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/income-proxy</span></span><h3>153 meetings from a customer nobody sells</h3><p>The customer was defined as "business owners earning over $600,000". That is a sound description and an impossible instruction, because personal income is not a field anybody sells.</p><span class="cs-foot"><b>153</b><i>meetings from an attribute nobody sells</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
 <section class="book" id="contact"><p class="hl-eyebrow">Get in touch</p><h2>Bring me the signal <span class="uline">you can&rsquo;t see.</span></h2><p class="book-lede">Name the moment a company becomes worth contacting, and I will show you how I would detect it, qualify it and route it.</p><div class="book-act"><a class="btn primary" href="https://www.linkedin.com/in/shubhambuild/">LinkedIn</a><a class="btn" href="mailto:shubhamsharma220802@gmail.com">Email me</a><span class="book-meta">Open to GTM engineering roles</span></div></section>
 </div></main>
 <footer class="site"><div class="wrap fin"><div class="fin-top"><div class="fin-brand"><b>Shubham Sharma<i>.</i></b><p>GTM Engineer &middot; lists, enrichment, deliverability and the measurement that says which half worked</p></div><div class="fin-col"><h3>Site</h3><a href="/#about">About</a><a href="/#range">Range</a><a href="/#contact">Contact</a></div><div class="fin-col"><h3>Elsewhere</h3><a href="https://www.linkedin.com/in/shubhambuild/"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.8" y="1.8" width="12.4" height="12.4" rx="2"/><path d="M4.6 6.8v4.6M4.6 4.4v.1M7.6 11.4V6.8m0 1.5c0-.9.7-1.5 1.6-1.5s1.6.6 1.6 1.5v3.1"/></svg>LinkedIn</a><a href="https://x.com/shubhamsbuilds"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.2 3.2 9.6 9.6M12.8 3.2 3.2 12.8"/></svg>X</a><a href="https://github.com/shubhamsbuild"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12.5c-3 .9-3-1.5-4.2-1.8m8.4 4.3v-2.4c0-.7.1-1-.3-1.3 2-.2 3.6-1 3.6-3.9a3 3 0 0 0-.8-2.1 2.8 2.8 0 0 0-.1-2.1s-.7-.2-2.3.9a7.8 7.8 0 0 0-4 0C4.7 2.9 4 3.1 4 3.1a2.8 2.8 0 0 0-.1 2.1 3 3 0 0 0-.8 2.1c0 2.9 1.6 3.7 3.6 3.9-.3.3-.3.6-.3 1.1v2.3"/></svg>GitHub</a><a href="mailto:shubhamsharma220802@gmail.com"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.6" y="3.2" width="12.8" height="9.6" rx="1.6"/><path d="m2 4.6 6 4 6-4"/></svg>Email</a></div></div><div class="fin-base"><span>&copy; 2026 Shubham Sharma</span><span><a href="/case-studies.html">Case studies</a></span></div></div></footer>

@@ -3,10 +3,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>6 meetings from 11,699 emails · Shubham Sharma</title>
-<meta name="description" content="The highest sending volume of any account I run, and the lowest meeting count. It is in the portfolio because it is the account that proves the other three, not because it flatters them.">
+<meta name="description" content="The highest sending volume of any account I run and the lowest meeting count. It is published because it is the account that proves the other three, not because it flatters them.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="6 meetings from 11,699 emails · Shubham Sharma">
-<meta property="og:description" content="The highest sending volume of any account I run, and the lowest meeting count. It is in the portfolio because it is the account that proves the other three, not because it flatters them.">
+<meta property="og:description" content="The highest sending volume of any account I run and the lowest meeting count. It is published because it is the account that proves the other three, not because it flatters them.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -461,8 +461,6 @@ so it still reads as an eyebrow alongside the rest of the site. */
   letter-spacing:-.035em;text-wrap:balance}
 .hl-lede{margin:0 0 22px;font-size:15.5px;color:var(--ink2);max-width:56ch}
 
-@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:620px){.cs-grid{grid-template-columns:1fr}}
 
 /* --- case study cards ----------------------------------------------------- */
 .csx{margin:0 0 var(--sec)}
@@ -526,6 +524,8 @@ so it still reads as an eyebrow alongside the rest of the site. */
 .cs:hover .cs-foot .arw{color:var(--accent);transform:translateX(3px)}
 .cs-cta{margin-top:22px}
 
+/* Four across needs roughly 1200px. Below that, two up, then one. */
+@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.cs-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){
   .cs,.cs-foot .arw{transition:none}
@@ -1255,6 +1255,20 @@ visibility 0s .36s}
 @media (max-width:680px){
   .wrap{padding:0 24px}
   th,td{white-space:normal}
+}
+/* Tables are already in an overflow-x wrapper, but a table that scrolls on a
+   phone is a table most people never see the right-hand column of. Tightening
+   the cells lets the wider ones fit instead of hiding behind a scroll. */
+@media (max-width:520px){
+  table{font-size:12.5px}
+  th,td{padding:8px 10px}
+  th{font-size:9.5px;letter-spacing:.4px}
+}
+@media (max-width:380px){
+  table{font-size:12px}
+  th,td{padding:7px 8px}
+}
+@media (max-width:520px){
   .hin{padding-top:20px;padding-bottom:20px}
   .hin nav a{padding:15px 24px}
   .sheet{padding:36px 22px 32px}
@@ -1305,34 +1319,35 @@ visibility 0s .36s}
 <main><div class="wrap">
 <p class="cse-tags"><span>Measurement</span><span>a B2B selling to founders and marketing leads</span></p>
 <h1>6 meetings from 11,699 emails</h1>
-<p class="lede">The highest sending volume of any account I run, and the lowest meeting count. It is in the portfolio because it is the account that proves the other three, not because it flatters them.</p>
+<p class="lede">The highest sending volume of any account I run and the lowest meeting count. It is published because it is the account that proves the other three, not because it flatters them.</p>
 <div class="mtrs"><div class="mtr"><b>6</b><span>meetings from 11,699 emails</span></div></div>
-<dl class="fct"><div><dt>Discipline</dt><dd>Measurement</dd></div><div><dt>Client since</dt><dd>21 April 2026</dd></div><div><dt>Sheet</dt><dd>06 / 08</dd></div></dl>
+<dl class="fct"><div><dt>Discipline</dt><dd>Measurement</dd></div><div><dt>Client since</dt><dd>21 April 2026</dd></div></dl>
 
-<dl class="glance"><div class="gl"><dt>Problem</dt><dd>Outbound credits results to the message and almost never to the person it appears to come from. If the sender moves the number, every copy test run across mixed senders is measuring two things at once.</dd></div><div class="gl"><dt>System</dt><dd>One campaign specification across three sender identities on the same two days, each working a separate list of comparable size, with version, sender, approach and date written into every campaign name so the arms stayed separable.</dd></div><div class="gl out"><dt>Output</dt><dd>6 meetings from 11,699 emails and 1,123 LinkedIn invites. Against a clinical-research account booking 55 from 2,564 emails, volume and outcome ran in opposite directions.</dd></div></dl>
+<dl class="glance"><div class="gl"><dt>Problem</dt><dd>Outbound credits results to the message and almost never to the person it appears to come from, or to the fact that the opener had nothing specific in it.</dd></div><div class="gl"><dt>System</dt><dd>One campaign specification across three sender identities on the same two days, each working a separate list, with version, sender, approach and date in every campaign name so the arms stayed separable.</dd></div><div class="gl out"><dt>Output</dt><dd>6 meetings from 11,699 emails. The 200 invitations sent before the rollout produced 14 interested replies; the 1,111 sent during it produced 16.</dd></div></dl>
 
-<div class="tw"><table><thead><tr><th class="a-left"></th><th class="a-left"></th></tr></thead><tbody><tr><td class="a-left"><strong>Meetings booked</strong></td><td class="a-left"><strong>6</strong></td></tr><tr><td class="a-left">In the last 7 days</td><td class="a-left">6</td></tr><tr><td class="a-left">Emails sent</td><td class="a-left"><strong>11,699</strong></td></tr><tr><td class="a-left">Email reply rate</td><td class="a-left">0.3%</td></tr><tr><td class="a-left">Positive email replies</td><td class="a-left">11</td></tr><tr><td class="a-left">LinkedIn invites</td><td class="a-left">1,123</td></tr><tr><td class="a-left">LinkedIn accepted</td><td class="a-left">39.2%</td></tr><tr><td class="a-left">LinkedIn replies</td><td class="a-left">121</td></tr></tbody></table></div>
-<h3>Why this one is here</h3>
-<p>This is the weakest account in the book, and it is on the site on purpose.</p>
-<p>It sends <strong>more email than any other account I run, 11,699, and books six meetings.</strong> The clinical-research account sends 2,564 and books 55. Same operator, same months, same tooling underneath.</p>
-<p>Volume and outcome ran in opposite directions. That is the claim the other studies make, and this is the account that proves it rather than one that flatters it. A portfolio where everything wins is a selection, not a method.</p>
-<h3>The problem</h3>
-<p>Outbound almost always credits the result to the words in the email. Almost nobody asks whether it mattered <strong>who the email appeared to come from.</strong></p>
-<p>That gap matters beyond curiosity: if the sender moves the number, then every copy test anyone runs across several sender accounts is quietly measuring two variables at once and attributing all of it to the writing.</p>
-<h3>What I built</h3>
-<p>One campaign specification, run on the same two days by three different people, each working a separate list of comparable size. The version, the sender, the approach and the date all go into the campaign name, so the three arms can be told apart afterwards instead of blurring into an account average.</p>
+<div class="tw"><table><thead><tr><th class="a-left"></th><th class="a-left"></th></tr></thead><tbody><tr><td class="a-left"><strong>Meetings booked</strong></td><td class="a-left"><strong>6</strong></td></tr><tr><td class="a-left">Emails sent</td><td class="a-left"><strong>11,699</strong></td></tr><tr><td class="a-left">Email reply rate</td><td class="a-left">0.3%</td></tr><tr><td class="a-left">LinkedIn invites</td><td class="a-left">1,123</td></tr><tr><td class="a-left">LinkedIn accepted</td><td class="a-left">39.2%</td></tr></tbody></table></div>
+<h3>Why this one is on the site</h3>
+<p>It is the weakest account in the book and it is here on purpose.</p>
+<p><strong>11,699 emails, six meetings.</strong> The clinical-research account sends 2,564 and books 55. Same operator, same months, same stack underneath. Volume and outcome ran in opposite directions, and this is the account that proves it rather than one that flatters it.</p>
+<p>A portfolio where everything wins is a selection, not a method.</p>
+<h3>Problem one: the best campaign was the smallest</h3>
+<p>The account's strongest campaign was ninety invitations with a named reference in the opener — a specific person at a specific company the prospect would recognise. <strong>77% accepted. Eight interested.</strong></p>
+<p>Then the account scaled into a standard consultative sequence rolled out across three senders.</p>
+<div class="exhibit"><img src="/assets/exhibit-14-brew-context.svg" alt="A named-reference opener achieved 77 percent acceptance and eight interested replies from 90 sends" loading="lazy" decoding="async"></div>
+<p><strong>1,111 invitations produced 16. The 200 before them produced 14.</strong> Acceptance fell from 77% to 25% as the opener lost the thing that made it specific.</p>
+<h3>Problem two: nobody tests the sender</h3>
+<p>Outbound credits results to the message and almost never to the person it appears to come from. If the sender moves the number, every copy test run across mixed senders is quietly measuring two variables.</p>
+<p>So the rollout ran as one specification, three senders, same two days:</p>
 <div class="tw"><table><thead><tr><th class="a-left">Sender</th><th class="a-left">Day 1</th><th class="a-left">Day 2</th><th class="a-left">Total sent</th><th class="a-left">Interested</th></tr></thead><tbody><tr><td class="a-left">A</td><td class="a-left">194 → 3</td><td class="a-left">151 → 1</td><td class="a-left">345</td><td class="a-left"><strong>4</strong></td></tr><tr><td class="a-left">B</td><td class="a-left">194 → 7</td><td class="a-left">189 → 2</td><td class="a-left">383</td><td class="a-left"><strong>9</strong></td></tr><tr><td class="a-left">C</td><td class="a-left">192 → 2</td><td class="a-left">191 → 1</td><td class="a-left">383</td><td class="a-left"><strong>3</strong></td></tr></tbody></table></div>
-<p>Sender B got three times what Sender C got, on the same number of connections.</p>
-<h3>Why I call that a test and not a finding</h3>
-<p>The campaign names say the three were running the same thing. They do not <strong>prove</strong> the message bodies were identical, and I have not compared them line by line yet.</p>
-<p>Until I do, this stays a test. Calling it a finding would put it on the same footing as a comparison where the wording genuinely was held identical, and that would cheapen the one that was.</p>
+<p>Sender B got three times Sender C's result on the same volume.</p>
+<p><strong>This stays a test, not a finding.</strong> The campaign names assert the specs were identical; they do not prove the message bodies were, and I have not compared them line by line. Calling it a finding would put it on the same footing as a comparison where the wording genuinely was held identical.</p>
 <h3>What was actually wrong here</h3>
 <p>Not the senders. The targeting.</p>
-<p>This list was built the ordinary way: the right job titles at the right kind of company, and nothing else. No trigger, no event, no reason why this week. That is the exact ingredient the three better-performing accounts added, and the gap between 6 meetings and 55 is the size of what it is worth.</p>
-<p><em>Meetings, email and LinkedIn figures from the client-facing dashboard, 2026-10-07. The sender split is from the sending-platform API, 2026-09-26; the two are not mixed.</em></p>
+<p>The list was built the ordinary way: right job titles, right company type, nothing else. No trigger, no event, no reason why this week. That is the exact ingredient the three better accounts added, and the gap between 6 meetings and 55 is the size of what it is worth.</p>
+<p><em>Meetings, email and LinkedIn figures from the client-facing dashboard, 2026-10-07. Campaign-level figures from the sending-platform API, 2026-09-26; the two are not mixed.</em></p>
 
 <div class="pager"><a href="/work/engagement-vs-filter.html"><span class="lbl">Previous</span>The list that ignores job titles</a><a href="/work/income-proxy.html" style="text-align:right"><span class="lbl">Next</span>153 meetings from a customer nobody sells</a></div>
-<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/income-proxy.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/income-proxy</span></span><h3>153 meetings from a customer nobody sells</h3><p>"Business owners earning over $600,000" is a sound description of a customer and an impossible instruction for building a list. Personal income is not for sale, so it had to be reached sideways.</p><span class="cs-foot"><b>153</b><i>meetings from an attribute nobody sells</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/smb-data-acquisition.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/smb-data-acquisition</span></span><h3>15 meetings from a list that did not exist</h3><p>Eight trades built from map data, public directories and manufacturer dealer-locators. Nothing spent with list vendors, and four data problems caught before they reached anyone's inbox.</p><span class="cs-foot"><b>15</b><i>meetings from a list that did not exist</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
+<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/income-proxy.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/income-proxy</span></span><h3>153 meetings from a customer nobody sells</h3><p>The customer was defined as "business owners earning over $600,000". That is a sound description and an impossible instruction, because personal income is not a field anybody sells.</p><span class="cs-foot"><b>153</b><i>meetings from an attribute nobody sells</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/smb-data-acquisition.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/smb-data-acquisition</span></span><h3>15 meetings from a list that did not exist</h3><p>The first campaign failed outright. Three angles, 6,397 sends, three replies worth having. Working out that it was the audience and not the copy is what the rest of this account is.</p><span class="cs-foot"><b>15</b><i>meetings from a list that did not exist</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
 <section class="book" id="contact"><p class="hl-eyebrow">Get in touch</p><h2>Bring me the signal <span class="uline">you can&rsquo;t see.</span></h2><p class="book-lede">Name the moment a company becomes worth contacting, and I will show you how I would detect it, qualify it and route it.</p><div class="book-act"><a class="btn primary" href="https://www.linkedin.com/in/shubhambuild/">LinkedIn</a><a class="btn" href="mailto:shubhamsharma220802@gmail.com">Email me</a><span class="book-meta">Open to GTM engineering roles</span></div></section>
 </div></main>
 <footer class="site"><div class="wrap fin"><div class="fin-top"><div class="fin-brand"><b>Shubham Sharma<i>.</i></b><p>GTM Engineer &middot; lists, enrichment, deliverability and the measurement that says which half worked</p></div><div class="fin-col"><h3>Site</h3><a href="/#about">About</a><a href="/#range">Range</a><a href="/#contact">Contact</a></div><div class="fin-col"><h3>Elsewhere</h3><a href="https://www.linkedin.com/in/shubhambuild/"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.8" y="1.8" width="12.4" height="12.4" rx="2"/><path d="M4.6 6.8v4.6M4.6 4.4v.1M7.6 11.4V6.8m0 1.5c0-.9.7-1.5 1.6-1.5s1.6.6 1.6 1.5v3.1"/></svg>LinkedIn</a><a href="https://x.com/shubhamsbuilds"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.2 3.2 9.6 9.6M12.8 3.2 3.2 12.8"/></svg>X</a><a href="https://github.com/shubhamsbuild"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12.5c-3 .9-3-1.5-4.2-1.8m8.4 4.3v-2.4c0-.7.1-1-.3-1.3 2-.2 3.6-1 3.6-3.9a3 3 0 0 0-.8-2.1 2.8 2.8 0 0 0-.1-2.1s-.7-.2-2.3.9a7.8 7.8 0 0 0-4 0C4.7 2.9 4 3.1 4 3.1a2.8 2.8 0 0 0-.1 2.1 3 3 0 0 0-.8 2.1c0 2.9 1.6 3.7 3.6 3.9-.3.3-.3.6-.3 1.1v2.3"/></svg>GitHub</a><a href="mailto:shubhamsharma220802@gmail.com"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.6" y="3.2" width="12.8" height="9.6" rx="1.6"/><path d="m2 4.6 6 4 6-4"/></svg>Email</a></div></div><div class="fin-base"><span>&copy; 2026 Shubham Sharma</span><span><a href="/case-studies.html">Case studies</a></span></div></div></footer>

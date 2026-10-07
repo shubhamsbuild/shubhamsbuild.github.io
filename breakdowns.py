@@ -148,7 +148,7 @@ BREAKDOWNS = {
                       "no booking link, so every call to action is reply-based",
         "metrics": [
             ("60,000", "trade companies sourced at zero list-vendor cost"),
-            ("12", "calls booked for the account, via Calendly and Cal.com"),
+            ("15", "meetings booked, from 21 rows with 6 excluded for having no meeting time"),
         ],
         "steps": [
             ("Named the real problem",
@@ -325,7 +325,7 @@ BREAKDOWNS = {
         "constraint": "Regulated, no numeric savings guarantees, and "
                       "the client will not prospect its own industry",
         "metrics": [
-            ("144", "calls booked for the account, via Calendly and Cal.com"),
+            ("153", "meetings booked, from 173 rows with 20 excluded for having no meeting time"),
             ("2.1&times;", "the profession proxy against the brief as literally written"),
         ],
         "steps": [
@@ -434,8 +434,8 @@ BREAKDOWNS = {
         "constraint": "84 of 95 campaigns count auto-replies in their statistics, "
                       "so reply rate is not a usable comparison on this account",
         "metrics": [
-            ("145", "calls booked for the account, via Calendly and Cal.com"),
-            ("26&times;", "spread between the best and worst list construction"),
+            ("143", "meetings booked and 112 held, from 160 rows with 17 excluded"),
+            ("3.8&times;", "spread between the best and worst list construction, per person contacted"),
         ],
         "steps": [
             ("Built the same market four different ways",

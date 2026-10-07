@@ -3,10 +3,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>32 meetings in 11 days · Shubham Sharma</title>
-<meta name="description" content="503 LinkedIn invites, no email channel at all, 32 meetings booked between 26 September and 6 October. Fifteen of them landed in the final week.">
+<meta name="description" content="A lettered taxonomy of practice life-events, each trigger built twice so the opener matches whether you have spoken before. No email channel at all.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="32 meetings in 11 days · Shubham Sharma">
-<meta property="og:description" content="503 LinkedIn invites, no email channel at all, 32 meetings booked between 26 September and 6 October. Fifteen of them landed in the final week.">
+<meta property="og:description" content="A lettered taxonomy of practice life-events, each trigger built twice so the opener matches whether you have spoken before. No email channel at all.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -461,8 +461,6 @@ so it still reads as an eyebrow alongside the rest of the site. */
   letter-spacing:-.035em;text-wrap:balance}
 .hl-lede{margin:0 0 22px;font-size:15.5px;color:var(--ink2);max-width:56ch}
 
-@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:620px){.cs-grid{grid-template-columns:1fr}}
 
 /* --- case study cards ----------------------------------------------------- */
 .csx{margin:0 0 var(--sec)}
@@ -526,6 +524,8 @@ so it still reads as an eyebrow alongside the rest of the site. */
 .cs:hover .cs-foot .arw{color:var(--accent);transform:translateX(3px)}
 .cs-cta{margin-top:22px}
 
+/* Four across needs roughly 1200px. Below that, two up, then one. */
+@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.cs-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){
   .cs,.cs-foot .arw{transition:none}
@@ -1255,6 +1255,20 @@ visibility 0s .36s}
 @media (max-width:680px){
   .wrap{padding:0 24px}
   th,td{white-space:normal}
+}
+/* Tables are already in an overflow-x wrapper, but a table that scrolls on a
+   phone is a table most people never see the right-hand column of. Tightening
+   the cells lets the wider ones fit instead of hiding behind a scroll. */
+@media (max-width:520px){
+  table{font-size:12.5px}
+  th,td{padding:8px 10px}
+  th{font-size:9.5px;letter-spacing:.4px}
+}
+@media (max-width:380px){
+  table{font-size:12px}
+  th,td{padding:7px 8px}
+}
+@media (max-width:520px){
   .hin{padding-top:20px;padding-bottom:20px}
   .hin nav a{padding:15px 24px}
   .sheet{padding:36px 22px 32px}
@@ -1305,32 +1319,29 @@ visibility 0s .36s}
 <main><div class="wrap">
 <p class="cse-tags"><span>Data acquisition</span><span>a patient-data platform</span></p>
 <h1>32 meetings in 11 days</h1>
-<p class="lede">503 LinkedIn invites, no email channel at all, 32 meetings booked between 26 September and 6 October. Fifteen of them landed in the final week.</p>
+<p class="lede">A lettered taxonomy of practice life-events, each trigger built twice so the opener matches whether you have spoken before. No email channel at all.</p>
 <div class="mtrs"><div class="mtr"><b>32</b><span>meetings booked in 11 days, LinkedIn only</span></div></div>
-<dl class="fct"><div><dt>Discipline</dt><dd>Data acquisition</dd></div><div><dt>Client since</dt><dd>14 August 2026</dd></div><div><dt>Sheet</dt><dd>02 / 08</dd></div></dl>
+<dl class="fct"><div><dt>Discipline</dt><dd>Data acquisition</dd></div><div><dt>Client since</dt><dd>14 August 2026</dd></div></dl>
 
-<dl class="glance"><div class="gl"><dt>Problem</dt><dd>"Physicians" is not a targetable moment. A practice that just changed state has a reason to talk this month that it did not have last month, and none of those states are a field you can filter on.</dd></div><div class="gl"><dt>System</dt><dd>A lettered taxonomy of practice life-events, each trigger its own campaign, each split into a new-connection variant and a message-existing-connection variant, every campaign carrying its sender and its date.</dd></div><div class="gl out"><dt>Output</dt><dd>32 meetings booked between 26 September and 6 October from 503 LinkedIn invites, with no email channel running at all.</dd></div></dl>
+<dl class="glance"><div class="gl"><dt>Problem</dt><dd>"Physicians" is not a targetable moment. A practice that just changed state has a reason to talk this month that it did not have last month, and none of those states are a field you can filter on.</dd></div><div class="gl"><dt>System</dt><dd>Each trigger is its own campaign, and each exists twice: one version asks to connect, the other messages people already in the network. Same trigger, different opener.</dd></div><div class="gl out"><dt>Output</dt><dd>32 meetings booked between 26 September and 6 October from 503 invitations, with no email running at all. Fifteen landed in the final week.</dd></div></dl>
 
-<div class="tw"><table><thead><tr><th class="a-left"></th><th class="a-left"></th></tr></thead><tbody><tr><td class="a-left"><strong>Meetings booked</strong></td><td class="a-left"><strong>32</strong></td></tr><tr><td class="a-left">Booked between</td><td class="a-left">26 Sep to 6 Oct 2026</td></tr><tr><td class="a-left">In the last 7 days</td><td class="a-left">15</td></tr><tr><td class="a-left">LinkedIn invites</td><td class="a-left">503</td></tr><tr><td class="a-left">LinkedIn accepted</td><td class="a-left">10.3%</td></tr><tr><td class="a-left">LinkedIn replies</td><td class="a-left">20</td></tr><tr><td class="a-left">Email channel</td><td class="a-left">none</td></tr></tbody></table></div>
-<h3>The problem</h3>
-<p>The customer is a medical practice. You can buy a list of physicians easily. Every data vendor sells one, and so does every competitor pitching the same practices.</p>
-<p>The trouble is that a list of physicians tells you who <em>could</em> buy, not who is ready to. A practice that has run the same way for six years and a practice that changed something last month look identical on that list. Only one of them has a reason to take the call.</p>
-<h3>How I approached it</h3>
-<p>I stopped asking <em>who is the customer</em> and started asking <strong>what has to happen at a practice before they need this.</strong></p>
-<p>Those are events, not attributes. A practice opens. It takes on another doctor. It hires someone to chase up patients who stopped coming in. A doctor finishes training and is about to sign a contract. A practice stops accepting Medicare and starts charging patients directly.</p>
-<p>Every one of those changes how the practice runs, every one creates a problem this product solves, and none of them is a box you can tick on a data vendor's website. They have to be found.</p>
-<h3>What I built</h3>
-<p>A separate campaign for each event, labelled so anyone can tell them apart, and each one built twice over.</p>
-<p>That second part is the piece that does the work. One version goes to people we are not connected to, and asks to connect. The other goes to people already in the network, as a direct message. Same trigger, completely different opening line, because "we're connected and I noticed this" and "we have never spoken and I noticed this" are not the same sentence and should not be written as if they were.</p>
-<p>Every campaign carries its sender and its date, so a stale one is visible rather than quietly running on a reason that has expired.</p>
-<p>Before writing any of this down, I pulled a sample of the people actually in those campaigns and read their profiles. The names on the campaigns claimed one audience; I wanted to see whether the campaigns contained it. They did: physicians and clinical leadership, matching what each trigger said it was looking for.</p>
-<h3>What it did</h3>
-<p><strong>32 meetings in 11 days.</strong> 503 LinkedIn invitations, and no email at all.</p>
-<p>Fifteen of those landed in the final week, so it was still accelerating when I pulled the numbers. The lesson is not that LinkedIn beats email. It is that knowing <em>why</em> you are writing this week beats sending more.</p>
-<p><em>Meetings and LinkedIn figures from the client-facing dashboard, 2026-10-07. Campaign structure from the sending-platform API.</em></p>
+<div class="tw"><table><thead><tr><th class="a-left"></th><th class="a-left"></th></tr></thead><tbody><tr><td class="a-left"><strong>Meetings booked</strong></td><td class="a-left"><strong>32</strong></td></tr><tr><td class="a-left">Booked between</td><td class="a-left">26 Sep to 6 Oct 2026</td></tr><tr><td class="a-left">In the last 7 days</td><td class="a-left">15</td></tr><tr><td class="a-left">LinkedIn invites</td><td class="a-left">503</td></tr><tr><td class="a-left">Email channel</td><td class="a-left">none</td></tr></tbody></table></div>
+<h3>Problem one: "physicians" is not a moment</h3>
+<p>Any vendor will sell a list of physicians. So will every competitor pitching the same practices. It tells you who <em>could</em> buy, not who is ready to.</p>
+<p>A practice that has run the same way for six years and one that changed something last month look identical on that list.</p>
+<p><strong>Solved by keying on change, not attributes.</strong> A practice opens. It takes on another doctor. It hires someone to chase up patients who stopped coming in. A doctor finishes training and is about to sign a contract. A practice stops taking Medicare and starts charging patients directly. Each is a campaign with a letter, a sender and a date in its name.</p>
+<h3>Problem two: the same trigger needs two different openers</h3>
+<p>"We're connected and I noticed this" and "we have never spoken and I noticed this" are not the same sentence, and sending the first to a stranger is how a good trigger gets wasted.</p>
+<p><strong>Solved by building every trigger twice</strong> — one version requests a connection, one messages people already in the network.</p>
+<div class="exhibit"><img src="/assets/exhibit-11-eureka-routing.svg" alt="Messaging existing connections produced four interested replies from fifteen conversations while 168 new connection requests produced none" loading="lazy" decoding="async"></div>
+<p>In the first fortnight that split was the whole difference. The connection requests were still sitting unaccepted; the conversations with people already in the network were already running.</p>
+<h3>What it produced</h3>
+<p><strong>32 meetings in 11 days, from 503 invitations and no email at all.</strong> Fifteen landed in the final week, so it was still accelerating when the numbers were pulled.</p>
+<p>The campaign names here are unusually descriptive, which is exactly when they are worth checking rather than trusting. A sample of the live audience returned physicians and clinical leadership matching what each trigger claimed.</p>
+<p><em>Meetings and LinkedIn figures from the client-facing dashboard, 2026-10-07. Campaign-level figures from the sending-platform API, 2026-09-26, when the account was two weeks old.</em></p>
 
 <div class="pager"><a href="/work/event-window.html"><span class="lbl">Previous</span>55 meetings booked</a><a href="/work/where-they-publish.html" style="text-align:right"><span class="lbl">Next</span>143 meetings booked, 112 of them held</a></div>
-<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/where-they-publish.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13.5V9"/><path d="M6.2 13.5V5.5"/><path d="M10.4 13.5v-6"/><path d="M14.6 13.5V2.5"/></svg></span><span class="cs-path">work/where-they-publish</span></span><h3>143 meetings booked, 112 of them held</h3><p>Four ways of building the same list ran side by side, same market, same infrastructure, same window. Targeting where someone publishes beat targeting the job title a database gives them, by roughly twenty-six times.</p><span class="cs-foot"><b>143</b><i>meetings booked, 112 of them held</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/narrative-lists.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.8 9.7 5.5l3.9.5-2.9 2.7.8 3.9L8 10.7l-3.5 1.9.8-3.9L2.4 6l3.9-.5Z"/></svg></span><span class="cs-path">work/narrative-lists</span></span><h3>13 meetings in 4 days</h3><p>1,135 LinkedIn invites at 48% acceptance, the highest of any account I run, and 13 meetings booked between 2 and 5 October. It is also the account where plain title-filtered lists beat the clever ones.</p><span class="cs-foot"><b>13</b><i>meetings booked in four days</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
+<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/where-they-publish.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13.5V9"/><path d="M6.2 13.5V5.5"/><path d="M10.4 13.5v-6"/><path d="M14.6 13.5V2.5"/></svg></span><span class="cs-path">work/where-they-publish</span></span><h3>143 meetings booked, 112 of them held</h3><p>Four ways of building the same list ran side by side for a year, same market and same infrastructure. Where somebody publishes beat what a database calls them by nearly four times.</p><span class="cs-foot"><b>143</b><i>meetings booked, 112 of them held</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/narrative-lists.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.8 9.7 5.5l3.9.5-2.9 2.7.8 3.9L8 10.7l-3.5 1.9.8-3.9L2.4 6l3.9-.5Z"/></svg></span><span class="cs-path">work/narrative-lists</span></span><h3>13 meetings in 4 days</h3><p>Small campaigns built on a story about the person converted at 9.7%. The cold batches that replaced them ran at 2.7%. Five times the volume bought 40% more replies.</p><span class="cs-foot"><b>13</b><i>meetings booked in four days</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
 <section class="book" id="contact"><p class="hl-eyebrow">Get in touch</p><h2>Bring me the signal <span class="uline">you can&rsquo;t see.</span></h2><p class="book-lede">Name the moment a company becomes worth contacting, and I will show you how I would detect it, qualify it and route it.</p><div class="book-act"><a class="btn primary" href="https://www.linkedin.com/in/shubhambuild/">LinkedIn</a><a class="btn" href="mailto:shubhamsharma220802@gmail.com">Email me</a><span class="book-meta">Open to GTM engineering roles</span></div></section>
 </div></main>
 <footer class="site"><div class="wrap fin"><div class="fin-top"><div class="fin-brand"><b>Shubham Sharma<i>.</i></b><p>GTM Engineer &middot; lists, enrichment, deliverability and the measurement that says which half worked</p></div><div class="fin-col"><h3>Site</h3><a href="/#about">About</a><a href="/#range">Range</a><a href="/#contact">Contact</a></div><div class="fin-col"><h3>Elsewhere</h3><a href="https://www.linkedin.com/in/shubhambuild/"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.8" y="1.8" width="12.4" height="12.4" rx="2"/><path d="M4.6 6.8v4.6M4.6 4.4v.1M7.6 11.4V6.8m0 1.5c0-.9.7-1.5 1.6-1.5s1.6.6 1.6 1.5v3.1"/></svg>LinkedIn</a><a href="https://x.com/shubhamsbuilds"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.2 3.2 9.6 9.6M12.8 3.2 3.2 12.8"/></svg>X</a><a href="https://github.com/shubhamsbuild"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12.5c-3 .9-3-1.5-4.2-1.8m8.4 4.3v-2.4c0-.7.1-1-.3-1.3 2-.2 3.6-1 3.6-3.9a3 3 0 0 0-.8-2.1 2.8 2.8 0 0 0-.1-2.1s-.7-.2-2.3.9a7.8 7.8 0 0 0-4 0C4.7 2.9 4 3.1 4 3.1a2.8 2.8 0 0 0-.1 2.1 3 3 0 0 0-.8 2.1c0 2.9 1.6 3.7 3.6 3.9-.3.3-.3.6-.3 1.1v2.3"/></svg>GitHub</a><a href="mailto:shubhamsharma220802@gmail.com"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.6" y="3.2" width="12.8" height="9.6" rx="1.6"/><path d="m2 4.6 6 4 6-4"/></svg>Email</a></div></div><div class="fin-base"><span>&copy; 2026 Shubham Sharma</span><span><a href="/case-studies.html">Case studies</a></span></div></div></footer>

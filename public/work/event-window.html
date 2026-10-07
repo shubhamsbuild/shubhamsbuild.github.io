@@ -3,10 +3,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>55 meetings booked · Shubham Sharma</title>
-<meta name="description" content="2,564 emails and 384 LinkedIn invites, the lowest sending volume of any account I run, booked 55 meetings. Seven of them in the last seven days.">
+<meta name="description" content="The lowest sending volume of any account I run, and the highest meeting count. Every interested reply on LinkedIn came from a campaign that had a reason to exist that week.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="55 meetings booked · Shubham Sharma">
-<meta property="og:description" content="2,564 emails and 384 LinkedIn invites, the lowest sending volume of any account I run, booked 55 meetings. Seven of them in the last seven days.">
+<meta property="og:description" content="The lowest sending volume of any account I run, and the highest meeting count. Every interested reply on LinkedIn came from a campaign that had a reason to exist that week.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
@@ -461,8 +461,6 @@ so it still reads as an eyebrow alongside the rest of the site. */
   letter-spacing:-.035em;text-wrap:balance}
 .hl-lede{margin:0 0 22px;font-size:15.5px;color:var(--ink2);max-width:56ch}
 
-@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:620px){.cs-grid{grid-template-columns:1fr}}
 
 /* --- case study cards ----------------------------------------------------- */
 .csx{margin:0 0 var(--sec)}
@@ -526,6 +524,8 @@ so it still reads as an eyebrow alongside the rest of the site. */
 .cs:hover .cs-foot .arw{color:var(--accent);transform:translateX(3px)}
 .cs-cta{margin-top:22px}
 
+/* Four across needs roughly 1200px. Below that, two up, then one. */
+@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.cs-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){
   .cs,.cs-foot .arw{transition:none}
@@ -1255,6 +1255,20 @@ visibility 0s .36s}
 @media (max-width:680px){
   .wrap{padding:0 24px}
   th,td{white-space:normal}
+}
+/* Tables are already in an overflow-x wrapper, but a table that scrolls on a
+   phone is a table most people never see the right-hand column of. Tightening
+   the cells lets the wider ones fit instead of hiding behind a scroll. */
+@media (max-width:520px){
+  table{font-size:12.5px}
+  th,td{padding:8px 10px}
+  th{font-size:9.5px;letter-spacing:.4px}
+}
+@media (max-width:380px){
+  table{font-size:12px}
+  th,td{padding:7px 8px}
+}
+@media (max-width:520px){
   .hin{padding-top:20px;padding-bottom:20px}
   .hin nav a{padding:15px 24px}
   .sheet{padding:36px 22px 32px}
@@ -1305,31 +1319,30 @@ visibility 0s .36s}
 <main><div class="wrap">
 <p class="cse-tags"><span>Data acquisition</span><span>a clinical-research network</span></p>
 <h1>55 meetings booked</h1>
-<p class="lede">2,564 emails and 384 LinkedIn invites, the lowest sending volume of any account I run, booked 55 meetings. Seven of them in the last seven days.</p>
+<p class="lede">The lowest sending volume of any account I run, and the highest meeting count. Every interested reply on LinkedIn came from a campaign that had a reason to exist that week.</p>
 <div class="mtrs"><div class="mtr"><b>55</b><span>meetings booked, 7 in the last week</span></div></div>
-<dl class="fct"><div><dt>Discipline</dt><dd>Data acquisition</dd></div><div><dt>Client since</dt><dd>2 June 2026</dd></div><div><dt>Sheet</dt><dd>01 / 08</dd></div></dl>
+<dl class="fct"><div><dt>Discipline</dt><dd>Data acquisition</dd></div><div><dt>Client since</dt><dd>2 June 2026</dd></div></dl>
 
-<dl class="glance"><div class="gl"><dt>Problem</dt><dd>Event outreach is usually one list and one message, sent once, to whoever registered. That throws away the two things an event actually gives you, a window with a known expiry, and a population whose relationship to the event varies.</dd></div><div class="gl"><dt>System</dt><dd>One conference split into role tracks and timed waves, a separate sequence for people who did not attend, a clinical-trial-termination signal taken off a public registry, and an audited email-to-LinkedIn fallback.</dd></div><div class="gl out"><dt>Output</dt><dd>55 meetings booked from 2,564 emails and 384 LinkedIn invites. Lowest volume in the engagement, highest meeting count in it.</dd></div></dl>
+<dl class="glance"><div class="gl"><dt>Problem</dt><dd>Event outreach is usually one list and one message, sent once, to whoever registered. That throws away the two things an event gives you: a window with a known expiry, and a population whose relationship to the event varies.</dd></div><div class="gl"><dt>System</dt><dd>A clinical-trial-termination signal read off a public registry, a conference split into role tracks including one for people who did not attend, and an audited email-to-LinkedIn fallback.</dd></div><div class="gl out"><dt>Output</dt><dd>55 meetings from 2,564 emails and 384 invitations. The 45 invitations that carried a reason produced all nine interested replies. The other 237 produced none.</dd></div></dl>
 
-<div class="tw"><table><thead><tr><th class="a-left"></th><th class="a-left"></th></tr></thead><tbody><tr><td class="a-left"><strong>Meetings booked</strong></td><td class="a-left"><strong>55</strong></td></tr><tr><td class="a-left">In the last 7 days</td><td class="a-left">7</td></tr><tr><td class="a-left">Emails sent</td><td class="a-left">2,564</td></tr><tr><td class="a-left">LinkedIn invites</td><td class="a-left">384</td></tr><tr><td class="a-left">LinkedIn accepted</td><td class="a-left">10.9%</td></tr><tr><td class="a-left">Positive email replies</td><td class="a-left">3</td></tr></tbody></table></div>
-<h3>The problem</h3>
-<p>This client sells to the people who run clinical trials at hospitals and research sites. The obvious way to reach them is a conference: everyone shows up in one place, you get the attendee list, you email it.</p>
-<p>Everybody does that, and it mostly fails. One list, one message, sent once, to whoever registered. That ignores the two useful things a conference gives you. It gives you a <strong>deadline</strong>, because the reason to mention it expires. And it gives you a <strong>crowd of people in very different situations</strong>, who are being sent the same sentence.</p>
-<h3>How I approached it</h3>
-<p>I stopped treating the event as a list and started treating it as a moment with an expiry date. If the reason you are writing is "this is happening this weekend", then the message has to change depending on where we are relative to that weekend, and who the person is at it.</p>
-<p>I also went looking for a second kind of timing that has nothing to do with conferences: a public registry records when a clinical trial ends. When a trial ends, the site that was running it has free capacity and an unsettled relationship with its sponsor. That is a real reason to make contact that week, and it is published for anyone to read.</p>
-<h3>What I built</h3>
-<p>Four separate sequences off one conference, not one. Research sites got one. Trial sponsors and the agencies that run trials got another. Site staff got a third.</p>
-<p>And a fourth went to people who <strong>did not attend</strong>. That is usually treated as missing information: if they are not on the attendee list, they are not in the campaign. I treated it as information in its own right. Not going to the event your peers all went to says something, and it deserves a different letter rather than no letter.</p>
-<p>Each wave runs separately, before, just after, and later again, with its date written into the campaign name, so an unsent wave is obvious at a glance instead of being noticed a week too late.</p>
-<p>Alongside it, anyone who ignored the email gets re-checked against the ideal customer profile and then approached on LinkedIn. Re-checked first, so it is not simply pestering everyone who stayed quiet.</p>
-<h3>What it did</h3>
-<p><strong>55 meetings</strong>, from the smallest sending volume of any account I run, 2,564 emails against another account's 11,699.</p>
-<p>Judged on reply rate, this account looked like the weakest one in the book. It books the most meetings in it. That gap is the entire argument for measuring what you actually want rather than what is easy to count.</p>
-<p><em>Figures from the client-facing dashboard, 2026-10-07.</em></p>
+<div class="tw"><table><thead><tr><th class="a-left"></th><th class="a-left"></th></tr></thead><tbody><tr><td class="a-left"><strong>Meetings booked</strong></td><td class="a-left"><strong>55</strong></td></tr><tr><td class="a-left">In the last 7 days</td><td class="a-left">7</td></tr><tr><td class="a-left">Emails sent</td><td class="a-left">2,564</td></tr><tr><td class="a-left">LinkedIn invites</td><td class="a-left">384</td></tr></tbody></table></div>
+<h3>Problem one: we started generically and got nothing</h3>
+<p>The account opened the ordinary way. A cold email list, a first LinkedIn wave, a relaunch at a particular clinic type, and a fallback that chased people who had ignored the email.</p>
+<p><strong>237 invitations across those. Zero interested replies.</strong></p>
+<h3>Problem two: a conference is not a list</h3>
+<p>Everyone sends to the attendee list, once, with one message. That throws away both things an event actually gives you: a deadline, and a crowd whose relationship to the event is completely different person to person.</p>
+<p><strong>Solved by splitting one conference three ways</strong> — people who attended, sponsors and the agencies that run trials, and site staff who <strong>did not attend</strong>. Non-attendance is normally treated as missing data. Here it got its own sequence, and it outperformed the attendee track.</p>
+<h3>The signal nobody else is reading</h3>
+<p>A public registry records when a clinical trial ends. When one does, the site running it has free capacity and an unsettled sponsor relationship. That is a dated, public, verifiable reason to make contact that week.</p>
+<div class="exhibit"><img src="/assets/exhibit-10-bond-signal.svg" alt="Trial-termination and conference campaigns produced all nine interested replies from 45 invitations while 237 generic invitations produced none" loading="lazy" decoding="async"></div>
+<p><strong>24 invitations. 71% accepted. Five interested.</strong> Acceptance alone tells you the premise landed, before anybody reads a word of the message.</p>
+<h3>Why this account matters most</h3>
+<p>It sends less than any other account in the book — 2,564 emails against another account's 11,699 — and books the most meetings in it.</p>
+<p>On reply rate it looked negligible for weeks. Volume and outcome were running in opposite directions, and only the meeting count showed it.</p>
+<p><em>Meetings and channel figures from the client-facing dashboard, 2026-10-07. Campaign-level figures from the sending-platform API, 2026-09-26.</em></p>
 
 <div class="pager"><span></span><a href="/work/eureka-triggers.html" style="text-align:right"><span class="lbl">Next</span>32 meetings in 11 days</a></div>
-<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/eureka-triggers.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/eureka-triggers</span></span><h3>32 meetings in 11 days</h3><p>503 LinkedIn invites, no email channel at all, 32 meetings booked between 26 September and 6 October. Fifteen of them landed in the final week.</p><span class="cs-foot"><b>32</b><i>meetings booked in 11 days, LinkedIn only</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/where-they-publish.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13.5V9"/><path d="M6.2 13.5V5.5"/><path d="M10.4 13.5v-6"/><path d="M14.6 13.5V2.5"/></svg></span><span class="cs-path">work/where-they-publish</span></span><h3>143 meetings booked, 112 of them held</h3><p>Four ways of building the same list ran side by side, same market, same infrastructure, same window. Targeting where someone publishes beat targeting the job title a database gives them, by roughly twenty-six times.</p><span class="cs-foot"><b>143</b><i>meetings booked, 112 of them held</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
+<section class="rel"><div class="rel-h"><h2>Other case studies</h2><a href="/case-studies.html">All seven &rarr;</a></div><div class="cs-grid"><a class="cs" href="/work/eureka-triggers.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4.5c0-1.4 2.7-2.5 6-2.5s6 1.1 6 2.5-2.7 2.5-6 2.5-6-1.1-6-2.5Z"/><path d="M14 4.5v7c0 1.4-2.7 2.5-6 2.5s-6-1.1-6-2.5v-7"/><path d="M2 8c0 1.4 2.7 2.5 6 2.5s6-1.1 6-2.5"/></svg></span><span class="cs-path">work/eureka-triggers</span></span><h3>32 meetings in 11 days</h3><p>A lettered taxonomy of practice life-events, each trigger built twice so the opener matches whether you have spoken before. No email channel at all.</p><span class="cs-foot"><b>32</b><i>meetings booked in 11 days, LinkedIn only</i><span class="arw" aria-hidden="true">&rarr;</span></span></a><a class="cs" href="/work/where-they-publish.html"><span class="cs-top"><span class="cs-ico"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 13.5V9"/><path d="M6.2 13.5V5.5"/><path d="M10.4 13.5v-6"/><path d="M14.6 13.5V2.5"/></svg></span><span class="cs-path">work/where-they-publish</span></span><h3>143 meetings booked, 112 of them held</h3><p>Four ways of building the same list ran side by side for a year, same market and same infrastructure. Where somebody publishes beat what a database calls them by nearly four times.</p><span class="cs-foot"><b>143</b><i>meetings booked, 112 of them held</i><span class="arw" aria-hidden="true">&rarr;</span></span></a></div></section>
 <section class="book" id="contact"><p class="hl-eyebrow">Get in touch</p><h2>Bring me the signal <span class="uline">you can&rsquo;t see.</span></h2><p class="book-lede">Name the moment a company becomes worth contacting, and I will show you how I would detect it, qualify it and route it.</p><div class="book-act"><a class="btn primary" href="https://www.linkedin.com/in/shubhambuild/">LinkedIn</a><a class="btn" href="mailto:shubhamsharma220802@gmail.com">Email me</a><span class="book-meta">Open to GTM engineering roles</span></div></section>
 </div></main>
 <footer class="site"><div class="wrap fin"><div class="fin-top"><div class="fin-brand"><b>Shubham Sharma<i>.</i></b><p>GTM Engineer &middot; lists, enrichment, deliverability and the measurement that says which half worked</p></div><div class="fin-col"><h3>Site</h3><a href="/#about">About</a><a href="/#range">Range</a><a href="/#contact">Contact</a></div><div class="fin-col"><h3>Elsewhere</h3><a href="https://www.linkedin.com/in/shubhambuild/"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.8" y="1.8" width="12.4" height="12.4" rx="2"/><path d="M4.6 6.8v4.6M4.6 4.4v.1M7.6 11.4V6.8m0 1.5c0-.9.7-1.5 1.6-1.5s1.6.6 1.6 1.5v3.1"/></svg>LinkedIn</a><a href="https://x.com/shubhamsbuilds"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.2 3.2 9.6 9.6M12.8 3.2 3.2 12.8"/></svg>X</a><a href="https://github.com/shubhamsbuild"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12.5c-3 .9-3-1.5-4.2-1.8m8.4 4.3v-2.4c0-.7.1-1-.3-1.3 2-.2 3.6-1 3.6-3.9a3 3 0 0 0-.8-2.1 2.8 2.8 0 0 0-.1-2.1s-.7-.2-2.3.9a7.8 7.8 0 0 0-4 0C4.7 2.9 4 3.1 4 3.1a2.8 2.8 0 0 0-.1 2.1 3 3 0 0 0-.8 2.1c0 2.9 1.6 3.7 3.6 3.9-.3.3-.3.6-.3 1.1v2.3"/></svg>GitHub</a><a href="mailto:shubhamsharma220802@gmail.com"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.6" y="3.2" width="12.8" height="9.6" rx="1.6"/><path d="m2 4.6 6 4 6-4"/></svg>Email</a></div></div><div class="fin-base"><span>&copy; 2026 Shubham Sharma</span><span><a href="/case-studies.html">Case studies</a></span></div></div></footer>

@@ -201,7 +201,7 @@ CS_ICONS = {
 }
 
 
-def case_studies_section(studies, limit=4):
+def case_studies_section(studies, limit=5):
     """Card grid of the featured case studies: number, gist, link to the teardown.
 
     Four on the home page, not eight. This sits directly under the marquee now, so
@@ -407,14 +407,17 @@ def fmt_since(iso):
     return f"{d.day} {d.strftime('%B %Y')}"
 
 
-def cs_facts(s, bd, idx, total):
-    """The definition panel: what they sell, who to, and the rule I worked inside."""
+def cs_facts(s, bd, idx=None, total=None):
+    """The definition panel: what they sell, who to, and the rule I worked inside.
+
+    idx/total are accepted and ignored. They fed a "Sheet 08 / 08" row that read as
+    pagination for a document nobody is paging through.
+    """
     rows = [("Sector", bd.get("sector", "")),
             ("Their buyer", bd.get("buyer", "")),
             ("Discipline", s.get("tag", "")),
             ("Client since", fmt_since(s.get("onboarded", ""))),
-            ("Constraint", bd.get("constraint", "")),
-            ("Sheet", f"{idx:02d} / {total:02d}")]
+            ("Constraint", bd.get("constraint", ""))]
     return '<dl class="fct">' + "".join(
         f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in rows if v) + "</dl>"
 
@@ -1050,13 +1053,24 @@ def split_row(line):
 
 
 def render(md):
-    """Markdown subset: headings, hr, fenced code, tables, lists, quotes, paragraphs."""
+    """Markdown subset: headings, hr, code, tables, lists, quotes, images, paragraphs."""
     lines = md.split("\n")
     out, i = [], 0
     while i < len(lines):
         s = lines[i].strip()
 
         if not s:
+            i += 1
+            continue
+
+        # A line that is nothing but an image becomes an exhibit block, so a study
+        # can place a chart between two beats instead of stacking every visual
+        # above the text.
+        m = re.fullmatch(r"!\[([^\]]*)\]\(([^)\s]+)\)", s)
+        if m:
+            out.append('<div class="exhibit"><img src="%s" alt="%s" loading="lazy" '
+                       'decoding="async"></div>'
+                       % (html.escape(m.group(2)), html.escape(m.group(1))))
             i += 1
             continue
 
@@ -1661,8 +1675,6 @@ so it still reads as an eyebrow alongside the rest of the site. */
   letter-spacing:-.035em;text-wrap:balance}
 .hl-lede{margin:0 0 22px;font-size:15.5px;color:var(--ink2);max-width:56ch}
 
-@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:620px){.cs-grid{grid-template-columns:1fr}}
 
 /* --- case study cards ----------------------------------------------------- */
 .csx{margin:0 0 var(--sec)}
@@ -1726,6 +1738,8 @@ so it still reads as an eyebrow alongside the rest of the site. */
 .cs:hover .cs-foot .arw{color:var(--accent);transform:translateX(3px)}
 .cs-cta{margin-top:22px}
 
+/* Four across needs roughly 1200px. Below that, two up, then one. */
+@media (max-width:1180px){.cs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.cs-grid{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){
   .cs,.cs-foot .arw{transition:none}
@@ -2455,6 +2469,20 @@ visibility 0s .36s}
 @media (max-width:680px){
   .wrap{padding:0 24px}
   th,td{white-space:normal}
+}
+/* Tables are already in an overflow-x wrapper, but a table that scrolls on a
+   phone is a table most people never see the right-hand column of. Tightening
+   the cells lets the wider ones fit instead of hiding behind a scroll. */
+@media (max-width:520px){
+  table{font-size:12.5px}
+  th,td{padding:8px 10px}
+  th{font-size:9.5px;letter-spacing:.4px}
+}
+@media (max-width:380px){
+  table{font-size:12px}
+  th,td{padding:7px 8px}
+}
+@media (max-width:520px){
   .hin{padding-top:20px;padding-bottom:20px}
   .hin nav a{padding:15px 24px}
   .sheet{padding:36px 22px 32px}
