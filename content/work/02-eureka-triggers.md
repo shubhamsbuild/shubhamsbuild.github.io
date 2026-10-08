@@ -44,7 +44,7 @@ a sender and a date in its name.
 are not the same sentence, and sending the first to a stranger is how a good
 trigger gets wasted.
 
-**Solved by building every trigger twice** — one version requests a connection,
+**Solved by building every trigger twice:** one version requests a connection,
 one messages people already in the network.
 
 ![Messaging existing connections produced four interested replies from fifteen conversations while 168 new connection requests produced none](/assets/exhibit-11-eureka-routing.svg)

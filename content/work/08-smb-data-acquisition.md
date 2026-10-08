@@ -49,7 +49,7 @@ roofing batch returned nothing, and that was the signal to stop rather than push
 Pool B returned 220 replies in July. Through August it sent 7,433 and returned
 fifteen. Same campaigns, same lists, same days as Pool A.
 
-**A delivery failure, not a market one** — and invisible on any reply-rate chart.
+**A delivery failure, not a market one.** And invisible on any reply-rate chart.
 It also means plumbing's zero is partly an artefact, because half that volume never
 arrived.
 

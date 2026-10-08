@@ -37,7 +37,7 @@ Everyone sends to the attendee list, once, with one message. That throws away bo
 things an event actually gives you: a deadline, and a crowd whose relationship to
 the event is completely different person to person.
 
-**Solved by splitting one conference three ways** — people who attended, sponsors
+**Solved by splitting one conference three ways:** people who attended, sponsors
 and the agencies that run trials, and site staff who **did not attend**.
 Non-attendance is normally treated as missing data. Here it got its own sequence,
 and it outperformed the attendee track.
@@ -55,8 +55,8 @@ premise landed, before anybody reads a word of the message.
 
 ## Why this account matters most
 
-It sends less than any other account in the book — 2,564 emails against another
-account's 11,699 — and books the most meetings in it.
+It sends less than any other account in the book (2,564 emails against another
+account's 11,699) and books the most meetings in it.
 
 On reply rate it looked negligible for weeks. Volume and outcome were running in
 opposite directions, and only the meeting count showed it.

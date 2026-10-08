@@ -39,8 +39,8 @@ segment.
 **608 invitations, six interested.** Acceptance moved from 14% to 21%, which is
 movement, but not the kind that changes an account.
 
-Two different levers had now been pulled — the audience within the ICP, and the
-words — and neither moved it. That leaves the list itself.
+Two levers had now been pulled: the audience within the ICP, and the words.
+Neither moved it. That leaves the list itself.
 
 ## The list that ignores job titles
 
@@ -50,8 +50,8 @@ product solves. Public, dated, and it happened this week.
 
 ![Post reactors accepted 73 percent of connection requests against 14 percent for cold ICP batches](/assets/exhibit-13-ghost-acceptance.svg)
 
-**Acceptance went from 14% to 73%** — and acceptance happens before anyone reads
-the message, so that gap is the list talking, not the copy.
+**Acceptance went from 14% to 73%.** Acceptance happens before anyone reads the
+message, so that gap is the list talking, not the copy.
 
 It runs **always-on across four sender identities** rather than as a batch. A
 batch is something you built once. This has new people in it tomorrow whether

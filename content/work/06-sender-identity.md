@@ -38,7 +38,7 @@ A portfolio where everything wins is a selection, not a method.
 ## Problem one: the best campaign was the smallest
 
 The account's strongest campaign was ninety invitations with a named reference in
-the opener — a specific person at a specific company the prospect would recognise.
+the opener, a specific person at a specific company the prospect would recognise.
 **77% accepted. Eight interested.**
 
 Then the account scaled into a standard consultative sequence rolled out across
