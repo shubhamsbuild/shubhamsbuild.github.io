@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seven Answers &middot; Shubham Sharma</title>
+<meta name="description" content="Screening answers for the AI-first outbound GTM engineer role, with the number and the source attached to each one.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  SEVEN ANSWERS — an interactive reply to a screening questionnaire.
+
+  Not a print deck. Slides are shown one at a time and driven by keyboard,
+  click, or swipe; every slide is deep-linkable by hash so a single answer can
+  be sent on its own (#q4 opens the failed play).
+
+  Design tokens are copied from site/build.py deliberately, so this page and the
+  portfolio are visibly the same artefact. The embedded exhibit SVGs carry their
+  own light/dark palette, which is why this page follows the OS theme too — if
+  it did not, a dark-mode viewer would get light figures on dark slides.
+
+  Rule the content follows: every number carries its source and the date it was
+  read. Two sources exist and they are never mixed in one figure — the sending
+  platform API, and the client-facing booking dashboard.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 9.5px/1 var(--mono);color:var(--ink3);text-align:center}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* ---------- responsive ---------- */
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+
+<!-- 0 ───────────────────────────── cover -->
+<section class="s mid" data-key="start" data-label="Cover" data-sub="Seven answers, each with its source">
+  <div class="wrap">
+    <p class="kick"><b>Screening questionnaire</b> <s>AI-first outbound GTM engineer</s></p>
+    <h1 class="xl">Seven questions. Seven numbers you can check.</h1>
+    <p class="lede">I built this instead of writing a document, because the job is building things that
+      make a case on their own. Everything here comes out of live sending platforms
+      and a client-facing booking dashboard. <strong>Every figure carries its source and the
+      date it was read.</strong></p>
+    <div class="stats">
+      <div class="stat"><b>22</b><span>client outbound programmes, two stacks</span></div>
+      <div class="stat"><b>1.96M</b><span>emails sent across them</span></div>
+      <div class="stat"><b class="a">0.81%</b><span>bounce rate, estate lifetime</span></div>
+      <div class="stat"><b>415</b><span>campaigns, each separable</span></div>
+    </div>
+    <p class="src">Client names are held back on a public URL and given on a call &mdash; most of these
+      are live programmes, and two stacks of them are white-labelled under another vendor's name.
+      Sending figures: platform API, read 2026-09-26. Booking figures: client-facing dashboard, read 2026-10-07.</p>
+  </div>
+</section>
+
+<!-- 1 ───────────────────────────── Q1 a -->
+<section class="s" data-key="q1" data-label="Q1 &middot; A system from zero" data-sub="Infrastructure, output, and how many">
+  <div class="wrap">
+    <p class="kick"><b>Question 1</b> <s>A system built from zero</s></p>
+    <p class="q">Describe one outbound system you built from zero. What was the company, what did the
+      infrastructure look like when you were done, and what did it produce? <i>Also tell us how many
+      systems you've built this way in total.</i></p>
+    <h2>An HR-tech company selling AI mock-interview software into higher-ed career services.</h2>
+    <p class="lede">Nothing was inherited. <strong>No domains, no mailboxes, no list, no sequences, no
+      reporting.</strong> Two cold-addressable segments came out of onboarding: career-services teams at
+      small professional schools &mdash; medical, dental, law, business &mdash; plus athletic
+      departments, and college counsellors at private and boarding schools.</p>
+    <div class="rows">
+      <div class="row"><em>ICP gate</em><p><b>Settled before a list existed, then enforced from data</b>
+        The client's own documents said three different things: under 1,000 students, 100&ndash;200 employees,
+        under 5,000 students. The founder settled it &mdash; professional schools under 10,000 students,
+        athletic departments exempt at any size. That exemption is not a fudge: their live athletics
+        reference is a 60,000-student university, so the gate had to apply to the school, not the engagement.
+        It was then enforced in the build, not in a prompt.</p></div>
+      <div class="row"><em>Lists</em><p><b>Scraped, not bought</b>
+        2,067 unique independent schools from the national association directory, plus a merged
+        1,194-school set. The merge caught 234 duplicate rows that a straight concatenation would have shipped.</p></div>
+      <div class="row"><em>Sending</em><p><b>Domains and inboxes stood up from nothing</b>
+        Lookalike domains, mailboxes provisioned per domain, authentication per domain, warmed before
+        anything launched. The primary domain was never in the sending path. Full spec in Question&nbsp;2.</p></div>
+      <div class="row"><em>Reporting</em><p><b>Per-campaign separability as a design rule</b>
+        Segment, source and launch date encoded in every campaign name, so a dead segment shows up as a
+        zero instead of dissolving into an account average. That naming convention is the reason the
+        next slide's diagnosis was possible at all.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 ───────────────────────────── Q1 b -->
+<section class="s" data-key="q1b" data-label="Q1 &middot; What it produced" data-sub="86,290 sends and the diagnosis that came out of them">
+  <div class="wrap">
+    <p class="kick"><b>Question 1</b> <s>What it produced</s></p>
+    <h2>19 campaigns. The highest reply rate of any account I run.</h2>
+    <div class="stats">
+      <div class="stat"><b>86,290</b><span>emails sent</span></div>
+      <div class="stat"><b class="a">3.22%</b><span>unique reply rate &mdash; estate average is 1.50%</span></div>
+      <div class="stat"><b>2,780</b><span>unique replies</span></div>
+      <div class="stat"><b>75</b><span>flagged interested by hand</span></div>
+      <div class="stat"><b>30</b><span>meetings booked</span></div>
+      <div class="stat"><b class="a">0.62%</b><span>bounce, against 0.81% estate-wide</span></div>
+    </div>
+    <h3 style="margin-top:34px">The part I would actually talk about</h3>
+    <p>At 44,840 sends the account had 48 interested replies and <strong>one campaign sitting at zero</strong>.
+      The comfortable read is list quality, and that is where most analyses stop, because blaming the list
+      is unfalsifiable and costs someone else money.</p>
+    <p>I segmented reply data by campaign and cross-referenced which copy pack each segment had received.
+      It was not a bad list. It was <strong>the right list receiving copy written for a different persona</strong> &mdash;
+      a persona the under-10,000-students gate had already excluded. That changes the fix from
+      <em>buy more data</em>, which is slow and expensive and wrong, to <em>rewrite one copy pack</em>.</p>
+    <p class="src">Sending figures: platform API, read 2026-09-26. Meetings: client-facing booking dashboard,
+      read 2026-09-05 &mdash; a different source and a different date, so the sends figure that dashboard
+      showed at the time was 79,145, not 86,290. I do not mix the two in one number.</p>
+  </div>
+</section>
+
+<!-- 3 ───────────────────────────── Q1 c -->
+<section class="s" data-key="q1c" data-label="Q1 &middot; How many in total" data-sub="22 programmes across two stacks">
+  <div class="wrap">
+    <p class="kick"><b>Question 1</b> <s>How many in total</s></p>
+    <h2>22 client outbound programmes, end to end, across two separate stacks.</h2>
+    <div class="two">
+      <div class="pane">
+        <h4>12 on a self-hosted sending platform</h4>
+        <p><strong>415 campaigns · 1,955,979 emails sent · 29,387 unique replies · 3,730 flagged interested · 0.81% bounce.</strong></p>
+        <p>Tax advisory, PR, legal, insurance, govcon consulting, DTC e-commerce, HR tech, ringless
+          voicemail, loyalty SaaS, skilled trades, a creator-economy agency. Twelve ICPs, twelve
+          deliverability profiles, twelve different data problems.</p>
+        <p>The platform's own CLI was broken for bulk and array operations, so I drove the REST API directly.</p>
+      </div>
+      <div class="pane">
+        <h4>10 white-labelled under another vendor</h4>
+        <p><strong>Email plus LinkedIn, run under a YC data company's name for their own customers.</strong></p>
+        <p>Clinical research, patient data, creator tooling, sales AI, marketing SaaS. Smaller volumes,
+          tighter signal work &mdash; the best of them books 55 meetings off 2,564 emails, which is a
+          twentieth of the sending of the worst.</p>
+        <p>Separate stack, separate API, separate booking dashboard. These are the ones I cannot name.</p>
+      </div>
+    </div>
+    <div class="todo" data-pending="from-zero-count">
+      <b>Awaiting one number from Shubham</b>
+      <p>Of those 22, how many needed the infrastructure stood up from nothing &mdash; domains, mailboxes and
+        authentication included &mdash; rather than inheriting a working sending setup? I know two for certain
+        and will not round the rest up.</p>
+    </div>
+    <p class="src">Platform API, read 2026-09-26. The in-house workspace &mdash; a further 61 campaigns and
+      374,342 sends &mdash; is excluded from every client total above.</p>
+  </div>
+</section>
+
+<!-- 4 ───────────────────────────── Q2 a -->
+<section class="s" data-key="q2" data-label="Q2 &middot; Sending infrastructure" data-sub="The primary domain never enters the sending path">
+  <div class="wrap">
+    <p class="kick"><b>Question 2</b> <s>Infrastructure, primary domain untouched</s></p>
+    <p class="q">Walk us through exactly how you would set up sending infrastructure for a company whose
+      primary domain must not be touched. <i>Domains, mailboxes, authentication, warmup timeline, volume ramp,
+      and what you monitor.</i></p>
+    <h2>The primary domain is not a resource to be spent. It is the thing the whole programme is protecting.</h2>
+    <p class="lede">What follows is the real spec from the largest build of this shape I have run:
+      <strong>50 lookalike domains, 100 mailboxes, roughly 1,500 sends a day at full ramp.</strong>
+      Click through the six stages.</p>
+    <div class="tabs" role="tablist" aria-label="Infrastructure stages">
+      <button role="tab" aria-selected="true"  aria-controls="p1" id="t1">1 · Domains</button>
+      <button role="tab" aria-selected="false" aria-controls="p2" id="t2">2 · Mailboxes</button>
+      <button role="tab" aria-selected="false" aria-controls="p3" id="t3">3 · Authentication</button>
+      <button role="tab" aria-selected="false" aria-controls="p4" id="t4">4 · Warmup</button>
+      <button role="tab" aria-selected="false" aria-controls="p5" id="t5">5 · Ramp</button>
+      <button role="tab" aria-selected="false" aria-controls="p6" id="t6">6 · Monitoring</button>
+    </div>
+
+    <div class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+      <h4>Lookalike domains, never the primary, never one of them</h4>
+      <div class="spec">
+        <code>50 domains</code><code>brand-adjacent, not typo-squatted</code><code>primary domain: zero sends</code>
+      </div>
+      <p class="why">A reputation problem on a sending domain is survivable &mdash; you retire it. The same problem
+        on the domain that carries invoices, password resets and the sales team's own replies is not. So the
+        primary never appears as a sender, a reply-to or a bounce address.</p>
+      <p class="why">Many domains rather than few, because reputation is per-domain. Spread across fifty, one
+        bad list burns 2% of the estate instead of all of it. Names stay recognisably related to the brand,
+        because the recipient has to believe the sender &mdash; a character-swap of the real domain is the
+        thing phishing filters are literally built to catch.</p>
+    </div>
+
+    <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+      <h4>Two mailboxes per domain, pooled by who receives them</h4>
+      <div class="spec">
+        <code>100 mailboxes</code><code>2 per domain</code><code>pools split by recipient ESP</code>
+      </div>
+      <p class="why">Two per domain, not five. Mailbox count per domain is one of the cheapest signals a
+        filter has, and the ratio matters more than the absolute number.</p>
+      <p class="why">The pools themselves are split by <strong>who is receiving</strong>, not by who is sending.
+        I built an MX classifier that resolves each recipient domain and sorts it into Microsoft, Google or
+        a content-management host, then batches sends accordingly. The split is encoded in the campaign name,
+        so the effect is measurable afterwards rather than assumed.</p>
+      <p class="why">It has already paid for itself twice. It caught a gap in <em>itself</em> &mdash; it was
+        missing <code style="padding:2px 5px">protection.office365.us</code>, the government-cloud signature,
+        plus two mail-gateway signatures &mdash; and I found that while building a government-contractor list,
+        before the send rather than after. And on one account it surfaced that Microsoft-hosted recipients
+        were replying at 0.4&ndash;1.6% while Google and CMS-hosted recipients on the same campaigns ran 6&ndash;8%.</p>
+    </div>
+
+    <div class="panel" id="p3" role="tabpanel" aria-labelledby="t3" hidden>
+      <h4>SPF, DKIM and DMARC per domain, then verified rather than assumed</h4>
+      <div class="spec">
+        <code>SPF</code><code>DKIM</code><code>DMARC p=none &rarr; quarantine</code><code>custom tracking domain</code>
+      </div>
+      <p class="why">All three on every domain, as a precondition of the domain being allowed to send at all,
+        not as a fix applied after deliverability goes wrong.</p>
+      <p class="why">Two failure modes I check for specifically, because both are common and both are silent:
+        <strong>the SPF ten-lookup limit</strong> &mdash; nest enough includes and the record stops evaluating,
+        which is a permanent soft fail nobody notices &mdash; and <strong>a DMARC policy published at a partial
+        percentage</strong>, which means the policy is only being applied to a fraction of mail and the reports
+        are describing a sample. I wrote a checker for both, because they are exactly the problems that look
+        fine in a dashboard.</p>
+      <p class="why">A lesson about verification itself: my resolver died mid-sweep once and marked every domain
+        <em>unknown</em> rather than erroring, so a run completed successfully with worthless output. Every
+        DNS job now pins public resolvers, and a 100%-unknown result is treated as an infrastructure alarm
+        rather than a finding.</p>
+    </div>
+
+    <div class="panel" id="p4" role="tabpanel" aria-labelledby="t4" hidden>
+      <h4>Multi-week, and the honest answer is that it is a scheduling constraint, not a technique</h4>
+      <div class="spec">
+        <code>built and warming before launch</code><code>98 of 100 still warming at audit</code><code>multi-week lead time</code>
+      </div>
+      <p class="why">Warmup is not something to be clever about. The only decision that matters is admitting
+        how long it takes and putting it at the front of the plan, because the lead time is weeks and it
+        cannot be compressed by wanting it more.</p>
+      <p class="why">On that 100-mailbox build I audited the fleet and found <strong>98 of 100 still warming,
+        every one at zero sends</strong>, and reported it as a hard blocker rather than launching into it.</p>
+      <p class="why">The thing that actually went wrong there was not technical. Every mailbox had been
+        registered to one person, and the approved copy had a <em>second</em> person signing two of the
+        campaigns. There were zero mailboxes for that identity, and new domains plus warmup is a multi-week
+        clock. <strong>"Who is signing these, and do they have mailboxes?" is a two-minute question at
+        onboarding that would have started that clock weeks earlier.</strong> I now ask it on day one.
+        I also once told that founder the account had no sending infrastructure because there was no token
+        in the environment file; it was already built and warming. I was wrong and I corrected it in writing.</p>
+    </div>
+
+    <div class="panel" id="p5" role="tabpanel" aria-labelledby="t5" hidden>
+      <h4>15 a day per mailbox, held there</h4>
+      <div class="spec">
+        <code>15 sends/day/mailbox</code><code>&asymp;1,500/day at full ramp</code><code>3-send sequences</code>
+      </div>
+      <p class="why">Fifteen a day per mailbox, which is deliberately unambitious. The ceiling is not set by
+        what a mailbox can physically push; it is set by what keeps the domain alive in month six. Capacity
+        comes from domain count, not from per-mailbox volume.</p>
+      <p class="why">Sequences are three sends, as a house standard. The fourth and fifth sends in a sequence
+        contribute almost nothing to positive replies and contribute fully to complaints.</p>
+      <p class="why">The ramp is per-pool, not account-wide, so a pool can be held back or retired without
+        touching the rest. Which turned out to matter &mdash; see monitoring.</p>
+    </div>
+
+    <div class="panel" id="p6" role="tabpanel" aria-labelledby="t6" hidden>
+      <h4>Bounce per campaign, reply rate per pool, positive rate per source</h4>
+      <div class="spec">
+        <code>bounce % by campaign</code><code>reply % by pool</code><code>positive % by list source</code><code>reply % by recipient ESP</code>
+      </div>
+      <p class="why">Not open rate. Open tracking is noise now and the pixel itself costs deliverability.
+        The north-star is <strong>positive reply rate</strong> &mdash; people who actually said yes, over people
+        actually written to.</p>
+      <p class="why"><strong>The catch that justifies the whole practice.</strong> On one account, two inbox pools
+        ran the same campaigns, same lists, same days. Pool A returned 226 replies and 13 interested from
+        14,219 sends. Pool B returned 220 replies in one month, then <strong>15 replies from 7,433 sends</strong>
+        the next. That is a delivery failure, not a market one, and it is invisible on every reply-rate chart
+        that averages the account. It also meant one vertical's zero was partly an artefact, because half
+        that volume never arrived &mdash; so I said so instead of reporting the vertical as dead.</p>
+      <p class="why">Monthly bounce is watched against the estate baseline of 0.81%. One month in seventeen ran
+        1.80%. That month is on the chart in Question 6, and I would rather you ask me about it than not see it.</p>
+    </div>
+    <p class="src">Spec from a live build, platform read 2026-09-26. Mailbox provider deliberately left
+      unnamed on this slide pending Shubham's confirmation of the exact providers per pool.</p>
+  </div>
+</section>
+
+<!-- 5 ───────────────────────────── Q3 a -->
+<section class="s" data-key="q3" data-label="Q3 &middot; The wiring" data-sub="A four-provider enrichment waterfall">
+  <div class="wrap">
+    <p class="kick"><b>Question 3</b> <s>Show us something you built</s></p>
+    <p class="q">Show us something you built. A screenshot or Loom of a Clay table, an n8n/Make workflow,
+      an enrichment waterfall, or an agentic prospecting workflow. <i>We want to see the wiring,
+      not a case-study PDF.</i></p>
+    <h2>A four-provider email waterfall in production Python, with find and verify deliberately separated.</h2>
+    <p class="lede">Not a Clay table. I know that API, and I am lighter on the table UI than on the code
+      &mdash; so here is the thing I actually built, which is the layer underneath it.</p>
+    <div class="flow">
+      <svg viewBox="0 0 880 300" role="img" aria-label="Four enrichment providers in a cascade, each with a hit-rate counter, feeding a separate verification step gated by an explicit confirmation flag">
+        <style>
+          .wf-b{fill:var(--raised);stroke:var(--rule)}
+          .wf-a{fill:var(--accent-bg);stroke:var(--accent)}
+          .wf-t{fill:var(--ink);font:600 13px Inter,sans-serif}
+          .wf-m{fill:var(--ink3);font:400 11px "IBM Plex Mono",monospace}
+          .wf-l{stroke:var(--rule);stroke-width:1.5;fill:none}
+          .wf-k{fill:var(--accent);font:600 11px "IBM Plex Mono",monospace}
+        </style>
+        <text class="wf-m" x="0" y="14">INPUT</text>
+        <rect class="wf-b" x="0" y="26" width="128" height="52" rx="7"/>
+        <text class="wf-t" x="16" y="48">company +</text>
+        <text class="wf-t" x="16" y="66">person</text>
+
+        <path class="wf-l" d="M128 52 h26"/>
+        <text class="wf-m" x="168" y="14">CASCADE &mdash; first tier that answers, wins</text>
+        <g>
+          <rect class="wf-a" x="168" y="26" width="150" height="52" rx="7"/>
+          <text class="wf-t" x="182" y="48">Provider 1</text>
+          <text class="wf-k" x="182" y="66">hit rate logged</text>
+        </g>
+        <path class="wf-l" d="M318 52 h22"/>
+        <rect class="wf-b" x="340" y="26" width="150" height="52" rx="7"/>
+        <text class="wf-t" x="354" y="48">Provider 2</text>
+        <text class="wf-k" x="354" y="66">hit rate logged</text>
+        <path class="wf-l" d="M490 52 h22"/>
+        <rect class="wf-b" x="512" y="26" width="150" height="52" rx="7"/>
+        <text class="wf-t" x="526" y="48">Provider 3</text>
+        <text class="wf-k" x="526" y="66">hit rate logged</text>
+        <path class="wf-l" d="M662 52 h22"/>
+        <rect class="wf-b" x="684" y="26" width="150" height="52" rx="7"/>
+        <text class="wf-t" x="698" y="48">Provider 4</text>
+        <text class="wf-k" x="698" y="66">hit rate logged</text>
+
+        <path class="wf-l" d="M243 78 v34 h520 v-34" stroke-dasharray="4 4"/>
+        <text class="wf-m" x="368" y="130">per-tier telemetry on every run &rarr; cascade order is retuned from data</text>
+
+        <path class="wf-l" d="M440 142 v24"/>
+        <text class="wf-m" x="0" y="182">GATE &mdash; verification spends real money, so it refuses to run on its own</text>
+        <rect class="wf-a" x="0" y="194" width="400" height="86" rx="7"/>
+        <text class="wf-t" x="20" y="222">Verify step</text>
+        <text class="wf-m" x="20" y="244">requires explicit --yes</text>
+        <text class="wf-m" x="20" y="262">singleton lock · hard count cap</text>
+
+        <rect class="wf-b" x="432" y="194" width="448" height="86" rx="7"/>
+        <text class="wf-t" x="452" y="222">Null-out rules, applied before anything is written</text>
+        <text class="wf-m" x="452" y="244">pattern-guessed address &rarr; discarded, not stored as a find</text>
+        <text class="wf-m" x="452" y="262">catch-all flag &rarr; recorded, never a rejection reason</text>
+      </svg>
+    </div>
+    <p class="figc">Generated from the real module, not a mockup. Provider names, per-tier hit rates and the
+      annotated source are on the next slide.</p>
+  </div>
+</section>
+
+<!-- 6 ───────────────────────────── Q3 b -->
+<section class="s" data-key="q3b" data-label="Q3 &middot; The two traps" data-sub="Both fail silently and look like a copy problem later">
+  <div class="wrap">
+    <p class="kick"><b>Question 3</b> <s>The two bugs worth the slide</s></p>
+    <h2>Both of these fail silently, and both look like a copy problem eight weeks downstream.</h2>
+    <div class="two">
+      <div class="pane">
+        <h4>1 · The pattern-guessed address</h4>
+        <p>One provider returns a syntactically plausible address with <code class="mono" style="font-size:12.5px">certainty: not_found</code>
+          when it has no real answer. It is a guess at the format, dressed as a result.</p>
+        <p><strong>If you do not null those explicitly, guesses enter the list indistinguishable from finds,
+          and the bounce rate detonates three weeks later</strong> &mdash; by which point the list has been
+          handed over and the campaign is being blamed.</p>
+      </div>
+      <div class="pane">
+        <h4>2 · Catch-all is a domain property, not a verdict</h4>
+        <p>Several major tools flag an address as catch-all while a different provider confirms the same
+          address at highest confidence. The flag describes the <em>domain's</em> acceptance behaviour. It is
+          not evidence against the address.</p>
+        <p><strong>Rejecting on it zeroed out my best-performing tier entirely.</strong> Correct behaviour:
+          accept, record the flag, and expose a switch for clients whose risk tolerance demands the
+          stricter rule.</p>
+      </div>
+    </div>
+    <div class="code">
+      <pre><s># Find and verify are separate commands on purpose. Verification spends</s>
+<s># credits, and credits are real money, so it will not run implicitly.</s>
+<b>if</b> args.verify <b>and not</b> args.yes:
+    <u>die</u>(<s>"verification costs credits; pass --yes to confirm"</s>)
+
+<b>with</b> <u>singleton_lock</u>(LOCK):          <s># two runs cannot race and double-spend</s>
+    <b>for</b> tier <b>in</b> CASCADE:            <s># first tier that answers, wins</s>
+        hit = tier.<u>find</u>(person, domain)
+        <b>if</b> hit <b>and</b> hit.certainty == <s>"not_found"</s>:
+            hit = <b>None</b>                 <s># a pattern guess is not a find</s>
+        STATS[tier.name].<u>record</u>(hit)    <s># per-tier hit rate, printed every run</s>
+        <b>if</b> hit: <b>break</b></pre>
+    </div>
+    <div class="todo" data-pending="q3-screenshots">
+      <b>Screenshots to drop in</b>
+      <p>Shubham is sending a redacted platform screenshot of the inbox fleet, a campaign list showing the
+        naming convention, and terminal output from a live waterfall run with the hit-rate table. They land
+        here and on the Question 2 monitoring slide.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 ───────────────────────────── Q4 a -->
+<section class="s" data-key="q4" data-label="Q4 &middot; The play that failed" data-sub="6,397 sends, three replies worth having">
+  <div class="wrap">
+    <p class="kick"><b>Question 4</b> <s>A play that failed</s></p>
+    <p class="q">Describe a play you ran that failed. <i>What was the hypothesis, how did you know it failed,
+      how fast did you kill it, and what did you change.</i></p>
+    <h2>Three different arguments to the same audience died together. That is what rules out the copy.</h2>
+    <div class="rows">
+      <div class="row"><em>Hypothesis</em><p><b>HVAC owner-operators would respond to a tax-advisory offer</b>
+        The client sells to owner-operated businesses at $1M&ndash;$10M revenue. No vendor covers that market
+        properly, so I built it: map searches on a self-subdividing grid, business directories, manufacturer
+        locators. Roughly 60,000 trade companies and 27,000 professionals, zero vendor spend. HVAC was the
+        obvious first vertical and I believed it.</p></div>
+      <div class="row"><em>How I knew</em><p><b>Three angles, 6,397 sends, three interested replies</b>
+        Not a near miss. The three angles were deliberately different arguments, run in parallel rather
+        than sequentially, each as its own campaign. <strong>They died together.</strong> Three distinct
+        arguments failing simultaneously is the evidence that moves the suspect from the copy to the audience
+        &mdash; if it were the words, the three would not agree.</p></div>
+      <div class="row"><em>How fast</em><p><b>Within the first vertical, before the list was scaled</b>
+        Running the angles in parallel is what bought the speed. Sequentially, three angles at 2,000 sends
+        each is three cycles of wait-and-rewrite. In parallel it is one read, and the decision was to change
+        the audience rather than the words.</p></div>
+      <div class="row"><em>What changed</em><p><b>Lawyers in Texas: 28 interested from 23,284 sends</b>
+        Same account, same infrastructure, same data-acquisition machinery pointed at a different vertical.
+        That one vertical produced 28 of the account's 44 interested replies.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 ───────────────────────────── Q4 b -->
+<section class="s" data-key="q4b" data-label="Q4 &middot; Doubling down" data-sub="And the three verticals that stayed at zero">
+  <div class="wrap">
+    <p class="kick"><b>Question 4</b> <s>What I did next</s></p>
+    <h2>Then doubled down on what answered, and let the zeros stay visible.</h2>
+    <div class="fig">
+      <img src="/assets/exhibit-5-vertical-ladder.svg" loading="lazy" decoding="async"
+        alt="Seven verticals run in order; lawyers in Texas produced 28 of the 44 interested replies while three verticals produced none">
+    </div>
+    <p class="figc">Seven verticals, each a separable campaign. Roofing worked, so it ran again. Lawyers worked
+      in Texas, so they ran in Florida. Water restoration, plumbing and the second roofing batch returned
+      nothing &mdash; and that was the signal to stop, not to push harder.</p>
+    <div class="stats">
+      <div class="stat"><b>51,333</b><span>sends across 18 campaigns</span></div>
+      <div class="stat"><b>44</b><span>interested &mdash; 28 from one vertical</span></div>
+      <div class="stat"><b class="a">15</b><span>meetings from a list no vendor sells</span></div>
+      <div class="stat"><b>3</b><span>verticals that returned zero</span></div>
+    </div>
+    <p>The 5,508 sends that produced nothing are the reason the 28 is believable. An account average would
+      have hidden both.</p>
+    <p class="src">Platform API, read 2026-09-26. Meetings: client-facing dashboard, read 2026-10-07.
+      Caveat I report rather than bury: plumbing's zero is partly an artefact, because half that volume went
+      through an inbox pool that had stopped delivering &mdash; the pool failure on the Question 2 monitoring slide.</p>
+  </div>
+</section>
+
+<!-- 9 ───────────────────────────── Q4 c -->
+<section class="s" data-key="q4c" data-label="Q4 &middot; The fastest kill" data-sub="An afternoon, before a single send">
+  <div class="wrap">
+    <p class="kick"><b>Question 4</b> <s>The fastest kill I have made</s></p>
+    <h2>The best play I ever killed never sent an email.</h2>
+    <p class="lede">A PR client's campaign premise: target Inc 5000 companies with <strong>no editorial
+      coverage</strong> and offer to get them covered. Intuitively excellent, commercially obvious, and an
+      assumption nobody had tested.</p>
+    <div class="rows">
+      <div class="row"><em>Get the list</em><p><b>5,002 companies, extracted past a bot-detection wall</b>
+        The source site is protected at the network layer, so fighting the HTTP layer was the wrong move.
+        I pulled the data out of the page's own component tree in the browser instead.</p></div>
+      <div class="row"><em>Test the premise</em><p><b>A random sample of 100, audited by hand for existing coverage</b>
+        One afternoon of work on a question that the whole campaign rested on.</p></div>
+      <div class="row"><em>Result</em><p><b>96 of 100 already had editorial coverage</b>
+        The premise was true for 4% of the market, not the assumed majority. The real gap was not the
+        <em>existence</em> of coverage, it was its <em>tier</em>.</p></div>
+      <div class="row"><em>What changed</em><p><b>Reframed from "we'll get you covered" to a diagnosis-led angle on coverage quality &mdash; before a single email went out</b>
+        An n=100 audit cost an afternoon and saved a quarter of sending against a premise that was false
+        for 96% of the market.</p></div>
+    </div>
+    <p>I include this one because the honest answer to "how fast did you kill it" is sometimes
+      <strong>before it ran</strong>, and that is a cheaper habit than being fast at reading failure.</p>
+  </div>
+</section>
+
+<!-- 10 ───────────────────────────── Q5 -->
+<section class="s" data-key="q5" data-label="Q5 &middot; Availability" data-sub="Freelancing, hours, and the next 12 months">
+  <div class="wrap">
+    <p class="kick"><b>Question 5</b> <s>Availability and intent</s></p>
+    <p class="q">How long have you been freelancing, how many hours a week are you currently committed to
+      across all clients, and do you intend to keep freelancing over the next 12 months?
+      <i>We'd rather know upfront than lose you mid-engagement to a full-time offer.</i></p>
+    <h2>The fair thing to do with this question is answer it straight.</h2>
+    <p class="lede">It is the one question on this list where my own data cannot answer for me, and the one
+      where a hedge would be worse than any honest answer. Shubham is filling this in directly rather than
+      letting me draft something agreeable.</p>
+    <div class="todo" data-pending="q5-availability">
+      <b>Awaiting three facts from Shubham</b>
+      <p>How long he has been freelancing, how many hours a week are currently committed across all clients,
+        and the real position on the next 12 months. The questionnaire explicitly asks not to be surprised
+        later, so this gets stated plainly, including anything inconvenient.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11 ───────────────────────────── Q6 a -->
+<section class="s" data-key="q6" data-label="Q6 &middot; Volume kept healthy" data-sub="17 months of launch cohorts, bounce and reply on each">
+  <div class="wrap">
+    <p class="kick"><b>Question 6</b> <s>Largest volume kept healthy</s></p>
+    <p class="q">What's the largest monthly sending volume you've personally kept healthy, and what were
+      the deliverability numbers at that volume?</p>
+    <h2>Peak month: 360,246 sends at 0.80% bounce and 1.64% unique reply.</h2>
+    <p class="lede">Seventeen months of client sending, grouped by the month each campaign launched.
+      Hover or tap any bar. <strong>Green is the peak. Red is the month I would want you to ask about.</strong></p>
+    <div class="chart">
+      <div class="ax"><span id="cx-l">May 2025</span><span id="cx-r">Sep 2026</span></div>
+      <div class="bars" id="bars" role="group" aria-label="Monthly sending volume, bounce rate and reply rate"></div>
+      <div class="read" id="read"></div>
+    </div>
+    <p class="src">Platform API, read 2026-09-26, client workspaces only. <strong>Honest attribution caveat:</strong>
+      sends are grouped by the month a campaign <em>launched</em>, because the platform reports lifetime totals
+      per campaign and not a daily series. A campaign launched in July that is still sending in August counts
+      entirely in July. So these are launch cohorts, not calendar months &mdash; they are the right shape and
+      the right order of magnitude, and I would not present them as a calendar series. September 2026 is a
+      partial month, cut off by the read date.</p>
+  </div>
+</section>
+
+<!-- 12 ───────────────────────────── Q6 b -->
+<section class="s" data-key="q6b" data-label="Q6 &middot; What healthy means" data-sub="Including the month it was not">
+  <div class="wrap">
+    <p class="kick"><b>Question 6</b> <s>What "kept healthy" actually means</s></p>
+    <h2>0.81% bounce across 1.96 million sends, and one month in seventeen that ran 1.80%.</h2>
+    <div class="stats">
+      <div class="stat"><b>1,955,979</b><span>client emails sent, lifetime</span></div>
+      <div class="stat"><b class="a">0.81%</b><span>bounce, lifetime</span></div>
+      <div class="stat"><b>1.50%</b><span>unique reply, lifetime</span></div>
+      <div class="stat"><b>360,246</b><span>peak cohort &mdash; July 2026</span></div>
+      <div class="stat"><b class="a">0.80%</b><span>bounce at that peak</span></div>
+      <div class="stat"><b>1.64%</b><span>unique reply at that peak</span></div>
+    </div>
+    <p>Two things I want to say about this rather than leave implied.</p>
+    <p><strong>Volume went up and bounce did not.</strong> The peak cohort bounced at 0.80% against a lifetime
+      baseline of 0.81%. That is the whole claim: the ramp held because capacity came from domain count and
+      pool separation, not from pushing per-mailbox volume.</p>
+    <p><strong>February 2026 ran 1.80% bounce and 0.54% reply</strong> &mdash; more than double the baseline bounce,
+      a third of the baseline reply rate, on 63,174 sends. It is on the chart in red. I would rather hand you
+      the month that went wrong than have you find it, and the reason I can point at it at all is that bounce
+      is tracked per campaign per month rather than as an account lifetime average.</p>
+    <p class="src">Platform API, read 2026-09-26. Reply figures count unique human and automatic replies;
+      "interested" is a flag a human sets during inbox triage, which makes it a floor rather than a
+      classifier output.</p>
+  </div>
+</section>
+
+<!-- 13 ───────────────────────────── Q7 -->
+<section class="s" data-key="q7" data-label="Q7 &middot; Compensation" data-sub="Per month">
+  <div class="wrap">
+    <p class="kick"><b>Question 7</b> <s>Compensation expectations</s></p>
+    <p class="q">Compensation expectations per month?</p>
+    <h2>A number, and what it buys.</h2>
+    <div class="todo" data-pending="q7-comp">
+      <b>Awaiting the figure from Shubham</b>
+      <p>He has chosen to state a number rather than a range or a deferral. The figure and currency go here,
+        with the scope it covers &mdash; so the number is read against what is being delivered rather than
+        in the abstract.</p>
+    </div>
+    <p class="lede">The thing worth saying alongside it: <strong>the risk on a first engagement is yours, not
+      mine</strong>, and it is cheap for me to carry some of it. My standing offer elsewhere is a fixed-price
+      two-week trial &mdash; walk away at day 14 with no notice and keep everything built.</p>
+  </div>
+</section>
+
+<!-- 14 ───────────────────────────── close -->
+<section class="s mid" data-key="end" data-label="Close" data-sub="What I would do in week one">
+  <div class="wrap">
+    <p class="kick"><b>If this goes further</b> <s>Week one</s></p>
+    <h1>I would spend the first week finding out what your numbers actually say.</h1>
+    <p class="lede">Not building. Reading. Every account on this page produced its result because something
+      separable was measured &mdash; a pool, a vertical, a list source, a recipient ESP &mdash; and almost
+      nobody sets that up before they need it.</p>
+    <div class="rows">
+      <div class="row"><em>Day 1&ndash;2</em><p><b>Audit what is already sending</b>
+        Domains, authentication, SPF lookup depth, DMARC policy percentage, pool separation, bounce by
+        campaign. Half of what looks like a copy problem is one of these.</p></div>
+      <div class="row"><em>Day 3&ndash;4</em><p><b>Find the metric nobody is reporting</b>
+        Positive reply rate per list source. If auto-replies are counted in the platform's reply numbers,
+        the noisiest source currently looks like the best one.</p></div>
+      <div class="row"><em>Day 5</em><p><b>One falsifiable hypothesis, run in parallel not in sequence</b>
+        Three arguments at once beats three arguments in a row, because when they die together you learn
+        something and when they die one at a time you learn nothing for six weeks.</p></div>
+    </div>
+    <p class="src">Shubham Sharma &middot; GTM engineer &middot; portfolio and the long-form versions of these
+      accounts at <a href="/" style="color:var(--accent)">shubhamsbuild.github.io</a>.
+      Client names, the booking dashboard and the live platforms are all available on a call.</p>
+  </div>
+</section>
+
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>Seven Answers</b> &middot; Shubham Sharma &middot; GTM engineer</span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 15</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &mdash; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+// ---- Q2 tabs
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role=tab]'));
+  if (!tabs.length) return;
+  function pick(i){
+    tabs.forEach(function(t, j){
+      t.setAttribute("aria-selected", j === i ? "true" : "false");
+      var p = document.getElementById(t.getAttribute("aria-controls"));
+      if (p) p.hidden = j !== i;
+    });
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener("click", function(){ pick(i); });
+    t.addEventListener("keydown", function(e){
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft"){
+        e.preventDefault();
+        e.stopPropagation();          // do not also advance the slide
+        var j = (i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length;
+        pick(j); tabs[j].focus();
+      }
+    });
+  });
+})();
+
+// ---- Q6 chart. Figures are campaign launch cohorts from the platform API,
+// read 2026-09-26; see the caveat on the slide.
+(function(){
+  var M = [
+    ["2025-05","May 25",  20392, 0.65, 2.91,  7],
+    ["2025-06","Jun 25",  50105, 1.11, 1.67, 13],
+    ["2025-07","Jul 25",  83129, 0.84, 1.74, 14],
+    ["2025-08","Aug 25",  43437, 1.06, 2.60,  5],
+    ["2025-09","Sep 25",  55271, 0.73, 1.76,  5],
+    ["2025-10","Oct 25",  73946, 1.10, 2.09, 26],
+    ["2025-11","Nov 25",  94317, 0.91, 1.26, 19],
+    ["2025-12","Dec 25",  91945, 0.71, 1.71, 14],
+    ["2026-01","Jan 26", 187598, 0.58, 2.01, 26],
+    ["2026-02","Feb 26",  63174, 1.80, 0.54,  5],
+    ["2026-03","Mar 26", 223813, 0.93, 1.19, 11],
+    ["2026-04","Apr 26", 150491, 1.50, 1.00, 25],
+    ["2026-05","May 26", 240687, 0.66, 1.34, 44],
+    ["2026-06","Jun 26", 297506, 0.61, 0.99,109],
+    ["2026-07","Jul 26", 360246, 0.80, 1.64, 67],
+    ["2026-08","Aug 26", 276860, 0.65, 1.63, 76],
+    ["2026-09","Sep 26",  17404, 0.67, 1.95, 10]
+  ];
+  var bars = document.getElementById("bars"), read = document.getElementById("read");
+  if (!bars) return;
+  var max = M.reduce(function(a, r){ return Math.max(a, r[2]); }, 0);
+  var peak = 14, bad = 9;   // July 2026 and February 2026
+
+  function fmt(x){ return x.toLocaleString("en-US"); }
+  function paint(i){
+    var r = M[i];
+    read.innerHTML =
+      '<div><b>' + r[1] + '</b><span>launch cohort</span></div>' +
+      '<div><b>' + fmt(r[2]) + '</b><span>emails sent</span></div>' +
+      '<div><b>' + r[3].toFixed(2) + '%</b><span>bounce &mdash; baseline 0.81%</span></div>' +
+      '<div><b>' + r[4].toFixed(2) + '%</b><span>unique reply &mdash; baseline 1.50%</span></div>' +
+      '<div><b>' + r[5] + '</b><span>campaigns launched</span></div>';
+    Array.prototype.forEach.call(bars.children, function(b, j){
+      b.setAttribute("aria-pressed", j === i ? "true" : "false");
+    });
+  }
+
+  M.forEach(function(r, i){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("aria-pressed", "false");
+    b.title = r[1] + " · " + fmt(r[2]) + " sent · " + r[3].toFixed(2) + "% bounce";
+    if (i === peak) b.className = "peak";
+    if (i === bad)  b.className = "bad";
+    var h = Math.max(3, Math.round((r[2] / max) * 100));
+    b.innerHTML = '<i style="height:' + h + '%"></i>' +
+                  (i % 2 === 0 ? '<u>' + r[1].slice(0,3) + '</u>' : '');
+    b.addEventListener("mouseenter", function(){ paint(i); });
+    b.addEventListener("focus",      function(){ paint(i); });
+    b.addEventListener("click",      function(){ paint(i); });
+    bars.appendChild(b);
+  });
+  paint(peak);
+})();
+
+})();
+</script>
+</body>
+</html>

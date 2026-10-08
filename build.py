@@ -2761,6 +2761,16 @@ encoding="utf-8")
         if (ROOT / extra).exists():
             shutil.copy(ROOT / extra, OUT / extra)
 
+    # Standalone pages that are not part of the generated site: hand-written
+    # HTML, copied through verbatim. They are not in the nav and not linked from
+    # anywhere, so they are reachable only by someone given the URL. They still
+    # pass through leakcheck, which scans all of public/ and is the point of
+    # shipping them this way rather than hosting them somewhere unguarded.
+    for standalone in ("flowace",):
+        src = ROOT / standalone
+        if src.is_dir():
+            shutil.copytree(src, OUT / standalone)
+
     # /contact.html and /thanks.html were live URLs until 2026-09-07. The page
     # is gone; the links people already have are not, so both keep a stub.
     #
