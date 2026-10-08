@@ -500,119 +500,98 @@ mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:
 </section>
 
 <!-- 5 ───────────────────────────── Q3 a -->
-<section class="s" data-key="q3" data-label="Q3 &middot; The wiring" data-sub="A four-provider enrichment waterfall">
+<section class="s" data-key="q3" data-label="Q3 &middot; The wiring" data-sub="A client dashboard that decides what to fix first">
   <div class="wrap">
     <p class="kick"><b>Question 3</b> <s>Show us something you built</s></p>
     <p class="q">Show us something you built. A screenshot or Loom of a Clay table, an n8n/Make workflow,
       an enrichment waterfall, or an agentic prospecting workflow. <i>We want to see the wiring,
       not a case-study PDF.</i></p>
-    <h2>A four-provider email waterfall in production Python, with find and verify deliberately separated.</h2>
-    <p class="lede">Not a Clay table. I know that API, and I am lighter on the table UI than on the code,
-      so here is the thing I actually built, which is the layer underneath it.</p>
-    <div class="flow">
-      <svg viewBox="0 0 880 300" role="img" aria-label="Four enrichment providers in a cascade, each with a hit-rate counter, feeding a separate verification step gated by an explicit confirmation flag">
-        <style>
-          .wf-b{fill:var(--raised);stroke:var(--rule)}
-          .wf-a{fill:var(--accent-bg);stroke:var(--accent)}
-          .wf-t{fill:var(--ink);font:600 13px Inter,sans-serif}
-          .wf-m{fill:var(--ink3);font:400 11px "IBM Plex Mono",monospace}
-          .wf-l{stroke:var(--rule);stroke-width:1.5;fill:none}
-          .wf-k{fill:var(--accent);font:600 11px "IBM Plex Mono",monospace}
-        </style>
-        <text class="wf-m" x="0" y="14">INPUT</text>
-        <rect class="wf-b" x="0" y="26" width="128" height="52" rx="7"/>
-        <text class="wf-t" x="16" y="48">company +</text>
-        <text class="wf-t" x="16" y="66">person</text>
-
-        <path class="wf-l" d="M128 52 h26"/>
-        <text class="wf-m" x="168" y="14">CASCADE: first tier that answers, wins</text>
-        <g>
-          <rect class="wf-a" x="168" y="26" width="150" height="52" rx="7"/>
-          <text class="wf-t" x="182" y="48">Provider 1</text>
-          <text class="wf-k" x="182" y="66">hit rate logged</text>
-        </g>
-        <path class="wf-l" d="M318 52 h22"/>
-        <rect class="wf-b" x="340" y="26" width="150" height="52" rx="7"/>
-        <text class="wf-t" x="354" y="48">Provider 2</text>
-        <text class="wf-k" x="354" y="66">hit rate logged</text>
-        <path class="wf-l" d="M490 52 h22"/>
-        <rect class="wf-b" x="512" y="26" width="150" height="52" rx="7"/>
-        <text class="wf-t" x="526" y="48">Provider 3</text>
-        <text class="wf-k" x="526" y="66">hit rate logged</text>
-        <path class="wf-l" d="M662 52 h22"/>
-        <rect class="wf-b" x="684" y="26" width="150" height="52" rx="7"/>
-        <text class="wf-t" x="698" y="48">Provider 4</text>
-        <text class="wf-k" x="698" y="66">hit rate logged</text>
-
-        <path class="wf-l" d="M243 78 v34 h520 v-34" stroke-dasharray="4 4"/>
-        <text class="wf-m" x="368" y="130">per-tier telemetry on every run &rarr; cascade order is retuned from data</text>
-
-        <path class="wf-l" d="M440 142 v24"/>
-        <text class="wf-m" x="0" y="182">GATE: verification spends real money, so it refuses to run on its own</text>
-        <rect class="wf-a" x="0" y="194" width="400" height="86" rx="7"/>
-        <text class="wf-t" x="20" y="222">Verify step</text>
-        <text class="wf-m" x="20" y="244">requires explicit --yes</text>
-        <text class="wf-m" x="20" y="262">singleton lock · hard count cap</text>
-
-        <rect class="wf-b" x="432" y="194" width="448" height="86" rx="7"/>
-        <text class="wf-t" x="452" y="222">Null-out rules, applied before anything is written</text>
-        <text class="wf-m" x="452" y="244">pattern-guessed address &rarr; discarded, not stored as a find</text>
-        <text class="wf-m" x="452" y="262">catch-all flag &rarr; recorded, never a rejection reason</text>
-      </svg>
+    <h2>A client dashboard that works out what to fix first, running as an always-on service.</h2>
+    <p class="lede">Ten client programmes across two sending platforms. Every weekday it reads every live
+      campaign, every inbox and every LinkedIn seat, then answers one question per client:
+      <strong>what is the single thing holding this account back today.</strong> It posts that to Slack and
+      refreshes this board. Deployed and live.</p>
+    <div class="fig">
+      <img src="board.png" decoding="async"
+        alt="The morning board: ten clients, each with a colour-coded bottleneck bucket, the specific fix, the evidence behind it, and today's email and LinkedIn sending against capacity">
     </div>
-    <p class="figc">Generated from the real module, not a mockup. Provider names, per-tier hit rates and the
-      annotated source are on the next slide.</p>
+    <p class="figc">Real output from 7 October 2026. Client names replaced with letters and the partner's
+      name removed; <strong>every number is untouched</strong>. Red dot means fix today, amber means watch.</p>
   </div>
 </section>
 
 <!-- 6 ───────────────────────────── Q3 b -->
-<section class="s" data-key="q3b" data-label="Q3 &middot; The two traps" data-sub="Both fail silently and look like a copy problem later">
+<section class="s" data-key="q3b" data-label="Q3 &middot; How it decides" data-sub="Required is derived from capacity, not typed in by a human">
   <div class="wrap">
-    <p class="kick"><b>Question 3</b> <s>The two bugs worth the slide</s></p>
-    <h2>Both of these fail silently, and both look like a copy problem eight weeks downstream.</h2>
-    <div class="two">
-      <div class="pane">
-        <h4>1 · The pattern-guessed address</h4>
-        <p>One provider returns a syntactically plausible address with <code class="mono" style="font-size:12.5px">certainty: not_found</code>
-          when it has no real answer. It is a guess at the format, dressed as a result.</p>
-        <p><strong>If you do not null those explicitly, guesses enter the list indistinguishable from finds,
-          and the bounce rate detonates three weeks later</strong>, by which point the list has been
-          handed over and the campaign is being blamed.</p>
-      </div>
-      <div class="pane">
-        <h4>2 · Catch-all is a domain property, not a verdict</h4>
-        <p>Several major tools flag an address as catch-all while a different provider confirms the same
-          address at highest confidence. The flag describes the <em>domain's</em> acceptance behaviour. It is
-          not evidence against the address.</p>
-        <p><strong>Rejecting on it zeroed out my best-performing tier entirely.</strong> Correct behaviour:
-          accept, record the flag, and expose a switch for clients whose risk tolerance demands the
-          stricter rule.</p>
-      </div>
-    </div>
-    <div class="code">
-      <pre><s># Find and verify are separate commands on purpose. Verification spends</s>
-<s># credits, and credits are real money, so it will not run implicitly.</s>
-<b>if</b> args.verify <b>and not</b> args.yes:
-    <u>die</u>(<s>"verification costs credits; pass --yes to confirm"</s>)
-
-<b>with</b> <u>singleton_lock</u>(LOCK):          <s># two runs cannot race and double-spend</s>
-    <b>for</b> tier <b>in</b> CASCADE:            <s># first tier that answers, wins</s>
-        hit = tier.<u>find</u>(person, domain)
-        <b>if</b> hit <b>and</b> hit.certainty == <s>"not_found"</s>:
-            hit = <b>None</b>                 <s># a pattern guess is not a find</s>
-        STATS[tier.name].<u>record</u>(hit)    <s># per-tier hit rate, printed every run</s>
-        <b>if</b> hit: <b>break</b></pre>
-    </div>
-    <div class="todo" data-pending="q3-screenshots">
-      <b>Screenshots to drop in</b>
-      <p>Shubham is sending a redacted platform screenshot of the inbox fleet, a campaign list showing the
-        naming convention, and terminal output from a live waterfall run with the hit-rate table. They land
-        here and on the Question 2 monitoring slide.</p>
+    <p class="kick"><b>Question 3</b> <s>The part that makes it worth having</s></p>
+    <h2>Nobody types a target into this. "Required" is computed from what the infrastructure can physically send.</h2>
+    <div class="rows">
+      <div class="row"><em>Required</em><p><b>Summed from live capacity, every morning</b>
+        Email required is the sum of the daily limit across every inbox that is not paused. LinkedIn required
+        is the sum of the connection-request limit across every active seat. <strong>An erroring inbox still
+        counts</strong>, because you are paying for capacity you cannot use, and a target that quietly shrinks
+        to match a broken account is how underperformance becomes invisible.</p></div>
+      <div class="row"><em>Pace</em><p><b>Sent over required, across complete days only</b>
+        Today is excluded because it has not finished. The month-to-date figure compares like with like,
+        which is the difference between a number you can act on and a number that always looks bad before lunch.</p></div>
+      <div class="row"><em>One verdict</em><p><b>Four buckets, ranked, and only the top one is shown</b>
+        Deliverability, volume, messaging, intent. A board that lists five problems per client gets read once
+        and never again, so it resolves to a single instruction, <span class="mono">Fix bounces before adding
+        volume</span>, with the evidence beside it.</p></div>
+      <div class="row"><em>Floors</em><p><b>Every threshold carries a minimum sample size</b>
+        Bounce turns red at 3% but only above 100 sends. The reply-rate rule needs 1,000 sends before it
+        fires, acceptance needs 200 requests, a lane comparison needs 300. <strong>A rule without a floor
+        fires on noise</strong> and trains people to ignore the board.</p></div>
     </div>
   </div>
 </section>
 
-<!-- 7 ───────────────────────────── Q4 a -->
+<!-- 7 ───────────────────────────── Q3 c -->
+<section class="s" data-key="q3c" data-label="Q3 &middot; The service" data-sub="One process, three jobs, state that survives a redeploy">
+  <div class="wrap">
+    <p class="kick"><b>Question 3</b> <s>How it runs</s></p>
+    <h2>One always-on process doing three jobs, because three services would be three things to forget about.</h2>
+    <div class="two">
+      <div class="pane">
+        <h4>The service</h4>
+        <p><strong>1 &middot; The dashboard</strong> on the platform's port, with a Refresh button that
+          re-runs the whole read on demand.</p>
+        <p><strong>2 &middot; The scheduled post</strong>, weekdays at a fixed time, into one internal
+          channel.</p>
+        <p><strong>3 &middot; A Slack listener</strong> answering a "Run board now" button and a slash
+          command. It connects over Socket Mode, so Slack needs <em>no public URL and no open port</em>.</p>
+        <p>State lives on a mounted volume, so the pace history and the 7-day bounce baseline survive a
+          redeploy. On a first boot against an empty volume it seeds itself from snapshots shipped with
+          the code, rather than starting blind.</p>
+      </div>
+      <div class="pane">
+        <h4>Why the campaign names from Question 2 matter here</h4>
+        <p>The monitoring joins on the naming convention. A parser recovers the recipient-ESP lane straight
+          out of the campaign name, and legacy names that predate the convention return nothing rather than
+          guessing.</p>
+        <div class="code" style="margin-top:14px">
+          <pre><s># '&lt;Angle&gt; - &lt;ICP&gt; - &lt;Lane&gt; - &lt;MM/DD&gt;' -&gt; 'microsoft' | 'google' | 'all' | None</s>
+<b>def</b> <u>lane_of</u>(name):
+    parts = <u>split</u>(name)
+    <b>for</b> p <b>in</b> parts[1:]:      <s># the angle can't be the lane</s>
+        <b>if</b> p <b>in</b> (<s>'microsoft'</s>, <s>'ms'</s>, <s>'outlook'</s>):
+            <b>return</b> <s>'microsoft'</s></pre>
+        </div>
+        <p>All of the rule logic sits in its own module with no network calls in it, so the whole decision
+          table is driven from fixtures in tests. The part that decides what a client should do is the part
+          that has to be testable.</p>
+      </div>
+    </div>
+    <div class="todo" data-pending="q3-live-link">
+      <b>Awaiting the live link from Shubham</b>
+      <p>The board is deployed and reachable. The URL goes here as a button. Worth noting that it sits behind
+        a sign-in, so a reviewer following the link lands on a login screen unless a read-only view is
+        provided for them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 ───────────────────────────── Q4 a -->
 <section class="s" data-key="q4" data-label="Q4 &middot; The play that failed" data-sub="6,397 sends, three replies worth having">
   <div class="wrap">
     <p class="kick"><b>Question 4</b> <s>A play that failed</s></p>
@@ -641,7 +620,7 @@ mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:
   </div>
 </section>
 
-<!-- 8 ───────────────────────────── Q4 b -->
+<!-- 9 ───────────────────────────── Q4 b -->
 <section class="s" data-key="q4b" data-label="Q4 &middot; Doubling down" data-sub="And the three verticals that stayed at zero">
   <div class="wrap">
     <p class="kick"><b>Question 4</b> <s>What I did next</s></p>
@@ -667,7 +646,7 @@ mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:
   </div>
 </section>
 
-<!-- 9 ───────────────────────────── Q4 c -->
+<!-- 10 ───────────────────────────── Q4 c -->
 <section class="s" data-key="q4c" data-label="Q4 &middot; The fastest kill" data-sub="An afternoon, before a single send">
   <div class="wrap">
     <p class="kick"><b>Question 4</b> <s>The fastest kill I have made</s></p>
@@ -693,7 +672,7 @@ mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:
   </div>
 </section>
 
-<!-- 10 ───────────────────────────── Q5 -->
+<!-- 11 ───────────────────────────── Q5 -->
 <section class="s" data-key="q5" data-label="Q5 &middot; Availability" data-sub="Freelancing, hours, and the next 12 months">
   <div class="wrap">
     <p class="kick"><b>Question 5</b> <s>Availability and intent</s></p>
@@ -713,7 +692,7 @@ mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:
   </div>
 </section>
 
-<!-- 11 ───────────────────────────── Q6 a -->
+<!-- 12 ───────────────────────────── Q6 a -->
 <section class="s" data-key="q6" data-label="Q6 &middot; Volume kept healthy" data-sub="17 months of launch cohorts, bounce and reply on each">
   <div class="wrap">
     <p class="kick"><b>Question 6</b> <s>Largest volume kept healthy</s></p>
@@ -736,7 +715,7 @@ mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:
   </div>
 </section>
 
-<!-- 12 ───────────────────────────── Q6 b -->
+<!-- 13 ───────────────────────────── Q6 b -->
 <section class="s" data-key="q6b" data-label="Q6 &middot; What healthy means" data-sub="Including the month it was not">
   <div class="wrap">
     <p class="kick"><b>Question 6</b> <s>What "kept healthy" actually means</s></p>
@@ -763,7 +742,7 @@ mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:
   </div>
 </section>
 
-<!-- 13 ───────────────────────────── Q7 -->
+<!-- 14 ───────────────────────────── Q7 -->
 <section class="s" data-key="q7" data-label="Q7 &middot; Compensation" data-sub="Per month">
   <div class="wrap">
     <p class="kick"><b>Question 7</b> <s>Compensation expectations</s></p>
@@ -781,7 +760,7 @@ mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:
   </div>
 </section>
 
-<!-- 14 ───────────────────────────── close -->
+<!-- 15 ───────────────────────────── close -->
 <section class="s mid" data-key="end" data-label="Close" data-sub="What I would do in week one">
   <div class="wrap">
     <p class="kick"><b>If this goes further</b> <s>Week one</s></p>
@@ -812,7 +791,7 @@ mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:
   <span class="who"><b>Seven Answers</b> &middot; Shubham Sharma &middot; GTM engineer</span>
   <button id="menu" type="button">Index</button>
   <button id="prev" type="button" aria-label="Previous">&larr;</button>
-  <span id="count">01 / 15</span>
+  <span id="count">01 / 16</span>
   <button id="next" type="button" aria-label="Next">&rarr;</button>
 </nav>
 
