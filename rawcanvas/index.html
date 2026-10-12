@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Raw Canvas GTM Plays &middot; Shubham Sharma</title>
+<meta name="description" content="Four GTM workflows, ten sourced hot leads with copy, and three offline plays, prepared for Raw Canvas.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  RAW CANVAS GTM PLAYS: prepared for a conversation with Pulkit (Raw Canvas).
+
+  Same shell as /flowace/: one slide at a time, keyboard / click / swipe,
+  deep-linkable by hash. Design tokens copied from site/build.py.
+
+  The lead board names real people, all from public sources (speaker pages,
+  session recordings, announcements), each with its source URL. No emails or
+  phone numbers. ICPs are assumptions and say so.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+
+<!-- 0 ───────────────────────────── cover -->
+<section class="s mid" data-key="start" data-label="Cover" data-sub="Four workflows, ten leads, three offline plays">
+  <div class="wrap">
+    <p class="kick"><b>Prepared for Pulkit</b> <s>Raw Canvas &middot; GTM plays</s></p>
+    <h1 class="xl">You sell attention. Your outbound should be made of it.</h1>
+    <p class="lede">This deck has four workflows, ten named leads with copy ready to send, and three plays that
+      leave the inbox. It's built on one read of rawcanvas.co, so <strong>every ICP here is an assumption,
+      labelled as one, for you to correct in this conversation.</strong></p>
+    <div class="stats">
+      <div class="stat"><b>4</b><span>GTM workflows, each one a system and not a one-off</span></div>
+      <div class="stat"><b class="a">10</b><span>hot leads from two conferences, with copy</span></div>
+      <div class="stat"><b>3</b><span>offline plays for relationships, not reply rates</span></div>
+      <div class="stat"><b>1</b><span>rule: the sample is the message</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 ───────────────────────────── the read -->
+<section class="s" data-key="read" data-label="The read" data-sub="What I took from the site">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The read</s></p>
+    <h2>A media partner for the people who move markets, sold to very few of them.</h2>
+    <div class="rows">
+      <div class="row"><em>What</em><p><b>Podcast production, launch and tech videos, virality and clipping</b>
+        This runs through four stages: Audit, Architect, Produce, Amplify. The client "just shows up and talks."</p></div>
+      <div class="row"><em>Who</em><p><b>VC funds and scaling tech companies</b>
+        The site names Greycroft, Gainsight, Cluely, Not Another CEO and Seth Farbman.</p></div>
+      <div class="row"><em>How</em><p><b>"We work with a small number of clients"</b>
+        Deals are few and high in value, and they close on a call. That makes this a relationship business, not a volume
+        business, so every play here sends to ten people, not ten thousand.</p></div>
+      <div class="row"><em>Edge</em><p><b>You can make the proof before anyone has agreed to anything</b>
+        A software company has to describe its product in a cold email. A clipping company can attach the product itself.</p></div>
+    </div>
+    <p class="src">Source: rawcanvas.co and /case-studies, read 2026-10-12.</p>
+  </div>
+</section>
+
+<!-- 3 ───────────────────────────── ICPs -->
+<section class="s" data-key="icp" data-label="Assumed ICPs" data-sub="Three buyers, all assumptions">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>Who to go after</s></p>
+    <h2>Three buyers. All three are assumptions for you to correct.</h2>
+    <div class="three">
+      <div class="pane"><span class="tag as">Assumption A</span>
+        <h4>The VC fund with something to say</h4>
+        <p>$100M to $3B AUM, with a platform or content hire, and a partner who already speaks in public.
+          They're raising a new fund or have just closed one.</p>
+        <p><strong>Buyer:</strong> Head of Platform, Chief of Staff, or the media-minded partner. <em>Looks like your client Greycroft, whose Chief of Staff gave you a testimonial.</em></p></div>
+      <div class="pane"><span class="tag as">Assumption B</span>
+        <h4>The tech company with a media moment</h4>
+        <p>Seed to Series C, having just raised or with a launch coming up. Two or three months of content to build
+          and nobody in-house to make it.</p>
+        <p><strong>Buyer:</strong> founder, CMO or Head of Brand. <em>Looks like your clients Cluely and Gainsight.</em></p></div>
+      <div class="pane"><span class="tag as">Assumption C</span>
+        <h4>The operator who speaks but isn't clipped</h4>
+        <p>A founder or CEO who's a regular on stages and podcasts, where every talk lives once on someone
+          else's channel and then disappears.</p>
+        <p><strong>Buyer:</strong> the person themselves. <em>Looks like your client David Politis of Not Another CEO.</em></p></div>
+    </div>
+    <div class="todo"><b>What I'd ask you to confirm</b>
+      <p>Which of the three closes fastest? What's a typical first engagement worth? Which logos will take
+        a reference call? The answers change which workflow runs first.</p></div>
+  </div>
+</section>
+
+<!-- 4 ───────────────────────────── principle -->
+<section class="s mid" data-key="rule" data-label="The rule" data-sub="The sample is the message">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>The rule every play follows</s></p>
+    <h1>For a media company, the outreach should be the media.</h1>
+    <p class="lede">Everyone in this market sends "we help funds build their media." You can send
+      <strong>three clips cut from the prospect's own talk</strong> before they've agreed to anything. It costs
+      about an hour of editor time per lead, which is exactly why it only goes to ten people.</p>
+    <div class="rows">
+      <div class="row"><em>Volume</em><p><b>10 a week, not 1,000</b>The constraint is editor hours, and that's what keeps the list honest.</p></div>
+      <div class="row"><em>Signal</em><p><b>Something they just did in public</b>A talk, a raise, a launch, a podcast gone quiet. Never just a job title.</p></div>
+      <div class="row"><em>Channel</em><p><b>Email, LinkedIn, then something physical for the top three</b>Relationships first, reply rate second.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 ───────────────────────────── W1 -->
+<section class="s" data-key="w1" data-label="Workflow 1 &middot; Conference speakers" data-sub="Clip what they said on stage">
+  <div class="wrap">
+    <p class="kick"><b>Workflow 1</b> <s>Conference speakers &rarr; 10 hot leads</s></p>
+    <h2>Every stage talk is a free audition. Most of them are never clipped.</h2>
+    <div class="steps">
+      <div class="step"><b>Pick the events</b><p>VC and SaaS conferences that publish their agenda and post recordings.</p>
+        <span class="tool">Firecrawl</span><span class="tool">Apify</span></div>
+      <div class="step"><b>Scrape the speakers</b><p>Name, title, company, session, recording URL, all into one table.</p>
+        <span class="tool">Clay</span></div>
+      <div class="step"><b>ICP gate</b><p>Keep fund partners and platform heads, and Seed to Series C founders and CMOs. Drop megastars and in-house media teams.</p>
+        <span class="tool">Clay + Claude</span></div>
+      <div class="step hot"><b>The gap check</b><p>Did they, or their company, post the talk anywhere in the last 30 days? <strong>If not, they're hot.</strong></p>
+        <span class="tool">YouTube API</span><span class="tool">LinkedIn posts</span></div>
+      <div class="step hot"><b>Find the moments</b><p>Pull the transcript and have Claude rank the five most quotable 20&ndash;45 second moments, with timestamps.</p>
+        <span class="tool">transcript</span><span class="tool">Claude</span></div>
+      <div class="step"><b>Cut three clips</b><p>The editor works from the timestamps instead of watching 40 minutes. About an hour per lead.</p>
+        <span class="tool">editor</span></div>
+      <div class="step"><b>Send and touch</b><p>Email and LinkedIn with the clips attached. A physical drop for the top three (see the offline plays slide).</p>
+        <span class="tool">email</span><span class="tool">LinkedIn</span></div>
+    </div>
+    <p class="src">For an upcoming event the same table runs before the conference, and the offer flips to
+      "we'll be in the room and have clips in your inbox the same week."</p>
+  </div>
+</section>
+
+<!-- 6 ───────────────────────────── lead board -->
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>Workflow 1</b> <s>The output</s></p>
+    <h2>Ten leads, each with a signal, a source and copy ready to send.</h2>
+    <div class="seg" id="seg">
+      <button type="button" data-g="past" aria-pressed="true">Spoke recently &middot; clip what they said</button>
+      <button type="button" data-g="next" aria-pressed="false">Speaking soon &middot; be in the room</button>
+    </div>
+    <p id="evt" class="src" style="margin-top:12px;padding-top:0"></p>
+    <div class="board">
+      <div class="leads" id="leads"></div>
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+    <p class="src">Public information only: names, roles, sessions and announcements, each linked to its source.
+      Clips are produced before anything is sent. Written in Pulkit's voice for review, not sent.</p>
+  </div>
+</section>
+
+<!-- 7 ───────────────────────────── W2 -->
+<section class="s" data-key="w2" data-label="Workflow 2 &middot; Raise &amp; fund-close" data-sub="The raise is the media moment">
+  <div class="wrap">
+    <p class="kick"><b>Workflow 2</b> <s>Raise and fund-close trigger</s></p>
+    <h2>A raise is a media moment with a deadline. Be there before the press release.</h2>
+    <div class="steps">
+      <div class="step hot"><b>Fund filings, early</b><p>New VC funds file a Form D with the SEC when they start raising, often before any announcement.
+        A Fund III filing tells you they'll need LP-facing content.</p><span class="tool">SEC EDGAR</span></div>
+      <div class="step"><b>Startup rounds</b><p>Series A and B announcements from the last 14 days, filtered to companies with no launch film on their channels.</p>
+        <span class="tool">Crunchbase</span><span class="tool">news feeds</span></div>
+      <div class="step"><b>Media-gap check</b><p>Did the announcement ship with a video? If it was a text post and a TechCrunch link, it's hot.</p>
+        <span class="tool">LinkedIn</span><span class="tool">YouTube</span></div>
+      <div class="step"><b>The offer</b><p>A 60-second fundraise film concept written against their own announcement copy, sent as a one-page treatment.</p>
+        <span class="tool">Claude</span></div>
+    </div>
+    <div class="msg"><header>Example opener &middot; startup</header><pre>Subject: your Series B, on video
+
+Saw the raise. The announcement was a text post and a link, and the line about [their own phrase] is doing a lot of work for something nobody can watch.
+
+We wrote a 60-second treatment around it. One page. Want it?
+
+Pulkit</pre></div>
+  </div>
+</section>
+
+<!-- 8 ───────────────────────────── W3 -->
+<section class="s" data-key="w3" data-label="Workflow 3 &middot; Podcast decay" data-sub="Your Audit stage, given away">
+  <div class="wrap">
+    <p class="kick"><b>Workflow 3</b> <s>Podcast decay audit</s></p>
+    <h2>Find the fund podcasts that went quiet, and send the audit you'd charge for.</h2>
+    <div class="steps">
+      <div class="step"><b>Index the shows</b><p>Every podcast published by a VC fund or a Series A+ tech company.</p>
+        <span class="tool">Listen Notes API</span><span class="tool">Apple RSS</span></div>
+      <div class="step hot"><b>Decay signals</b><p>45+ days since the last episode, the cadence halved, YouTube views per episode falling, or no shorts or clips at all.</p>
+        <span class="tool">RSS dates</span><span class="tool">YouTube API</span></div>
+      <div class="step"><b>Auto-audit</b><p>One page: cadence chart, best episode by views, three clip-worthy moments that were never cut, and the fix.</p>
+        <span class="tool">Claude</span></div>
+      <div class="step"><b>Send the audit</b><p>This is your "Audit" stage given away as the hook. The paid engagement starts at "Architect."</p>
+        <span class="tool">email</span></div>
+    </div>
+    <div class="msg"><header>Example opener &middot; fund podcast</header><pre>Subject: episode 41
+
+Your last episode went out [N] days ago. Before that it was every two weeks.
+
+Episode 41 is your best one by views, and it has a 30-second answer in it that was never cut. We pulled it, plus two more.
+
+One-page audit attached. No call needed to read it.</pre></div>
+  </div>
+</section>
+
+<!-- 9 ───────────────────────────── W4 -->
+<section class="s" data-key="w4" data-label="Workflow 4 &middot; Guest seat" data-sub="The invite is the outreach">
+  <div class="wrap">
+    <p class="kick"><b>Workflow 4</b> <s>Relationships, not sequences</s></p>
+    <h2>Don't pitch your best accounts. Put them on a show.</h2>
+    <p class="lede">You already book guests for clients. Turn that around: run a Raw Canvas show
+      (working title <strong>"Market Movers"</strong>) where every guest is a target account. <strong>The invite
+      is the outreach, and the episode is the relationship.</strong></p>
+    <div class="steps">
+      <div class="step"><b>Invite</b><p>Twenty top-tier ICP accounts a quarter. Nobody declines being asked onto a show.</p></div>
+      <div class="step"><b>Record</b><p>A 40-minute conversation. That's one hour of their time and a real relationship.</p></div>
+      <div class="step hot"><b>Deliver</b><p>Their episode plus five clips, cut to their own channel's format. They experience the full service for free.</p></div>
+      <div class="step"><b>Amplify</b><p>They post it, their network sees your work, and your next guest is introduced by this one.</p></div>
+    </div>
+    <div class="todo"><b>The in-person version</b>
+      <p>A quarterly recording dinner in NYC or SF with eight platform heads from funds, plus one live mic. Each guest
+        leaves with a clip of themselves by the next morning. It's the relationship play he asked about,
+        but it still produces content.</p></div>
+  </div>
+</section>
+
+<!-- 10 ───────────────────────────── offline -->
+<section class="s" data-key="offline" data-label="Offline plays" data-sub="Cake drop, letters, hotel drop">
+  <div class="wrap">
+    <p class="kick"><b>Offline</b> <s>Three plays that leave the inbox</s></p>
+    <h2>Low volume, high salience. Each one carries their own words back to them.</h2>
+    <div class="three">
+      <div class="pane"><span class="tag off">Play 1 &middot; cake or donut drop</span>
+        <h4>Their best moment, on a cake</h4>
+        <p>An edible print of a still from their talk, with the quote on the box and a QR code to the three clips.
+          It goes to the office, not their home, two days after the clip email.</p>
+        <p><strong>Who:</strong> the top 3 of the 10. <strong>Why it works:</strong> it gets photographed and posted, and the
+          post is your ad.</p></div>
+      <div class="pane"><span class="tag off">Play 2 &middot; Handwrytten letter</span>
+        <h4>A real letter with one transcript line</h4>
+        <p>A pen-plotted letter that quotes the 14-second line from their session you'd lead with, plus a QR code. Order
+          it by hand from Handwrytten now, and wire up the API only once volume justifies it.</p>
+        <p><strong>Guardrail:</strong> it's a real letter, never framed as "I wrote this by hand." That's where
+          the trick turns into a trust problem.</p></div>
+      <div class="pane"><span class="tag off">Play 3 &middot; the room drop</span>
+        <h4>Be in the speaker's room before they're on stage</h4>
+        <p>At an upcoming event, leave a card at the speaker's hotel or green room: <em>"Your session's at 2:40. Clips
+          in your inbox by 6."</em> Then deliver on it.</p>
+        <p><strong>Pattern:</strong> Brex's CFO hotel-room drops instead of a booth. A gift does the most when the buyer rarely gets one.</p></div>
+    </div>
+    <p class="src">Sources: Sam Blond on guerrilla GTM (via Troy Kirwin), and the "works, but leave it" verdict on
+      simulated handwriting. Both are from my own GTM field guide.</p>
+  </div>
+</section>
+
+<!-- 11 ───────────────────────────── 14 days -->
+<section class="s" data-key="plan" data-label="First 14 days" data-sub="What ships, how it's measured">
+  <div class="wrap">
+    <p class="kick"><b>Next</b> <s>The first two weeks</s></p>
+    <h2>Fourteen days, one play live per week, each measured on its own.</h2>
+    <div class="rows">
+      <div class="row"><em>Days 1&ndash;3</em><p><b>The conference table and the moment-finder</b>
+        Speakers scraped, ICP-gated, gap-checked, and transcripts ranked into timestamps your editor can cut from.</p></div>
+      <div class="row"><em>Days 4&ndash;7</em><p><b>The first 10 sends, plus 3 physical drops</b>
+        The leads on the board, with copy you've approved and clips you've produced.</p></div>
+      <div class="row"><em>Days 8&ndash;11</em><p><b>Raise trigger and podcast-decay audit live</b>
+        Both run automatically and land in one review queue each morning.</p></div>
+      <div class="row"><em>Days 12&ndash;14</em><p><b>Readout</b>
+        Replies, meetings and pipeline per play. Every campaign is named by play, source and date, so a dead
+        play shows up as a zero instead of disappearing into an average.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 ───────────────────────────── why me -->
+<section class="s" data-key="me" data-label="Who's building it" data-sub="22 programmes, the receipts">
+  <div class="wrap">
+    <p class="kick"><b>Me</b> <s>Shubham Sharma &middot; GTM engineer</s></p>
+    <h2>I build the systems behind outbound, then test them like experiments.</h2>
+    <div class="stats">
+      <div class="stat"><b>22</b><span>client outbound programmes, end to end</span></div>
+      <div class="stat"><b>1.96M</b><span>emails sent across them</span></div>
+      <div class="stat"><b class="a">8.6&times;</b><span>positive-reply lift from changing only the list source</span></div>
+      <div class="stat"><b>0.81%</b><span>bounce rate, estate lifetime</span></div>
+    </div>
+    <p>The 8.6&times; result held offer, copy and inboxes constant and changed only where the list came from.
+      It ran over 146,772 sends. The caveat I always give with it: an earlier small batch ran higher, so <strong>intent decays as it
+      scales</strong>. That's why this deck sends to ten people.</p>
+    <p class="src">Sending figures: platform API, read 2026-09-26. Client names are given on a call, not on a public URL.</p>
+  </div>
+</section>
+
+<!-- 13 ───────────────────────────── close -->
+<section class="s mid" data-key="close" data-label="Close" data-sub="The leads are yours">
+  <div class="wrap">
+    <p class="kick"><b>Pulkit</b> <s>Raw Canvas</s></p>
+    <h1>The ten leads are yours. The engine that finds the next ten is the job.</h1>
+    <p class="lede">This came from one read of your site. With your real ICP, your editor and your
+      numbers behind it, <strong>it runs every week</strong>: sourced, scored, clipped and sent,
+      with each play measured on its own.</p>
+    <p class="lede">The one question that decides where I'd start: <strong>which of the three buyers
+      closes fastest for you?</strong></p>
+  </div>
+</section>
+
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>Raw Canvas</b> &middot; GTM plays &middot; Shubham Sharma</span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 13</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+// ---- lead board. Every lead is public information, each with its source URL;
+// researched 2026-10-12. Copy is a draft in Pulkit's voice, not sent.
+(function(){
+  var EVT = /*EVT*/{"past": "Bits & Pretzels 2026, Munich (Sep 28–30), Founder Mode livestream · Moneycontrol Startup Conclave 2026 (uploaded Sep 26). [MOMENT] is filled by the transcript step in Workflow 1 before anything is sent, never invented.", "next": "Slush 2026 · Helsinki · Nov 18–19 · speaker lineup at slush.org/speakers. Sessions aren't published yet, so the copy doesn't name a talk. Send the \"we'll be in Helsinki\" line only if Raw Canvas is actually going."}/*END*/;
+  var L = /*LEADS*/[
+{g:"past",name:"Judith Dada",short:"Langdock co-CEO · Visionaries Club",
+ role:"Co-CEO, Langdock (since Jun 2026) · Senior Partner, Visionaries Club (€400M fund generation)",
+ session:"Bits & Pretzels 2026, Munich · Founder Mode livestream, 17:00 slot · uploaded Sep 29",
+ signal:"She's the last guest in a nearly four-hour stream and has no standalone cut yet. She's newly in the operator seat with \"international positioning\" as the brief, and she already writes, so she'll recognise good clips.",
+ fit:"Clipping now, a podcast later. One session can be cut twice: for Langdock buyers and for Visionaries founders.",
+ email:"Subject: your Munich clips\n\nJudith,\n\nYour 17:00 slot on the Founder Mode stream at Bits & Pretzels: [MOMENT]. Right now it sits at the end of a nearly four-hour stream.\n\nWe cut clips for funds and tech companies (Greycroft, Gainsight, Cluely). We cut three from your session, captioned and sized for LinkedIn.\n\nWant them?\n\nPulkit, Raw Canvas",
+ li:"Judith, I watched your Bits & Pretzels slot. Investor turned co-CEO is a rare angle, and right now it's buried at the end of a four-hour stream. We cut three clips from it. Happy to send them over.",
+ fu:"You speak to two audiences now: Langdock buyers and Visionaries founders. The same session cuts both ways, one set on enterprise AI adoption and one on the investor-to-operator jump. Want the second set?",
+ touch:"A Handwrytten letter to the Langdock office in Berlin with the one line from her session we'd lead with, plus a QR code to the three clips.",
+ src:["https://www.bitsandpretzels.com/speaker/judith-dada-813616166117","https://www.youtube.com/watch?v=qhqIUjfGl2o","https://www.youtube.com/watch?v=vr8g65uoQcw","https://www.deutsche-startups.de/2026/06/26/langdock-judith-dada-visionaries-club-robin-capital-philipp-lahm/","https://www.linkedin.com/in/judith-dada-8507888b/"]},
+{g:"past",name:"Lukas Koestler",short:"SE3 Labs · out of stealth, Lakestar seed",
+ role:"Founder & CEO, SE3 Labs · spatial AI for drones (ex-Tesla Autopilot, NVIDIA Research)",
+ session:"Bits & Pretzels 2026, Munich · Founder Mode livestream, 12:40 slot · uploaded Sep 29",
+ signal:"€5.5M seed led by Lakestar on Jun 26, and out of stealth that same week. No standalone cut of his session and no company YouTube presence found. In defence tech, buyers judge on one short film before they take a meeting.",
+ fit:"Clips as the way in, then a 90-second launch film for the post-stealth push.",
+ email:"Subject: SE3 at Bits & Pretzels\n\nLukas,\n\nYour 12:40 slot on the Founder Mode stream: [MOMENT]. Right now it's a timestamp in the middle of a four-hour video.\n\nWe make video for tech companies and funds (Greycroft, Gainsight, Cluely). We cut three clips from your session, ready to post.\n\nWant them?\n\nPulkit, Raw Canvas",
+ li:"Lukas, I caught your Bits & Pretzels slot. Your explanation of spatial AI deserves more than a timestamp in a four-hour stream. We cut three clips from it. Happy to send them.",
+ fu:"SE3 came out of stealth in June with Lakestar behind it. Most defence buyers will judge you on one short film before they take a meeting. If the clips land, we also make 90-second launch films. Want to see one?",
+ touch:"Donuts to the Munich office with a card reading \"Out of stealth. Now on camera.\" and a QR code to the clips.",
+ src:["https://www.bitsandpretzels.com/speaker/lukas-koestler-32599043062","https://www.youtube.com/watch?v=qhqIUjfGl2o","https://thesaasnews.com/news/se3-labs-raises-5-5m-seed","https://de.linkedin.com/company/se3-labs"]},
+{g:"past",name:"André Petry",short:"Tacto · Sequoia + Index backed",
+ role:"Co-founder & CEO, Tacto · procurement software for manufacturers, Munich",
+ session:"Bits & Pretzels 2026, Munich · Founder Mode livestream, 11:40 slot · uploaded Sep 29",
+ signal:"A B2B CEO backed by Sequoia and Index (€50M, Dec 2023) whose session has no standalone cut. His LinkedIn is mostly company news, with no video series found. His buyers are procurement heads, who will watch a 45-second clip but not a four-hour stream.",
+ fit:"Clipping, which doubles as sales enablement: the reps drop the clips into outbound to manufacturers.",
+ email:"Subject: clips for Tacto\n\nAndré,\n\nYour 11:40 slot on the Founder Mode stream: [MOMENT]. Your buyers won't sit through four hours to find it, but they will watch 45 seconds.\n\nWe cut clips for tech companies and funds (Gainsight, Greycroft, Cluely). We cut three from your session, ready for LinkedIn.\n\nWant them?\n\nPulkit, Raw Canvas",
+ li:"André, I watched your Bits & Pretzels slot. Procurement heads won't find it inside a four-hour stream, but they'll watch a 45-second clip. We cut three. Happy to send them.",
+ fu:"The same three clips work twice: under your name, and inside your sales team's outbound to manufacturers. Want one cut specifically for the reps?",
+ touch:"A printed card for the sales floor: the clip's best line set as a poster, with a QR code to the cut.",
+ src:["https://www.youtube.com/watch?v=qhqIUjfGl2o","https://www.munich-startup.de/en/96697/ai-startup-tacto-secures-50-million-euros/","https://www.linkedin.com/in/andrepetry/"]},
+{g:"past",name:"Rahul Chowdhri",short:"Stellaris · podcast with irregular cadence",
+ role:"Co-founder & Partner, Stellaris Venture Partners · $600M+ AUM (Fund III $300M, Nov 2024)",
+ session:"Moneycontrol Startup Conclave 2026 · panel \"The Race for Instant Commerce\" · uploaded Sep 26 · ~1.1K views",
+ signal:"This is a fund that already invests in content but can't keep a schedule. Its podcast Interstellar posted 7 days ago, but before that the gaps were 7 months, then 10, then 12. This panel isn't on the Stellaris channel. It's Workflow 1 and Workflow 3 on the same account.",
+ fit:"Podcast production on a fixed cadence, with clips from this panel as the way in.",
+ email:"Subject: your instant-commerce panel\n\nRahul,\n\nThe Conclave panel opens with \"India wants everything faster\", and your point on [MOMENT] was the sharpest thing in it. It's sitting at about 1,100 views on someone else's channel.\n\nWe make podcasts and clips for funds (Greycroft among them). We cut three from your panel, sized for Stellaris's channels.\n\nWant them?\n\nPulkit, Raw Canvas",
+ li:"Rahul, I watched your instant-commerce panel at Startup Conclave. A few of your investor takes deserve their own clips, so we cut three. Happy to send them.",
+ fu:"Separate thought: the latest Interstellar episode is strong, but the gaps before it ran months. We run fund podcasts on a fixed rhythm, from booking to edit to clips. Worth 15 minutes on what monthly would take?",
+ touch:"A Handwrytten letter to the Bengaluru office: one line from the panel, the Interstellar release dates set as a timeline, and \"we'd fill the gaps.\"",
+ src:["https://www.youtube.com/watch?v=bR-SoIVtbcA","https://www.youtube.com/watch?v=aYBm7I29Nv4","https://yourstory.com/2024/11/stellaris-venture-partners-closes-fund-mamaearth-zouk-whatfix"]},
+{g:"past",name:"Anjali Sardana",short:"Pronto · $200M valuation, proven on camera",
+ role:"Founder & CEO, Pronto · instant home services, Bengaluru",
+ session:"Moneycontrol Startup Conclave 2026 · panel \"The Race for Instant Commerce\" · uploaded Sep 26 · ~1.1K views",
+ signal:"Lachy Groom put in $20M at a $200M valuation in May. Her long-form interviews pull 120K to 292K views, and this panel sits at about 1.1K. Caveat: she's already highly visible and may have help in-house, so check before sending.",
+ fit:"Clipping, used for both customers and hiring.",
+ email:"Subject: your Conclave panel\n\nAnjali,\n\nWhen the panel turned to unit economics and profitability, your answer on [MOMENT] stood out. Your long interviews pull six figures. This one is at about 1,100 views.\n\nWe cut clips from talks for tech companies (Cluely, Gainsight). We cut three from your panel.\n\nWant them?\n\nPulkit, Raw Canvas",
+ li:"Anjali, I watched your Startup Conclave panel. Your interviews do six figures, and this one's sitting at about 1K. We cut three clips from it. Happy to send them over.",
+ fu:"The same clips work for hiring as well as for customers. A 30-second cut of you on the Pronto mission makes a good recruiting post. Want one cut for that?",
+ touch:"A cake to the Bengaluru office, \"delivered in 10 minutes\" if the bakery can manage it.",
+ src:["https://www.youtube.com/watch?v=bR-SoIVtbcA","https://techcrunch.com/2026/05/06/a-20-minute-pitch-wins-indian-startup-pronto-backing-from-lachy-groom","https://www.youtube.com/watch?v=QufWz58npvc"]},
+{g:"next",name:"Ruben Bryon",short:"Verda · Series B, 20 days ago",
+ role:"Founder & CEO, Verda (formerly DataCrunch) · GPU cloud, Helsinki",
+ session:"Slush 2026 speaker · Helsinki, Nov 18–19 · session not yet published",
+ signal:"$189M Series B led by Emergence Capital on Sep 22, and now speaking at Slush in his home city eight weeks later. Expanding to the US, UK and Asia. His Slush bio says he built Verda's first servers himself in 2020.",
+ fit:"Capture and clip the Slush talk the same week, then a founder-story film for the US expansion.",
+ email:"Subject: Verda at Slush\n\nRuben,\n\nYour Slush bio says you built Verda's first servers yourself in 2020. Six years later it's a $189M Series B and a push into the US. That arc is a 90-second film, and the Slush stage is where you'll tell it best.\n\nWe'll be in Helsinki. We can film your session and have clips in your inbox the same week, ready to post.\n\nWant us on it?\n\nPulkit, Raw Canvas",
+ li:"Ruben, we're filming a few Slush sessions and cutting clips the same week. Yours is the founder story I'd most want on camera: the first servers in 2020, and the Series B now. Open to connecting.",
+ fu:"One more idea for the US launch: a short film where your first server rack and today's data centre share one cut. We'll send two reference edits if useful.",
+ touch:"Cake to the Helsinki office in Slush week, iced: \"First servers: 2020. Series B: 2026.\"",
+ src:["https://slush.org/2026-speakers/ruben-bryon","https://runtimewire.com/article/verda-raises-189m-series-b-ai-cloud","https://thenextweb.com/news/verda-117m-funding-lifeline-ventures-ai-cloud"]},
+{g:"next",name:"Ross McNairn",short:"Wordsmith · two raises in one quarter",
+ role:"Co-founder & CEO, Wordsmith · AI for in-house legal teams",
+ session:"Slush 2026 speaker · Helsinki, Nov 18–19 · session not yet published",
+ signal:"$70M Series B in June (Highland Europe, Index), then a $14M extension on Aug 5 led by Intact Private Capital. Revenue up 14× in a year, with plans to reach about 300 staff by year end.",
+ fit:"Clip series from the Slush talk aimed at US general counsel, then customer videos.",
+ email:"Subject: your Slush session\n\nRoss,\n\nTwo raises in one quarter and 14× revenue growth in a year is a story your buyers should see you tell, not read in a funding post.\n\nWe'll be at Slush. We can film your session and cut it into a short clip series for in-house counsel the same week, so your team has a month of posts ready.\n\nWorth a look?\n\nPulkit, Raw Canvas",
+ li:"Ross, we're filming a few Slush sessions and cutting clips the same week. With the Series B and the August extension, yours looks like one to capture. Happy to connect.",
+ fu:"A different angle: while you hire toward 300, recruiting needs content as much as sales does. The same Slush footage can be cut twice, once for GCs and once for candidates.",
+ touch:"A printed letter left at his Slush hotel with a one-page clip storyboard drawn from his session, delivered the morning he speaks.",
+ src:["https://slush.org/2026-speakers/ross-mcnairn","https://www.artificiallawyer.com/2026/06/03/wordsmith-raises-70m-series-b/","https://www.nonbillable.co.uk/news/wordsmith-series-b-extension-fundraise"]},
+{g:"next",name:"Dr. Christian Nagel",short:"Earlybird · Fund VIII + E2D",
+ role:"Co-founder & General Partner, Earlybird · ~€2.5B AUM",
+ session:"Slush 2026 speaker · Helsinki, Nov 18–19 · session not yet published",
+ signal:"Earlybird closed Fund VIII at €360M on Apr 30, its largest early-stage fund, and co-launched the E2D defence fund with Airbus as anchor LP on Jul 21. Two new vehicles mean a lot of founders to reach. (These are firm-level triggers. He isn't quoted in either release.)",
+ fit:"Fund podcast or founder-conversation series, opened by clipping his Slush session.",
+ email:"Subject: Earlybird at Slush\n\nChristian,\n\nTwo new vehicles in one year, Fund VIII and E2D, and the founders you want for both are scrolling, not reading press releases.\n\nWe make podcasts and clips for funds, Greycroft among them. We'll be at Slush and can film your session and turn it into a run of founder-facing clips the same week.\n\nUseful?\n\nPulkit, Raw Canvas",
+ li:"Christian, we're capturing a few Slush sessions and cutting clips the same week, for funds like Greycroft. With Fund VIII live, I'd like Earlybird's to be one of them. Happy to connect.",
+ fu:"A bigger idea: a short series of conversations with founders from your board seats. That gives Fund VIII a steady stream of content and gives each portfolio company a piece too. We'd produce it end to end.",
+ touch:"A hotel-room box at Slush: Finnish pulla buns and a card reading \"Fund VIII. Here's to the next one.\"",
+ src:["https://slush.org/2026-speakers/dr-christian-nagel","https://pulse2.com/earlybird-e360-million-fund-viii-closes-as-firms-largest-early-stage-fund-in-its-history/amp/","https://tech.eu/2026/07/21/airbus-anchors-500m-european-defence-tech-fund-as-e2d-makes-first-investment-in-alta-ares/"]},
+{g:"next",name:"Carla Gómez Cano",short:"THEKER · $85M robotics Series A",
+ role:"Co-founder & CEO, THEKER · AI robots for industrial production, Barcelona",
+ session:"Slush 2026 speaker · Helsinki, Nov 18–19 · session not yet published",
+ signal:"$85M Series A led by CRV on Jun 11, described as Europe's largest robotics Series A, with Samsung, LVMH and Inditex backing. Robots already in live production. (The raise is about 4 months old, past the 90-day window, but the product films itself.)",
+ fit:"A deployment film of robots on a real factory floor, plus Slush capture.",
+ email:"Subject: robots on camera\n\nCarla,\n\nYou have robots running in live production lines and an $85M Series A behind them. That's the most filmable product on the Slush lineup, and right now it lives in a press release.\n\nWe make launch films and clips for tech companies like Gainsight and Cluely. We'd film your Slush session the same week, then a deployment film from setup day to week four.\n\nOpen to a short call?\n\nPulkit, Raw Canvas",
+ li:"Carla, robots that work on a real line should be on camera. We're filming a few Slush sessions and cutting clips the same week, and I'd like yours to be one of them. Happy to connect.",
+ fu:"Your backers include Inditex and LVMH. A two-minute film of one deployment would earn its keep in every enterprise sales meeting. Want a one-page shot plan?",
+ touch:"Donuts to the Barcelona office, with a card for the team that ships robots that work the day they arrive.",
+ src:["https://slush.org/2026-speakers/carla-gomez-cano","https://cathayinnovation.com/theker-raises-85m-in-europes-largest-ever-robotics-series-a-led-by-crv-with-backing-from-samsung-and-lvmh/"]},
+{g:"next",name:"Carlos Espinal",short:"Seedcamp · €279M new funds",
+ role:"Managing Partner, Seedcamp · ~€873M AUM",
+ session:"Slush 2026 speaker · Helsinki, Nov 18–19 · session not yet published",
+ signal:"€279M raised on Jun 22 (Fund VII €192M + Select €87M). Seedcamp runs the podcast \"This Much I Know\". Whether it has gone quiet is NOT verified, so ask about it on a call. Lower certainty: Seedcamp already makes its own content.",
+ fit:"Clip engine for the existing podcast, plus Slush capture.",
+ email:"Subject: clips from Slush\n\nCarlos,\n\nFund VII and Select add up to €279M of new founders to reach, and This Much I Know already has the conversations to reach them with.\n\nWe make podcasts and clips for funds, Greycroft among them. We'll be at Slush and can film your session and clip it the same week, and the same pipeline can clip back episodes of the show.\n\nWorth 15 minutes?\n\nPulkit, Raw Canvas",
+ li:"Carlos, we're capturing a few Slush sessions and cutting clips the same week, for funds like Greycroft. I'd also like to share a few ideas for This Much I Know. Happy to connect.",
+ fu:"Another angle: Seedcamp's first-cheque stories. A short series of founders telling their day-one story would suit Fund VII, and we'd run it end to end.",
+ touch:"A Handwrytten letter to the London office: a one-page pitch for a \"first cheque\" clip series.",
+ src:["https://slush.org/2026-speakers/carlos-espinal","https://startuprise.co.uk/seedcamp-raises-e279-million-to-invest-in-europes-next-startup-leaders/","https://seedcamp.com/views/introducing-our-new-look-podcast/"]}
+]/*END*/;
+  var list = document.getElementById("leads"), det = document.getElementById("detail");
+  var evt = document.getElementById("evt"), seg = document.getElementById("seg");
+  if (!list) return;
+  var group = "past";
+
+  function esc(s){ return String(s || "").replace(/[&<>"]/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
+  function msg(title, body){
+    if (!body) return "";
+    return '<div class="msg"><header>' + esc(title) +
+      '<button type="button" data-copy>Copy</button></header><pre>' + esc(body) + '</pre></div>';
+  }
+  function paint(i){
+    var r = L[i];
+    det.innerHTML =
+      '<h4>' + esc(r.name) + '</h4>' +
+      '<p class="meta">' + esc(r.role) + '<br>' + esc(r.session) + '</p>' +
+      '<p class="sig"><strong>Why now:</strong> ' + esc(r.signal) + '<br><strong>Fit:</strong> ' + esc(r.fit) + '</p>' +
+      msg("Cold email", r.email) + msg("LinkedIn note", r.li) + msg("Follow-up", r.fu) +
+      msg("Physical touch", r.touch) +
+      '<p class="srcs">' + (r.src || []).map(function(u){
+        return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(u) + '</a>'; }).join("<br>") + '</p>';
+    Array.prototype.forEach.call(list.children, function(b){
+      b.setAttribute("aria-pressed", +b.getAttribute("data-i") === i ? "true" : "false");
+    });
+  }
+  function render(){
+    evt.textContent = EVT[group] || "";
+    list.innerHTML = "";
+    var first = -1, k = 0;
+    L.forEach(function(r, i){
+      if (r.g !== group) return;
+      if (first < 0) first = i;
+      var b = document.createElement("button");
+      b.type = "button"; b.setAttribute("data-i", i);
+      b.innerHTML = '<em>' + (++k < 10 ? "0" : "") + k + '</em><span>' + esc(r.name) +
+        '<i>' + esc(r.short) + '</i></span>';
+      b.addEventListener("click", function(){ paint(i); });
+      list.appendChild(b);
+    });
+    if (first >= 0) paint(first); else det.innerHTML = '<p>Research in progress.</p>';
+  }
+  seg.addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return;
+    group = b.getAttribute("data-g");
+    Array.prototype.forEach.call(seg.children, function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    render();
+  });
+  det.addEventListener("click", function(e){
+    var b = e.target.closest("[data-copy]"); if (!b) return;
+    var t = b.closest(".msg").querySelector("pre").textContent;
+    function ok(){ b.textContent = "Copied"; setTimeout(function(){ b.textContent = "Copy"; }, 1400); }
+    if (navigator.clipboard) navigator.clipboard.writeText(t).then(ok, function(){});
+  });
+  render();
+})();
+
+})();
+</script>
+</body>
+</html>

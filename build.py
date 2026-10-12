@@ -2766,7 +2766,7 @@ encoding="utf-8")
     # anywhere, so they are reachable only by someone given the URL. They still
     # pass through leakcheck, which scans all of public/ and is the point of
     # shipping them this way rather than hosting them somewhere unguarded.
-    for standalone in ("flowace",):
+    for standalone in ("flowace", "rawcanvas"):
         src = ROOT / standalone
         if src.is_dir():
             shutil.copytree(src, OUT / standalone)
