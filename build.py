@@ -2766,7 +2766,9 @@ encoding="utf-8")
     # anywhere, so they are reachable only by someone given the URL. They still
     # pass through leakcheck, which scans all of public/ and is the point of
     # shipping them this way rather than hosting them somewhere unguarded.
-    for standalone in ("flowace", "rawcanvas"):
+    # for/ holds the per-company PVP pages written by outreach/pvp/pvp.py publish,
+    # each under a slug with a random suffix so the URL can't be guessed.
+    for standalone in ("flowace", "rawcanvas", "for"):
         src = ROOT / standalone
         if src.is_dir():
             shutil.copytree(src, OUT / standalone)
