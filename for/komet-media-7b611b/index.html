@@ -1,364 +1,776 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
 <title>For Komet Media</title>
+<meta name="description" content="10 named leads with copy, 3 sourced messages and the engine behind them, prepared for Komet Media.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
 <style>
-:root{color-scheme:light;--bg:#F6F5F1;--card:#fff;--ink:#111417;--ink-2:#454B50;--ink-3:#6E757A;
---line:#E3E0D8;--accent:#14556E;--accent-soft:#E4EFF4;--good:#1E6A4F;--good-soft:#E3F0EA;
---bad:#8A3B2E;--bad-soft:#F6E7E3;--dark:#12161A;--dark-ink:#F4F2EC;--dark-2:#A8B0B4}
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);font-family:"Work Sans",Helvetica,Arial,sans-serif;color:var(--ink);
-font-size:16px;line-height:1.6}
-a{color:var(--accent)}
-.wrap{max-width:920px;margin:0 auto;padding:0 20px}
-section{padding:56px 0;border-top:1px solid var(--line)}
-.kicker{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-color:var(--accent);margin:0 0 12px}
-h1{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:clamp(40px,7vw,72px);line-height:1.02;
-margin:0;max-width:16ch;text-wrap:balance}
-h2{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:clamp(28px,4.4vw,40px);line-height:1.08;
-margin:0 0 14px;max-width:24ch;text-wrap:balance}
-h3{font-size:20px;line-height:1.3;margin:0 0 8px}
-h4{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:22px 0 8px}
-p{margin:0 0 10px}
-.lede{font-size:19px;color:var(--ink-2);max-width:52ch;margin:22px 0 0}
-.meta{font-size:14px;color:var(--ink-2)}
-.meta b{color:var(--ink);font-weight:600}
-.hero{padding:64px 0 48px;border-top:0}
-.facts{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:var(--card);margin-top:34px}
-.facts div{padding:16px 18px;border-right:1px solid var(--line)}
-.facts div:last-child{border-right:0}
-.facts b{display:block;font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:34px;line-height:1}
-.facts span{font-size:13px;color:var(--ink-2)}
-.byline{font-family:"DM Mono",monospace;font-size:12px;color:var(--ink-3);margin-top:22px}
-.board{display:grid;grid-template-columns:300px 1fr;gap:20px;margin-top:24px;align-items:start}
-.list{list-style:none;margin:0;padding:0;border:1px solid var(--line);background:var(--card);position:sticky;top:12px}
-.list button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:28px 1fr;gap:2px 8px;width:100%;
-padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px;line-height:1.35}
-.list li:last-child button{border-bottom:0}
-.list button:hover{background:#FAF9F6}
-.list button[aria-pressed=true]{background:var(--accent-soft)}
-.list button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
-.list .r{font-family:"DM Mono",monospace;font-size:12px;color:var(--accent);grid-row:span 2;padding-top:2px}
-.list .nm{font-weight:600}
-.list .sg{color:var(--ink-3);font-size:12.5px}
-.lead{background:var(--card);border:1px solid var(--line);padding:22px 24px;margin-bottom:16px}
-.js .lead{display:none}.js .lead.on{display:block}
-.lead h3{margin-bottom:2px}
-.score{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--ink-3)}
-.msg{border:1px solid var(--line);background:#FAF9F6;margin:8px 0 12px}
-.msg header{display:flex;justify-content:space-between;align-items:center;font-family:"DM Mono",monospace;
-font-size:11.5px;color:var(--ink-3);padding:7px 12px;border-bottom:1px solid var(--line)}
-.msg pre{white-space:pre-wrap;font-family:inherit;font-size:14.5px;margin:0;padding:12px 14px}
-.msg button{font:inherit;font-size:11px;border:1px solid var(--line);background:#fff;padding:3px 9px;cursor:pointer;color:var(--ink-2)}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
-.chip{font-family:"DM Mono",monospace;font-size:11px;background:var(--accent-soft);color:var(--accent);
-padding:4px 9px;text-decoration:none}
-.ev{list-style:none;padding:0;margin:6px 0 0;font-size:13px;color:var(--ink-2)}
-.ev li{margin:0 0 5px;padding-left:28px;text-indent:-28px;overflow-wrap:anywhere}
-.ev .n{font-family:"DM Mono",monospace;color:var(--accent);display:inline-block;width:28px;text-indent:0}
-.ev a{color:var(--ink-2)}
-.pvp{background:var(--card);border:1px solid var(--line);padding:26px 28px;margin:22px 0}
-.mail{border:1px solid var(--line);border-left:3px solid var(--accent);background:#FAF9F6;padding:16px 18px;margin:10px 0}
-.mail .to{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--ink-3);margin-bottom:6px}
-.mail .subj{font-weight:600;margin-bottom:8px}
-.asset{border:1px solid var(--line);margin:6px 0 10px;overflow-x:auto;background:#fff}
-.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font-family:"DM Mono",monospace;
-font-size:11px;color:var(--ink-3);background:#F4F3EF;padding:7px 12px;border-bottom:1px solid var(--line)}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail .lead{display:none}.detail .lead.on{display:block}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
 .asset-h span:first-child{color:var(--ink);font-weight:500}
-.asset-note{font-size:12px;color:var(--ink-3);padding:6px 12px;margin:0;border-top:1px solid var(--line)}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
-font-weight:600;border-bottom:1px solid var(--ink);padding:8px 10px 8px 0}
-td{border-bottom:1px solid var(--line);padding:9px 10px 9px 0;vertical-align:top}
-.asset th,.asset td{padding-left:12px;font-size:12.5px}.asset th{border-bottom:1px solid var(--line)}
-.asset tr:last-child td{border-bottom:0}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-.fus{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.fu{border-left:2px solid var(--line);padding:2px 0 2px 12px;font-size:14px}
-.fu .num,.num{font-family:"DM Mono",monospace;font-size:12px;color:var(--ink-3);letter-spacing:.06em;display:block;margin-bottom:4px}
-.scores{display:flex;gap:14px;flex-wrap:wrap;font-family:"DM Mono",monospace;font-size:11px;color:var(--ink-3);
-margin-top:16px;border-top:1px solid var(--line);padding-top:10px}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
 .scores b{color:var(--ink)}
-details{border-top:1px solid var(--line);padding:12px 0}
-summary{cursor:pointer;font-weight:600}
-.plays{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:20px}
-.play{background:var(--card);border:1px solid var(--line);padding:20px 22px}
-.play dl{margin:10px 0 0;font-size:14px}
-.play dt{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px}
-.play dd{margin:2px 0 0}
-.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0 0}
-.steps li{counter-increment:s;padding:8px 0 8px 40px;position:relative;border-bottom:1px solid var(--line);font-size:15px}
-.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:9px;
-font-family:"DM Mono",monospace;font-size:12px;color:var(--accent)}
-.k{display:inline-block;font-family:"DM Mono",monospace;font-size:10.5px;padding:2px 7px}
-.k.killed{background:var(--bad-soft);color:var(--bad)}.k.held{background:var(--good-soft);color:var(--good)}
-.k.maybe{background:var(--accent-soft);color:var(--accent)}
-.proof{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:20px}
-.proof div{background:var(--card);border:1px solid var(--line);padding:20px 22px}
-.proof b{display:block;font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:32px;line-height:1.05}
-.proof .lb{font-weight:600;margin:6px 0}
-.proof p{font-size:14px;color:var(--ink-2);margin:0}
-.cta{background:var(--dark);color:var(--dark-ink);border:0}
-.cta h2{max-width:22ch}.cta p{color:var(--dark-2)}.cta a{color:var(--dark-ink)}
-footer{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--ink-3);padding:24px 0 40px}
-@media (max-width:760px){
-.facts{grid-template-columns:repeat(2,1fr)}.facts div:nth-child(2){border-right:0}
-.facts div:nth-child(-n+2){border-bottom:1px solid var(--line)}
-.board{grid-template-columns:1fr}.list{position:static}
-.two,.fus,.proof{grid-template-columns:1fr}
-.pvp,.lead{padding:18px 16px}section{padding:44px 0}}
-@media print{body{background:#fff;font-size:13px}.js .lead{display:block}.list,.msg button{display:none}
-.board{display:block}section{padding:24px 0;break-inside:auto}.lead,.pvp,.play{break-inside:avoid}
-details{display:block}details>*{display:block}.cta{background:#fff;color:var(--ink)}.cta p{color:var(--ink-2)}}
-</style></head><body>
-<header class="hero"><div class="wrap">
-<p class="kicker">For Komet Media · 2026-10-14</p>
-<h1>Ten B2B SaaS companies and VC firms that already record podcasts, webinars or talks you could email today.</h1>
-<p class="lede">Each email is built on one of 3 messages they'd pay to receive, proved on real accounts with every number sourced. Below them: the engine that finds the next ten, my first two weeks,
-and why I'm the person to run it.</p>
-<div class="facts">
-<div><b>10</b><span>named leads, with copy ready to send</span></div>
-<div><b>3</b><span>messages that passed: would they pay for this alone?</span></div>
-<div><b>7</b><span>ideas I threw out, with reasons</span></div>
-<div><b>11</b><span>public sources drawn on</span></div>
-</div>
-<p class="byline">Shubham Sharma · shubhamsbuild.github.io</p>
-</div></header><section id="leads"><div class="wrap">
-<p class="kicker">The ten</p>
-<h2>Ten leads, each with a signal, a source and copy ready to send.</h2>
-<p class="meta">Ranked by intent, then fit. Every fact links to the public page it came from. Copy is
-written as Komet Media's rep. Nothing has been sent to anyone.</p>
-<div class="board"><ol class="list"><li><button type="button" aria-pressed="false"><span class="r">01</span><span class="nm">Dieter De Mesmaeker · Conveo</span><span class="sg">$50M Series A, three long talks posted</span></button></li><li><button type="button" aria-pressed="false"><span class="r">02</span><span class="nm">Shahar Azulay · groundcover</span><span class="sg">$100M Series C, hour-long webinars, zero Shorts</span></button></li><li><button type="button" aria-pressed="false"><span class="r">03</span><span class="nm">Nicolas Kopp · Rillet</span><span class="sg">$100M Series C, unclipped hour-long finance webinars</span></button></li><li><button type="button" aria-pressed="false"><span class="r">04</span><span class="nm">Colby DeRodeff · Abstract Security</span><span class="sg">$25M round, first CRO, unclipped webinars</span></button></li><li><button type="button" aria-pressed="false"><span class="r">05</span><span class="nm">Dimitris Vassos · Omilia</span><span class="sg">$67M Series B, hiring a CMO</span></button></li><li><button type="button" aria-pressed="false"><span class="r">06</span><span class="nm">Jamie Daum · inforcer</span><span class="sg">$50M Series C, 61-minute episodes, one Short</span></button></li><li><button type="button" aria-pressed="false"><span class="r">07</span><span class="nm">Lisa Popovici · Siena AI</span><span class="sg">$17M Series A, Social Agent just posted</span></button></li><li><button type="button" aria-pressed="false"><span class="r">08</span><span class="nm">Elad Schulman · Lasso Security</span><span class="sg">$30M raise, LEAP launch, webinars unclipped</span></button></li><li><button type="button" aria-pressed="false"><span class="r">09</span><span class="nm">Nitesh Shroff · Arintra</span><span class="sg">$25M Series B, VIVE panel unclipped</span></button></li><li><button type="button" aria-pressed="false"><span class="r">10</span><span class="nm">Félix Bélisle-Dockrill · Axya</span><span class="sg">$17M CAD Series A, long sessions unclipped</span></button></li></ol><div><article class="lead" id="lead-1">
-<p class="num">Lead 01 of 10 · signal 2026-10-10</p>
-<h3>Dieter De Mesmaeker</h3>
-<p class="meta">CEO and co-founder, Conveo</p>
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="10 leads, 3 messages, the engine">
+  <div class="wrap">
+    <p class="kick"><b>For Komet Media</b> <s>2026-10-14</s></p>
+    <h1 class="xl">Ten B2B SaaS companies and VC firms that already record podcasts, webinars or talks you could email today.</h1>
+    <p class="lede">Each email is built on one of 3 messages they'd pay to receive, proved on real accounts with every number sourced. After them: <strong>the engine that finds the next ten</strong>, my first two weeks,
+      and why I'm the person to run it.</p>
+    <div class="stats">
+      <div class="stat"><b class="a">10</b><span>named leads, with copy ready to send</span></div>
+      <div class="stat"><b>3</b><span>messages that passed: would they pay for this alone?</span></div>
+      <div class="stat"><b>7</b><span>ideas I threw out, with reasons</span></div>
+      <div class="stat"><b>11</b><span>public sources drawn on</span></div>
+    </div>
+    <p class="src">Shubham Sharma · shubhamsbuild.github.io</p>
+  </div>
+</section>
+
+<section class="s" data-key="read" data-label="The read" data-sub="Who buys, and why public data works here">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The read</s></p>
+    <h2>Who Komet Media sells to, and why their own data is the way in.</h2>
+    <div class="rows">
+      <div class="row"><em>What</em><p><b>Komet Media sells</b>a done-for-you video system for B2B companies: they take long recordings (podcasts, webinars, event talks) and turn them into captioned short clips for LinkedIn, YouTube Shorts and Instagram, with scripting and distribution on the bigger plans.</p></div>
+      <div class="row"><em>Who</em><p><b>The buyer</b>Head of Marketing, content lead or founder at a funded B2B SaaS or AI company (roughly Series A to C, 20-500 people), or the platform/marketing partner at a VC firm, who already has a podcast, webinar series or conference talks on YouTube but no one cutting them down. The person who feels it daily is the content marketer who records hours a month and ships a handful of posts.</p></div>
+      <div class="row"><em>Why</em><p><b>Public-data impact high, buyer complexity low</b>A prospect&#x27;s own YouTube channel, podcast feed and webinar library are public and per-account, and a $2,499/month plan is signed by one marketing lead or the founder, so the PVP goes straight to that person with their own catalogue in hand.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten</s></p>
+    <h2>Ten leads, each with a signal, a source and copy ready to send.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>Dieter De Mesmaeker<i>Conveo · $50M Series A, three long talks posted</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Shahar Azulay<i>groundcover · $100M Series C, hour-long webinars, zero Shorts</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Nicolas Kopp<i>Rillet · $100M Series C, unclipped hour-long finance webinars</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Colby DeRodeff<i>Abstract Security · $25M round, first CRO, unclipped webinars</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Dimitris Vassos<i>Omilia · $67M Series B, hiring a CMO</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Jamie Daum<i>inforcer · $50M Series C, 61-minute episodes, one Short</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Lisa Popovici<i>Siena AI · $17M Series A, Social Agent just posted</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Elad Schulman<i>Lasso Security · $30M raise, LEAP launch, webinars unclipped</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Nitesh Shroff<i>Arintra · $25M Series B, VIVE panel unclipped</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Félix Bélisle-Dockrill<i>Axya · $17M CAD Series A, long sessions unclipped</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>Dieter De Mesmaeker</h4>
+<p class="meta">CEO and co-founder, Conveo<br>signal 2026-10-10</p>
 <div class="chips"><span class="chip">intent 5/5</span><span class="chip">fit 5/5</span></div>
-<h4>Why now</h4><p>Conveo raised a $50 million Series A in September to expand in the US. In October its YouTube channel posted three long conversations plus an Esomar 2026 talk, and only 1 of its last 15 uploads is a Short.</p>
-<h4>Fit</h4><p>A funded AI research company selling to enterprise brand and insights teams, already recording long expert conversations every week. The raw material for a clip system exists; the cutting does not.</p>
+<p class="sig"><strong>Why now:</strong> Conveo raised a $50 million Series A in September to expand in the US. In October its YouTube channel posted three long conversations plus an Esomar 2026 talk, and only 1 of its last 15 uploads is a Short.<br><strong>Fit:</strong> A funded AI research company selling to enterprise brand and insights teams, already recording long expert conversations every week. The raw material for a clip system exists; the cutting does not.</p>
 <div class="msg"><header><span>Email · Clips from your Lulu Raghavan talk</span><button type="button" data-copy>Copy</button></header><pre>Dieter, your channel just posted three long conversations, including a 41-minute session with Lulu Raghavan on how McDonald&#x27;s runs bottom-up research. Only one of your last 15 uploads is a Short, so most of that talk sits where insights leaders rarely scroll. With the Series A aimed at US growth, short captioned cuts on LinkedIn are the cheapest reach you have. Want five clip-ready timestamps from the Raghavan session?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Dieter, congrats on the Series A. I watched the Lulu Raghavan and Kees Kruythoff conversations on Conveo&#x27;s channel. I help software teams turn long talks like these into captioned clips for LinkedIn and Shorts. Happy to share the moments I&#x27;d cut first.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more idea, Dieter: your Esomar 2026 talk on running 20,000+ AI video conversations for Google is your strongest proof clip. Cut tight, it answers &#x27;does AI qual really scale?&#x27; before a buyer asks. At Komet we run this as a monthly system: long recording in, captioned clips out for LinkedIn, Shorts and Instagram. Want a sample cut from that talk?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Conveo raised $50 million in Series A funding to expand in the US (tech.eu, 02 September 2026). <a href="https://tech.eu/2026/09/02/conveo-raises-50m-to-scale-its-ai-powered-consumer-intelligence-platform/" rel="noopener" target="_blank">tech.eu/2026/09/02/conveo-raises-50m-to-scale-its-ai-powered-con</a> · read 2026-10-14</li><li><span class="n">[2]</span>Dieter De Mesmaeker is CEO and co-founder of Conveo. <a href="https://tech.eu/2026/09/02/conveo-raises-50m-to-scale-its-ai-powered-consumer-intelligence-platform/" rel="noopener" target="_blank">tech.eu/2026/09/02/conveo-raises-50m-to-scale-its-ai-powered-con</a> · read 2026-10-14</li><li><span class="n">[3]</span>Conveo posted &#x27;Inside McDonald&#x27;s Bottom-Up Research - Lulu Raghavan on Brand Strategy at Scale&#x27; on 2026-10-10; it runs 2466 seconds, about 41 minutes. <a href="https://www.youtube.com/watch?v=lfxsjpiNk4w" rel="noopener" target="_blank">youtube.com/watch?v=lfxsjpiNk4w</a> · read 2026-10-14</li><li><span class="n">[4]</span>The Kees Kruythoff and Niels Schillewaert conversation, posted 2026-10-10, runs 3167 seconds, about 53 minutes. <a href="https://www.youtube.com/watch?v=gNRaapxeWNA" rel="noopener" target="_blank">youtube.com/watch?v=gNRaapxeWNA</a> · read 2026-10-14</li><li><span class="n">[5]</span>Conveo&#x27;s channel feed also lists an Esomar 2026 talk posted 2026-10-09 about running 20,000+ AI video conversations for Google. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCtBb9kcqLsWv1B-FtaWU5Ag" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCtBb9kcqLsWv1B-FtaWU5Ag</a> · read 2026-10-14</li><li><span class="n">[6]</span>Of the 15 most recent uploads in Conveo&#x27;s channel feed, 1 is a Short (the only /shorts/ link), posted 2026-10-12; the other 14 are regular videos. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCtBb9kcqLsWv1B-FtaWU5Ag" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCtBb9kcqLsWv1B-FtaWU5Ag</a> · read 2026-10-14</li></ul>
-</article><article class="lead" id="lead-2">
-<p class="num">Lead 02 of 10 · signal 2026-10-01</p>
-<h3>Shahar Azulay</h3>
-<p class="meta">Chief Executive Officer, groundcover</p>
+<h5>Sources</h5><ul class="ev"><li>[1] Conveo raised $50 million in Series A funding to expand in the US (tech.eu, 02 September 2026). <a href="https://tech.eu/2026/09/02/conveo-raises-50m-to-scale-its-ai-powered-consumer-intelligence-platform/" rel="noopener" target="_blank">tech.eu/2026/09/02/conveo-raises-50m-to-scale-its-ai-powered-con</a> · read 2026-10-14</li><li>[2] Dieter De Mesmaeker is CEO and co-founder of Conveo. <a href="https://tech.eu/2026/09/02/conveo-raises-50m-to-scale-its-ai-powered-consumer-intelligence-platform/" rel="noopener" target="_blank">tech.eu/2026/09/02/conveo-raises-50m-to-scale-its-ai-powered-con</a> · read 2026-10-14</li><li>[3] Conveo posted &#x27;Inside McDonald&#x27;s Bottom-Up Research - Lulu Raghavan on Brand Strategy at Scale&#x27; on 2026-10-10; it runs 2466 seconds, about 41 minutes. <a href="https://www.youtube.com/watch?v=lfxsjpiNk4w" rel="noopener" target="_blank">youtube.com/watch?v=lfxsjpiNk4w</a> · read 2026-10-14</li><li>[4] The Kees Kruythoff and Niels Schillewaert conversation, posted 2026-10-10, runs 3167 seconds, about 53 minutes. <a href="https://www.youtube.com/watch?v=gNRaapxeWNA" rel="noopener" target="_blank">youtube.com/watch?v=gNRaapxeWNA</a> · read 2026-10-14</li><li>[5] Conveo&#x27;s channel feed also lists an Esomar 2026 talk posted 2026-10-09 about running 20,000+ AI video conversations for Google. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCtBb9kcqLsWv1B-FtaWU5Ag" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCtBb9kcqLsWv1B-FtaWU5Ag</a> · read 2026-10-14</li><li>[6] Of the 15 most recent uploads in Conveo&#x27;s channel feed, 1 is a Short (the only /shorts/ link), posted 2026-10-12; the other 14 are regular videos. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCtBb9kcqLsWv1B-FtaWU5Ag" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCtBb9kcqLsWv1B-FtaWU5Ag</a> · read 2026-10-14</li></ul>
+</article><article class="lead">
+<h4>Shahar Azulay</h4>
+<p class="meta">Chief Executive Officer, groundcover<br>signal 2026-10-01</p>
 <div class="chips"><span class="chip">intent 5/5</span><span class="chip">fit 5/5</span></div>
-<h4>Why now</h4><p>groundcover closed a $100 million Series C and is spending much of it on North American go-to-market. Since then it has posted five live webinars of up to 61 minutes, and none of its last 15 uploads is a Short.</p>
-<h4>Fit</h4><p>A Series C B2B infrastructure company with a steady webinar cadence and a stated North American GTM push. Every webinar is unclipped long-form that could feed LinkedIn and Shorts for platform engineers.</p>
+<p class="sig"><strong>Why now:</strong> groundcover closed a $100 million Series C and is spending much of it on North American go-to-market. Since then it has posted five live webinars of up to 61 minutes, and none of its last 15 uploads is a Short.<br><strong>Fit:</strong> A Series C B2B infrastructure company with a steady webinar cadence and a stated North American GTM push. Every webinar is unclipped long-form that could feed LinkedIn and Shorts for platform engineers.</p>
 <div class="msg"><header><span>Email · Your eBPF webinar, cut for LinkedIn</span><button type="button" data-copy>Copy</button></header><pre>Shahar, you&#x27;ve run five live webinars since the Series C, and the eBPF + BYOC session alone runs 61 minutes. None of your last 15 YouTube uploads is a Short, so your sharpest answers stay inside hour-long recordings. With the round going into North American go-to-market, those answers are ready-made LinkedIn posts for platform engineers. Want five clip timestamps from the eBPF + BYOC session?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Shahar, congrats on the Series C. Your live webinars (eBPF + OTel, eBPF + BYOC) are packed with answers platform teams search for. I help software teams turn sessions like these into captioned LinkedIn clips and Shorts. Happy to share the moments I&#x27;d cut first.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>A second idea, Shahar: your monthly Product Showcase is a built-in clip calendar. Each one could become a short &#x27;what shipped&#x27; cut for LinkedIn the same week, without anyone on your team editing. That is what Komet runs: long recording in, captioned clips out for LinkedIn, Shorts and Instagram. Want a sample cut from the September Product Showcase?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>groundcover announced it raised $100 million in funding (SiliconANGLE, July 29 2026). <a href="https://siliconangle.com/2026/07/29/cloud-observability-startup-groundcover-raises-100m-funding/" rel="noopener" target="_blank">siliconangle.com/2026/07/29/cloud-observability-startup-groundco</a> · read 2026-10-14</li><li><span class="n">[2]</span>One Peak led the Series C round. <a href="https://siliconangle.com/2026/07/29/cloud-observability-startup-groundcover-raises-100m-funding/" rel="noopener" target="_blank">siliconangle.com/2026/07/29/cloud-observability-startup-groundco</a> · read 2026-10-14</li><li><span class="n">[3]</span>Use of funds: North American go-to-market. <a href="https://siliconangle.com/2026/07/29/cloud-observability-startup-groundcover-raises-100m-funding/" rel="noopener" target="_blank">siliconangle.com/2026/07/29/cloud-observability-startup-groundco</a> · read 2026-10-14</li><li><span class="n">[4]</span>Shahar Azulay is groundcover&#x27;s CEO. <a href="https://siliconangle.com/2026/07/29/cloud-observability-startup-groundcover-raises-100m-funding/" rel="noopener" target="_blank">siliconangle.com/2026/07/29/cloud-observability-startup-groundco</a> · read 2026-10-14</li><li><span class="n">[5]</span>&#x27;LIVE WEBINAR See Everything, Own Everything Observability with eBPF + BYOC&#x27; (posted 2026-09-17) runs 3677 seconds, about 61 minutes. <a href="https://www.youtube.com/watch?v=j3r92zXnSWo" rel="noopener" target="_blank">youtube.com/watch?v=j3r92zXnSWo</a> · read 2026-10-14</li><li><span class="n">[6]</span>The channel feed lists five live webinars since the raise: Aug 20, Sep 2, Sep 3, Sep 17 and Oct 1 2026, including the September Product Showcase. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC20aLWRRJY5-hL7J8u6pNCA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC20aLWRRJY5-hL7J8u6pNCA</a> · read 2026-10-14</li><li><span class="n">[7]</span>None of the 15 most recent uploads in groundcover&#x27;s channel feed is a Short: all 15 links are /watch?v= videos, none /shorts/. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC20aLWRRJY5-hL7J8u6pNCA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC20aLWRRJY5-hL7J8u6pNCA</a> · read 2026-10-14</li></ul>
-</article><article class="lead" id="lead-3">
-<p class="num">Lead 03 of 10 · signal 2026-10-10</p>
-<h3>Nicolas Kopp</h3>
-<p class="meta">CEO &amp; Founder, Rillet</p>
+<h5>Sources</h5><ul class="ev"><li>[1] groundcover announced it raised $100 million in funding (SiliconANGLE, July 29 2026). <a href="https://siliconangle.com/2026/07/29/cloud-observability-startup-groundcover-raises-100m-funding/" rel="noopener" target="_blank">siliconangle.com/2026/07/29/cloud-observability-startup-groundco</a> · read 2026-10-14</li><li>[2] One Peak led the Series C round. <a href="https://siliconangle.com/2026/07/29/cloud-observability-startup-groundcover-raises-100m-funding/" rel="noopener" target="_blank">siliconangle.com/2026/07/29/cloud-observability-startup-groundco</a> · read 2026-10-14</li><li>[3] Use of funds: North American go-to-market. <a href="https://siliconangle.com/2026/07/29/cloud-observability-startup-groundcover-raises-100m-funding/" rel="noopener" target="_blank">siliconangle.com/2026/07/29/cloud-observability-startup-groundco</a> · read 2026-10-14</li><li>[4] Shahar Azulay is groundcover&#x27;s CEO. <a href="https://siliconangle.com/2026/07/29/cloud-observability-startup-groundcover-raises-100m-funding/" rel="noopener" target="_blank">siliconangle.com/2026/07/29/cloud-observability-startup-groundco</a> · read 2026-10-14</li><li>[5] &#x27;LIVE WEBINAR See Everything, Own Everything Observability with eBPF + BYOC&#x27; (posted 2026-09-17) runs 3677 seconds, about 61 minutes. <a href="https://www.youtube.com/watch?v=j3r92zXnSWo" rel="noopener" target="_blank">youtube.com/watch?v=j3r92zXnSWo</a> · read 2026-10-14</li><li>[6] The channel feed lists five live webinars since the raise: Aug 20, Sep 2, Sep 3, Sep 17 and Oct 1 2026, including the September Product Showcase. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC20aLWRRJY5-hL7J8u6pNCA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC20aLWRRJY5-hL7J8u6pNCA</a> · read 2026-10-14</li><li>[7] None of the 15 most recent uploads in groundcover&#x27;s channel feed is a Short: all 15 links are /watch?v= videos, none /shorts/. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC20aLWRRJY5-hL7J8u6pNCA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC20aLWRRJY5-hL7J8u6pNCA</a> · read 2026-10-14</li></ul>
+</article><article class="lead">
+<h4>Nicolas Kopp</h4>
+<p class="meta">CEO &amp; Founder, Rillet<br>signal 2026-10-10</p>
 <div class="chips"><span class="chip">intent 5/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>Rillet closed a $100M Series C at a $1B valuation in August. Its channel posts hour-long practitioner sessions, the latest on October 10, yet none of its last 15 uploads is a Short.</p>
-<h4>Fit</h4><p>A Series C AI ERP selling to controllers and CFOs, already producing 57-minute practitioner webinars and paid brand spots. Clips would carry the practitioner proof into the same feeds the spots reach.</p>
+<p class="sig"><strong>Why now:</strong> Rillet closed a $100M Series C at a $1B valuation in August. Its channel posts hour-long practitioner sessions, the latest on October 10, yet none of its last 15 uploads is a Short.<br><strong>Fit:</strong> A Series C AI ERP selling to controllers and CFOs, already producing 57-minute practitioner webinars and paid brand spots. Clips would carry the practitioner proof into the same feeds the spots reach.</p>
 <div class="msg"><header><span>Email · Thomas Neel session, in clips</span><button type="button" data-copy>Copy</button></header><pre>Nicolas, your &#x27;No Extra Modules to Unpack&#x27; video has passed 400,000 views, while the 57-minute &#x27;First Finance Agent&#x27; session with Thomas Neel sits at 274. The long sessions hold your most specific proof for controllers, and none of your recent uploads is a Short. Fresh off the Series C, that gap is the easiest reach left on YouTube and LinkedIn. Want five clip timestamps from the Thomas Neel session?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Nicolas, congrats on the Series C. The Thomas Neel sessions on finance agents and vibe coding are exactly what controllers want to see in their feed. I help software teams turn sessions like these into captioned LinkedIn clips and Shorts. Happy to share the moments I&#x27;d cut.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more idea, Nicolas: the earlier &#x27;Vibe Coding for Finance&#x27; session with Thomas Neel has 754 views, the most of your long sessions in the feed. A controller showing what he built is the clip other controllers forward. Komet runs this monthly: long recording in, captioned clips out for LinkedIn, Shorts and Instagram. Want a sample cut from that session?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Rillet closed a $100M Series C led by ICONIQ at a $1B valuation (AI Weekly, August 19, 2026). <a href="https://aiweekly.co/node/10359" rel="noopener" target="_blank">aiweekly.co/node/10359</a> · read 2026-10-14</li><li><span class="n">[2]</span>Rillet&#x27;s about page lists Nicolas Kopp as CEO &amp; Founder. <a href="https://www.rillet.com/about" rel="noopener" target="_blank">rillet.com/about</a> · read 2026-10-14</li><li><span class="n">[3]</span>&#x27;How to Build Your First Finance Agent with Thomas Neel, Controller at Profound&#x27; (posted 2026-10-10) runs 3398 seconds, about 57 minutes. <a href="https://www.youtube.com/watch?v=BFtHDcP-nK8" rel="noopener" target="_blank">youtube.com/watch?v=BFtHDcP-nK8</a> · read 2026-10-14</li><li><span class="n">[4]</span>In the channel feed, the Thomas Neel &#x27;First Finance Agent&#x27; session shows 274 views. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA</a> · read 2026-10-14</li><li><span class="n">[5]</span>In the same feed, &#x27;No Extra Modules to Unpack&#x27; (posted 2026-10-09) shows 403,827 views, over 400,000. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA</a> · read 2026-10-14</li><li><span class="n">[6]</span>&#x27;Vibe Coding for Finance with Thomas Neel, Controller at Profound&#x27; (posted 2026-09-11) shows 754 views, the most of the long sessions in the feed. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA</a> · read 2026-10-14</li><li><span class="n">[7]</span>None of the 15 most recent uploads in Rillet&#x27;s channel feed is a Short; all are /watch?v= links. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA</a> · read 2026-10-14</li></ul>
-</article><article class="lead" id="lead-4">
-<p class="num">Lead 04 of 10 · signal 2026-09-14</p>
-<h3>Colby DeRodeff</h3>
-<p class="meta">Co-founder and CEO, Abstract Security</p>
+<h5>Sources</h5><ul class="ev"><li>[1] Rillet closed a $100M Series C led by ICONIQ at a $1B valuation (AI Weekly, August 19, 2026). <a href="https://aiweekly.co/node/10359" rel="noopener" target="_blank">aiweekly.co/node/10359</a> · read 2026-10-14</li><li>[2] Rillet&#x27;s about page lists Nicolas Kopp as CEO &amp; Founder. <a href="https://www.rillet.com/about" rel="noopener" target="_blank">rillet.com/about</a> · read 2026-10-14</li><li>[3] &#x27;How to Build Your First Finance Agent with Thomas Neel, Controller at Profound&#x27; (posted 2026-10-10) runs 3398 seconds, about 57 minutes. <a href="https://www.youtube.com/watch?v=BFtHDcP-nK8" rel="noopener" target="_blank">youtube.com/watch?v=BFtHDcP-nK8</a> · read 2026-10-14</li><li>[4] In the channel feed, the Thomas Neel &#x27;First Finance Agent&#x27; session shows 274 views. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA</a> · read 2026-10-14</li><li>[5] In the same feed, &#x27;No Extra Modules to Unpack&#x27; (posted 2026-10-09) shows 403,827 views, over 400,000. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA</a> · read 2026-10-14</li><li>[6] &#x27;Vibe Coding for Finance with Thomas Neel, Controller at Profound&#x27; (posted 2026-09-11) shows 754 views, the most of the long sessions in the feed. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA</a> · read 2026-10-14</li><li>[7] None of the 15 most recent uploads in Rillet&#x27;s channel feed is a Short; all are /watch?v= links. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC9imPf53Bu0TwPI5iWNTGsA</a> · read 2026-10-14</li></ul>
+</article><article class="lead">
+<h4>Colby DeRodeff</h4>
+<p class="meta">Co-founder and CEO, Abstract Security<br>signal 2026-09-14</p>
 <div class="chips"><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>Abstract closed a $25 million round in July and named Jonathan Eller its first Chief Revenue Officer on Sep 14. Its 30-minute &#x27;Detecting AI Threats&#x27; webinar has 19 views, and its last Short dates to January 2025.</p>
-<h4>Fit</h4><p>A venture-backed B2B security platform building out a sales team, with four webinars recorded this year. Clips give the new reps short proof to share with SOC leaders.</p>
+<p class="sig"><strong>Why now:</strong> Abstract closed a $25 million round in July and named Jonathan Eller its first Chief Revenue Officer on Sep 14. Its 30-minute &#x27;Detecting AI Threats&#x27; webinar has 19 views, and its last Short dates to January 2025.<br><strong>Fit:</strong> A venture-backed B2B security platform building out a sales team, with four webinars recorded this year. Clips give the new reps short proof to share with SOC leaders.</p>
 <div class="msg"><header><span>Email · Detecting AI Threats, as clips</span><button type="button" data-copy>Copy</button></header><pre>Colby, your 30-minute &#x27;Detecting AI Threats&#x27; webinar went up in September and has 19 views. You&#x27;ve recorded four webinars this year, and your last Short was in January 2025. With Jonathan Eller building the revenue team after the $25 million round, his reps need short proof they can drop into LinkedIn threads with SOC leaders. Want five clip timestamps from the AI Threats webinar?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Colby, congrats on the round and on bringing Jonathan Eller in. Your webinars (SIEM is a State of Mind, Detecting AI Threats) have strong moments for SOC leaders. I help software teams turn sessions like these into captioned LinkedIn clips and Shorts.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>A second idea, Colby: the &#x27;SIEM is a State of Mind&#x27; webinar is a category argument, not a demo. Cut into short clips, it gives Jonathan&#x27;s reps an opener that isn&#x27;t a pitch. Komet runs this as a monthly system: long recording in, captioned clips out for LinkedIn, Shorts and Instagram. Want a sample cut from that one?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Abstract named Jonathan Eller its first Chief Revenue Officer (Pulse 2.0, Sep 14, 2026). <a href="https://pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-officer-following-25-million-funding-round/" rel="noopener" target="_blank">pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-office</a> · read 2026-10-14</li><li><span class="n">[2]</span>The hire follows a $25 million funding round completed in July. <a href="https://pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-officer-following-25-million-funding-round/" rel="noopener" target="_blank">pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-office</a> · read 2026-10-14</li><li><span class="n">[3]</span>Colby DeRodeff is Abstract&#x27;s co-founder and CEO. <a href="https://pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-officer-following-25-million-funding-round/" rel="noopener" target="_blank">pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-office</a> · read 2026-10-14</li><li><span class="n">[4]</span>&#x27;Webinar: Detecting AI Threats&#x27; (posted 2026-09-02) runs 1798 seconds, about 30 minutes. <a href="https://www.youtube.com/watch?v=e4upFuyTSUY" rel="noopener" target="_blank">youtube.com/watch?v=e4upFuyTSUY</a> · read 2026-10-14</li><li><span class="n">[5]</span>In the channel feed, &#x27;Webinar: Detecting AI Threats&#x27; shows 19 views. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw</a> · read 2026-10-14</li><li><span class="n">[6]</span>The feed lists four webinars posted in 2026 (Feb 13, Mar 21, Apr 30, Sep 2), including &#x27;SIEM is a State of Mind&#x27;. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw</a> · read 2026-10-14</li><li><span class="n">[7]</span>The only Short among the 15 most recent uploads was posted 2025-01-14 (January 2025). <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw</a> · read 2026-10-14</li></ul>
-</article><article class="lead" id="lead-5">
-<p class="num">Lead 05 of 10 · signal 2026-09-09</p>
-<h3>Dimitris Vassos</h3>
-<p class="meta">CEO and Co-Founder, Omilia</p>
+<h5>Sources</h5><ul class="ev"><li>[1] Abstract named Jonathan Eller its first Chief Revenue Officer (Pulse 2.0, Sep 14, 2026). <a href="https://pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-officer-following-25-million-funding-round/" rel="noopener" target="_blank">pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-office</a> · read 2026-10-14</li><li>[2] The hire follows a $25 million funding round completed in July. <a href="https://pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-officer-following-25-million-funding-round/" rel="noopener" target="_blank">pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-office</a> · read 2026-10-14</li><li>[3] Colby DeRodeff is Abstract&#x27;s co-founder and CEO. <a href="https://pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-officer-following-25-million-funding-round/" rel="noopener" target="_blank">pulse2.com/abstract-names-jonathan-eller-as-chief-revenue-office</a> · read 2026-10-14</li><li>[4] &#x27;Webinar: Detecting AI Threats&#x27; (posted 2026-09-02) runs 1798 seconds, about 30 minutes. <a href="https://www.youtube.com/watch?v=e4upFuyTSUY" rel="noopener" target="_blank">youtube.com/watch?v=e4upFuyTSUY</a> · read 2026-10-14</li><li>[5] In the channel feed, &#x27;Webinar: Detecting AI Threats&#x27; shows 19 views. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw</a> · read 2026-10-14</li><li>[6] The feed lists four webinars posted in 2026 (Feb 13, Mar 21, Apr 30, Sep 2), including &#x27;SIEM is a State of Mind&#x27;. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw</a> · read 2026-10-14</li><li>[7] The only Short among the 15 most recent uploads was posted 2025-01-14 (January 2025). <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCcKn6iLbO2ZJ3UJyI5V2ymw</a> · read 2026-10-14</li></ul>
+</article><article class="lead">
+<h4>Dimitris Vassos</h4>
+<p class="meta">CEO and Co-Founder, Omilia<br>signal 2026-09-09</p>
 <div class="chips"><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>Omilia raised a $67 million Series B in August and is hiring a chief marketing officer. In September it posted a Straight Talk session with its CEO that has 174 views, and none of its last 15 uploads is a Short.</p>
-<h4>Fit</h4><p>A Series B B2B AI company scaling go-to-market in North America, with CEO talks, quarterly product webinars and customer stories already recorded. A clip system can be running before the new CMO arrives.</p>
+<p class="sig"><strong>Why now:</strong> Omilia raised a $67 million Series B in August and is hiring a chief marketing officer. In September it posted a Straight Talk session with its CEO that has 174 views, and none of its last 15 uploads is a Short.<br><strong>Fit:</strong> A Series B B2B AI company scaling go-to-market in North America, with CEO talks, quarterly product webinars and customer stories already recorded. A clip system can be running before the new CMO arrives.</p>
 <div class="msg"><header><span>Email · Clips from Straight Talk on CX</span><button type="button" data-copy>Copy</button></header><pre>Dimitris, your Straight Talk session on AI, voice and the future of CX tells the Omilia story in your own words, and it has 174 views. None of your last 15 uploads is a Short. With a CMO hire underway after the Series B, a clip system could be running before they start, so they inherit a working channel. Want five clip timestamps from Straight Talk?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Dimitris, congrats on the Series B. Your Straight Talk session on AI, voice and CX is a strong piece of founder content. I help software teams turn talks like this into captioned LinkedIn clips and Shorts. Happy to share the moments I&#x27;d cut first.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more idea, Dimitris: the Quarterly Product Webinar is a 38-minute walkthrough of self-learning agentic CX, recorded once a quarter. Each one can become a month of short product clips for buyers at banks and contact centers. Komet runs that as a monthly system: long recording in, captioned clips out for LinkedIn, Shorts and Instagram. Want a sample cut?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Omilia raised a $67 million Series B led by Expedition Growth Capital (TechCrunch, August 6, 2026). <a href="https://techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-customer-support-platform/" rel="noopener" target="_blank">techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-custome</a> · read 2026-10-14</li><li><span class="n">[2]</span>Omilia is hiring a chief marketing officer. <a href="https://techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-customer-support-platform/" rel="noopener" target="_blank">techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-custome</a> · read 2026-10-14</li><li><span class="n">[3]</span>Dimitris Vassos is Omilia&#x27;s CEO. <a href="https://techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-customer-support-platform/" rel="noopener" target="_blank">techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-custome</a> · read 2026-10-14</li><li><span class="n">[4]</span>Omilia posted &#x27;Straight Talk on AI, Voice &amp; the Future of CX with Dimitris Vassos, CEO and Co-Founder Omilia&#x27; on 2026-09-09; the feed shows 174 views. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCXKeiy2jDidUAuKPj-9ZM4w" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCXKeiy2jDidUAuKPj-9ZM4w</a> · read 2026-10-14</li><li><span class="n">[5]</span>&#x27;Quarterly Product Webinar: Self-Learning Agentic CX&#x27; (posted 2026-04-23) runs 2284 seconds, about 38 minutes. <a href="https://www.youtube.com/watch?v=i_32e2tGawg" rel="noopener" target="_blank">youtube.com/watch?v=i_32e2tGawg</a> · read 2026-10-14</li><li><span class="n">[6]</span>None of the 15 most recent uploads in Omilia&#x27;s channel feed is a Short; all are /watch?v= links. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCXKeiy2jDidUAuKPj-9ZM4w" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCXKeiy2jDidUAuKPj-9ZM4w</a> · read 2026-10-14</li></ul>
-</article><article class="lead" id="lead-6">
-<p class="num">Lead 06 of 10 · signal 2026-08-20</p>
-<h3>Jamie Daum</h3>
-<p class="meta">CEO, inforcer</p>
+<h5>Sources</h5><ul class="ev"><li>[1] Omilia raised a $67 million Series B led by Expedition Growth Capital (TechCrunch, August 6, 2026). <a href="https://techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-customer-support-platform/" rel="noopener" target="_blank">techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-custome</a> · read 2026-10-14</li><li>[2] Omilia is hiring a chief marketing officer. <a href="https://techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-customer-support-platform/" rel="noopener" target="_blank">techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-custome</a> · read 2026-10-14</li><li>[3] Dimitris Vassos is Omilia&#x27;s CEO. <a href="https://techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-customer-support-platform/" rel="noopener" target="_blank">techcrunch.com/2026/08/06/omilia-raises-67m-to-scale-its-custome</a> · read 2026-10-14</li><li>[4] Omilia posted &#x27;Straight Talk on AI, Voice &amp; the Future of CX with Dimitris Vassos, CEO and Co-Founder Omilia&#x27; on 2026-09-09; the feed shows 174 views. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCXKeiy2jDidUAuKPj-9ZM4w" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCXKeiy2jDidUAuKPj-9ZM4w</a> · read 2026-10-14</li><li>[5] &#x27;Quarterly Product Webinar: Self-Learning Agentic CX&#x27; (posted 2026-04-23) runs 2284 seconds, about 38 minutes. <a href="https://www.youtube.com/watch?v=i_32e2tGawg" rel="noopener" target="_blank">youtube.com/watch?v=i_32e2tGawg</a> · read 2026-10-14</li><li>[6] None of the 15 most recent uploads in Omilia&#x27;s channel feed is a Short; all are /watch?v= links. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCXKeiy2jDidUAuKPj-9ZM4w" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCXKeiy2jDidUAuKPj-9ZM4w</a> · read 2026-10-14</li></ul>
+</article><article class="lead">
+<h4>Jamie Daum</h4>
+<p class="meta">CEO, inforcer<br>signal 2026-08-20</p>
 <div class="chips"><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>inforcer raised a $50 million Series C led by Insight Partners in July. Its &#x27;Know Your Stack&#x27; episode 4 runs 61 minutes, and only 1 of its last 15 uploads is a Short.</p>
-<h4>Fit</h4><p>A Series C B2B security platform for MSPs with a recurring episode series, launch events and fireside chats on YouTube. The long-form library is already there; the clip layer is thin.</p>
+<p class="sig"><strong>Why now:</strong> inforcer raised a $50 million Series C led by Insight Partners in July. Its &#x27;Know Your Stack&#x27; episode 4 runs 61 minutes, and only 1 of its last 15 uploads is a Short.<br><strong>Fit:</strong> A Series C B2B security platform for MSPs with a recurring episode series, launch events and fireside chats on YouTube. The long-form library is already there; the clip layer is thin.</p>
 <div class="msg"><header><span>Email · Know Your Stack, in clips</span><button type="button" data-copy>Copy</button></header><pre>Jamie, Know Your Stack is a strong format: episode 4 on Defender for Endpoint runs 61 minutes, and the TDR launch events are just as deep. Only one of your last 15 uploads is a Short, so MSP owners scrolling LinkedIn rarely meet those answers. With the Series C closed, a steady clip stream would put that expertise in front of partners every week. Want five clip timestamps from episode 4?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Jamie, congrats on the Series C. Know Your Stack is a great format for MSPs. I help software teams turn long episodes like these into captioned LinkedIn clips and Shorts. Happy to share the moments I&#x27;d cut from the Defender for Endpoint episode.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>Another idea, Jamie: your customer testimonials (HD IT, Pacific Office Automation, Infinity Group) went up the same day. Paired with matching Know Your Stack clips, each becomes a &#x27;problem, answer, proof&#x27; post for MSP buyers. Komet runs that as a monthly system: long recording in, captioned clips out for LinkedIn, Shorts and Instagram. Want a sample pairing?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>inforcer raised $50 million in a Series C led by Insight Partners (tech.eu, 30 July 2026). <a href="https://tech.eu/2026/07/30/inforcer-raises-50m-series-c-to-scale-ai-security-platform-for-msps/" rel="noopener" target="_blank">tech.eu/2026/07/30/inforcer-raises-50m-series-c-to-scale-ai-secu</a> · read 2026-10-14</li><li><span class="n">[2]</span>Jamie Daum is CEO of inforcer. <a href="https://tech.eu/2026/07/30/inforcer-raises-50m-series-c-to-scale-ai-security-platform-for-msps/" rel="noopener" target="_blank">tech.eu/2026/07/30/inforcer-raises-50m-series-c-to-scale-ai-secu</a> · read 2026-10-14</li><li><span class="n">[3]</span>&#x27;Know Your Stack - Episode 4: Microsoft Defender for Endpoint&#x27; (posted 2026-08-20) runs 3660 seconds, about 61 minutes. <a href="https://www.youtube.com/watch?v=kniIlUiQCnI" rel="noopener" target="_blank">youtube.com/watch?v=kniIlUiQCnI</a> · read 2026-10-14</li><li><span class="n">[4]</span>The NA launch event for Microsoft 365 Threat Detection and Response (posted 2026-09-04) runs 3364 seconds, about 56 minutes. <a href="https://www.youtube.com/watch?v=K-FxsU-jskU" rel="noopener" target="_blank">youtube.com/watch?v=K-FxsU-jskU</a> · read 2026-10-14</li><li><span class="n">[5]</span>Of the 15 most recent uploads in inforcer&#x27;s channel feed, 1 is a Short (posted 2026-09-15); the rest are regular videos, including three customer testimonials posted 2026-10-12. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCmsbJrcDWykY9RdI4-rRZag" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCmsbJrcDWykY9RdI4-rRZag</a> · read 2026-10-14</li><li><span class="n">[6]</span>Feed title of the episode. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCmsbJrcDWykY9RdI4-rRZag" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCmsbJrcDWykY9RdI4-rRZag</a> · read 2026-10-14</li></ul>
-</article><article class="lead" id="lead-7">
-<p class="num">Lead 07 of 10 · signal 2026-10-13</p>
-<h3>Lisa Popovici</h3>
-<p class="meta">Co-founder and President, Siena AI</p>
+<h5>Sources</h5><ul class="ev"><li>[1] inforcer raised $50 million in a Series C led by Insight Partners (tech.eu, 30 July 2026). <a href="https://tech.eu/2026/07/30/inforcer-raises-50m-series-c-to-scale-ai-security-platform-for-msps/" rel="noopener" target="_blank">tech.eu/2026/07/30/inforcer-raises-50m-series-c-to-scale-ai-secu</a> · read 2026-10-14</li><li>[2] Jamie Daum is CEO of inforcer. <a href="https://tech.eu/2026/07/30/inforcer-raises-50m-series-c-to-scale-ai-security-platform-for-msps/" rel="noopener" target="_blank">tech.eu/2026/07/30/inforcer-raises-50m-series-c-to-scale-ai-secu</a> · read 2026-10-14</li><li>[3] &#x27;Know Your Stack - Episode 4: Microsoft Defender for Endpoint&#x27; (posted 2026-08-20) runs 3660 seconds, about 61 minutes. <a href="https://www.youtube.com/watch?v=kniIlUiQCnI" rel="noopener" target="_blank">youtube.com/watch?v=kniIlUiQCnI</a> · read 2026-10-14</li><li>[4] The NA launch event for Microsoft 365 Threat Detection and Response (posted 2026-09-04) runs 3364 seconds, about 56 minutes. <a href="https://www.youtube.com/watch?v=K-FxsU-jskU" rel="noopener" target="_blank">youtube.com/watch?v=K-FxsU-jskU</a> · read 2026-10-14</li><li>[5] Of the 15 most recent uploads in inforcer&#x27;s channel feed, 1 is a Short (posted 2026-09-15); the rest are regular videos, including three customer testimonials posted 2026-10-12. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCmsbJrcDWykY9RdI4-rRZag" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCmsbJrcDWykY9RdI4-rRZag</a> · read 2026-10-14</li><li>[6] Feed title of the episode. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCmsbJrcDWykY9RdI4-rRZag" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCmsbJrcDWykY9RdI4-rRZag</a> · read 2026-10-14</li></ul>
+</article><article class="lead">
+<h4>Lisa Popovici</h4>
+<p class="meta">Co-founder and President, Siena AI<br>signal 2026-10-13</p>
 <div class="chips"><span class="chip">intent 4/5</span><span class="chip">fit 3/5</span></div>
-<h4>Why now</h4><p>Siena raised a $17 million Series A led by York IE in October and posted its Social Agent video on Oct 13. Its 22-minute Spanx session has 160 views, and the channel has no Shorts.</p>
-<h4>Fit</h4><p>A funded AI company selling to consumer brands, with recorded customer sessions and a webinar library. A product that answers social DMs is a natural fit for short social clips.</p>
+<p class="sig"><strong>Why now:</strong> Siena raised a $17 million Series A led by York IE in October and posted its Social Agent video on Oct 13. Its 22-minute Spanx session has 160 views, and the channel has no Shorts.<br><strong>Fit:</strong> A funded AI company selling to consumer brands, with recorded customer sessions and a webinar library. A product that answers social DMs is a natural fit for short social clips.</p>
 <div class="msg"><header><span>Email · Spanx session, cut for social</span><button type="button" data-copy>Copy</button></header><pre>Lisa, you just posted the Social Agent video, and your best social proof is already recorded: the 22-minute Spanx session on turning CX into a business driver. Your channel has no Shorts, and the webinar library holds more brand stories like Coterie and Madhappy. Fresh off the $17 million Series A, those cuts could carry the launch on LinkedIn and Instagram. Want five clip timestamps from the Spanx session?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Lisa, congrats on the Series A and the Social Agent. The Spanx and Coterie sessions are great proof for CX leaders. I help software teams turn recordings like these into captioned clips for LinkedIn, Shorts and Instagram. Happy to share the moments I&#x27;d cut.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more idea, Lisa: the Coterie webinar already has a headline number in its title, 58% ticket reduction. A clip that opens on that number is the kind CX leads stop for. Komet runs this as a monthly system: long recording in, captioned clips out for LinkedIn, Shorts and Instagram. Want a sample cut from the Coterie session?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Siena raised $17 million in its Series A, led by York IE (TNW, October 7, 2026). <a href="https://thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents" rel="noopener" target="_blank">thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents</a> · read 2026-10-14</li><li><span class="n">[2]</span>Lisa Popovici is Siena&#x27;s co-founder and president. <a href="https://thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents" rel="noopener" target="_blank">thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents</a> · read 2026-10-14</li><li><span class="n">[3]</span>&#x27;How Spanx turned CX into a business driver&#x27; (posted 2026-05-07) runs 1301 seconds, about 22 minutes. <a href="https://www.youtube.com/watch?v=2aXY6SKJQvA" rel="noopener" target="_blank">youtube.com/watch?v=2aXY6SKJQvA</a> · read 2026-10-14</li><li><span class="n">[4]</span>In the channel feed, the Spanx session shows 160 views; &#x27;Siena Social Agent&#x27; was posted 2026-10-13. All uploads in the feed are /watch?v= videos; none is a Short. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC22hiV782fcYsjWAsFgpGUQ" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC22hiV782fcYsjWAsFgpGUQ</a> · read 2026-10-14</li><li><span class="n">[5]</span>Siena&#x27;s webinar library includes the Coterie session with 58% ticket reduction in its title, plus Madhappy. <a href="https://www.siena.cx/webinars" rel="noopener" target="_blank">siena.cx/webinars</a> · read 2026-10-14</li><li><span class="n">[6]</span>TNW describes the Social Agent product. <a href="https://thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents" rel="noopener" target="_blank">thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents</a> · read 2026-10-14</li></ul>
-</article><article class="lead" id="lead-8">
-<p class="num">Lead 08 of 10 · signal 2026-09-02</p>
-<h3>Elad Schulman</h3>
-<p class="meta">Co-founder and CEO, Lasso Security</p>
+<h5>Sources</h5><ul class="ev"><li>[1] Siena raised $17 million in its Series A, led by York IE (TNW, October 7, 2026). <a href="https://thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents" rel="noopener" target="_blank">thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents</a> · read 2026-10-14</li><li>[2] Lisa Popovici is Siena&#x27;s co-founder and president. <a href="https://thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents" rel="noopener" target="_blank">thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents</a> · read 2026-10-14</li><li>[3] &#x27;How Spanx turned CX into a business driver&#x27; (posted 2026-05-07) runs 1301 seconds, about 22 minutes. <a href="https://www.youtube.com/watch?v=2aXY6SKJQvA" rel="noopener" target="_blank">youtube.com/watch?v=2aXY6SKJQvA</a> · read 2026-10-14</li><li>[4] In the channel feed, the Spanx session shows 160 views; &#x27;Siena Social Agent&#x27; was posted 2026-10-13. All uploads in the feed are /watch?v= videos; none is a Short. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UC22hiV782fcYsjWAsFgpGUQ" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UC22hiV782fcYsjWAsFgpGUQ</a> · read 2026-10-14</li><li>[5] Siena&#x27;s webinar library includes the Coterie session with 58% ticket reduction in its title, plus Madhappy. <a href="https://www.siena.cx/webinars" rel="noopener" target="_blank">siena.cx/webinars</a> · read 2026-10-14</li><li>[6] TNW describes the Social Agent product. <a href="https://thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents" rel="noopener" target="_blank">thenextweb.com/news/siena-17m-series-a-york-ie-ai-agents</a> · read 2026-10-14</li></ul>
+</article><article class="lead">
+<h4>Elad Schulman</h4>
+<p class="meta">Co-founder and CEO, Lasso Security<br>signal 2026-09-02</p>
 <div class="chips"><span class="chip">intent 3/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>Lasso launched LEAP and announced $30 million in new funding in September. Three 2026 webinars sit on-demand on its site, and none of its last 15 YouTube uploads is a Short.</p>
-<h4>Fit</h4><p>A funded AI-security vendor selling to CISOs, with a recorded webinar program and a fresh product launch to explain. Short clips turn the intent-security argument into feed-sized proof.</p>
+<p class="sig"><strong>Why now:</strong> Lasso launched LEAP and announced $30 million in new funding in September. Three 2026 webinars sit on-demand on its site, and none of its last 15 YouTube uploads is a Short.<br><strong>Fit:</strong> A funded AI-security vendor selling to CISOs, with a recorded webinar program and a fresh product launch to explain. Short clips turn the intent-security argument into feed-sized proof.</p>
 <div class="msg"><header><span>Email · Intent Security webinars, as clips</span><button type="button" data-copy>Copy</button></header><pre>Elad, you have three on-demand webinars from this spring, including &#x27;Forget AI Firewalls, Agentic Workflows Need Intent Security&#x27;, sitting behind Watch Now buttons. Your YouTube channel has no Shorts in its last 15 uploads. With LEAP launched alongside the $30 million round, short clips from those sessions give CISOs the intent-security argument without a registration form. Want five clip timestamps from the AI Firewalls webinar?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Elad, congrats on LEAP and the new funding. Your intent-security webinars have strong moments for CISOs. I help software teams turn sessions like these into captioned LinkedIn clips and Shorts. Happy to share the moments I&#x27;d cut from the AI Firewalls session.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more idea, Elad: LEAP&#x27;s claim of a verdict in under five milliseconds is a one-line hook. A short clip of you or Ophir explaining why that matters, cut from a webinar, does more than a datasheet. Komet runs this as a monthly system: long recording in, captioned clips out for LinkedIn, Shorts and Instagram. Want a sample cut?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Lasso launched the LEAP guardrail and announced $30 million in new funding (SiliconANGLE, September 02 2026). <a href="https://siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-guardrail-raises-30m/" rel="noopener" target="_blank">siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-</a> · read 2026-10-14</li><li><span class="n">[2]</span>Elad Schulman is co-founder and CEO. <a href="https://siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-guardrail-raises-30m/" rel="noopener" target="_blank">siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-</a> · read 2026-10-14</li><li><span class="n">[3]</span>LEAP returns a verdict in under five milliseconds, per the company. <a href="https://siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-guardrail-raises-30m/" rel="noopener" target="_blank">siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-</a> · read 2026-10-14</li><li><span class="n">[4]</span>Lasso&#x27;s site lists three 2026 webinars with Watch Now links (May 11, May 27, Jun 15 2026). <a href="https://www.lasso.security/events-webinars" rel="noopener" target="_blank">lasso.security/events-webinars</a> · read 2026-10-14</li><li><span class="n">[5]</span>None of the 15 most recent uploads in Lasso&#x27;s channel feed is a Short; all are /watch?v= links. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCqfwKWkpS8FojgZCF_T9xMA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCqfwKWkpS8FojgZCF_T9xMA</a> · read 2026-10-14</li></ul>
-</article><article class="lead" id="lead-9">
-<p class="num">Lead 09 of 10 · signal 2026-08-26</p>
-<h3>Nitesh Shroff</h3>
-<p class="meta">Co-founder and CEO, Arintra</p>
+<h5>Sources</h5><ul class="ev"><li>[1] Lasso launched the LEAP guardrail and announced $30 million in new funding (SiliconANGLE, September 02 2026). <a href="https://siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-guardrail-raises-30m/" rel="noopener" target="_blank">siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-</a> · read 2026-10-14</li><li>[2] Elad Schulman is co-founder and CEO. <a href="https://siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-guardrail-raises-30m/" rel="noopener" target="_blank">siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-</a> · read 2026-10-14</li><li>[3] LEAP returns a verdict in under five milliseconds, per the company. <a href="https://siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-guardrail-raises-30m/" rel="noopener" target="_blank">siliconangle.com/2026/09/02/lasso-security-launches-cpu-only-ai-</a> · read 2026-10-14</li><li>[4] Lasso&#x27;s site lists three 2026 webinars with Watch Now links (May 11, May 27, Jun 15 2026). <a href="https://www.lasso.security/events-webinars" rel="noopener" target="_blank">lasso.security/events-webinars</a> · read 2026-10-14</li><li>[5] None of the 15 most recent uploads in Lasso&#x27;s channel feed is a Short; all are /watch?v= links. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCqfwKWkpS8FojgZCF_T9xMA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCqfwKWkpS8FojgZCF_T9xMA</a> · read 2026-10-14</li></ul>
+</article><article class="lead">
+<h4>Nitesh Shroff</h4>
+<p class="meta">Co-founder and CEO, Arintra<br>signal 2026-08-26</p>
 <div class="chips"><span class="chip">intent 3/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>Arintra banked a $25M Series B in August to expand across more enterprise health systems. Its CTO&#x27;s 51-minute VIVE 2026 panel has 35 views, and none of its last 15 uploads is a Short.</p>
-<h4>Fit</h4><p>A Series B health-tech SaaS company with conference panels and webinars already recorded. Short clips of its technical founders answering trust questions suit RCM and health-system buyers.</p>
+<p class="sig"><strong>Why now:</strong> Arintra banked a $25M Series B in August to expand across more enterprise health systems. Its CTO&#x27;s 51-minute VIVE 2026 panel has 35 views, and none of its last 15 uploads is a Short.<br><strong>Fit:</strong> A Series B health-tech SaaS company with conference panels and webinars already recorded. Short clips of its technical founders answering trust questions suit RCM and health-system buyers.</p>
 <div class="msg"><header><span>Email · VIVE panel, cut for RCM leaders</span><button type="button" data-copy>Copy</button></header><pre>Nitesh, Preeti&#x27;s 51-minute VIVE 2026 panel on the AI trust layer has 35 views, and the Athena webinar on physicians not having to code runs 48 minutes. None of your recent uploads is a Short. As the Series B pushes you into more enterprise health systems, short clips of Preeti answering trust questions are easy for RCM leaders to forward. Want five clip timestamps from the VIVE panel?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Nitesh, congrats on the Series B. Preeti&#x27;s VIVE panel on the AI trust layer is strong material for RCM leaders. I help software teams turn panels and webinars like these into captioned LinkedIn clips and Shorts. Happy to share the moments I&#x27;d cut.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>Another idea, Nitesh: the Athena webinar features practices describing hours they got back. Practitioner voices like that travel further as short clips than as a webinar link, because a revenue cycle leader can watch one between meetings. Komet runs this as a monthly system: long recording in, captioned clips out for LinkedIn, Shorts and Instagram. Want a sample cut?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Arintra banked a $25M Series B (Fierce Healthcare, Aug 26, 2026). <a href="https://www.fiercehealthcare.com/finance/arintra-banks-25m-series-b-funding-round-ai-driven-revenue-assurance-platform" rel="noopener" target="_blank">fiercehealthcare.com/finance/arintra-banks-25m-series-b-funding-</a> · read 2026-10-14</li><li><span class="n">[2]</span>Nitesh Shroff is co-founder and CEO; the capital goes to more enterprise health systems. <a href="https://www.fiercehealthcare.com/finance/arintra-banks-25m-series-b-funding-round-ai-driven-revenue-assurance-platform" rel="noopener" target="_blank">fiercehealthcare.com/finance/arintra-banks-25m-series-b-funding-</a> · read 2026-10-14</li><li><span class="n">[3]</span>&#x27;Preeti Bhargava, Arintra CTO, speaking on VIVE 2026 Panel: Building the AI Trust Layer&#x27; runs 3060 seconds, about 51 minutes. <a href="https://www.youtube.com/watch?v=qhhbTpqhnDk" rel="noopener" target="_blank">youtube.com/watch?v=qhhbTpqhnDk</a> · read 2026-10-14</li><li><span class="n">[4]</span>In the channel feed, the VIVE panel shows 35 views. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCZluvOKGPYi4QtK33ieJ7MQ" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCZluvOKGPYi4QtK33ieJ7MQ</a> · read 2026-10-14</li><li><span class="n">[5]</span>&#x27;WEBINAR: Physicians Don&#x27;t Have to Code Anymore: How Athena Practices Are Reclaiming Valuable Hours&#x27; runs 2865 seconds, about 48 minutes. <a href="https://www.youtube.com/watch?v=xirXBUTK6WY" rel="noopener" target="_blank">youtube.com/watch?v=xirXBUTK6WY</a> · read 2026-10-14</li><li><span class="n">[6]</span>None of the 15 most recent uploads in Arintra&#x27;s channel feed is a Short; all are /watch?v= links. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCZluvOKGPYi4QtK33ieJ7MQ" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCZluvOKGPYi4QtK33ieJ7MQ</a> · read 2026-10-14</li></ul>
-</article><article class="lead" id="lead-10">
-<p class="num">Lead 10 of 10 · signal 2026-09-24</p>
-<h3>Félix Bélisle-Dockrill</h3>
-<p class="meta">Co-founder and CEO, Axya</p>
+<h5>Sources</h5><ul class="ev"><li>[1] Arintra banked a $25M Series B (Fierce Healthcare, Aug 26, 2026). <a href="https://www.fiercehealthcare.com/finance/arintra-banks-25m-series-b-funding-round-ai-driven-revenue-assurance-platform" rel="noopener" target="_blank">fiercehealthcare.com/finance/arintra-banks-25m-series-b-funding-</a> · read 2026-10-14</li><li>[2] Nitesh Shroff is co-founder and CEO; the capital goes to more enterprise health systems. <a href="https://www.fiercehealthcare.com/finance/arintra-banks-25m-series-b-funding-round-ai-driven-revenue-assurance-platform" rel="noopener" target="_blank">fiercehealthcare.com/finance/arintra-banks-25m-series-b-funding-</a> · read 2026-10-14</li><li>[3] &#x27;Preeti Bhargava, Arintra CTO, speaking on VIVE 2026 Panel: Building the AI Trust Layer&#x27; runs 3060 seconds, about 51 minutes. <a href="https://www.youtube.com/watch?v=qhhbTpqhnDk" rel="noopener" target="_blank">youtube.com/watch?v=qhhbTpqhnDk</a> · read 2026-10-14</li><li>[4] In the channel feed, the VIVE panel shows 35 views. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCZluvOKGPYi4QtK33ieJ7MQ" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCZluvOKGPYi4QtK33ieJ7MQ</a> · read 2026-10-14</li><li>[5] &#x27;WEBINAR: Physicians Don&#x27;t Have to Code Anymore: How Athena Practices Are Reclaiming Valuable Hours&#x27; runs 2865 seconds, about 48 minutes. <a href="https://www.youtube.com/watch?v=xirXBUTK6WY" rel="noopener" target="_blank">youtube.com/watch?v=xirXBUTK6WY</a> · read 2026-10-14</li><li>[6] None of the 15 most recent uploads in Arintra&#x27;s channel feed is a Short; all are /watch?v= links. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCZluvOKGPYi4QtK33ieJ7MQ" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCZluvOKGPYi4QtK33ieJ7MQ</a> · read 2026-10-14</li></ul>
+</article><article class="lead">
+<h4>Félix Bélisle-Dockrill</h4>
+<p class="meta">Co-founder and CEO, Axya<br>signal 2026-09-24</p>
 <div class="chips"><span class="chip">intent 3/5</span><span class="chip">fit 3/5</span></div>
-<h4>Why now</h4><p>Axya closed a $17 million CAD Series A on September 24 to grow its team and presence outside Canada. Its 54-minute session on AI agents in procurement has 63 views, and its last Short dates to 2023.</p>
-<h4>Fit</h4><p>A Series A B2B SaaS company with a back catalogue of webinars and buyer interviews. Clips would carry that expertise to the manufacturers it wants to reach outside Canada.</p>
+<p class="sig"><strong>Why now:</strong> Axya closed a $17 million CAD Series A on September 24 to grow its team and presence outside Canada. Its 54-minute session on AI agents in procurement has 63 views, and its last Short dates to 2023.<br><strong>Fit:</strong> A Series A B2B SaaS company with a back catalogue of webinars and buyer interviews. Clips would carry that expertise to the manufacturers it wants to reach outside Canada.</p>
 <div class="msg"><header><span>Email · Your procurement-2030 session, as clips</span><button type="button" data-copy>Copy</button></header><pre>Félix, your 54-minute session on where AI agents take procurement by 2030 has 63 views, and your last Short went up in 2023. That catalogue of webinars and buyer interviews is exactly what manufacturers outside Canada need to see as you expand. With the Series A funding a bigger team, a clip system could turn each session into a month of LinkedIn posts. Want five clip timestamps from that session?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Félix, congrats on the Series A. Your webinars and buyer interviews on the Axya channel are strong material for procurement leaders. I help software teams turn long sessions like these into captioned LinkedIn clips and Shorts. Happy to share the moments I&#x27;d cut.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>Another idea, Félix: your US-Canada tariffs webinar speaks to a question every cross-border manufacturer is asking. Clipped into short answers, it works as an opener for US accounts before a sales call. Komet runs this as a monthly system: long recording in, captioned clips out for LinkedIn, Shorts and Instagram. Want a sample cut from that webinar?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Axya secured $17 million CAD in equity and debt Series A funding (BetaKit, September 24, 2026). <a href="https://betakit.com/?p=410223" rel="noopener" target="_blank">betakit.com/?p=410223</a> · read 2026-10-14</li><li><span class="n">[2]</span>Félix Bélisle-Dockrill is co-founder and CEO; the money grows the team and presence outside Canada. <a href="https://betakit.com/?p=410223" rel="noopener" target="_blank">betakit.com/?p=410223</a> · read 2026-10-14</li><li><span class="n">[3]</span>Use of funds includes expanding outside Canada. <a href="https://betakit.com/?p=410223" rel="noopener" target="_blank">betakit.com/?p=410223</a> · read 2026-10-14</li><li><span class="n">[4]</span>&#x27;Cap sur les agents IA : à quoi ressemblera l’approvisionnement en 2030 [5@7 des Achats]&#x27; runs 3216 seconds, about 54 minutes. <a href="https://www.youtube.com/watch?v=lqnTDEpWlmw" rel="noopener" target="_blank">youtube.com/watch?v=lqnTDEpWlmw</a> · read 2026-10-14</li><li><span class="n">[5]</span>In the channel feed, that session shows 63 views. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg</a> · read 2026-10-14</li><li><span class="n">[6]</span>The only Short among the 15 most recent uploads was posted 2023-12-12 (in 2023). <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg</a> · read 2026-10-14</li><li><span class="n">[7]</span>The feed also lists a US-Canada trade and tariffs webinar. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg</a> · read 2026-10-14</li></ul>
-</article></div></div>
-</div></section><section id="messages"><div class="wrap">
-<p class="kicker">The messages behind them</p>
-<h2>Messages your B2B SaaS companies and VC firms that already record podcasts, webinars or talks would pay to receive.</h2>
-<p class="meta">Each one blends public sources into something the recipient can act on today, even if they
-never buy. Each was proved on a real, named account, and every number traces to a fetched page.</p>
-<article class="pvp">
-<p class="num">Message 1 of 3 · sent to Podcast host or Head of Marketing / platform lead who owns the show</p>
-<h3>Your top 5 episodes by views, with the chapter that makes each one a Short</h3>
-<p>The channel&#x27;s last 15 uploads are all full episodes and its newest Short is months or years old, yet every episode already carries chapter markers. Ranking the 15 by views and pulling each top episode&#x27;s run time and strongest chapter gives a ready-made cut list.</p>
-<div class="chips"><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">YouTube watch-page metadata</a><a class="chip" href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">YouTube channel Shorts tab and Short pages</a><a class="chip" href="https://itunes.apple.com/lookup?id=1672188924" rel="noopener" target="_blank">Apple Podcasts lookup API</a></div>
-<h4>Run on a real account: Redpoint Ventures (Unsupervised Learning podcast)</h4>
-<div class="mail"><div class="to">To: Podcast host or Head of Marketing / platform lead who owns the show, Redpoint Ventures (Unsupervised Learning podcast) · US</div><div class="subj">Shorts from your top 5 episodes</div><p>Your last 15 Unsupervised Learning uploads on YouTube are all full episodes, and your newest Short dates to November 2024. The Yann LeCun episode drew 431,362 views, more than the other episodes in that run combined. Each episode already carries chapter markers, so the cut points are already picked. I pulled your top five episodes by views, with run times and the chapter that would make the strongest Short. Want the table?</p></div><div class="asset"><div class="asset-h"><span>Attached: Unsupervised Learning: your top 5 YouTube episodes by views, with the strongest Short in each</span><span>showing 5 of 15 latest episodes, 201 chapter markers, 0 Shorts; newest Short on the channel 2024-11-14 · source [6]</span></div><table><tr><th>Episode</th><th>Published</th><th>Views</th><th>Run time</th><th>Chapters</th><th>Strongest Short (chapter marker)</th></tr><tr><td>Yann LeCun on What Comes After LLMs</td><td>2026-05-15</td><td>431,362</td><td>1:21:56</td><td>13</td><td>35:49 OpenAI Is the Next Sun Microsystems</td></tr><tr><td>OpenAI&#x27;s Chief Scientist on Continual Learning Hype, RL Beyond Code, &amp; Future Alignment Directions</td><td>2026-04-09</td><td>39,372</td><td>58:46</td><td>13</td><td>37:40 Chain of Thought Monitoring</td></tr><tr><td>Top Alignment Researcher on OpenAI/HuggingFace Revelations, Fixing AI Safety &amp; Takeover Odds</td><td>2026-09-03</td><td>28,663</td><td>58:17</td><td>10</td><td>25:06 Buck&#x27;s actual odds on a full AI takeover</td></tr><tr><td>Gemini Co-Lead on World Models, RL&#x27;s Next Domains &amp; Continual Learning</td><td>2026-05-22</td><td>18,521</td><td>59:41</td><td>17</td><td>4:21 The GPT Moment for Video</td></tr><tr><td>AI Research Legend&#x27;s Honest Assessment of Where We Are</td><td>2026-06-03</td><td>13,687</td><td>1:13:33</td><td>14</td><td>17:21 How Close Is an AI Research Intern?</td></tr></table><p class='asset-note'>Views from the channel RSS on 2026-10-14. Run times and chapters from each episode&#x27;s watch page (claim 4). The &#x27;strongest Short&#x27; pick is our editorial choice among the episode&#x27;s own chapter markers.</p></div><h4>Where every fact comes from</h4><ul class="ev"><li><span class="n">[1]</span>The channel&#x27;s 15 latest uploads (2026-03-11 to 2026-10-06) are all /watch links, so 0 of the 15 are Shorts <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA</a> · read 2026-10-14</li><li><span class="n">[2]</span>The channel&#x27;s newest Short was published 2024-11-14 (Shorts tab, newest first: czyHDP67CMw) <a href="https://www.youtube.com/shorts/czyHDP67CMw" rel="noopener" target="_blank">youtube.com/shorts/czyHDP67CMw</a> · read 2026-10-14</li><li><span class="n">[3]</span>&#x27;Yann LeCun on What Comes After LLMs&#x27; (published 2026-05-15) has 431,362 views; the other 14 episodes in the feed total 155,937 views <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA</a> · read 2026-10-14</li><li><span class="n">[4]</span>All 15 episodes have chapter markers in their descriptions, 201 in total, and captions are available on all 15. Run times of the top 5: 1:21:56, 58:46, 58:17, 59:41, 1:13:33 <a href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">youtube.com/watch?v=ngBraLDqzdI</a> · read 2026-10-14</li><li><span class="n">[5]</span>The show is Redpoint&#x27;s: Apple Podcasts lists &#x27;Unsupervised Learning with Jacob Effron&#x27; by Redpoint Ventures, 103 episodes <a href="https://itunes.apple.com/lookup?id=1672188924" rel="noopener" target="_blank">itunes.apple.com/lookup?id=1672188924</a> · read 2026-10-14</li><li><span class="n">[6]</span>Top 5 episodes by views among the 15 latest: 431,362; 39,372; 28,663; 18,521; 13,687. The two AI Vibe Check panel episodes drew 2,105 and 5,787 <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA</a> · read 2026-10-14</li><li><span class="n">[7]</span>Komet Media pricing: Clips only $1,799 for 5 clips; Video Content System $2,499/mo for 10 video clips a month with done-for-you distribution <a href="https://www.kometmedia.com/" rel="noopener" target="_blank">kometmedia.com/</a> · read 2026-10-14</li></ul>
-<h4>The sequence, if they don't reply</h4><div class="fus"><div class="fu"><span class="num">Day 0</span><p>The email above.</p></div><div class="fu"><span class="num">Day 3</span><p>How the table becomes posts: each row&#x27;s chapter marker is the cut point. We caption it, frame it vertical and publish it to YouTube Shorts, LinkedIn and Instagram. Komet&#x27;s Clips Only package is $1,799 for 5 clips, one per row, so you can judge it on your own numbers before anything monthly. Should I start with the LeCun episode?</p></div><div class="fu"><span class="num">Day 7</span><p>One more pattern from the same data: your top five are all one-guest interviews, while your two AI Vibe Check panels drew 2,105 and 5,787 views. So lead the Shorts with guest answers, and use panel moments as LinkedIn text posts. Want the table?</p></div></div>
-<div class="two"><div><h4>Why they'd reply</h4><p>It turns a back catalogue they already paid to record into a ranked, timestamped cut list. They can hand it to any editor today.</p></div>
-<div><h4>Where Komet Media comes in</h4><p>Komet&#x27;s Clips Only package edits 5 clips, one per row of the table.</p></div></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Axya secured $17 million CAD in equity and debt Series A funding (BetaKit, September 24, 2026). <a href="https://betakit.com/?p=410223" rel="noopener" target="_blank">betakit.com/?p=410223</a> · read 2026-10-14</li><li>[2] Félix Bélisle-Dockrill is co-founder and CEO; the money grows the team and presence outside Canada. <a href="https://betakit.com/?p=410223" rel="noopener" target="_blank">betakit.com/?p=410223</a> · read 2026-10-14</li><li>[3] Use of funds includes expanding outside Canada. <a href="https://betakit.com/?p=410223" rel="noopener" target="_blank">betakit.com/?p=410223</a> · read 2026-10-14</li><li>[4] &#x27;Cap sur les agents IA : à quoi ressemblera l’approvisionnement en 2030 [5@7 des Achats]&#x27; runs 3216 seconds, about 54 minutes. <a href="https://www.youtube.com/watch?v=lqnTDEpWlmw" rel="noopener" target="_blank">youtube.com/watch?v=lqnTDEpWlmw</a> · read 2026-10-14</li><li>[5] In the channel feed, that session shows 63 views. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg</a> · read 2026-10-14</li><li>[6] The only Short among the 15 most recent uploads was posted 2023-12-12 (in 2023). <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg</a> · read 2026-10-14</li><li>[7] The feed also lists a US-Canada trade and tariffs webinar. <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCrO9_K9I5l08su-UYVtUMYg</a> · read 2026-10-14</li></ul>
+</article></div>
+    </div>
+    <p class="src">Ranked by intent, then fit. Every fact links to the public page it came from. Copy is written as
+      Komet Media's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
 
-<div class="scores"><span>independent value <b>4</b></span><span>specificity <b>5</b></span><span>pain <b>4</b></span><span>product fit <b>5</b></span><span>provable <b>5</b></span><span>actionable <b>5</b></span></div>
-</article><article class="pvp">
-<p class="num">Message 2 of 3 · sent to Head of Content or demand-gen lead at a compliance SaaS that sells into a dated regulatory rollout</p>
-<h3>CMMC Phase 2 starts Nov 10: five chapters from sessions you already recorded</h3>
-<p>A regulatory date the buyer&#x27;s customers are planning around (CMMC Phase 2, Nov 10, 2026) lines up with chapters the company has already published on YouTube. Nobody has cut those chapters into short clips, and the channel has no Shorts tab at all.</p>
-<div class="chips"><a class="chip" href="https://www.ecfr.gov/api/versioner/v1/full/2026-10-08/title-32.xml?part=170&amp;section=170.3" rel="noopener" target="_blank">eCFR 32 CFR 170.3 (CMMC phased rollout)</a><a class="chip" href="https://www.federalregister.gov/api/v1/documents/2025-17359.json" rel="noopener" target="_blank">Federal Register document 2025-17359 (48 CFR CMMC acquisition rule)</a><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">YouTube watch-page metadata</a><a class="chip" href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">YouTube channel Shorts tab and Short pages</a></div>
-<h4>Run on a real account: Secureframe</h4>
-<div class="mail"><div class="to">To: Head of Content or demand-gen lead at a compliance SaaS that sells into a dated regulatory rollout, Secureframe · San Francisco, CA, US</div><div class="subj">Phase 2 clips before Nov 10</div><p>CMMC Phase 2 starts November 10, and your buyers will be searching for what it means for their contracts. You already recorded the answers: 9 CMMC sessions on your YouTube channel, each with chapter markers, from assessment costs to Phase 2 timing. Right now they live only as full-length talks, and the channel has no Shorts yet. I mapped the five chapters that cut cleanest into Phase 2 clips, with timestamps and session views. Want the list?</p></div><div class="asset"><div class="asset-h"><span>Attached: Secureframe: five Phase 2 chapters to clip before November 10</span><span>showing 5 of 9 CMMC sessions, 113 chapter markers, 7h 06m of recordings, 714 combined views, 0 Shorts on the channel · source [6]</span></div><table><tr><th>Session (YouTube)</th><th>Chapter timestamp</th><th>Chapter</th><th>Session views</th><th>Session run time</th></tr><tr><td>CMMC Enforcement News: Where Things Stand and What&#x27;s Next</td><td>14:59</td><td>Assessor Capacity vs. Phase 2 and Phase 3 Demand</td><td>136</td><td>25:38</td></tr><tr><td>Inside the CMMC Assessment: Lessons Learned from Real Audits</td><td>12:54</td><td>How Many Companies Aren&#x27;t Ready for Phase 2</td><td>39</td><td>45:36</td></tr><tr><td>Stacy Bostjanick on the CMMC Program: Where We Are &amp; Where We&#x27;re Going</td><td>32:05</td><td>Inside a CMMC Assessment: Phase 1 vs Phase 2</td><td>112</td><td>51:12</td></tr><tr><td>CMMC Assessment Process Explained: Regulations Unraveled</td><td>21:00</td><td>Phase 2: Sampling, Daily Checkpoints and Reevaluation</td><td>64</td><td>42:32</td></tr><tr><td>Katie Arrington on CMMC Updates and the Defense Industrial Base</td><td>3:14</td><td>The Timeline and Why &quot;Wait and See&quot; Is a Mistake</td><td>157</td><td>53:14</td></tr></table><p class='asset-note'>Phase 2 date: Phase 1 began 2025-11-10 (claim 1), and Phase 2 begins one calendar year later (claim 2). Speakers are public officials and industry figures speaking on the record at a published event.</p></div><h4>Where every fact comes from</h4><ul class="ev"><li><span class="n">[1]</span>The 48 CFR CMMC acquisition rule took effect November 10, 2025, which starts CMMC Phase 1 <a href="https://www.federalregister.gov/api/v1/documents/2025-17359.json" rel="noopener" target="_blank">federalregister.gov/api/v1/documents/2025-17359.json</a> · read 2026-10-14</li><li><span class="n">[2]</span>Phase 2 begins one calendar year after Phase 1 starts, so on November 10, 2026, adding Level 2 (C3PAO) status as a condition of contract award <a href="https://www.ecfr.gov/api/versioner/v1/full/2026-10-08/title-32.xml?part=170&amp;section=170.3" rel="noopener" target="_blank">ecfr.gov/api/versioner/v1/full/2026-10-08/title-32.xml?part=170&amp;sectio</a> · read 2026-10-14</li><li><span class="n">[3]</span>Secureframe&#x27;s 15 latest uploads (2026-07-14 to 2026-07-25) are all full-length; 9 have CMMC in the title <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCgLRXVQAveomOrDgvK-sJXA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCgLRXVQAveomOrDgvK-sJXA</a> · read 2026-10-14</li><li><span class="n">[4]</span>The channel has no Shorts tab: 36 videos, and the channel header shows only Home, Videos and Playlists <a href="https://www.youtube.com/@secureframe/videos" rel="noopener" target="_blank">youtube.com/@secureframe/videos</a> · read 2026-10-14</li><li><span class="n">[5]</span>The 9 CMMC sessions run 7h 06m in total (25,579 seconds) with 113 chapter markers and 714 combined views; captions on all 9 <a href="https://www.youtube.com/watch?v=Of3yN24BgTg" rel="noopener" target="_blank">youtube.com/watch?v=Of3yN24BgTg</a> · read 2026-10-14</li><li><span class="n">[6]</span>Phase 2 chapters across the sessions: 14:59 and 16:17 (CMMC Enforcement News, 136 views, 25:38); 12:54 (Inside the CMMC Assessment, 39 views, 45:36); 32:05 (Bostjanick session, 112 views, 51:12); 21:00 (CMMC Assessment Process Explained, 64 views, 42:32); 3:14 (Arrington keynote, 157 views, 53:14) <a href="https://www.youtube.com/watch?v=uCB1aZpIQD8" rel="noopener" target="_blank">youtube.com/watch?v=uCB1aZpIQD8</a> · read 2026-10-14</li><li><span class="n">[7]</span>Two sessions cite the same figure, 103 C3PAOs: Mike Snyder (The CyberAB) at 1:55 and Stacy Bostjanick at 3:37 <a href="https://www.youtube.com/watch?v=Of3yN24BgTg" rel="noopener" target="_blank">youtube.com/watch?v=Of3yN24BgTg</a> · read 2026-10-14</li><li><span class="n">[8]</span>Komet Media pricing: Clips only $1,799 for 5 clips; Video Content System $2,499/mo for 10 video clips a month with done-for-you distribution <a href="https://www.kometmedia.com/" rel="noopener" target="_blank">kometmedia.com/</a> · read 2026-10-14</li></ul>
-<h4>The sequence, if they don't reply</h4><div class="fus"><div class="fu"><span class="num">Day 0</span><p>The email above.</p></div><div class="fu"><span class="num">Day 3</span><p>How the list turns into posts: we cut each chapter into a captioned vertical clip, write the hook from the chapter title, and schedule them on YouTube Shorts and LinkedIn in the weeks around November 10. Komet&#x27;s Video Content System covers 10 clips a month with distribution for $2,499/mo. Want me to start with the Phase 2 chapters?</p></div><div class="fu"><span class="num">Day 7</span><p>A second angle from the same sessions: two of your speakers cite the same figure, 103 C3PAOs, in separate talks. One clip pairing assessor capacity against Phase 2 demand gives a contractor a reason to start now, not wait. Should I send the five timestamps?</p></div></div>
-<div class="two"><div><h4>Why they'd reply</h4><p>It hands them a dated content calendar built only from recordings they own, timed to the moment their buyers search hardest.</p></div>
-<div><h4>Where Komet Media comes in</h4><p>Komet&#x27;s Video Content System produces 10 clips a month with distribution, which is the cadence a 4-week run-up to a deadline needs.</p></div></div>
+<section class="s" data-key="m1" data-label="Message 1 · Redpoint Ventures (Unsupervised Learning podcast)" data-sub="Your top 5 episodes by views, with the chapter that makes each one a Short">
+  <div class="wrap">
+    <p class="kick"><b>Message 1 of 3</b> <s>Run on a real account: Redpoint Ventures (Unsupervised Learning podcast)</s></p>
+    <h2>Your top 5 episodes by views, with the chapter that makes each one a Short</h2>
+    <p class="lede">The channel&#x27;s last 15 uploads are all full episodes and its newest Short is months or years old, yet every episode already carries chapter markers. Ranking the 15 by views and pulling each top episode&#x27;s run time and strongest chapter gives a ready-made cut list.</p>
+    <div class="chips"><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">YouTube watch-page metadata</a><a class="chip" href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">YouTube channel Shorts tab and Short pages</a><a class="chip" href="https://itunes.apple.com/lookup?id=1672188924" rel="noopener" target="_blank">Apple Podcasts lookup API</a></div>
+    <div class="mail"><div class="to">To: Podcast host or Head of Marketing / platform lead who owns the show, Redpoint Ventures (Unsupervised Learning podcast) · US</div><div class="subj">Shorts from your top 5 episodes</div><p>Your last 15 Unsupervised Learning uploads on YouTube are all full episodes, and your newest Short dates to November 2024. The Yann LeCun episode drew 431,362 views, more than the other episodes in that run combined. Each episode already carries chapter markers, so the cut points are already picked. I pulled your top five episodes by views, with run times and the chapter that would make the strongest Short. Want the table?</p></div>
+    <div class="asset"><div class="asset-h"><span>Attached: Unsupervised Learning: your top 5 YouTube episodes by views, with the strongest Short in each</span><span>showing 5 of 15 latest episodes, 201 chapter markers, 0 Shorts; newest Short on the channel 2024-11-14 · source [6]</span></div><table class="tbl"><tr><th>Episode</th><th>Published</th><th>Views</th><th>Run time</th><th>Chapters</th><th>Strongest Short (chapter marker)</th></tr><tr><td>Yann LeCun on What Comes After LLMs</td><td>2026-05-15</td><td>431,362</td><td>1:21:56</td><td>13</td><td>35:49 OpenAI Is the Next Sun Microsystems</td></tr><tr><td>OpenAI&#x27;s Chief Scientist on Continual Learning Hype, RL Beyond Code, &amp; Future Alignment Directions</td><td>2026-04-09</td><td>39,372</td><td>58:46</td><td>13</td><td>37:40 Chain of Thought Monitoring</td></tr><tr><td>Top Alignment Researcher on OpenAI/HuggingFace Revelations, Fixing AI Safety &amp; Takeover Odds</td><td>2026-09-03</td><td>28,663</td><td>58:17</td><td>10</td><td>25:06 Buck&#x27;s actual odds on a full AI takeover</td></tr><tr><td>Gemini Co-Lead on World Models, RL&#x27;s Next Domains &amp; Continual Learning</td><td>2026-05-22</td><td>18,521</td><td>59:41</td><td>17</td><td>4:21 The GPT Moment for Video</td></tr><tr><td>AI Research Legend&#x27;s Honest Assessment of Where We Are</td><td>2026-06-03</td><td>13,687</td><td>1:13:33</td><td>14</td><td>17:21 How Close Is an AI Research Intern?</td></tr></table><p class='asset-note'>Views from the channel RSS on 2026-10-14. Run times and chapters from each episode&#x27;s watch page (claim 4). The &#x27;strongest Short&#x27; pick is our editorial choice among the episode&#x27;s own chapter markers.</p></div>
+    <h3 style="margin-top:22px">The sequence, if they don't reply</h3><div class="fus"><div class="fu"><b>Day 0</b><p>The email above.</p></div><div class="fu"><b>Day 3</b><p>How the table becomes posts: each row&#x27;s chapter marker is the cut point. We caption it, frame it vertical and publish it to YouTube Shorts, LinkedIn and Instagram. Komet&#x27;s Clips Only package is $1,799 for 5 clips, one per row, so you can judge it on your own numbers before anything monthly. Should I start with the LeCun episode?</p></div><div class="fu"><b>Day 7</b><p>One more pattern from the same data: your top five are all one-guest interviews, while your two AI Vibe Check panels drew 2,105 and 5,787 views. So lead the Shorts with guest answers, and use panel moments as LinkedIn text posts. Want the table?</p></div></div>
+    <div class="two">
+      <div class="pane"><h4>Why they'd reply</h4><p>It turns a back catalogue they already paid to record into a ranked, timestamped cut list. They can hand it to any editor today.</p></div>
+      <div class="pane"><h4>Where Komet Media comes in</h4><p>Komet&#x27;s Clips Only package edits 5 clips, one per row of the table.</p></div>
+    </div>
+    <div class="scores"><span>independent value <b>4</b></span><span>specificity <b>5</b></span><span>pain <b>4</b></span><span>product fit <b>5</b></span><span>provable <b>5</b></span><span>actionable <b>5</b></span></div>
+    <h3 style="margin-top:22px">Where every fact comes from</h3><ul class="ev"><li>[1] The channel&#x27;s 15 latest uploads (2026-03-11 to 2026-10-06) are all /watch links, so 0 of the 15 are Shorts <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA</a> · read 2026-10-14</li><li>[2] The channel&#x27;s newest Short was published 2024-11-14 (Shorts tab, newest first: czyHDP67CMw) <a href="https://www.youtube.com/shorts/czyHDP67CMw" rel="noopener" target="_blank">youtube.com/shorts/czyHDP67CMw</a> · read 2026-10-14</li><li>[3] &#x27;Yann LeCun on What Comes After LLMs&#x27; (published 2026-05-15) has 431,362 views; the other 14 episodes in the feed total 155,937 views <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA</a> · read 2026-10-14</li><li>[4] All 15 episodes have chapter markers in their descriptions, 201 in total, and captions are available on all 15. Run times of the top 5: 1:21:56, 58:46, 58:17, 59:41, 1:13:33 <a href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">youtube.com/watch?v=ngBraLDqzdI</a> · read 2026-10-14</li><li>[5] The show is Redpoint&#x27;s: Apple Podcasts lists &#x27;Unsupervised Learning with Jacob Effron&#x27; by Redpoint Ventures, 103 episodes <a href="https://itunes.apple.com/lookup?id=1672188924" rel="noopener" target="_blank">itunes.apple.com/lookup?id=1672188924</a> · read 2026-10-14</li><li>[6] Top 5 episodes by views among the 15 latest: 431,362; 39,372; 28,663; 18,521; 13,687. The two AI Vibe Check panel episodes drew 2,105 and 5,787 <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA</a> · read 2026-10-14</li><li>[7] Komet Media pricing: Clips only $1,799 for 5 clips; Video Content System $2,499/mo for 10 video clips a month with done-for-you distribution <a href="https://www.kometmedia.com/" rel="noopener" target="_blank">kometmedia.com/</a> · read 2026-10-14</li></ul>
+  </div>
+</section>
 
-<div class="scores"><span>independent value <b>5</b></span><span>specificity <b>5</b></span><span>pain <b>4</b></span><span>product fit <b>5</b></span><span>provable <b>5</b></span><span>actionable <b>5</b></span></div>
-</article><article class="pvp">
-<p class="num">Message 3 of 3 · sent to Podcast producer or content marketing lead at a B2B SaaS company with a weekly show</p>
-<h3>Your best Shorts out-drew your latest episodes, so restart them on this month&#x27;s episodes</h3>
-<p>The channel&#x27;s own history shows its top Shorts beat every recent full episode on views, but Shorts stopped while episodes kept shipping weekly. Lining up the best past Shorts against the newest episodes shows what to cut next.</p>
-<div class="chips"><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">YouTube channel Shorts tab and Short pages</a><a class="chip" href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">YouTube watch-page metadata</a><a class="chip" href="https://itunes.apple.com/lookup?id=1672188924" rel="noopener" target="_blank">Apple Podcasts lookup API</a></div>
-<h4>Run on a real account: LinearB (Dev Interrupted podcast)</h4>
-<div class="mail"><div class="to">To: Podcast producer or content marketing lead at a B2B SaaS company with a weekly show, LinearB (Dev Interrupted podcast) · Tel Aviv, Israel (office listed on linearb.io/about-us)</div><div class="subj">Your next Dev Interrupted Shorts</div><p>Your Short on AI compaction drew 931 views, more than any of your last 15 Dev Interrupted episodes on YouTube. The best of those reached 715. Your newest Short is from March, while full episodes kept landing every week, all with captions ready. So the work is mostly picking the moments. I lined up your top Shorts against your newest episodes, with views and dates. Want the side-by-side?</p></div><div class="asset"><div class="asset-h"><span>Attached: Dev Interrupted on YouTube: your best Shorts next to your newest episodes</span><span>showing 5 of 12 newest Shorts (2025-12-29 to 2026-03-20) against the 15 newest episodes (2026-08-04 to 2026-10-06) · source [5]</span></div><table><tr><th>Format</th><th>Title</th><th>Published</th><th>Views</th></tr><tr><td>Short</td><td>Why Your AI Starts Making Stuff Up: The Compaction Problem</td><td>2026-02-24</td><td>931</td></tr><tr><td>Short</td><td>Coding Standards are for Humans, Not AI Agents</td><td>2026-03-16</td><td>814</td></tr><tr><td>Short</td><td>Don&#x27;t Start with the Model</td><td>2025-12-29</td><td>772</td></tr><tr><td>Episode</td><td>Agent, skill, or MCP? Which to use and when to use them | AWS&#x27; Clare Liguori (#288)</td><td>2026-08-18</td><td>715</td></tr><tr><td>Episode</td><td>NVIDIA acquires Hugging Face, OpenClaw 2.0 goes multiplayer, and the Linux kernel fights AI scrapers</td><td>2026-09-04</td><td>623</td></tr></table><p class='asset-note'>The Shorts have had months to collect views and the episodes only weeks, so read this as a direction, not a verdict. Shorts views come from each Short&#x27;s page and episode views from the channel RSS, both on 2026-10-14.</p></div><h4>Where every fact comes from</h4><ul class="ev"><li><span class="n">[1]</span>Dev Interrupted is LinearB&#x27;s show: Apple Podcasts lists it by LinearB, 333 episodes, latest 2026-10-13 <a href="https://itunes.apple.com/lookup?id=1537003676" rel="noopener" target="_blank">itunes.apple.com/lookup?id=1537003676</a> · read 2026-10-14</li><li><span class="n">[2]</span>The channel&#x27;s 15 latest uploads (2026-08-04 to 2026-10-06) are all full episodes (0 Shorts), with views from 58 to 715; the top one is &#x27;Agent, skill, or MCP?&#x27; with 715 <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCP37Olcw_x_-4FBGdQlcYIw" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCP37Olcw_x_-4FBGdQlcYIw</a> · read 2026-10-14</li><li><span class="n">[3]</span>The &#x27;Why Your AI Starts Making Stuff Up: The Compaction Problem&#x27; Short (2026-02-24) has 931 views <a href="https://www.youtube.com/shorts/tO_PC96cN8w" rel="noopener" target="_blank">youtube.com/shorts/tO_PC96cN8w</a> · read 2026-10-14</li><li><span class="n">[4]</span>The channel&#x27;s newest Short was published 2026-03-20 (Shorts tab, newest first) <a href="https://www.youtube.com/shorts/Ws9532Dp30k" rel="noopener" target="_blank">youtube.com/shorts/Ws9532Dp30k</a> · read 2026-10-14</li><li><span class="n">[5]</span>Top Shorts among the 12 newest: 931 (2026-02-24), 814 (2026-03-16), 772 (2025-12-29). Top episodes among the 15 newest: 715 (2026-08-18), 623 (2026-09-04) <a href="https://www.youtube.com/@DevInterrupted/shorts" rel="noopener" target="_blank">youtube.com/@DevInterrupted/shorts</a> · read 2026-10-14</li><li><span class="n">[6]</span>Episodes land weekly (new interview every Tuesday), and all 15 recent episodes have captions; run times 23:50 to 53:35 <a href="https://www.youtube.com/watch?v=Ak3Ozl0_-Og" rel="noopener" target="_blank">youtube.com/watch?v=Ak3Ozl0_-Og</a> · read 2026-10-14</li><li><span class="n">[7]</span>Komet Media pricing: Clips only $1,799 for 5 clips; Video Content System $2,499/mo for 10 video clips a month with done-for-you distribution <a href="https://www.kometmedia.com/" rel="noopener" target="_blank">kometmedia.com/</a> · read 2026-10-14</li></ul>
-<h4>The sequence, if they don't reply</h4><div class="fus"><div class="fu"><span class="num">Day 0</span><p>The email above.</p></div><div class="fu"><span class="num">Day 3</span><p>How the side-by-side gets worked: each Tuesday episode comes in, and we send back captioned vertical cuts of its sharpest answers for YouTube Shorts and LinkedIn, in the style of the Shorts that already worked for you. Komet&#x27;s Video Content System is $2,499/mo for 10 clips a month with distribution. Worth seeing sample cuts from the MCP episode?</p></div><div class="fu"><span class="num">Day 7</span><p>Second thing in the same data: your three best Shorts are all about how AI behaves inside a codebase: compaction, coding standards, and where to start. Your newest episodes on MCP and agent secrets cover the same ground, so they&#x27;re the first ones to cut. Should I send the list?</p></div></div>
-<div class="two"><div><h4>Why they'd reply</h4><p>It&#x27;s their own evidence about what format works on their channel, plus the next episodes to apply it to. That beats a generic &#x27;Shorts are big&#x27; claim.</p></div>
-<div><h4>Where Komet Media comes in</h4><p>Komet&#x27;s Video Content System turns each weekly episode into captioned vertical clips, so the restart doesn&#x27;t depend on in-house time.</p></div></div>
+<section class="s" data-key="m2" data-label="Message 2 · Secureframe" data-sub="CMMC Phase 2 starts Nov 10: five chapters from sessions you already recorded">
+  <div class="wrap">
+    <p class="kick"><b>Message 2 of 3</b> <s>Run on a real account: Secureframe</s></p>
+    <h2>CMMC Phase 2 starts Nov 10: five chapters from sessions you already recorded</h2>
+    <p class="lede">A regulatory date the buyer&#x27;s customers are planning around (CMMC Phase 2, Nov 10, 2026) lines up with chapters the company has already published on YouTube. Nobody has cut those chapters into short clips, and the channel has no Shorts tab at all.</p>
+    <div class="chips"><a class="chip" href="https://www.ecfr.gov/api/versioner/v1/full/2026-10-08/title-32.xml?part=170&amp;section=170.3" rel="noopener" target="_blank">eCFR 32 CFR 170.3 (CMMC phased rollout)</a><a class="chip" href="https://www.federalregister.gov/api/v1/documents/2025-17359.json" rel="noopener" target="_blank">Federal Register document 2025-17359 (48 CFR CMMC acquisition rule)</a><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">YouTube watch-page metadata</a><a class="chip" href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">YouTube channel Shorts tab and Short pages</a></div>
+    <div class="mail"><div class="to">To: Head of Content or demand-gen lead at a compliance SaaS that sells into a dated regulatory rollout, Secureframe · San Francisco, CA, US</div><div class="subj">Phase 2 clips before Nov 10</div><p>CMMC Phase 2 starts November 10, and your buyers will be searching for what it means for their contracts. You already recorded the answers: 9 CMMC sessions on your YouTube channel, each with chapter markers, from assessment costs to Phase 2 timing. Right now they live only as full-length talks, and the channel has no Shorts yet. I mapped the five chapters that cut cleanest into Phase 2 clips, with timestamps and session views. Want the list?</p></div>
+    <div class="asset"><div class="asset-h"><span>Attached: Secureframe: five Phase 2 chapters to clip before November 10</span><span>showing 5 of 9 CMMC sessions, 113 chapter markers, 7h 06m of recordings, 714 combined views, 0 Shorts on the channel · source [6]</span></div><table class="tbl"><tr><th>Session (YouTube)</th><th>Chapter timestamp</th><th>Chapter</th><th>Session views</th><th>Session run time</th></tr><tr><td>CMMC Enforcement News: Where Things Stand and What&#x27;s Next</td><td>14:59</td><td>Assessor Capacity vs. Phase 2 and Phase 3 Demand</td><td>136</td><td>25:38</td></tr><tr><td>Inside the CMMC Assessment: Lessons Learned from Real Audits</td><td>12:54</td><td>How Many Companies Aren&#x27;t Ready for Phase 2</td><td>39</td><td>45:36</td></tr><tr><td>Stacy Bostjanick on the CMMC Program: Where We Are &amp; Where We&#x27;re Going</td><td>32:05</td><td>Inside a CMMC Assessment: Phase 1 vs Phase 2</td><td>112</td><td>51:12</td></tr><tr><td>CMMC Assessment Process Explained: Regulations Unraveled</td><td>21:00</td><td>Phase 2: Sampling, Daily Checkpoints and Reevaluation</td><td>64</td><td>42:32</td></tr><tr><td>Katie Arrington on CMMC Updates and the Defense Industrial Base</td><td>3:14</td><td>The Timeline and Why &quot;Wait and See&quot; Is a Mistake</td><td>157</td><td>53:14</td></tr></table><p class='asset-note'>Phase 2 date: Phase 1 began 2025-11-10 (claim 1), and Phase 2 begins one calendar year later (claim 2). Speakers are public officials and industry figures speaking on the record at a published event.</p></div>
+    <h3 style="margin-top:22px">The sequence, if they don't reply</h3><div class="fus"><div class="fu"><b>Day 0</b><p>The email above.</p></div><div class="fu"><b>Day 3</b><p>How the list turns into posts: we cut each chapter into a captioned vertical clip, write the hook from the chapter title, and schedule them on YouTube Shorts and LinkedIn in the weeks around November 10. Komet&#x27;s Video Content System covers 10 clips a month with distribution for $2,499/mo. Want me to start with the Phase 2 chapters?</p></div><div class="fu"><b>Day 7</b><p>A second angle from the same sessions: two of your speakers cite the same figure, 103 C3PAOs, in separate talks. One clip pairing assessor capacity against Phase 2 demand gives a contractor a reason to start now, not wait. Should I send the five timestamps?</p></div></div>
+    <div class="two">
+      <div class="pane"><h4>Why they'd reply</h4><p>It hands them a dated content calendar built only from recordings they own, timed to the moment their buyers search hardest.</p></div>
+      <div class="pane"><h4>Where Komet Media comes in</h4><p>Komet&#x27;s Video Content System produces 10 clips a month with distribution, which is the cadence a 4-week run-up to a deadline needs.</p></div>
+    </div>
+    <div class="scores"><span>independent value <b>5</b></span><span>specificity <b>5</b></span><span>pain <b>4</b></span><span>product fit <b>5</b></span><span>provable <b>5</b></span><span>actionable <b>5</b></span></div>
+    <h3 style="margin-top:22px">Where every fact comes from</h3><ul class="ev"><li>[1] The 48 CFR CMMC acquisition rule took effect November 10, 2025, which starts CMMC Phase 1 <a href="https://www.federalregister.gov/api/v1/documents/2025-17359.json" rel="noopener" target="_blank">federalregister.gov/api/v1/documents/2025-17359.json</a> · read 2026-10-14</li><li>[2] Phase 2 begins one calendar year after Phase 1 starts, so on November 10, 2026, adding Level 2 (C3PAO) status as a condition of contract award <a href="https://www.ecfr.gov/api/versioner/v1/full/2026-10-08/title-32.xml?part=170&amp;section=170.3" rel="noopener" target="_blank">ecfr.gov/api/versioner/v1/full/2026-10-08/title-32.xml?part=170&amp;sectio</a> · read 2026-10-14</li><li>[3] Secureframe&#x27;s 15 latest uploads (2026-07-14 to 2026-07-25) are all full-length; 9 have CMMC in the title <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCgLRXVQAveomOrDgvK-sJXA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCgLRXVQAveomOrDgvK-sJXA</a> · read 2026-10-14</li><li>[4] The channel has no Shorts tab: 36 videos, and the channel header shows only Home, Videos and Playlists <a href="https://www.youtube.com/@secureframe/videos" rel="noopener" target="_blank">youtube.com/@secureframe/videos</a> · read 2026-10-14</li><li>[5] The 9 CMMC sessions run 7h 06m in total (25,579 seconds) with 113 chapter markers and 714 combined views; captions on all 9 <a href="https://www.youtube.com/watch?v=Of3yN24BgTg" rel="noopener" target="_blank">youtube.com/watch?v=Of3yN24BgTg</a> · read 2026-10-14</li><li>[6] Phase 2 chapters across the sessions: 14:59 and 16:17 (CMMC Enforcement News, 136 views, 25:38); 12:54 (Inside the CMMC Assessment, 39 views, 45:36); 32:05 (Bostjanick session, 112 views, 51:12); 21:00 (CMMC Assessment Process Explained, 64 views, 42:32); 3:14 (Arrington keynote, 157 views, 53:14) <a href="https://www.youtube.com/watch?v=uCB1aZpIQD8" rel="noopener" target="_blank">youtube.com/watch?v=uCB1aZpIQD8</a> · read 2026-10-14</li><li>[7] Two sessions cite the same figure, 103 C3PAOs: Mike Snyder (The CyberAB) at 1:55 and Stacy Bostjanick at 3:37 <a href="https://www.youtube.com/watch?v=Of3yN24BgTg" rel="noopener" target="_blank">youtube.com/watch?v=Of3yN24BgTg</a> · read 2026-10-14</li><li>[8] Komet Media pricing: Clips only $1,799 for 5 clips; Video Content System $2,499/mo for 10 video clips a month with done-for-you distribution <a href="https://www.kometmedia.com/" rel="noopener" target="_blank">kometmedia.com/</a> · read 2026-10-14</li></ul>
+  </div>
+</section>
 
-<div class="scores"><span>independent value <b>4</b></span><span>specificity <b>5</b></span><span>pain <b>4</b></span><span>product fit <b>5</b></span><span>provable <b>4</b></span><span>actionable <b>4</b></span></div>
-</article>
-</div></section><section id="engine"><div class="wrap">
-<p class="kicker">How the next ten get found</p>
-<h2>The ten leads are a sample. This is the engine behind them.</h2>
-<div class="plays"><div class="play"><h3>Unclipped catalogue watch</h3>
+<section class="s" data-key="m3" data-label="Message 3 · LinearB (Dev Interrupted podcast)" data-sub="Your best Shorts out-drew your latest episodes, so restart them on this month&#x27;s episodes">
+  <div class="wrap">
+    <p class="kick"><b>Message 3 of 3</b> <s>Run on a real account: LinearB (Dev Interrupted podcast)</s></p>
+    <h2>Your best Shorts out-drew your latest episodes, so restart them on this month&#x27;s episodes</h2>
+    <p class="lede">The channel&#x27;s own history shows its top Shorts beat every recent full episode on views, but Shorts stopped while episodes kept shipping weekly. Lining up the best past Shorts against the newest episodes shows what to cut next.</p>
+    <div class="chips"><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">YouTube channel Shorts tab and Short pages</a><a class="chip" href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">YouTube watch-page metadata</a><a class="chip" href="https://itunes.apple.com/lookup?id=1672188924" rel="noopener" target="_blank">Apple Podcasts lookup API</a></div>
+    <div class="mail"><div class="to">To: Podcast producer or content marketing lead at a B2B SaaS company with a weekly show, LinearB (Dev Interrupted podcast) · Tel Aviv, Israel (office listed on linearb.io/about-us)</div><div class="subj">Your next Dev Interrupted Shorts</div><p>Your Short on AI compaction drew 931 views, more than any of your last 15 Dev Interrupted episodes on YouTube. The best of those reached 715. Your newest Short is from March, while full episodes kept landing every week, all with captions ready. So the work is mostly picking the moments. I lined up your top Shorts against your newest episodes, with views and dates. Want the side-by-side?</p></div>
+    <div class="asset"><div class="asset-h"><span>Attached: Dev Interrupted on YouTube: your best Shorts next to your newest episodes</span><span>showing 5 of 12 newest Shorts (2025-12-29 to 2026-03-20) against the 15 newest episodes (2026-08-04 to 2026-10-06) · source [5]</span></div><table class="tbl"><tr><th>Format</th><th>Title</th><th>Published</th><th>Views</th></tr><tr><td>Short</td><td>Why Your AI Starts Making Stuff Up: The Compaction Problem</td><td>2026-02-24</td><td>931</td></tr><tr><td>Short</td><td>Coding Standards are for Humans, Not AI Agents</td><td>2026-03-16</td><td>814</td></tr><tr><td>Short</td><td>Don&#x27;t Start with the Model</td><td>2025-12-29</td><td>772</td></tr><tr><td>Episode</td><td>Agent, skill, or MCP? Which to use and when to use them | AWS&#x27; Clare Liguori (#288)</td><td>2026-08-18</td><td>715</td></tr><tr><td>Episode</td><td>NVIDIA acquires Hugging Face, OpenClaw 2.0 goes multiplayer, and the Linux kernel fights AI scrapers</td><td>2026-09-04</td><td>623</td></tr></table><p class='asset-note'>The Shorts have had months to collect views and the episodes only weeks, so read this as a direction, not a verdict. Shorts views come from each Short&#x27;s page and episode views from the channel RSS, both on 2026-10-14.</p></div>
+    <h3 style="margin-top:22px">The sequence, if they don't reply</h3><div class="fus"><div class="fu"><b>Day 0</b><p>The email above.</p></div><div class="fu"><b>Day 3</b><p>How the side-by-side gets worked: each Tuesday episode comes in, and we send back captioned vertical cuts of its sharpest answers for YouTube Shorts and LinkedIn, in the style of the Shorts that already worked for you. Komet&#x27;s Video Content System is $2,499/mo for 10 clips a month with distribution. Worth seeing sample cuts from the MCP episode?</p></div><div class="fu"><b>Day 7</b><p>Second thing in the same data: your three best Shorts are all about how AI behaves inside a codebase: compaction, coding standards, and where to start. Your newest episodes on MCP and agent secrets cover the same ground, so they&#x27;re the first ones to cut. Should I send the list?</p></div></div>
+    <div class="two">
+      <div class="pane"><h4>Why they'd reply</h4><p>It&#x27;s their own evidence about what format works on their channel, plus the next episodes to apply it to. That beats a generic &#x27;Shorts are big&#x27; claim.</p></div>
+      <div class="pane"><h4>Where Komet Media comes in</h4><p>Komet&#x27;s Video Content System turns each weekly episode into captioned vertical clips, so the restart doesn&#x27;t depend on in-house time.</p></div>
+    </div>
+    <div class="scores"><span>independent value <b>4</b></span><span>specificity <b>5</b></span><span>pain <b>4</b></span><span>product fit <b>5</b></span><span>provable <b>4</b></span><span>actionable <b>4</b></span></div>
+    <h3 style="margin-top:22px">Where every fact comes from</h3><ul class="ev"><li>[1] Dev Interrupted is LinearB&#x27;s show: Apple Podcasts lists it by LinearB, 333 episodes, latest 2026-10-13 <a href="https://itunes.apple.com/lookup?id=1537003676" rel="noopener" target="_blank">itunes.apple.com/lookup?id=1537003676</a> · read 2026-10-14</li><li>[2] The channel&#x27;s 15 latest uploads (2026-08-04 to 2026-10-06) are all full episodes (0 Shorts), with views from 58 to 715; the top one is &#x27;Agent, skill, or MCP?&#x27; with 715 <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCP37Olcw_x_-4FBGdQlcYIw" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCP37Olcw_x_-4FBGdQlcYIw</a> · read 2026-10-14</li><li>[3] The &#x27;Why Your AI Starts Making Stuff Up: The Compaction Problem&#x27; Short (2026-02-24) has 931 views <a href="https://www.youtube.com/shorts/tO_PC96cN8w" rel="noopener" target="_blank">youtube.com/shorts/tO_PC96cN8w</a> · read 2026-10-14</li><li>[4] The channel&#x27;s newest Short was published 2026-03-20 (Shorts tab, newest first) <a href="https://www.youtube.com/shorts/Ws9532Dp30k" rel="noopener" target="_blank">youtube.com/shorts/Ws9532Dp30k</a> · read 2026-10-14</li><li>[5] Top Shorts among the 12 newest: 931 (2026-02-24), 814 (2026-03-16), 772 (2025-12-29). Top episodes among the 15 newest: 715 (2026-08-18), 623 (2026-09-04) <a href="https://www.youtube.com/@DevInterrupted/shorts" rel="noopener" target="_blank">youtube.com/@DevInterrupted/shorts</a> · read 2026-10-14</li><li>[6] Episodes land weekly (new interview every Tuesday), and all 15 recent episodes have captions; run times 23:50 to 53:35 <a href="https://www.youtube.com/watch?v=Ak3Ozl0_-Og" rel="noopener" target="_blank">youtube.com/watch?v=Ak3Ozl0_-Og</a> · read 2026-10-14</li><li>[7] Komet Media pricing: Clips only $1,799 for 5 clips; Video Content System $2,499/mo for 10 video clips a month with done-for-you distribution <a href="https://www.kometmedia.com/" rel="noopener" target="_blank">kometmedia.com/</a> · read 2026-10-14</li></ul>
+  </div>
+</section>
+
+<section class="s" data-key="cut" data-label="What I threw out" data-sub="7 ideas and why">
+  <div class="wrap">
+    <p class="kick"><b>Taste</b> <s>The ideas that lost</s></p>
+    <h2>7 ideas didn't make it. Here's why each one lost.</h2>
+    <p class="lede">Each candidate was judged from the recipient's seat: would they pay for this on its own?
+      <strong>"PQS"</strong> means good for choosing who to message, but the message would really be about Komet Media.</p>
+    <div class="boxed"><table class="tbl"><tr><th>Idea</th><th>Verdict</th><th>Why it lost</th></tr><tr><td><b>One episode drew more views than your other 14 combined: cut it into a series</b></td><td><span class='k maybe'>maybe</span></td><td>Folded into pvp1 as its first row. On its own it only works for the few channels with one clear outlier, and it&#x27;s two sources, so it&#x27;s thin.</td></tr><tr><td><b>These podcast episodes never made it to YouTube</b></td><td><span class='k kill'>kill</span></td><td>Tested and false. Redpoint and Cockroach Labs both post every audio episode to YouTube (15 of 15 and 9 of 9), so there&#x27;s no list to hand over (h3 killed).</td></tr><tr><td><b>Your gated webinars, ranked by which ones belong on YouTube</b></td><td><span class='k maybe'>maybe</span></td><td>The library pages weren&#x27;t opened per account in this run, and many sit behind forms, so the count can&#x27;t be proven yet. Also, demand-gen teams gate webinars on purpose and may resist.</td></tr><tr><td><b>Your conference keynote is up as one long video: here are the cut-downs</b></td><td><span class='k maybe'>maybe</span></td><td>Not proven. Cribl&#x27;s Shorts tab is active, and the agenda wasn&#x27;t opened, so the &#x27;no cut-downs&#x27; premise is unverified. Revisit with an account whose event and Shorts history both check out.</td></tr><tr><td><b>A clip kit for each guest to post to their own audience</b></td><td><span class='k kill'>kill</span></td><td>Guest audience size lives on LinkedIn and X, which can&#x27;t be fetched, so the ranking would be invented.</td></tr><tr><td><b>Your peers post Shorts every week and you post none</b></td><td><span class='k kill'>PQS</span></td><td>It&#x27;s a PQS and a gotcha. The core line is &#x27;you lack what we sell&#x27;, it&#x27;s one source, and it hands them nothing to act on.</td></tr><tr><td><b>Your upload calendar has gaps that clips could fill</b></td><td><span class='k kill'>PQS</span></td><td>A negative with no specific next move. It points at their slow weeks rather than giving them an asset.</td></tr></table></div>
+  </div>
+</section>
+
+<section class="s" data-key="engine" data-label="The engine" data-sub="How the next ten get found">
+  <div class="wrap">
+    <p class="kick"><b>Engine</b> <s>How the next ten get found</s></p>
+    <h2>The ten leads are a sample. This is the engine behind them.</h2>
+    <div class="three"><div class="pane"><h4>Unclipped catalogue watch</h4>
 <dl><dt>Trigger</dt><dd>A B2B SaaS or VC YouTube channel publishes a long video (over 15 minutes: podcast, webinar, talk) and posts no Short from it within 14 days.</dd><dt>How</dt><dd>Hold a list of ICP channel IDs (seeded from podcast directories, webinar platforms and Komet&#x27;s lookalikes of current clients). Pull each channel&#x27;s RSS feed daily for new uploads, views and duration; check the /shorts tab for clips. Score by long-form views in the first week against the channel&#x27;s median, so the accounts whose audience is already watching rise to the top.</dd>
 <dt>Output</dt><dd>Per account: the unclipped episodes table with views, the 3-5 timestamps a transcript pass marks as clip-ready, and a Message 1 draft for the marketing lead, queued for rep review.</dd><dt>Cadence</dt><dd>Daily pull, weekly send batch</dd></dl>
-<div class="chips"><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">YouTube watch-page metadata</a><a class="chip" href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">YouTube channel Shorts tab and Short pages</a></div></div><div class="play"><h3>Event-talk capture</h3>
+<div class="chips"><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">YouTube watch-page metadata</a><a class="chip" href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">YouTube channel Shorts tab and Short pages</a></div></div><div class="pane"><h4>Event-talk capture</h4>
 <dl><dt>Trigger</dt><dd>An organiser (SaaStr, Web Summit, a VC&#x27;s own summit, a vendor user conference) posts session recordings that feature an ICP company&#x27;s founder or marketing lead.</dd><dt>How</dt><dd>Scrape agenda pages for speaker company names before the event; after it, match the organiser&#x27;s uploads to those speakers. Filter to ICP accounts and check whether the speaker&#x27;s company re-posted the talk on its own channels. Not re-posted means it&#x27;s hot.</dd>
 <dt>Output</dt><dd>Speaker, session, recording URL and timestamps of the strongest 30-45 second answers, plus an email offering clips cut from their own talk.</dd><dt>Cadence</dt><dd>Weekly, plus a burst after each major event</dd></dl>
-<div class="chips"><a class="chip" href="https://cribl.io/" rel="noopener" target="_blank">Conference session listings (e.g. a vendor&#x27;s user-conference agenda)</a><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">YouTube channel Shorts tab and Short pages</a></div></div><div class="play"><h3>New show and new money</h3>
+<div class="chips"><a class="chip" href="https://cribl.io/" rel="noopener" target="_blank">Conference session listings (e.g. a vendor&#x27;s user-conference agenda)</a><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">YouTube channel Shorts tab and Short pages</a></div></div><div class="pane"><h4>New show and new money</h4>
 <dl><dt>Trigger</dt><dd>An ICP company launches a podcast or webinar series (first episode in a podcast directory) or announces a raise while already publishing long-form.</dd><dt>How</dt><dd>Weekly pull of new B2B business and technology shows from Apple Podcasts lookups and new funding announcements; join on company domain; keep only accounts with at least 3 long recordings already public.</dd>
 <dt>Output</dt><dd>A launch-week offer: the first episode cut into a clip pack, with the subject naming the show.</dd><dt>Cadence</dt><dd>Weekly</dd></dl>
 <div class="chips"><a class="chip" href="https://itunes.apple.com/lookup?id=1672188924" rel="noopener" target="_blank">Apple Podcasts lookup API</a><a class="chip" href="https://feeds.simplecast.com/dOSE_bdP" rel="noopener" target="_blank">Podcast RSS feed (the show&#x27;s own host feed)</a><a class="chip" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">YouTube channel RSS feed</a><a class="chip" href="https://www.saasrise.com/" rel="noopener" target="_blank">saasrise.com/</a></div></div></div>
-<h4>One run, end to end</h4>
-<ol class="steps">
-<li>Describe Komet Media's buyer, and where public data is strongest for them.</li>
-<li>Set kill rules, then test 3 pain segments against them.</li>
-<li>Map the public sources that describe each account: 11 in this run.</li>
-<li>Generate 10 candidate messages, judge each from the recipient's seat, keep 3.</li>
-<li>Rank accounts by live signal and pull 10 named leads, each with its source.</li>
-<li>Write the copy last, under a checker that blocks any number with no source behind it.</li>
-</ol>
-<h4>Does the segment support it</h4><table><tr><td style='width:45%'>Segment</td><td>Funded B2B SaaS and AI companies that publish long-form video (podcast, webinars, event talks) to YouTube. Countable slice: active YC-backed B2B companies with 20+ staff. VC firms with podcasts (h2) are a small add-on list.</td></tr><tr><td style='width:45%'>Accounts in it</td><td>547 <a href="https://yc-oss.github.io/api/industries/b2b.json" rel="noopener" target="_blank">source</a></td></tr><tr><td style='width:45%'>Meetings a month, as the goal</td><td>4</td></tr><tr><td style='width:45%'>Share of the segment contacted each month</td><td>20</td></tr><tr><td style='width:45%'>Positive-reply rate the plan needs</td><td>7.3</td></tr><tr><td style='width:45%'>Positive replies that book</td><td>50</td></tr></table><p class='meta' style='margin-top:10px'>547 accounts x 20% burn x 50% book needs a 7.3% positive-reply rate for 4 meetings a month, which is above the ~5% line. Two things follow. First, the list has to widen beyond YC to all Series A-C B2B SaaS plus VC firms with podcasts. Second, it has to be filtered to accounts that actually publish long-form: in our sample of 37 active company and VC channels, 13 had zero Shorts in their recent uploads. These are planning inputs, not results. These are planning inputs, not results.</p>
-</div></section><section id="plan"><div class="wrap">
-<p class="kicker">First 14 days</p>
-<h2>What I'd run first, each step measured on its own.</h2>
-<table><tr><th>When</th><th>What</th><th>Measured by</th></tr><tr><td style='width:18%'><b>Days 1-2</b></td><td>Map Komet&#x27;s current clients and won deals to the signals they would have shown (show cadence, views, Shorts count, raise); agree the ICP filter with Rajan.</td><td style='width:30%'>Share of current clients the filter would have caught</td></tr><tr><td style='width:18%'><b>Days 3-5</b></td><td>Ship the unclipped catalogue watch as a daily job over a seeded list of ICP channels, writing the episodes table and timestamps per account.</td><td style='width:30%'>Accounts with a fresh asset each week; 20 hand-checked for accuracy</td></tr><tr><td style='width:18%'><b>Days 6-8</b></td><td>First 10 sends from the lead board, copy approved by Rajan; clip sample attached only where Komet chooses to cut one.</td><td style='width:30%'>Replies and positive replies per play, tracked separately</td></tr><tr><td style='width:18%'><b>Days 9-11</b></td><td>Add event-talk capture for the next two conferences on the ICP calendar.</td><td style='width:30%'>Speakers matched to ICP accounts; sends per event</td></tr><tr><td style='width:18%'><b>Days 12-14</b></td><td>Readout: meetings and pipeline per play, kill the weakest, and write the weekly operating rhythm.</td><td style='width:30%'>Meetings booked per 100 sends, by play</td></tr></table>
-</div></section><section id="why"><div class="wrap">
-<p class="kicker">Why me</p>
-<h2>I build the systems behind outbound, then test them like experiments.</h2>
-<div class="proof"><div><b>2,202,516</b><p class="lb">emails sent across 638 client campaigns</p><p>Run end to end for 10 client workspaces: list, enrichment, copy, sending infrastructure, reply handling.</p></div><div><b>0.400% vs 0.053%</b><p class="lb">positive-reply rate, by list source</p><p>Same offer, copy and inboxes for a capital-markets client; only the list changed. Mined positive-repliers beat ZoomInfo by that margin, so I test lists before I touch copy.</p></div><div><b>18 vs 0</b><p class="lb">interested replies from byte-identical copy</p><p>One email went to two audiences for an interview-prep company: 9,244 sends to career centres, 4,422 to K-12 administrators. The copy was fine; the segment was the problem.</p></div><div><b>35,096</b><p class="lb">US HVAC companies mapped, 25,705 with domains</p><p>Built from a 1,000-city maps grid, deduplicated, chains flagged: the kind of list no data vendor sells.</p></div></div>
-<p class="meta" style="margin-top:16px">Case studies with live numbers: <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
-</div></section><section class="cta"><div class="wrap">
-<h2>The ten leads are yours. The engine that finds the next ten is the job.</h2>
-<p>Shubham Sharma · <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
-</div></section><section id="appendix"><div class="wrap">
-<p class="kicker">Appendix</p>
-<details><summary>How the segment was picked</summary>
-<p class="meta" style="margin-top:10px"><b>Komet Media</b> sells a done-for-you video system for B2B companies: they take long recordings (podcasts, webinars, event talks) and turn them into captioned short clips for LinkedIn, YouTube Shorts and Instagram, with scripting and distribution on the bigger plans.<br><b>Buyer</b> Head of Marketing, content lead or founder at a funded B2B SaaS or AI company (roughly Series A to C, 20-500 people), or the platform/marketing partner at a VC firm, who already has a podcast, webinar series or conference talks on YouTube but no one cutting them down. The person who feels it daily is the content marketer who records hours a month and ships a handful of posts.</p>
-<p>Public-data impact <b>high</b> · buyer complexity <b>low</b>. A prospect&#x27;s own YouTube channel, podcast feed and webinar library are public and per-account, and a $2,499/month plan is signed by one marketing lead or the founder, so the PVP goes straight to that person with their own catalogue in hand.</p>
-<table><tr><th>Track</th><th>Segment</th><th>Kill if</th><th>Result</th></tr><tr><td>Primary</td><td>Funded B2B SaaS and AI companies (Series A-C) that publish a podcast, webinar series or event talks to their own YouTube channel</td><td>Set before research, on a sample of 25+ company channels: kill if under 10% have zero Shorts among their last 15 uploads (volume); kill if over 50% already make Shorts at least a third of their last 15 uploads (saturation, i.e. a clip program is already running); kill if per-video run time and chapter data can&#x27;t be fetched for a named account (provability).</td><td><span class='k held'>held</span> 28 B2B SaaS channels resolved and were read through their RSS feeds. 8 of 28 (29%) had zero Shorts in their last 15 uploads (CockroachDB, Fivetran, Cribl, Drata, Secureframe, Dev Interrupted/LinearB, Retool, Highspot), well above 10%. Only 9 of 28 (32%) had 5+ Shorts in their last 15, well under the 50% saturation line; those were mostly dev-tool brands (Snyk, WorkOS, Neon, Arize). Run time, chapter markers and caption availability came back from every watch page tested. Surprise: Shorts are common at dev-tool companies, so compliance, data and sales-tech brands are the better hunting ground.</td></tr><tr><td>Backup</td><td>VC firms that run a partner-hosted podcast or founder-talk series on YouTube</td><td>Set before research: kill if over 50% of sampled VC channels already make Shorts at least a third of their last 15 uploads; kill if fewer than 5 of ~20 firms tried have an active channel (uploads in the last 90 days); kill if the podcast feed can&#x27;t be tied to the firm (owner field) for a named account.</td><td><span class='k held'>held</span> 9 of 24 VC handles tried resolved to an active firm channel, which clears the 5-firm floor but shows the segment is thin. 3 of 9 (Lightspeed, Theory, Heavybit) post 5+ Shorts per 15 uploads, so saturation sits at 33%, under the line. 5 of 9 (Redpoint&#x27;s Unsupervised Learning, Insight Partners, Unusual Ventures, Norwest, Amplify) had zero Shorts in their recent uploads. Apple Podcasts lookup names the owner (&#x27;by Redpoint Ventures&#x27;), so the tie to the firm is provable. Held as a backup because the firm count is small.</td></tr><tr><td>Wildcard</td><td>B2B SaaS and VC podcasts whose audio feed carries episodes that never made it to YouTube</td><td>Set before research: kill if, on 2 named shows, fewer than 20% of audio-feed episodes from the last 12 months are missing from the YouTube channel or podcast playlist.</td><td><span class='k killed'>killed</span> Both shows tested post every episode to YouTube. Redpoint&#x27;s audio feed has 15 episodes from 2026-03-11 to 2026-10-06, and the YouTube RSS shows the same 15. Cockroach Labs&#x27; Big Ideas in App Architecture has 9 audio episodes in the last 12 months, and all 9 are in its YouTube podcast playlist. The gap is 0%, so this one is dead. The real gap is format (no vertical cut-downs), not distribution.</td></tr></table></details>
-<details><summary>7 ideas I threw out, and why</summary>
-<p class="meta" style="margin-top:10px">"PQS" means good for choosing who to message, but the message would really be
-about Komet Media, not about them.</p>
-<table><tr><th>Idea</th><th>Verdict</th><th>Why it failed</th></tr><tr><td>One episode drew more views than your other 14 combined: cut it into a series</td><td><span class='k maybe'>maybe</span></td><td>Folded into pvp1 as its first row. On its own it only works for the few channels with one clear outlier, and it&#x27;s two sources, so it&#x27;s thin.</td></tr><tr><td>These podcast episodes never made it to YouTube</td><td><span class='k killed'>kill</span></td><td>Tested and false. Redpoint and Cockroach Labs both post every audio episode to YouTube (15 of 15 and 9 of 9), so there&#x27;s no list to hand over (h3 killed).</td></tr><tr><td>Your gated webinars, ranked by which ones belong on YouTube</td><td><span class='k maybe'>maybe</span></td><td>The library pages weren&#x27;t opened per account in this run, and many sit behind forms, so the count can&#x27;t be proven yet. Also, demand-gen teams gate webinars on purpose and may resist.</td></tr><tr><td>Your conference keynote is up as one long video: here are the cut-downs</td><td><span class='k maybe'>maybe</span></td><td>Not proven. Cribl&#x27;s Shorts tab is active, and the agenda wasn&#x27;t opened, so the &#x27;no cut-downs&#x27; premise is unverified. Revisit with an account whose event and Shorts history both check out.</td></tr><tr><td>A clip kit for each guest to post to their own audience</td><td><span class='k killed'>kill</span></td><td>Guest audience size lives on LinkedIn and X, which can&#x27;t be fetched, so the ranking would be invented.</td></tr><tr><td>Your peers post Shorts every week and you post none</td><td><span class='k killed'>PQS</span></td><td>It&#x27;s a PQS and a gotcha. The core line is &#x27;you lack what we sell&#x27;, it&#x27;s one source, and it hands them nothing to act on.</td></tr><tr><td>Your upload calendar has gaps that clips could fill</td><td><span class='k killed'>PQS</span></td><td>A negative with no specific next move. It points at their slow weeks rather than giving them an asset.</td></tr></table></details>
-<details><summary>Every source this page drew on</summary><ul class="ev"><li><span class="n">·</span>YouTube channel RSS feed: The account&#x27;s last 15 uploads: title, publish date, view count (media:statistics), and whether each one is a Short (/shorts/ link) <a href="https://www.youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?channel_id=UCUl-s_Vp-Kkk_XVyDylNwLA</a></li><li><span class="n">·</span>YouTube playlist RSS feed (podcast playlist): Every episode in the account&#x27;s podcast playlist, with publish date and views, for matching against the audio feed <a href="https://www.youtube.com/feeds/videos.xml?playlist_id=PL_QaflmEF2e_qCul_43FZ76FPEPodRScX" rel="noopener" target="_blank">youtube.com/feeds/videos.xml?playlist_id=PL_QaflmEF2e_qCul_43FZ7</a></li><li><span class="n">·</span>YouTube watch-page metadata: Per video: run time (lengthSeconds), live view count, chapter markers from the description (timestamp plus chapter title), whether captions exist <a href="https://www.youtube.com/watch?v=ngBraLDqzdI" rel="noopener" target="_blank">youtube.com/watch?v=ngBraLDqzdI</a></li><li><span class="n">·</span>YouTube channel Shorts tab and Short pages: Whether the channel has a Shorts tab, its Shorts in newest-first order, and each Short&#x27;s publish date and views <a href="https://www.youtube.com/@RedpointAI/shorts" rel="noopener" target="_blank">youtube.com/@RedpointAI/shorts</a></li><li><span class="n">·</span>Apple Podcasts lookup API: Show owner (artistName), episode count, latest release date and the show&#x27;s RSS feed URL <a href="https://itunes.apple.com/lookup?id=1672188924" rel="noopener" target="_blank">itunes.apple.com/lookup?id=1672188924</a></li><li><span class="n">·</span>Podcast RSS feed (the show&#x27;s own host feed): Every audio episode with publish date and duration, for counting output over 12 months and matching against YouTube <a href="https://feeds.simplecast.com/dOSE_bdP" rel="noopener" target="_blank">feeds.simplecast.com/dOSE_bdP</a></li><li><span class="n">·</span>eCFR 32 CFR 170.3 (CMMC phased rollout): The CMMC phase schedule that compliance SaaS buyers plan around (Phase 2 begins one calendar year after Phase 1) <a href="https://www.ecfr.gov/api/versioner/v1/full/2026-10-08/title-32.xml?part=170&amp;section=170.3" rel="noopener" target="_blank">ecfr.gov/api/versioner/v1/full/2026-10-08/title-32.xml?part=170&amp;</a></li><li><span class="n">·</span>Federal Register document 2025-17359 (48 CFR CMMC acquisition rule): The effective date that starts CMMC Phase 1 (November 10, 2025), which fixes the Phase 2 date <a href="https://www.federalregister.gov/api/v1/documents/2025-17359.json" rel="noopener" target="_blank">federalregister.gov/api/v1/documents/2025-17359.json</a></li><li><span class="n">·</span>Company webinar / on-demand library pages: Count and dates of gated or on-demand webinars per account, for comparing against what reached YouTube (not opened per account in this run) <a href="https://secureframe.com/" rel="noopener" target="_blank">secureframe.com/</a></li><li><span class="n">·</span>Conference session listings (e.g. a vendor&#x27;s user-conference agenda): Session titles and speakers per event, for checking which talks were published and cut down (not opened per account in this run) <a href="https://cribl.io/" rel="noopener" target="_blank">cribl.io/</a></li><li><span class="n">·</span>YC company directory, B2B industry (yc-oss API): Per-company records (status, stage, team size, website) for sizing the segment <a href="https://yc-oss.github.io/api/industries/b2b.json" rel="noopener" target="_blank">yc-oss.github.io/api/industries/b2b.json</a></li></ul></details>
-</div></section>
-<footer><div class="wrap">Komet Media · prepared by Shubham Sharma · 2026-10-14 · unlisted page, not indexed</div></footer>
+  </div>
+</section>
+
+<section class="s" data-key="run" data-label="One run, end to end" data-sub="Method and the TAM math">
+  <div class="wrap">
+    <p class="kick"><b>Method</b> <s>One run, end to end</s></p>
+    <h2>Six steps, and the copy comes last.</h2>
+    <div class="steps"><div class="step"><b>Describe the buyer</b><p>Komet Media&#x27;s buyer, and where public data is strongest for them.</p></div><div class="step"><b>Kill rules first</b><p>Set before looking, then 3 pain segments tested against them.</p></div><div class="step"><b>Map the sources</b><p>Public data that describes each account: 11 in this run.</p></div><div class="step"><b>Generate and judge</b><p>10 candidate messages, judged from the recipient&#x27;s seat; 3 kept.</p></div><div class="step"><b>Rank by live signal</b><p>10 named leads, each with its source.</p></div><div class="step"><b>Copy last</b><p>Written under a checker that blocks any number with no source behind it.</p></div></div>
+    <h3 style="margin-top:26px">Does the segment support it</h3><div class="boxed"><table class="tbl"><tr><td style='width:38%'>Segment</td><td>Funded B2B SaaS and AI companies that publish long-form video (podcast, webinars, event talks) to YouTube. Countable slice: active YC-backed B2B companies with 20+ staff. VC firms with podcasts (h2) are a small add-on list.</td></tr><tr><td style='width:38%'>Accounts in it</td><td>547 <a href="https://yc-oss.github.io/api/industries/b2b.json" rel="noopener" target="_blank">source</a></td></tr><tr><td style='width:38%'>Meetings a month, as the goal</td><td>4</td></tr><tr><td style='width:38%'>Share of the segment contacted each month</td><td>20</td></tr><tr><td style='width:38%'>Positive-reply rate the plan needs</td><td>7.3</td></tr><tr><td style='width:38%'>Positive replies that book</td><td>50</td></tr></table></div><p class="src">547 accounts x 20% burn x 50% book needs a 7.3% positive-reply rate for 4 meetings a month, which is above the ~5% line. Two things follow. First, the list has to widen beyond YC to all Series A-C B2B SaaS plus VC firms with podcasts. Second, it has to be filtered to accounts that actually publish long-form: in our sample of 37 active company and VC channels, 13 had zero Shorts in their recent uploads. These are planning inputs, not results. These are planning inputs, not results.</p>
+  </div>
+</section>
+
+<section class="s" data-key="plan" data-label="If hired: first 14 days" data-sub="Each step measured on its own">
+  <div class="wrap">
+    <p class="kick"><b>If hired</b> <s>The first two weeks</s></p>
+    <h2>What I'd run first, each step measured on its own.</h2>
+    <div class="rows"><div class="row"><em>Days 1-2</em><p><b>Map Komet&#x27;s current clients and won deals to the signals they would have shown (show cadence, views, Shorts count, raise); agree the ICP filter with Rajan.</b>Measured by: Share of current clients the filter would have caught</p></div><div class="row"><em>Days 3-5</em><p><b>Ship the unclipped catalogue watch as a daily job over a seeded list of ICP channels, writing the episodes table and timestamps per account.</b>Measured by: Accounts with a fresh asset each week; 20 hand-checked for accuracy</p></div><div class="row"><em>Days 6-8</em><p><b>First 10 sends from the lead board, copy approved by Rajan; clip sample attached only where Komet chooses to cut one.</b>Measured by: Replies and positive replies per play, tracked separately</p></div><div class="row"><em>Days 9-11</em><p><b>Add event-talk capture for the next two conferences on the ICP calendar.</b>Measured by: Speakers matched to ICP accounts; sends per event</p></div><div class="row"><em>Days 12-14</em><p><b>Readout: meetings and pipeline per play, kill the weakest, and write the weekly operating rhythm.</b>Measured by: Meetings booked per 100 sends, by play</p></div></div>
+  </div>
+</section>
+
+<section class="s" data-key="me" data-label="Who&#x27;s building it" data-sub="The receipts">
+  <div class="wrap">
+    <p class="kick"><b>Me</b> <s>Shubham Sharma · GTM engineer</s></p>
+    <h2>I build the systems behind outbound, then test them like experiments.</h2>
+    <div class="stats"><div class="stat"><b>2,202,516</b><span>emails sent across 638 client campaigns</span><p>Run end to end for 10 client workspaces: list, enrichment, copy, sending infrastructure, reply handling.</p></div><div class="stat"><b>0.400% vs 0.053%</b><span>positive-reply rate, by list source</span><p>Same offer, copy and inboxes for a capital-markets client; only the list changed. Mined positive-repliers beat ZoomInfo by that margin, so I test lists before I touch copy.</p></div><div class="stat"><b>18 vs 0</b><span>interested replies from byte-identical copy</span><p>One email went to two audiences for an interview-prep company: 9,244 sends to career centres, 4,422 to K-12 administrators. The copy was fine; the segment was the problem.</p></div><div class="stat"><b>35,096</b><span>US HVAC companies mapped, 25,705 with domains</span><p>Built from a 1,000-city maps grid, deduplicated, chains flagged: the kind of list no data vendor sells.</p></div></div>
+    <p class="src">Case studies with live numbers: <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a>. Clients are described, not named, on a page that can be forwarded.</p>
+  </div>
+</section>
+
+<section class="s mid" data-key="close" data-label="Close" data-sub="The leads are yours">
+  <div class="wrap">
+    <p class="kick"><b>Komet Media</b> <s>2026-10-14</s></p>
+    <h1>The ten leads are yours. The engine that finds the next ten is the job.</h1>
+    <p class="lede">Shubham Sharma · <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Komet Media</b> &middot; Shubham Sharma</span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 12</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
 <script>
 (function(){
-  document.documentElement.classList.add('js');
-  var btns = document.querySelectorAll('.list button'), leads = document.querySelectorAll('.lead');
-  function show(i){
-    leads.forEach(function(l, k){ l.classList.toggle('on', k === i); });
-    btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
-  }
-  btns.forEach(function(b, k){ b.addEventListener('click', function(){
-    show(k);
-    if (window.innerWidth < 760) leads[k].scrollIntoView({behavior:'smooth', block:'start'});
-  }); });
-  if (leads.length) show(0);
-  document.querySelectorAll('[data-copy]').forEach(function(b){
-    b.addEventListener('click', function(){
-      var t = b.closest('.msg').querySelector('pre').innerText;
-      (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
-        function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
-        function(){ b.textContent = 'Select and copy'; });
-    });
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
   });
-  window.addEventListener('beforeprint', function(){
-    document.querySelectorAll('details').forEach(function(d){ d.open = true; });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  var btns = Array.prototype.slice.call(document.querySelectorAll('#leads button'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#detail .lead'));
+  if (!btns.length) return;
+  function pick(i){
+    cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+    btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+    var d = document.getElementById('detail');
+    if (window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k); }); });
+  cards[0].classList.add('on'); btns[0].setAttribute('aria-pressed', 'true');
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
   });
 })();
+
+})();
 </script>
-</body></html>
+</body>
+</html>
