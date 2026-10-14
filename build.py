@@ -2768,7 +2768,7 @@ encoding="utf-8")
     # shipping them this way rather than hosting them somewhere unguarded.
     # for/ holds the per-company PVP pages written by outreach/pvp/pvp.py publish,
     # each under a slug with a random suffix so the URL can't be guessed.
-    for standalone in ("flowace", "rawcanvas", "for"):
+    for standalone in ("flowace", "rawcanvas", "rawcanvas-signals", "for"):
         src = ROOT / standalone
         if src.is_dir():
             shutil.copytree(src, OUT / standalone)
