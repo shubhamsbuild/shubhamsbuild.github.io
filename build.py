@@ -2773,6 +2773,16 @@ encoding="utf-8")
         if src.is_dir():
             shutil.copytree(src, OUT / standalone)
 
+    # pvp-pages/<name>/ holds the lean per-company pages (pvp.py publish, format
+    # "lean"). They're served at the site root as /<name>/ so the link reads as part
+    # of the portfolio. A name that would overwrite a real page stops the build.
+    pvp_pages = ROOT / "pvp-pages"
+    if pvp_pages.is_dir():
+        for pvp_dir in sorted(p for p in pvp_pages.iterdir() if p.is_dir()):
+            if (OUT / pvp_dir.name).exists():
+                raise SystemExit(f"pvp-pages/{pvp_dir.name} would overwrite /{pvp_dir.name}/ on the site")
+            shutil.copytree(pvp_dir, OUT / pvp_dir.name)
+
     # /contact.html and /thanks.html were live URLs until 2026-09-07. The page
     # is gone; the links people already have are not, so both keep a stub.
     #
