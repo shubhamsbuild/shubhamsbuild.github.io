@@ -1,146 +1,450 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
 <title>For Merlin AI</title>
+<meta name="description" content="10 named leads with copy, 2 sourced messages and the engine behind them, prepared for Merlin AI.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
 <style>
-:root{color-scheme:light;--bg:#F6F5F1;--card:#fff;--ink:#111417;--ink-2:#454B50;--ink-3:#6E757A;
---line:#E3E0D8;--accent:#14556E;--accent-soft:#E4EFF4;--good:#1E6A4F;--good-soft:#E3F0EA;
---bad:#8A3B2E;--bad-soft:#F6E7E3;--dark:#12161A;--dark-ink:#F4F2EC;--dark-2:#A8B0B4}
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);font-family:"Work Sans",Helvetica,Arial,sans-serif;color:var(--ink);
-font-size:16px;line-height:1.6}
-a{color:var(--accent)}
-.wrap{max-width:920px;margin:0 auto;padding:0 20px}
-section{padding:56px 0;border-top:1px solid var(--line)}
-.kicker{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-color:var(--accent);margin:0 0 12px}
-h1{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:clamp(40px,7vw,72px);line-height:1.02;
-margin:0;max-width:16ch;text-wrap:balance}
-h2{font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:clamp(28px,4.4vw,40px);line-height:1.08;
-margin:0 0 14px;max-width:24ch;text-wrap:balance}
-h3{font-size:20px;line-height:1.3;margin:0 0 8px}
-h4{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin:22px 0 8px}
-p{margin:0 0 10px}
-.lede{font-size:19px;color:var(--ink-2);max-width:52ch;margin:22px 0 0}
-.meta{font-size:14px;color:var(--ink-2)}
-.meta b{color:var(--ink);font-weight:600}
-.hero{padding:64px 0 48px;border-top:0}
-.facts{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:var(--card);margin-top:34px}
-.facts div{padding:16px 18px;border-right:1px solid var(--line)}
-.facts div:last-child{border-right:0}
-.facts b{display:block;font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:34px;line-height:1}
-.facts span{font-size:13px;color:var(--ink-2)}
-.byline{font-family:"DM Mono",monospace;font-size:12px;color:var(--ink-3);margin-top:22px}
-.board{display:grid;grid-template-columns:300px 1fr;gap:20px;margin-top:24px;align-items:start}
-.list{list-style:none;margin:0;padding:0;border:1px solid var(--line);background:var(--card);position:sticky;top:12px}
-.list button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:28px 1fr;gap:2px 8px;width:100%;
-padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px;line-height:1.35}
-.list li:last-child button{border-bottom:0}
-.list button:hover{background:#FAF9F6}
-.list button[aria-pressed=true]{background:var(--accent-soft)}
-.list button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
-.list .r{font-family:"DM Mono",monospace;font-size:12px;color:var(--accent);grid-row:span 2;padding-top:2px}
-.list .nm{font-weight:600}
-.list .sg{color:var(--ink-3);font-size:12.5px}
-.lead{background:var(--card);border:1px solid var(--line);padding:22px 24px;margin-bottom:16px}
-.js .lead{display:none}.js .lead.on{display:block}
-.lead h3{margin-bottom:2px}
-.score{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--ink-3)}
-.msg{border:1px solid var(--line);background:#FAF9F6;margin:8px 0 12px}
-.msg header{display:flex;justify-content:space-between;align-items:center;font-family:"DM Mono",monospace;
-font-size:11.5px;color:var(--ink-3);padding:7px 12px;border-bottom:1px solid var(--line)}
-.msg pre{white-space:pre-wrap;font-family:inherit;font-size:14.5px;margin:0;padding:12px 14px}
-.msg button{font:inherit;font-size:11px;border:1px solid var(--line);background:#fff;padding:3px 9px;cursor:pointer;color:var(--ink-2)}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
-.chip{font-family:"DM Mono",monospace;font-size:11px;background:var(--accent-soft);color:var(--accent);
-padding:4px 9px;text-decoration:none}
-.ev{list-style:none;padding:0;margin:6px 0 0;font-size:13px;color:var(--ink-2)}
-.ev li{margin:0 0 5px;padding-left:28px;text-indent:-28px;overflow-wrap:anywhere}
-.ev .n{font-family:"DM Mono",monospace;color:var(--accent);display:inline-block;width:28px;text-indent:0}
-.ev a{color:var(--ink-2)}
-.pvp{background:var(--card);border:1px solid var(--line);padding:26px 28px;margin:22px 0}
-.mail{border:1px solid var(--line);border-left:3px solid var(--accent);background:#FAF9F6;padding:16px 18px;margin:10px 0}
-.mail .to{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--ink-3);margin-bottom:6px}
-.mail .subj{font-weight:600;margin-bottom:8px}
-.asset{border:1px solid var(--line);margin:6px 0 10px;overflow-x:auto;background:#fff}
-.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font-family:"DM Mono",monospace;
-font-size:11px;color:var(--ink-3);background:#F4F3EF;padding:7px 12px;border-bottom:1px solid var(--line)}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
 .asset-h span:first-child{color:var(--ink);font-weight:500}
-.asset-note{font-size:12px;color:var(--ink-3);padding:6px 12px;margin:0;border-top:1px solid var(--line)}
-table{width:100%;border-collapse:collapse;font-size:14px}
-th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
-font-weight:600;border-bottom:1px solid var(--ink);padding:8px 10px 8px 0}
-td{border-bottom:1px solid var(--line);padding:9px 10px 9px 0;vertical-align:top}
-.asset th,.asset td{padding-left:12px;font-size:12.5px}.asset th{border-bottom:1px solid var(--line)}
-.asset tr:last-child td{border-bottom:0}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-.fus{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.fu{border-left:2px solid var(--line);padding:2px 0 2px 12px;font-size:14px}
-.fu .num,.num{font-family:"DM Mono",monospace;font-size:12px;color:var(--ink-3);letter-spacing:.06em;display:block;margin-bottom:4px}
-.scores{display:flex;gap:14px;flex-wrap:wrap;font-family:"DM Mono",monospace;font-size:11px;color:var(--ink-3);
-margin-top:16px;border-top:1px solid var(--line);padding-top:10px}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
 .scores b{color:var(--ink)}
-details{border-top:1px solid var(--line);padding:12px 0}
-summary{cursor:pointer;font-weight:600}
-.plays{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:20px}
-.play{background:var(--card);border:1px solid var(--line);padding:20px 22px}
-.play dl{margin:10px 0 0;font-size:14px}
-.play dt{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-top:10px}
-.play dd{margin:2px 0 0}
-.steps{counter-reset:s;list-style:none;padding:0;margin:14px 0 0}
-.steps li{counter-increment:s;padding:8px 0 8px 40px;position:relative;border-bottom:1px solid var(--line);font-size:15px}
-.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:9px;
-font-family:"DM Mono",monospace;font-size:12px;color:var(--accent)}
-.k{display:inline-block;font-family:"DM Mono",monospace;font-size:10.5px;padding:2px 7px}
-.k.killed{background:var(--bad-soft);color:var(--bad)}.k.held{background:var(--good-soft);color:var(--good)}
-.k.maybe{background:var(--accent-soft);color:var(--accent)}
-.proof{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:20px}
-.proof div{background:var(--card);border:1px solid var(--line);padding:20px 22px}
-.proof b{display:block;font-family:"Anton",Impact,sans-serif;font-weight:400;font-size:32px;line-height:1.05}
-.proof .lb{font-weight:600;margin:6px 0}
-.proof p{font-size:14px;color:var(--ink-2);margin:0}
-.cta{background:var(--dark);color:var(--dark-ink);border:0}
-.cta h2{max-width:22ch}.cta p{color:var(--dark-2)}.cta a{color:var(--dark-ink)}
-footer{font-family:"DM Mono",monospace;font-size:11.5px;color:var(--ink-3);padding:24px 0 40px}
-@media (max-width:760px){
-.facts{grid-template-columns:repeat(2,1fr)}.facts div:nth-child(2){border-right:0}
-.facts div:nth-child(-n+2){border-bottom:1px solid var(--line)}
-.board{grid-template-columns:1fr}.list{position:static}
-.two,.fus,.proof{grid-template-columns:1fr}
-.pvp,.lead{padding:18px 16px}section{padding:44px 0}}
-@media print{body{background:#fff;font-size:13px}.js .lead{display:block}.list,.msg button{display:none}
-.board{display:block}section{padding:24px 0;break-inside:auto}.lead,.pvp,.play{break-inside:avoid}
-details{display:block}details>*{display:block}.cta{background:#fff;color:var(--ink)}.cta p{color:var(--ink-2)}}
-</style></head><body>
-<header class="hero"><div class="wrap">
-<p class="kicker">For Merlin AI · 2026-10-08</p>
-<h1>Ten modular and residential home builders you could email today.</h1>
-<p class="lede">Each email is built on one of 2 messages they'd pay to receive, proved on real accounts with every number sourced. Below them: the engine that finds the next ten, my first two weeks,
-and why I'm the person to run it.</p>
-<div class="facts">
-<div><b>10</b><span>named leads, with copy ready to send</span></div>
-<div><b>2</b><span>messages that passed: would they pay for this alone?</span></div>
-<div><b>10</b><span>ideas I threw out, with reasons</span></div>
-<div><b>5</b><span>public sources drawn on</span></div>
-</div>
-<p class="byline">Shubham Sharma · shubhamsbuild.github.io</p>
-</div></header><section id="leads"><div class="wrap">
-<p class="kicker">The ten</p>
-<h2>Ten leads, each with a signal, a source and copy ready to send.</h2>
-<p class="meta">Ranked by intent, then fit. Every fact links to the public page it came from. Copy is
-written as Merlin AI's rep. Nothing has been sent to anyone.</p>
-<div class="board"><ol class="list"><li><button type="button" aria-pressed="false"><span class="r">01</span><span class="nm">Bryan Henson · Bevyhouse</span><span class="sg">Aderno Way inspections called twice, not cleared</span></button></li><li><button type="button" aria-pressed="false"><span class="r">02</span><span class="nm">Nikki Pechet · Homebound</span><span class="sg">Plan 8 standard plan entered LADBS plan check</span></button></li><li><button type="button" aria-pressed="false"><span class="r">03</span><span class="nm">Steve Glenn · Plant Prefab</span><span class="sg">97 homes under contract; fire rebuilds in factory</span></button></li><li><button type="button" aria-pressed="false"><span class="r">04</span><span class="nm">Chris Bridgeford · Integrity Custom Built</span><span class="sg">State grant for Altadena and Palisades modular framework</span></button></li><li><button type="button" aria-pressed="false"><span class="r">05</span><span class="nm">Sean Roberts · Villa Homes</span><span class="sg">Altadena model home; SGC-funded modular project partner</span></button></li><li><button type="button" aria-pressed="false"><span class="r">06</span><span class="nm">Sumner Douglas · Polaris Modular</span><span class="sg">Factory partner on SGC Altadena-Palisades modular grant</span></button></li><li><button type="button" aria-pressed="false"><span class="r">07</span><span class="nm">Jeremy Baker · Letter Four</span><span class="sg">Altadena modular home craned onto lot in July</span></button></li><li><button type="button" aria-pressed="false"><span class="r">08</span><span class="nm">Leo Marmol · Marmol Radziner</span><span class="sg">Dawn standard plan cleared LADBS plan check</span></button></li><li><button type="button" aria-pressed="false"><span class="r">09</span><span class="nm">Vikas Enti · Reframe Systems</span><span class="sg">First Altadena home delivered; microfactory network planned</span></button></li><li><button type="button" aria-pressed="false"><span class="r">10</span><span class="nm">Caroline Paules · Nova Cottage Co.</span><span class="sg">Altadena ADU underway; 11-cottage village planned</span></button></li></ol><div><article class="lead" id="lead-1">
-<p class="num">Lead 01 of 10 · signal 2026-09-28</p>
-<h3>Bryan Henson</h3>
-<p class="meta">President and co-founder, Bevyhouse</p>
-<div class="chips"><span class="chip">Uses message 2</span><span class="chip">intent 5/5</span><span class="chip">fit 5/5</span></div>
-<h4>Why now</h4><p>Rough frame, green building rough and sprinkler sign-off at 376 N Aderno Way were called on Sep 3 and Sep 28 and didn&#x27;t clear either time. The next call is coming.</p>
-<h4>Fit</h4><p>Custom modular builder with its own factory and five Palisades rebuild permits as contractor. Factory, site and inspector have to line up, which is Merlin&#x27;s core job.</p>
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="10 leads, 2 messages, the engine">
+  <div class="wrap">
+    <p class="kick"><b>For Merlin AI</b> <s>2026-10-08</s></p>
+    <h1 class="xl">Ten modular and residential home builders you could email today.</h1>
+    <p class="lede">Each email is built on one of 2 messages they'd pay to receive, proved on real accounts with every number sourced. After them: <strong>the engine that finds the next ten</strong>, my first two weeks,
+      and why I'm the person to run it.</p>
+    <div class="stats">
+      <div class="stat"><b class="a">10</b><span>named leads, with copy ready to send</span></div>
+      <div class="stat"><b>2</b><span>messages that passed: would they pay for this alone?</span></div>
+      <div class="stat"><b>10</b><span>ideas I threw out, with reasons</span></div>
+      <div class="stat"><b>5</b><span>public sources drawn on</span></div>
+    </div>
+    <p class="src">Shubham Sharma · shubhamsbuild.github.io</p>
+  </div>
+</section>
+
+<section class="s" data-key="read" data-label="The read" data-sub="Who buys, and why public data works here">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The read</s></p>
+    <h2>Who Merlin AI sells to, and why their own data is the way in.</h2>
+    <div class="rows">
+      <div class="row"><em>What</em><p><b>Merlin AI sells</b>one AI-native operating system for construction firms: estimating, procurement, inventory, job costing, scheduling and billing, with agents that flag delays and overruns early.</p></div>
+      <div class="row"><em>Who</em><p><b>The buyer</b>Owner or COO of a modular, prefab or residential builder running many jobs at once (about 10-300 people; Merlin&#x27;s launch post names modular builders first). The daily pain sits with the ops manager lining up factory, crews, inspections and deliveries.</p></div>
+      <div class="row"><em>Why</em><p><b>Public-data impact high, buyer complexity low</b>Every permit, plan-check step and inspection in LA City is public and names the contractor, and the buyer is owner-led. The PVP goes straight to the owner or ops lead.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten</s></p>
+    <h2>Ten leads, each with a signal, a source and copy ready to send.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>Bryan Henson<i>Bevyhouse · Aderno Way inspections called twice, not cleared</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Nikki Pechet<i>Homebound · Plan 8 standard plan entered LADBS plan check</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Steve Glenn<i>Plant Prefab · 97 homes under contract; fire rebuilds in factory</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Chris Bridgeford<i>Integrity Custom Built · State grant for Altadena and Palisades modular framework</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Sean Roberts<i>Villa Homes · Altadena model home; SGC-funded modular project partner</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Sumner Douglas<i>Polaris Modular · Factory partner on SGC Altadena-Palisades modular grant</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Jeremy Baker<i>Letter Four · Altadena modular home craned onto lot in July</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Leo Marmol<i>Marmol Radziner · Dawn standard plan cleared LADBS plan check</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Vikas Enti<i>Reframe Systems · First Altadena home delivered; microfactory network planned</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Caroline Paules<i>Nova Cottage Co. · Altadena ADU underway; 11-cottage village planned</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>Bryan Henson</h4>
+<p class="meta">President and co-founder, Bevyhouse<br>signal 2026-09-28</p>
+<div class="chips"><span class="chip">uses message 2</span><span class="chip">intent 5/5</span><span class="chip">fit 5/5</span></div>
+<p class="sig"><strong>Why now:</strong> Rough frame, green building rough and sprinkler sign-off at 376 N Aderno Way were called on Sep 3 and Sep 28 and didn&#x27;t clear either time. The next call is coming.<br><strong>Fit:</strong> Custom modular builder with its own factory and five Palisades rebuild permits as contractor. Factory, site and inspector have to line up, which is Merlin&#x27;s core job.</p>
 <div class="msg"><header><span>Email · Clearing your next Aderno Way inspection</span><button type="button" data-copy>Copy</button></header><pre>Rough frame, green building and sprinkler sign-off at your 376 N Aderno Way rebuild were called together on Sep 3 and again on Sep 28. Neither visit cleared them.
 
 Each extra call costs an inspector slot, and the next trades wait on it.
@@ -148,14 +452,12 @@ Each extra call costs an inspector slot, and the next trades wait on it.
 I pulled the inspection log for your Palisades permits, by item and date, so your site lead can see what to confirm before booking. Want the log?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Bryan, I pulled the LADBS inspection log for your 376 N Aderno Way rebuild. Rough frame, green rough and sprinkler sign-off were called Sep 3 and Sep 28. Happy to send it sorted by item if useful.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more from the log: across Palisades rebuild permits, 14.0% of inspection results come back not ready or no access. Your other jobs show 1 in 8, so this is one site, not the whole team. Should I send the log?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Bevyhouse leadership: President Bryan Henson and Chief Design Officer Johnny Hirsch; factory in Ventura, California. <a href="https://housinginnovation.co/factory/bevyhouse/" rel="noopener" target="_blank">housinginnovation.co/factory/bevyhouse/</a> · read 2026-10-13</li><li><span class="n">[2]</span>Bevyhouse LLC (lic. 1039074-B) is contractor of record on 376 N Aderno Way (25010-10000-05316). <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li><li><span class="n">[3]</span>Rough frame, green building rough and sprinkler sign-off were each Not Ready for Inspection on Sep 3 and again Sep 28, 2026. Other Bevyhouse permits: 1 Not Ready in 8 results. <a href="https://data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%2005316" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%200</a> · read 2026-10-13</li><li><span class="n">[7]</span>Palisades rebuild permits: 2,508 of 17,855 completed inspection results were Not Ready or No Access (14.0%). Most frequent items among those misses: Green Building Rough 296, Footing/Foundation/Slab 211, Verify Sprinkler Sign Off 206. <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a> · read 2026-10-13</li></ul>
-</article><article class="lead" id="lead-2">
-<p class="num">Lead 02 of 10 · signal 2026-09-30</p>
-<h3>Nikki Pechet</h3>
-<p class="meta">Co-founder and CEO, Homebound</p>
-<div class="chips"><span class="chip">Uses message 1</span><span class="chip">intent 5/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>Homebound filed its Plan 8 into LA City&#x27;s wildfire Standard Plan program on Sep 30. Every Plan 8 sale in the Palisades now waits on that approval.</p>
-<h4>Fit</h4><p>Tech-enabled builder running many fire rebuilds at once on a small set of plans: a production schedule gated by permits, which Merlin coordinates.</p>
+<h5>Sources</h5><ul class="ev"><li>[1] Bevyhouse leadership: President Bryan Henson and Chief Design Officer Johnny Hirsch; factory in Ventura, California. <a href="https://housinginnovation.co/factory/bevyhouse/" rel="noopener" target="_blank">housinginnovation.co/factory/bevyhouse/</a> · read 2026-10-13</li><li>[2] Bevyhouse LLC (lic. 1039074-B) is contractor of record on 376 N Aderno Way (25010-10000-05316). <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li><li>[3] Rough frame, green building rough and sprinkler sign-off were each Not Ready for Inspection on Sep 3 and again Sep 28, 2026. Other Bevyhouse permits: 1 Not Ready in 8 results. <a href="https://data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%2005316" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%200</a> · read 2026-10-13</li><li>[7] Palisades rebuild permits: 2,508 of 17,855 completed inspection results were Not Ready or No Access (14.0%). Most frequent items among those misses: Green Building Rough 296, Footing/Foundation/Slab 211, Verify Sprinkler Sign Off 206. <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a> · read 2026-10-13</li></ul>
+</article><article class="lead">
+<h4>Nikki Pechet</h4>
+<p class="meta">Co-founder and CEO, Homebound<br>signal 2026-09-30</p>
+<div class="chips"><span class="chip">uses message 1</span><span class="chip">intent 5/5</span><span class="chip">fit 4/5</span></div>
+<p class="sig"><strong>Why now:</strong> Homebound filed its Plan 8 into LA City&#x27;s wildfire Standard Plan program on Sep 30. Every Plan 8 sale in the Palisades now waits on that approval.<br><strong>Fit:</strong> Tech-enabled builder running many fire rebuilds at once on a small set of plans: a production schedule gated by permits, which Merlin coordinates.</p>
 <div class="msg"><header><span>Email · Getting Plan 8 through plan check</span><button type="button" data-copy>Copy</button></header><pre>Your Plan 8 standard plan went into LADBS plan check at the end of September. Every Plan 8 rebuild you sell waits on that approval.
 
 The 15 wildfire standard plans the city has approved so far took a median 122 days from submission. The fastest cleared in about two weeks.
@@ -163,14 +465,12 @@ The 15 wildfire standard plans the city has approved so far took a median 122 da
 I lined up all of them with submission and approval dates, so your team can plan sales and starts around a real number. Want the table?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Nikki, saw Homebound&#x27;s Plan 8 go into LADBS plan check. I pulled the 15 wildfire standard plans the city has approved so far, with days from submission to approval (median 122). Happy to share.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more from the same data: only 15 of the wildfire standard plans filed so far have reached approval; the rest sit in corrections or review. Merlin tracks each correction set as a task with an owner and a date, so the sales pipeline knows when a plan will really be buildable. Worth a look?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Nikki Pechet is Co-Founder and CEO of Homebound. <a href="https://yespress.io/nikki-pechet.md" rel="noopener" target="_blank">yespress.io/nikki-pechet.md</a> · read 2026-10-13</li><li><span class="n">[2]</span>Permit application 26010-10000-04952, submitted 2026-09-30: SFD Standard Plan Program for Wildfire Area Rebuild, Homebound Plan 8, status PC Assigned. <a href="https://data.lacity.org/resource/gwh9-jnip.json?permit_nbr=26010-10000-04952" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?permit_nbr=26010-10000-0</a> · read 2026-10-13</li><li><span class="n">[9]</span>LA City wildfire Standard Plan applications: 15 have reached PC Approved; median 122 days from submission to approval, fastest 15 days. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=primary_address%3D%271%20STANDARD%20PLAN%20WAY%27%20AND%20upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27&amp;%24limit=500" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=primary_address</a> · read 2026-10-13</li></ul>
-</article><article class="lead" id="lead-3">
-<p class="num">Lead 03 of 10 · signal 2026-07-12</p>
-<h3>Steve Glenn</h3>
-<p class="meta">Founder and CEO, Plant Prefab</p>
-<div class="chips"><span class="chip">Uses message 1</span><span class="chip">intent 4/5</span><span class="chip">fit 5/5</span></div>
-<h4>Why now</h4><p>The LA Times reported three fire replacement houses taking shape in Plant Prefab&#x27;s Arvin factory, with 97 homes under contract and dozens more rebuilds lined up.</p>
-<h4>Fit</h4><p>A 270,000-square-foot make-to-order factory whose slots depend on LA permits and site readiness: the manufacturer side of Merlin&#x27;s ICP.</p>
+<h5>Sources</h5><ul class="ev"><li>[1] Nikki Pechet is Co-Founder and CEO of Homebound. <a href="https://yespress.io/nikki-pechet.md" rel="noopener" target="_blank">yespress.io/nikki-pechet.md</a> · read 2026-10-13</li><li>[2] Permit application 26010-10000-04952, submitted 2026-09-30: SFD Standard Plan Program for Wildfire Area Rebuild, Homebound Plan 8, status PC Assigned. <a href="https://data.lacity.org/resource/gwh9-jnip.json?permit_nbr=26010-10000-04952" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?permit_nbr=26010-10000-0</a> · read 2026-10-13</li><li>[9] LA City wildfire Standard Plan applications: 15 have reached PC Approved; median 122 days from submission to approval, fastest 15 days. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=primary_address%3D%271%20STANDARD%20PLAN%20WAY%27%20AND%20upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27&amp;%24limit=500" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=primary_address</a> · read 2026-10-13</li></ul>
+</article><article class="lead">
+<h4>Steve Glenn</h4>
+<p class="meta">Founder and CEO, Plant Prefab<br>signal 2026-07-12</p>
+<div class="chips"><span class="chip">uses message 1</span><span class="chip">intent 4/5</span><span class="chip">fit 5/5</span></div>
+<p class="sig"><strong>Why now:</strong> The LA Times reported three fire replacement houses taking shape in Plant Prefab&#x27;s Arvin factory, with 97 homes under contract and dozens more rebuilds lined up.<br><strong>Fit:</strong> A 270,000-square-foot make-to-order factory whose slots depend on LA permits and site readiness: the manufacturer side of Merlin&#x27;s ICP.</p>
 <div class="msg"><header><span>Email · 97 homes, one permit queue</span><button type="button" data-copy>Copy</button></header><pre>You have 97 homes under contract, and three fire replacement houses were in the Arvin factory in July. Every one of those slots waits on an LA permit.
 
 On the Palisades factory-built rebuild permits I checked, LADBS sent first corrections within 17 days, then resubmittals took months. That gap is where a factory schedule slips.
@@ -178,14 +478,12 @@ On the Palisades factory-built rebuild permits I checked, LADBS sent first corre
 I pulled step-by-step timelines for 13 of those permits, so production planning can see where the time goes. Want them?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Steve, read the LA Times piece on Plant Prefab&#x27;s fire rebuilds. I pulled LADBS step-by-step timelines for 13 factory-built Palisades rebuild permits, which show where the months go. Happy to share.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>Different angle: with 97 homes under contract, the hard part is lining up factory slots with sites that are actually ready. Merlin ties each permit and inspection date to the production schedule, so a slipped resubmittal moves the slot before the modules are built. Worth a look at how that maps to Arvin?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>LA Times (via TNS), Jul 12, 2026: Steve Glenn is founder and CEO of Plant Prefab; three fire replacement projects in its Arvin factory; 97 homes under contract; 270,000-square-foot factory. <a href="https://www.newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to-show-their-stuff/" rel="noopener" target="_blank">newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to</a> · read 2026-10-13</li><li><span class="n">[8]</span>13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li></ul>
-</article><article class="lead" id="lead-4">
-<p class="num">Lead 04 of 10 · signal 2026-08-31</p>
-<h3>Chris Bridgeford</h3>
-<p class="meta">Founder and CEO, Integrity Custom Built</p>
-<div class="chips"><span class="chip">Uses message 1</span><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>SGC approved a grant for Integrity&#x27;s Eaton and Palisades modular recovery framework, which includes a regional permitting navigation guide. The guide needs real permit timelines.</p>
-<h4>Fit</h4><p>Modular builder coordinating factory partners (Polaris Modular, Skyline/Champion) and many owner jobs: exactly the multi-party coordination Merlin runs.</p>
+<h5>Sources</h5><ul class="ev"><li>[1] LA Times (via TNS), Jul 12, 2026: Steve Glenn is founder and CEO of Plant Prefab; three fire replacement projects in its Arvin factory; 97 homes under contract; 270,000-square-foot factory. <a href="https://www.newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to-show-their-stuff/" rel="noopener" target="_blank">newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to</a> · read 2026-10-13</li><li>[8] 13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li></ul>
+</article><article class="lead">
+<h4>Chris Bridgeford</h4>
+<p class="meta">Founder and CEO, Integrity Custom Built<br>signal 2026-08-31</p>
+<div class="chips"><span class="chip">uses message 1</span><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
+<p class="sig"><strong>Why now:</strong> SGC approved a grant for Integrity&#x27;s Eaton and Palisades modular recovery framework, which includes a regional permitting navigation guide. The guide needs real permit timelines.<br><strong>Fit:</strong> Modular builder coordinating factory partners (Polaris Modular, Skyline/Champion) and many owner jobs: exactly the multi-party coordination Merlin runs.</p>
 <div class="msg"><header><span>Email · Permit timelines for your SGC guide</span><button type="button" data-copy>Copy</button></header><pre>Your SGC grant pays for a permitting navigation guide for modular rebuilds in Altadena and the Palisades. LA City&#x27;s records already show where those permits spend their time.
 
 The median issued Palisades rebuild permit took 101 days. On the factory-built ones I checked, the city&#x27;s first corrections came back within 17 days; the months went to resubmittals.
@@ -193,14 +491,12 @@ The median issued Palisades rebuild permit took 101 days. On the factory-built o
 I pulled step-by-step timelines for 13 factory-built rebuild permits. Want them for the guide?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Chris, read about Integrity&#x27;s SGC grant for a modular permitting guide in Altadena and the Palisades. I pulled LADBS step-by-step timelines for 13 factory-built rebuild permits. Happy to share for the guide.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more idea for the guide: Palisades rebuild inspections come back Not Ready or No Access 14.0% of the time, and the misses cluster on the same items. A readiness checklist by inspection stage would help every modular buyer you advise. I can send the item-level counts. Useful?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>SGC press release (Aug 31, 2026): Integrity Custom Built will develop a factory-built wildfire recovery model with Polaris Modular and Skyline/Champion Homes, including a regional permitting navigation guide. Chris Bridgeford is Founder and CEO. <a href="https://sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-million-to-accelerate-development-and-use-of-factory-built-housing-statewide/" rel="noopener" target="_blank">sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-mil</a> · read 2026-10-13</li><li><span class="n">[6]</span>1,500 issued new single-family Palisades rebuild permits: median 101 days from submission to issue. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27%20AND%20permit_type%3D%27Bldg-New%27%20AND%20permit_sub_type%3D%271%20or%202%20Family%20Dwelling%27%20AND%20submitted_date%3E%3D%272025-01-07%27&amp;%24limit=10000" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_de</a> · read 2026-10-13</li><li><span class="n">[8]</span>13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li><li><span class="n">[7]</span>Palisades rebuild permits: 2,508 of 17,855 completed inspection results were Not Ready or No Access (14.0%). Most frequent items among those misses: Green Building Rough 296, Footing/Foundation/Slab 211, Verify Sprinkler Sign Off 206. <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a> · read 2026-10-13</li></ul>
-</article><article class="lead" id="lead-5">
-<p class="num">Lead 05 of 10 · signal 2026-08-31</p>
-<h3>Sean Roberts</h3>
-<p class="meta">CEO, Villa Homes</p>
-<div class="chips"><span class="chip">Uses message 1</span><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>Villa is building a model home in Altadena with a catalog aimed at Southern California fire rebuilds, and SGC just funded a cityLAB-UCLA project that names Villa as its modular partner.</p>
-<h4>Fit</h4><p>Prefab builder selling into fire rebuilds with units built in partner factories: factory, permit and site coordination across many jobs.</p>
+<h5>Sources</h5><ul class="ev"><li>[1] SGC press release (Aug 31, 2026): Integrity Custom Built will develop a factory-built wildfire recovery model with Polaris Modular and Skyline/Champion Homes, including a regional permitting navigation guide. Chris Bridgeford is Founder and CEO. <a href="https://sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-million-to-accelerate-development-and-use-of-factory-built-housing-statewide/" rel="noopener" target="_blank">sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-mil</a> · read 2026-10-13</li><li>[6] 1,500 issued new single-family Palisades rebuild permits: median 101 days from submission to issue. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27%20AND%20permit_type%3D%27Bldg-New%27%20AND%20permit_sub_type%3D%271%20or%202%20Family%20Dwelling%27%20AND%20submitted_date%3E%3D%272025-01-07%27&amp;%24limit=10000" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_de</a> · read 2026-10-13</li><li>[8] 13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li><li>[7] Palisades rebuild permits: 2,508 of 17,855 completed inspection results were Not Ready or No Access (14.0%). Most frequent items among those misses: Green Building Rough 296, Footing/Foundation/Slab 211, Verify Sprinkler Sign Off 206. <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a> · read 2026-10-13</li></ul>
+</article><article class="lead">
+<h4>Sean Roberts</h4>
+<p class="meta">CEO, Villa Homes<br>signal 2026-08-31</p>
+<div class="chips"><span class="chip">uses message 1</span><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
+<p class="sig"><strong>Why now:</strong> Villa is building a model home in Altadena with a catalog aimed at Southern California fire rebuilds, and SGC just funded a cityLAB-UCLA project that names Villa as its modular partner.<br><strong>Fit:</strong> Prefab builder selling into fire rebuilds with units built in partner factories: factory, permit and site coordination across many jobs.</p>
 <div class="msg"><header><span>Email · Your Altadena catalog, permit side</span><button type="button" data-copy>Copy</button></header><pre>Villa is building an Altadena model home, and your catalog targets Southern California fire rebuilds. Buyers will ask how long the permit takes.
 
 LA City&#x27;s Palisades data has an answer: the median issued rebuild permit took 101 days, and on the factory-built ones I checked, first corrections came back within 17 days. The rest was resubmittals.
@@ -208,14 +504,12 @@ LA City&#x27;s Palisades data has an answer: the median issued rebuild permit to
 I pulled step-by-step timelines for 13 factory-built rebuild permits. Want them for your sales team?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Sean, saw Villa&#x27;s Altadena model home in the LA Times piece. I pulled LADBS timelines for 13 factory-built Palisades rebuild permits, step by step. Could be handy when buyers ask how long permits take.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more: Villa is also the modular partner on cityLAB-UCLA&#x27;s SGC-funded missing-middle project. Multi-unit jobs multiply the coordination between factory, site and inspector. That&#x27;s the work Merlin&#x27;s agents take on, across every job at once. Worth a short look?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>LA Times (via TNS), Jul 12, 2026: Villa Homes, CEO Sean Roberts, is building a model home in Altadena; its catalog targets Southern California fire rebuilds. <a href="https://www.newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to-show-their-stuff/" rel="noopener" target="_blank">newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to</a> · read 2026-10-13</li><li><span class="n">[2]</span>SGC press release (Aug 31, 2026): cityLAB-UCLA will work with Abundant Housing LA and the modular firm Villa Homes on factory-built missing-middle prototypes. <a href="https://sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-million-to-accelerate-development-and-use-of-factory-built-housing-statewide/" rel="noopener" target="_blank">sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-mil</a> · read 2026-10-13</li><li><span class="n">[6]</span>1,500 issued new single-family Palisades rebuild permits: median 101 days from submission to issue. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27%20AND%20permit_type%3D%27Bldg-New%27%20AND%20permit_sub_type%3D%271%20or%202%20Family%20Dwelling%27%20AND%20submitted_date%3E%3D%272025-01-07%27&amp;%24limit=10000" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_de</a> · read 2026-10-13</li><li><span class="n">[8]</span>13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li></ul>
-</article><article class="lead" id="lead-6">
-<p class="num">Lead 06 of 10 · signal 2026-08-31</p>
-<h3>Sumner Douglas</h3>
-<p class="meta">Founder and CEO (Stack Homes / Polaris Modular), Polaris Modular</p>
-<div class="chips"><span class="chip">Uses message 1</span><span class="chip">intent 3/5</span><span class="chip">fit 5/5</span></div>
-<h4>Why now</h4><p>SGC&#x27;s Aug 31 award names Polaris Modular as a factory partner on Integrity Custom Built&#x27;s modular recovery framework for Altadena and the Palisades.</p>
-<h4>Fit</h4><p>Make-to-order modular factory about to take LA rebuild demand: Merlin&#x27;s manufacturer ICP, where production slots depend on outside permits and sites.</p>
+<h5>Sources</h5><ul class="ev"><li>[1] LA Times (via TNS), Jul 12, 2026: Villa Homes, CEO Sean Roberts, is building a model home in Altadena; its catalog targets Southern California fire rebuilds. <a href="https://www.newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to-show-their-stuff/" rel="noopener" target="_blank">newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to</a> · read 2026-10-13</li><li>[2] SGC press release (Aug 31, 2026): cityLAB-UCLA will work with Abundant Housing LA and the modular firm Villa Homes on factory-built missing-middle prototypes. <a href="https://sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-million-to-accelerate-development-and-use-of-factory-built-housing-statewide/" rel="noopener" target="_blank">sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-mil</a> · read 2026-10-13</li><li>[6] 1,500 issued new single-family Palisades rebuild permits: median 101 days from submission to issue. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27%20AND%20permit_type%3D%27Bldg-New%27%20AND%20permit_sub_type%3D%271%20or%202%20Family%20Dwelling%27%20AND%20submitted_date%3E%3D%272025-01-07%27&amp;%24limit=10000" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_de</a> · read 2026-10-13</li><li>[8] 13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li></ul>
+</article><article class="lead">
+<h4>Sumner Douglas</h4>
+<p class="meta">Founder and CEO (Stack Homes / Polaris Modular), Polaris Modular<br>signal 2026-08-31</p>
+<div class="chips"><span class="chip">uses message 1</span><span class="chip">intent 3/5</span><span class="chip">fit 5/5</span></div>
+<p class="sig"><strong>Why now:</strong> SGC&#x27;s Aug 31 award names Polaris Modular as a factory partner on Integrity Custom Built&#x27;s modular recovery framework for Altadena and the Palisades.<br><strong>Fit:</strong> Make-to-order modular factory about to take LA rebuild demand: Merlin&#x27;s manufacturer ICP, where production slots depend on outside permits and sites.</p>
 <div class="msg"><header><span>Email · Polaris modules for Palisades rebuilds</span><button type="button" data-copy>Copy</button></header><pre>Polaris is a factory partner on Integrity Custom Built&#x27;s SGC-funded modular framework for Altadena and the Palisades. Pre-approved plans will feed your line, but each module still waits on a permit and a ready site.
 
 On the LA City factory-built rebuild permits I checked, first corrections came back within 17 days, and the months went to resubmittals.
@@ -223,14 +517,12 @@ On the LA City factory-built rebuild permits I checked, first corrections came b
 I pulled step-by-step timelines for 13 of them, so you can plan slots against real permit times. Want them?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Sumner, saw Polaris named on the SGC grant for Altadena and Palisades modular rebuilds. I pulled LADBS timelines for 13 factory-built rebuild permits, step by step. Happy to share for slot planning.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>Different angle: when demand comes through one framework, factory slots and site readiness have to move together. Merlin is built for make-to-order manufacturers: the production schedule updates when a permit or inspection date moves. Worth a short look?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>SGC press release (Aug 31, 2026): Integrity Custom Built&#x27;s Eaton and Palisades modular initiative partners with Polaris Modular and Skyline/Champion Homes. <a href="https://sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-million-to-accelerate-development-and-use-of-factory-built-housing-statewide/" rel="noopener" target="_blank">sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-mil</a> · read 2026-10-13</li><li><span class="n">[2]</span>Utah Business (Jul 15, 2024): Stack Homes, a Salt Lake City modular builder founded in 2019 by Sumner Douglas, introduced Polaris Modular; Douglas quoted as founder and CEO. <a href="https://www.utahbusiness.com/press-releases/2024/07/15/stack-homes-polaris-modular/" rel="noopener" target="_blank">utahbusiness.com/press-releases/2024/07/15/stack-homes-polaris-m</a> · read 2026-10-13</li><li><span class="n">[8]</span>13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li></ul>
-</article><article class="lead" id="lead-7">
-<p class="num">Lead 07 of 10 · signal 2026-08-10</p>
-<h3>Jeremy Baker</h3>
-<p class="meta">Principal general contractor and co-owner, Letter Four</p>
-<div class="chips"><span class="chip">Uses message 2</span><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>Letter Four&#x27;s Altadena modular home was delivered and craned in July, with completion targeted for the end of 2026. From here the schedule runs on inspections.</p>
-<h4>Fit</h4><p>Design-build firm with in-house architecture and GC, now doing modular fire rebuilds: one team, one schedule across design, factory and site.</p>
+<h5>Sources</h5><ul class="ev"><li>[1] SGC press release (Aug 31, 2026): Integrity Custom Built&#x27;s Eaton and Palisades modular initiative partners with Polaris Modular and Skyline/Champion Homes. <a href="https://sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-million-to-accelerate-development-and-use-of-factory-built-housing-statewide/" rel="noopener" target="_blank">sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-mil</a> · read 2026-10-13</li><li>[2] Utah Business (Jul 15, 2024): Stack Homes, a Salt Lake City modular builder founded in 2019 by Sumner Douglas, introduced Polaris Modular; Douglas quoted as founder and CEO. <a href="https://www.utahbusiness.com/press-releases/2024/07/15/stack-homes-polaris-modular/" rel="noopener" target="_blank">utahbusiness.com/press-releases/2024/07/15/stack-homes-polaris-m</a> · read 2026-10-13</li><li>[8] 13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li></ul>
+</article><article class="lead">
+<h4>Jeremy Baker</h4>
+<p class="meta">Principal general contractor and co-owner, Letter Four<br>signal 2026-08-10</p>
+<div class="chips"><span class="chip">uses message 2</span><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
+<p class="sig"><strong>Why now:</strong> Letter Four&#x27;s Altadena modular home was delivered and craned in July, with completion targeted for the end of 2026. From here the schedule runs on inspections.<br><strong>Fit:</strong> Design-build firm with in-house architecture and GC, now doing modular fire rebuilds: one team, one schedule across design, factory and site.</p>
 <div class="msg"><header><span>Email · After the crane in Altadena</span><button type="button" data-copy>Copy</button></header><pre>Your Altadena modular home was craned onto its lot in July, with completion targeted for the end of 2026. From here the schedule runs on inspections.
 
 On Palisades rebuild permits, 14.0% of inspection results come back Not Ready or No Access, and the misses repeat on the same items. Green building rough tops the list.
@@ -238,14 +530,12 @@ On Palisades rebuild permits, 14.0% of inspection results come back Not Ready or
 I pulled the counts by item, so your site team can confirm the usual suspects before booking. Want them?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Jeremy, read Letter Four&#x27;s post on the Altadena modular home craned in July. I pulled LADBS inspection counts by item for Palisades rebuilds, showing which ones bounce most. Happy to share.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more: Letter Four runs design and GC under one roof, which is where a single schedule pays off most. Merlin ties design changes, materials, crews and inspections into one plan, so a change in one moves the others. Worth a short look?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>Letter Four blog (Aug 10, 2026): the completed modular home was delivered and craned onto the Altadena lot in July 2026; full completion targeted by the end of 2026. <a href="https://www.letterfour.com/blog/how-long-does-it-take-to-build-a-custom-modular-home-in-altadena" rel="noopener" target="_blank">letterfour.com/blog/how-long-does-it-take-to-build-a-custom-modu</a> · read 2026-10-13</li><li><span class="n">[2]</span>Letter Four principals: Lauren Adams, Principal Architect + Co-Owner; Jeremy Baker, Principal General Contractor + Co-Owner. <a href="https://letterfour.com/about" rel="noopener" target="_blank">letterfour.com/about</a> · read 2026-10-13</li><li><span class="n">[7]</span>Palisades rebuild permits: 2,508 of 17,855 completed inspection results were Not Ready or No Access (14.0%). Most frequent items among those misses: Green Building Rough 296, Footing/Foundation/Slab 211, Verify Sprinkler Sign Off 206. <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a> · read 2026-10-13</li></ul>
-</article><article class="lead" id="lead-8">
-<p class="num">Lead 08 of 10 · signal 2026-07-28</p>
-<h3>Leo Marmol</h3>
-<p class="meta">Co-founder and principal, Marmol Radziner</p>
-<div class="chips"><span class="chip">Uses message 1</span><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>One of the three Dawn wildfire standard plan elevations reached PC Approved on Jul 28; the other two have shown PC Info Complete since Jul 30.</p>
-<h4>Fit</h4><p>Design-build firm with its own licensed construction arm doing Palisades rebuilds, including a factory-built one on Fiske St. Design changes ripple into cost and schedule, Merlin&#x27;s pitch.</p>
+<h5>Sources</h5><ul class="ev"><li>[1] Letter Four blog (Aug 10, 2026): the completed modular home was delivered and craned onto the Altadena lot in July 2026; full completion targeted by the end of 2026. <a href="https://www.letterfour.com/blog/how-long-does-it-take-to-build-a-custom-modular-home-in-altadena" rel="noopener" target="_blank">letterfour.com/blog/how-long-does-it-take-to-build-a-custom-modu</a> · read 2026-10-13</li><li>[2] Letter Four principals: Lauren Adams, Principal Architect + Co-Owner; Jeremy Baker, Principal General Contractor + Co-Owner. <a href="https://letterfour.com/about" rel="noopener" target="_blank">letterfour.com/about</a> · read 2026-10-13</li><li>[7] Palisades rebuild permits: 2,508 of 17,855 completed inspection results were Not Ready or No Access (14.0%). Most frequent items among those misses: Green Building Rough 296, Footing/Foundation/Slab 211, Verify Sprinkler Sign Off 206. <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a> · read 2026-10-13</li></ul>
+</article><article class="lead">
+<h4>Leo Marmol</h4>
+<p class="meta">Co-founder and principal, Marmol Radziner<br>signal 2026-07-28</p>
+<div class="chips"><span class="chip">uses message 1</span><span class="chip">intent 4/5</span><span class="chip">fit 4/5</span></div>
+<p class="sig"><strong>Why now:</strong> One of the three Dawn wildfire standard plan elevations reached PC Approved on Jul 28; the other two have shown PC Info Complete since Jul 30.<br><strong>Fit:</strong> Design-build firm with its own licensed construction arm doing Palisades rebuilds, including a factory-built one on Fiske St. Design changes ripple into cost and schedule, Merlin&#x27;s pitch.</p>
 <div class="msg"><header><span>Email · Clearing the other two Dawn elevations</span><button type="button" data-copy>Copy</button></header><pre>One of your three Dawn standard plan elevations cleared LADBS plan check in 111 days. The other two have shown &#x27;PC Info Complete&#x27; since Jul 30.
 
 That first approval beat the city&#x27;s median of 122 days for approved wildfire standard plans, so the open question is what&#x27;s left on the other two.
@@ -253,14 +543,12 @@ That first approval beat the city&#x27;s median of 122 days for approved wildfir
 I put the status history for all three side by side, with the plan-check steps and dates. Want it?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Leo, one of Marmol Radziner&#x27;s Dawn standard plan elevations cleared LADBS plan check in 111 days; the other two show PC Info Complete since Jul 30. I have the status history for all three if useful.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>Separate job, same team: your factory-built rebuild on Fiske St cleared rough frame, green building and sprinkler sign-off in one visit on Sep 18. Merlin is built to make that the default, by checking readiness before an inspection gets booked and moving crews to the real date. Worth a short call?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>LADBS permit page for 26010-10000-03962 (Standard Plan 37-2F, Dawn) lists the architect as Leonardo Emilio Marmol of Marmol &amp; Radziner &amp; Associates; submitted 4/8/2026. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=26010&amp;id2=10000&amp;id3=03962" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li><li><span class="n">[2]</span>Dawn elevations: 03962 PC Approved on 2026-07-28, 111 days after submission on 2026-04-08; 01577 and 03961 at PC Info Complete since 2026-07-30. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=permit_nbr%20in%28%2726010-10000-03962%27%2C%2726010-10000-03961%27%2C%2726010-10000-01577%27%29" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=permit_nbr%20in</a> · read 2026-10-13</li><li><span class="n">[3]</span>Marmol Radziner (lic. 734381-B) is contractor on the factory-built rebuild at 850 N Fiske St; rough frame, green building rough and sprinkler sign-off all approved on 9/18/2026. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=30000&amp;id3=05040" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li><li><span class="n">[9]</span>LA City wildfire Standard Plan applications: 15 have reached PC Approved; median 122 days from submission to approval, fastest 15 days. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=primary_address%3D%271%20STANDARD%20PLAN%20WAY%27%20AND%20upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27&amp;%24limit=500" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=primary_address</a> · read 2026-10-13</li></ul>
-</article><article class="lead" id="lead-9">
-<p class="num">Lead 09 of 10 · signal 2026-07-12</p>
-<h3>Vikas Enti</h3>
-<p class="meta">Co-founder and CEO, Reframe Systems</p>
-<div class="chips"><span class="chip">Uses message 1</span><span class="chip">intent 3/5</span><span class="chip">fit 4/5</span></div>
-<h4>Why now</h4><p>Reframe delivered its first Altadena home in April and told the LA Times it plans a network of microfactories. Each one stays busy only if permits and sites keep pace.</p>
-<h4>Fit</h4><p>Factory-built homebuilder scaling to many small plants: production planning across sites tied to permit and inspection dates.</p>
+<h5>Sources</h5><ul class="ev"><li>[1] LADBS permit page for 26010-10000-03962 (Standard Plan 37-2F, Dawn) lists the architect as Leonardo Emilio Marmol of Marmol &amp; Radziner &amp; Associates; submitted 4/8/2026. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=26010&amp;id2=10000&amp;id3=03962" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li><li>[2] Dawn elevations: 03962 PC Approved on 2026-07-28, 111 days after submission on 2026-04-08; 01577 and 03961 at PC Info Complete since 2026-07-30. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=permit_nbr%20in%28%2726010-10000-03962%27%2C%2726010-10000-03961%27%2C%2726010-10000-01577%27%29" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=permit_nbr%20in</a> · read 2026-10-13</li><li>[3] Marmol Radziner (lic. 734381-B) is contractor on the factory-built rebuild at 850 N Fiske St; rough frame, green building rough and sprinkler sign-off all approved on 9/18/2026. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=30000&amp;id3=05040" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li><li>[9] LA City wildfire Standard Plan applications: 15 have reached PC Approved; median 122 days from submission to approval, fastest 15 days. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=primary_address%3D%271%20STANDARD%20PLAN%20WAY%27%20AND%20upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27&amp;%24limit=500" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=primary_address</a> · read 2026-10-13</li></ul>
+</article><article class="lead">
+<h4>Vikas Enti</h4>
+<p class="meta">Co-founder and CEO, Reframe Systems<br>signal 2026-07-12</p>
+<div class="chips"><span class="chip">uses message 1</span><span class="chip">intent 3/5</span><span class="chip">fit 4/5</span></div>
+<p class="sig"><strong>Why now:</strong> Reframe delivered its first Altadena home in April and told the LA Times it plans a network of microfactories. Each one stays busy only if permits and sites keep pace.<br><strong>Fit:</strong> Factory-built homebuilder scaling to many small plants: production planning across sites tied to permit and inspection dates.</p>
 <div class="msg"><header><span>Email · Microfactories and LA permit timing</span><button type="button" data-copy>Copy</button></header><pre>Reframe delivered its first Altadena home in April, and you&#x27;re planning a network of microfactories. Each one only stays busy if permits and sites are ready when its modules are.
 
 On the LA City factory-built rebuild permits I checked, first corrections came back within 17 days; the months went to resubmittals.
@@ -268,14 +556,12 @@ On the LA City factory-built rebuild permits I checked, first corrections came b
 I pulled step-by-step timelines for 13 of those permits. Want them for your LA planning?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Vikas, read about Reframe&#x27;s first Altadena home in the LA Times. I pulled LADBS step-by-step timelines for 13 factory-built rebuild permits in the Palisades; happy to share if useful for LA planning.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>Different angle: a microfactory network turns permit and inspection timing into a scheduling problem across many sites. Merlin connects permit status, inspections and production into one schedule, so a slipped date moves the factory plan automatically. Worth a look?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>LA Times (via TNS), Jul 12, 2026: Reframe Systems, co-founder and CEO Vikas Enti, delivered its first Altadena home in April and plans roughly 500 to 600 micro factories over 10 to 15 years. <a href="https://www.newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to-show-their-stuff/" rel="noopener" target="_blank">newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to</a> · read 2026-10-13</li><li><span class="n">[8]</span>13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li></ul>
-</article><article class="lead" id="lead-10">
-<p class="num">Lead 10 of 10 · signal 2026-07-12</p>
-<h3>Caroline Paules</h3>
-<p class="meta">Co-founder, Nova Cottage Co.</p>
-<div class="chips"><span class="chip">Uses message 1</span><span class="chip">intent 3/5</span><span class="chip">fit 3/5</span></div>
-<h4>Why now</h4><p>Nova Cottage has one ADU underway in Altadena and is looking for a site for a village of up to 11 cottages.</p>
-<h4>Fit</h4><p>Early-stage prefab builder about to run a multi-unit site: the point where a coordination system is cheapest to adopt.</p>
+<h5>Sources</h5><ul class="ev"><li>[1] LA Times (via TNS), Jul 12, 2026: Reframe Systems, co-founder and CEO Vikas Enti, delivered its first Altadena home in April and plans roughly 500 to 600 micro factories over 10 to 15 years. <a href="https://www.newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to-show-their-stuff/" rel="noopener" target="_blank">newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to</a> · read 2026-10-13</li><li>[8] 13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li></ul>
+</article><article class="lead">
+<h4>Caroline Paules</h4>
+<p class="meta">Co-founder, Nova Cottage Co.<br>signal 2026-07-12</p>
+<div class="chips"><span class="chip">uses message 1</span><span class="chip">intent 3/5</span><span class="chip">fit 3/5</span></div>
+<p class="sig"><strong>Why now:</strong> Nova Cottage has one ADU underway in Altadena and is looking for a site for a village of up to 11 cottages.<br><strong>Fit:</strong> Early-stage prefab builder about to run a multi-unit site: the point where a coordination system is cheapest to adopt.</p>
 <div class="msg"><header><span>Email · Permit timing for your cottage village</span><button type="button" data-copy>Copy</button></header><pre>Nova Cottage has an ADU underway in Altadena and is looking for a site for up to 11 cottages. A village multiplies every permit and inspection step.
 
 LA City&#x27;s data shows where the time goes: on the factory-built rebuilds I checked, first corrections came back within 17 days, and the months went to resubmittals.
@@ -283,110 +569,241 @@ LA City&#x27;s data shows where the time goes: on the factory-built rebuilds I c
 I pulled step-by-step timelines for 13 of them. Want them while you pick the site?</pre></div>
 <div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Caroline, loved the Friends of Prefab survey in the LA Times piece. I pulled LADBS step-by-step timelines for 13 factory-built Palisades rebuild permits. Happy to share for Nova Cottage&#x27;s planning.</pre></div>
 <div class="msg"><header><span>Follow-up</span><button type="button" data-copy>Copy</button></header><pre>One more: on Palisades rebuild permits, 14.0% of inspection results come back Not Ready or No Access. For an 11-cottage village, a readiness check before each booking saves real days. Merlin runs that check inside the job schedule. Worth a look once the site is picked?</pre></div>
-<h4>Sources</h4><ul class="ev"><li><span class="n">[1]</span>LA Times (via TNS), Jul 12, 2026: Nova Cottage Co., co-founded by Caroline Paules and architect Karin Najarian, has one ADU project underway in Altadena and is looking for a site for a village of up to 11 cottages. <a href="https://www.newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to-show-their-stuff/" rel="noopener" target="_blank">newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to</a> · read 2026-10-13</li><li><span class="n">[8]</span>13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li><li><span class="n">[7]</span>Palisades rebuild permits: 2,508 of 17,855 completed inspection results were Not Ready or No Access (14.0%). Most frequent items among those misses: Green Building Rough 296, Footing/Foundation/Slab 211, Verify Sprinkler Sign Off 206. <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a> · read 2026-10-13</li></ul>
-</article></div></div>
-</div></section><section id="messages"><div class="wrap">
-<p class="kicker">The messages behind them</p>
-<h2>Messages your modular and residential home builders would pay to receive.</h2>
-<p class="meta">Each one blends public sources into something the recipient can act on today, even if they
-never buy. Each was proved on a real, named account, and every number traces to a fetched page.</p>
-<article class="pvp">
-<p class="num">Message 1 of 2 · sent to Owner or operations lead at a modular home builder</p>
-<h3>Your fire-rebuild permits against the Palisades median, and which side of the counter the days sat on</h3>
-<p>A builder&#x27;s time to issue, set against every Palisades rebuild permit filed the same months, then split into the city&#x27;s turn (first corrections) and the builder&#x27;s turn (resubmittal). For the modular builders checked, the months sat on the resubmittal side.</p>
-<div class="chips"><a class="chip" href="https://data.lacity.org/resource/gwh9-jnip.json" rel="noopener" target="_blank">LA City open data: building permits submitted, 2020 to present</a><a class="chip" href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">LADBS Permit and Inspection Report (one page per permit)</a></div>
-<h4>Run on a real account: Bevyhouse</h4>
-<div class="mail"><div class="to">To: Owner or operations lead at a modular home builder, Bevyhouse · Ojai, CA (factory in Central California)</div><div class="subj">Five Palisades permits, one fixable gap</div><p>Your five modular rebuild permits in the Palisades took a median 182 days to issue, against 133 for rebuild permits filed the same months. LADBS sent first corrections within 17 days on every one.</p><p>So the wait sat on the resubmittal side. If your factory slot waits on the permit, that&#x27;s factory time.</p><p>I lined up all five: submitted, corrections, approved, issued, and the days between. Want the timeline?</p></div><div class="asset"><div class="asset-h"><span>Attached: Bevyhouse Palisades permit timeline</span><span>showing 5 of All 5 permits where Bevyhouse is contractor; full version adds approval and resubmittal dates · source [6]</span></div><table><tr><th>Job</th><th>Submitted</th><th>Corrections</th><th>Issued</th><th>Days</th></tr><tr><td>16055 W Miami Way</td><td>9/30/2025</td><td>10/16/2025</td><td>3/5/2026</td><td>156</td></tr><tr><td>376 N Aderno Way</td><td>11/12/2025</td><td>11/18/2025</td><td>5/20/2026</td><td>189</td></tr><tr><td>16030 W Temecula St</td><td>12/26/2025</td><td>1/7/2026</td><td>3/24/2026</td><td>88</td></tr><tr><td>656 N Las Casas Ave</td><td>12/22/2025</td><td>1/8/2026</td><td>7/30/2026</td><td>220</td></tr><tr><td>1116 N Embury St</td><td>12/24/2025</td><td>1/5/2026</td><td>6/24/2026</td><td>182</td></tr></table></div><h4>Where every fact comes from</h4><ul class="ev"><li><span class="n">[1]</span>Bevyhouse LLC (lic. 1039074-B) is contractor of record on 5 Palisades rebuild permits. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail</a> · read 2026-10-09</li><li><span class="n">[5]</span>660 rebuild permits submitted Sep-Dec 2025: median 133 days to issue, counting the 119 not yet issued as slower. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27%20AND%20permit_type%3D%27Bldg-New%27%20AND%20permit_sub_type%3D%271%20or%202%20Family%20Dwelling%27%20AND%20submitted_date%3E%3D%272025-09-01%27%20AND%20submitted_date%3C%272026-01-01%27&amp;%24limit=5000" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_desc%29%</a> · read 2026-10-09</li><li><span class="n">[6]</span>Rows read from the five permit pages. First corrections 6 to 17 days after submission; days to issue 156, 189, 88, 220, 182 (median 182). 656 N Las Casas Ave: corrections 1/8/2026, approved 7/27/2026. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail</a> · read 2026-10-13</li></ul>
-<h4>The sequence, if they don't reply</h4><div class="fus"><div class="fu"><span class="num">Day 0</span><p>The email above.</p></div><div class="fu"><span class="num">Day 3</span><p>One way to work a timeline like that: each correction set becomes a task with an owner and a due date, and the factory slot moves when the resubmittal date moves. That&#x27;s what Merlin does for modular builders. It ties the permit to the production schedule, so nobody finds out at the factory. Worth seeing it on your five jobs?</p></div><div class="fu"><span class="num">Day 8</span><p>One more from the same pages: the city&#x27;s turn on your permits ran 6 to 17 days. The longest wait after corrections was 656 N Las Casas Ave, Jan 8 to Jul 27. If anything is in plan check now, that&#x27;s the step to put a date on. Should I send the timeline?</p></div></div>
-<div class="two"><div><h4>Why they'd reply</h4><p>A modular builder&#x27;s factory slot waits on the permit, so permit days are factory days. Seeing the delay sits on their side of the corrections loop tells them which step to give an owner and a date.</p></div>
-<div><h4>Where Merlin AI comes in</h4><p>Merlin ties the permit to the production schedule: each correction set is a task with an owner and a due date, and the factory slot and delivery re-plan when a resubmittal slips.</p></div></div>
-<details><summary>Run on a second account: Socal Building And Remodeling Inc</summary><div class="mail"><div class="to">To: Owner or operations lead at a modular home builder, Socal Building And Remodeling Inc · Lomita, CA</div><div class="subj">Where your Castellammare permit spent time</div><p>Your modular rebuild at 17833 W Castellammare Dr was issued Sep 15. LADBS sent corrections a week after you submitted. The resubmittal went back 187 days later.</p><p>That stretch is the part a builder controls, and the factory slot moves with it.</p><p>I set your permit next to every modular rebuild in the Palisades with a named contractor, by days from corrections to approval, so you can see who turns them fastest. Want the comparison?</p></div><div class="asset"><div class="asset-h"><span>Attached: Palisades factory-built rebuild permits: corrections to approval</span><span>showing 5 of 13 permits, 8 contractors; fastest four, then yours. No addresses for other builders · source [4]</span></div><table><tr><th>Contractor</th><th>Permit</th><th>Corrections</th><th>Approved</th><th>Days</th></tr><tr><td>Cover Building Technologies</td><td>25010-10000-01905</td><td>5/9/2025</td><td>5/21/2025</td><td>12</td></tr><tr><td>Dolan Design &amp; Build</td><td>26010-30000-01381</td><td>3/31/2026</td><td>5/5/2026</td><td>35</td></tr><tr><td>Miller Construction</td><td>25010-10000-04874</td><td>10/31/2025</td><td>12/19/2025</td><td>49</td></tr><tr><td>Marmol Radziner</td><td>25010-30000-05040</td><td>11/7/2025</td><td>1/6/2026</td><td>60</td></tr><tr><td>Socal Building (you)</td><td>25010-10000-06508</td><td>1/22/2026</td><td>9/4/2026</td><td>225</td></tr></table></div><h4>Where every fact comes from</h4><ul class="ev"><li><span class="n">[1]</span>Socal Building And Remodeling Inc (lic. 1054729-B) is contractor of record on 17833 W Castellammare Dr, a modular rebuild. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail</a> · read 2026-10-09</li><li><span class="n">[2]</span>Submitted 1/15/2026; corrections 1/22/2026; resubmitted 7/28/2026, 187 days later; issued 9/15/2026. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail</a> · read 2026-10-09</li><li><span class="n">[4]</span>Corrections-to-approval days, 13 issued factory-built rebuild permits, 8 contractors: fastest 12, 35, 49, 60; yours 225. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=01905" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail</a> · read 2026-10-13</li></ul></details>
-<div class="scores"><span>independent value <b>4</b></span><span>specificity <b>5</b></span><span>pain <b>4</b></span><span>product fit <b>4</b></span><span>provable <b>5</b></span><span>actionable <b>4</b></span></div>
-</article><article class="pvp">
-<p class="num">Message 2 of 2 · sent to Owner or superintendent at a builder running several rebuilds</p>
-<h3>The inspections on your job that keep coming back not ready, and the next call to fix</h3>
-<p>LADBS publishes every inspection result. Across Palisades rebuild permits, 14.0% of completed results came back Not Ready or No Access. Some jobs run near 50%, and the misses cluster: the same items get called together and bounce together, weeks apart.</p>
-<div class="chips"><a class="chip" href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">LA City open data: Building and Safety inspections</a><a class="chip" href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">LADBS Permit and Inspection Report (one page per permit)</a><a class="chip" href="https://data.lacity.org/resource/gwh9-jnip.json" rel="noopener" target="_blank">LA City open data: building permits submitted, 2020 to present</a></div>
-<h4>Run on a real account: Bevyhouse</h4>
-<div class="mail"><div class="to">To: Owner or superintendent at a builder running several rebuilds, Bevyhouse · Ojai, CA (factory in Central California)</div><div class="subj">Clearing your next Aderno Way inspection</div><p>Rough frame, green building and sprinkler sign-off at your 376 N Aderno Way rebuild were called together on Sep 3 and again on Sep 28. Neither visit cleared them.</p><p>Each extra call costs an inspector slot, and the next trades wait on it.</p><p>I pulled the inspection log for your Palisades permits, by item and date, so your site lead can see what to confirm before booking. Want the log?</p></div><div class="asset"><div class="asset-h"><span>Attached: Inspection log, 376 N Aderno Way (25010-10000-05316)</span><span>showing 5 of 18 results on this job (Bevyhouse&#x27;s), plus 8 on your other Palisades jobs · source [3]</span></div><table><tr><th>Date</th><th>Item</th><th>Result</th></tr><tr><td>Sep 3, 2026</td><td>Building rough frame</td><td>Not ready</td></tr><tr><td>Sep 3, 2026</td><td>Green building rough</td><td>Not ready</td></tr><tr><td>Sep 3, 2026</td><td>Verify sprinkler sign-off</td><td>Not ready</td></tr><tr><td>Sep 28, 2026</td><td>Building rough frame</td><td>Not ready</td></tr><tr><td>Sep 28, 2026</td><td>Green building rough</td><td>Not ready</td></tr></table></div><h4>Where every fact comes from</h4><ul class="ev"><li><span class="n">[1]</span>Bevyhouse LLC is contractor of record on 376 N Aderno Way (25010-10000-05316). <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail</a> · read 2026-10-09</li><li><span class="n">[2]</span>18 completed results on 05316 since Jul 22, 2026, 9 Not Ready or No Access. Other Bevyhouse permits (04349, 05971): 1 in 8. <a href="https://data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%2005316" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%2005316</a> · read 2026-10-09</li><li><span class="n">[3]</span>Rough frame, green rough and sprinkler sign-off: Not Ready on Sep 3 and again Sep 28, 2026. <a href="https://data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%2005316" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%2005316</a> · read 2026-10-09</li><li><span class="n">[4]</span>Palisades rebuild permits: 2,508 of 17,855 completed results Not Ready or No Access (14.0%). <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a> · read 2026-10-09</li></ul>
-<h4>The sequence, if they don't reply</h4><div class="fus"><div class="fu"><span class="num">Day 0</span><p>The email above.</p></div><div class="fu"><span class="num">Day 3</span><p>How teams use a log like that: before an inspection gets booked, the site lead confirms each item on the request is ready, and crews and deliveries move to the real date. Merlin runs that check inside the job schedule, across every site at once. Want me to show it on Aderno Way?</p></div><div class="fu"><span class="num">Day 8</span><p>One more from the log: across Palisades rebuild permits, 14.0% of inspection results come back not ready or no access. Your other jobs show 1 in 8, so this is one site, not the whole team. Should I send the log?</p></div></div>
-<div class="two"><div><h4>Why they'd reply</h4><p>Each bounced call burns an inspector slot and pushes the next trade, and for a modular builder the module set. Knowing which items keep bouncing on which job is something they can fix on the very next call.</p></div>
-<div><h4>Where Merlin AI comes in</h4><p>Merlin&#x27;s agents coordinate labour and information across jobs. An inspection request waits until the crew lead confirms each item is ready, and crews, deliveries and the module set move with the real inspection date instead of the hoped-for one.</p></div></div>
-<details><summary>Run on a second account: J J P Construction Inc</summary><div class="mail"><div class="to">To: Owner or superintendent at a builder running several rebuilds, J J P Construction Inc · North Hollywood, CA</div><div class="subj">Drywall nailing sign-off at Aderno Way</div><p>Drywall nailing on one of your permits at 200 N Aderno Way was called Aug 24 and didn&#x27;t clear, and nothing is on record since.</p><p>Rough frame on the same permit took three calls to get a conditional approval. Each extra call costs an inspector slot, and the next trades wait on it.</p><p>I pulled both permits&#x27; inspection logs, sorted by item, so you can see which trades keep getting called early. Want the logs?</p></div><div class="asset"><div class="asset-h"><span>Attached: Inspection log by item, 200 N Aderno Way (25010-20000-04197)</span><span>showing 5 of 68 results across both permits, 29 on this one (J J P&#x27;s job) · source [3]</span></div><table><tr><th>Date</th><th>Item</th><th>Result</th></tr><tr><td>Jan 22, 2026</td><td>Building rough frame</td><td>Not ready</td></tr><tr><td>Jan 22, 2026</td><td>Verify sprinkler sign-off</td><td>Not ready</td></tr><tr><td>Mar 20, 2026</td><td>Building rough frame</td><td>Not ready</td></tr><tr><td>Aug 3, 2026</td><td>Building rough frame</td><td>Conditional approval</td></tr><tr><td>Aug 24, 2026</td><td>Drywall nailing</td><td>Not ready</td></tr></table></div><h4>Where every fact comes from</h4><ul class="ev"><li><span class="n">[1]</span>J J P Construction Inc (lic. 960864-B) is contractor of record on both permits at 200 N Aderno Way. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=20000&amp;id3=04197" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail</a> · read 2026-10-09</li><li><span class="n">[2]</span>Completed inspection results: 04196 has 39, 04197 has 29; 68 in total, 35 Not Ready or No Access (scheduled and cancelled excluded). <a href="https://data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2020000%2004196" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2020000%2004196</a> · read 2026-10-09</li><li><span class="n">[3]</span>Permit 04197: rough frame Not Ready on Jan 22 and Mar 20, conditional approval Aug 3; sprinkler sign-off Not Ready Jan 22; drywall nailing Not Ready Aug 24, 2026, with no later record (data current to Oct 3, 2026). <a href="https://data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2020000%2004197" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2020000%2004197</a> · read 2026-10-09</li></ul></details>
-<div class="scores"><span>independent value <b>4</b></span><span>specificity <b>5</b></span><span>pain <b>4</b></span><span>product fit <b>4</b></span><span>provable <b>5</b></span><span>actionable <b>5</b></span></div>
-</article>
-</div></section><section id="engine"><div class="wrap">
-<p class="kicker">How the next ten get found</p>
-<h2>The ten leads are a sample. This is the engine behind them.</h2>
-<div class="plays"><div class="play"><h3>Plan-check gap watch</h3>
+<h5>Sources</h5><ul class="ev"><li>[1] LA Times (via TNS), Jul 12, 2026: Nova Cottage Co., co-founded by Caroline Paules and architect Karin Najarian, has one ADU project underway in Altadena and is looking for a site for a village of up to 11 cottages. <a href="https://www.newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to-show-their-stuff/" rel="noopener" target="_blank">newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to</a> · read 2026-10-13</li><li>[8] 13 issued factory-built Palisades rebuild permits with a named contractor (8 contractors): on every one, LADBS issued first corrections within 17 days of submission; the longest stretches came between corrections and approval. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=06508" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a> · read 2026-10-13</li><li>[7] Palisades rebuild permits: 2,508 of 17,855 completed inspection results were Not Ready or No Access (14.0%). Most frequent items among those misses: Green Building Rough 296, Footing/Foundation/Slab 211, Verify Sprinkler Sign Off 206. <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a> · read 2026-10-13</li></ul>
+</article></div>
+    </div>
+    <p class="src">Ranked by intent, then fit. Every fact links to the public page it came from. Copy is written as
+      Merlin AI's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="m1" data-label="Message 1 · Bevyhouse" data-sub="Your fire-rebuild permits against the Palisades median, and which side of the counter the days sat on">
+  <div class="wrap">
+    <p class="kick"><b>Message 1 of 2</b> <s>Run on a real account: Bevyhouse</s></p>
+    <h2>Your fire-rebuild permits against the Palisades median, and which side of the counter the days sat on</h2>
+    <p class="lede">A builder&#x27;s time to issue, set against every Palisades rebuild permit filed the same months, then split into the city&#x27;s turn (first corrections) and the builder&#x27;s turn (resubmittal). For the modular builders checked, the months sat on the resubmittal side.</p>
+    <div class="chips"><a class="chip" href="https://data.lacity.org/resource/gwh9-jnip.json" rel="noopener" target="_blank">LA City open data: building permits submitted, 2020 to present</a><a class="chip" href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">LADBS Permit and Inspection Report (one page per permit)</a></div>
+    <div class="mail"><div class="to">To: Owner or operations lead at a modular home builder, Bevyhouse · Ojai, CA (factory in Central California)</div><div class="subj">Five Palisades permits, one fixable gap</div><p>Your five modular rebuild permits in the Palisades took a median 182 days to issue, against 133 for rebuild permits filed the same months. LADBS sent first corrections within 17 days on every one.</p><p>So the wait sat on the resubmittal side. If your factory slot waits on the permit, that&#x27;s factory time.</p><p>I lined up all five: submitted, corrections, approved, issued, and the days between. Want the timeline?</p></div>
+    <div class="asset"><div class="asset-h"><span>Attached: Bevyhouse Palisades permit timeline</span><span>showing 5 of All 5 permits where Bevyhouse is contractor; full version adds approval and resubmittal dates · source [6]</span></div><table class="tbl"><tr><th>Job</th><th>Submitted</th><th>Corrections</th><th>Issued</th><th>Days</th></tr><tr><td>16055 W Miami Way</td><td>9/30/2025</td><td>10/16/2025</td><td>3/5/2026</td><td>156</td></tr><tr><td>376 N Aderno Way</td><td>11/12/2025</td><td>11/18/2025</td><td>5/20/2026</td><td>189</td></tr><tr><td>16030 W Temecula St</td><td>12/26/2025</td><td>1/7/2026</td><td>3/24/2026</td><td>88</td></tr><tr><td>656 N Las Casas Ave</td><td>12/22/2025</td><td>1/8/2026</td><td>7/30/2026</td><td>220</td></tr><tr><td>1116 N Embury St</td><td>12/24/2025</td><td>1/5/2026</td><td>6/24/2026</td><td>182</td></tr></table></div>
+    <h3 style="margin-top:22px">The sequence, if they don't reply</h3><div class="fus"><div class="fu"><b>Day 0</b><p>The email above.</p></div><div class="fu"><b>Day 3</b><p>One way to work a timeline like that: each correction set becomes a task with an owner and a due date, and the factory slot moves when the resubmittal date moves. That&#x27;s what Merlin does for modular builders. It ties the permit to the production schedule, so nobody finds out at the factory. Worth seeing it on your five jobs?</p></div><div class="fu"><b>Day 8</b><p>One more from the same pages: the city&#x27;s turn on your permits ran 6 to 17 days. The longest wait after corrections was 656 N Las Casas Ave, Jan 8 to Jul 27. If anything is in plan check now, that&#x27;s the step to put a date on. Should I send the timeline?</p></div></div>
+    <div class="two">
+      <div class="pane"><h4>Why they'd reply</h4><p>A modular builder&#x27;s factory slot waits on the permit, so permit days are factory days. Seeing the delay sits on their side of the corrections loop tells them which step to give an owner and a date.</p></div>
+      <div class="pane"><h4>Where Merlin AI comes in</h4><p>Merlin ties the permit to the production schedule: each correction set is a task with an owner and a due date, and the factory slot and delivery re-plan when a resubmittal slips.</p></div>
+    </div>
+    <div class="scores"><span>independent value <b>4</b></span><span>specificity <b>5</b></span><span>pain <b>4</b></span><span>product fit <b>4</b></span><span>provable <b>5</b></span><span>actionable <b>4</b></span></div>
+    <h3 style="margin-top:22px">Where every fact comes from</h3><ul class="ev"><li>[1] Bevyhouse LLC (lic. 1039074-B) is contractor of record on 5 Palisades rebuild permits. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail</a> · read 2026-10-09</li><li>[5] 660 rebuild permits submitted Sep-Dec 2025: median 133 days to issue, counting the 119 not yet issued as slower. <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27%20AND%20permit_type%3D%27Bldg-New%27%20AND%20permit_sub_type%3D%271%20or%202%20Family%20Dwelling%27%20AND%20submitted_date%3E%3D%272025-09-01%27%20AND%20submitted_date%3C%272026-01-01%27&amp;%24limit=5000" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_desc%29%</a> · read 2026-10-09</li><li>[6] Rows read from the five permit pages. First corrections 6 to 17 days after submission; days to issue 156, 189, 88, 220, 182 (median 182). 656 N Las Casas Ave: corrections 1/8/2026, approved 7/27/2026. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail</a> · read 2026-10-13</li></ul>
+  </div>
+</section>
+
+<section class="s" data-key="m2" data-label="Message 2 · Bevyhouse" data-sub="The inspections on your job that keep coming back not ready, and the next call to fix">
+  <div class="wrap">
+    <p class="kick"><b>Message 2 of 2</b> <s>Run on a real account: Bevyhouse</s></p>
+    <h2>The inspections on your job that keep coming back not ready, and the next call to fix</h2>
+    <p class="lede">LADBS publishes every inspection result. Across Palisades rebuild permits, 14.0% of completed results came back Not Ready or No Access. Some jobs run far higher: one Bevyhouse job had 9 of 18, and the misses cluster: the same items get called together and bounce together, weeks apart.</p>
+    <div class="chips"><a class="chip" href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">LA City open data: Building and Safety inspections</a><a class="chip" href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">LADBS Permit and Inspection Report (one page per permit)</a><a class="chip" href="https://data.lacity.org/resource/gwh9-jnip.json" rel="noopener" target="_blank">LA City open data: building permits submitted, 2020 to present</a></div>
+    <div class="mail"><div class="to">To: Owner or superintendent at a builder running several rebuilds, Bevyhouse · Ojai, CA (factory in Central California)</div><div class="subj">Clearing your next Aderno Way inspection</div><p>Rough frame, green building and sprinkler sign-off at your 376 N Aderno Way rebuild were called together on Sep 3 and again on Sep 28. Neither visit cleared them.</p><p>Each extra call costs an inspector slot, and the next trades wait on it.</p><p>I pulled the inspection log for your Palisades permits, by item and date, so your site lead can see what to confirm before booking. Want the log?</p></div>
+    <div class="asset"><div class="asset-h"><span>Attached: Inspection log, 376 N Aderno Way (25010-10000-05316)</span><span>showing 5 of 18 results on this job (Bevyhouse&#x27;s), plus 8 on your other Palisades jobs · source [3]</span></div><table class="tbl"><tr><th>Date</th><th>Item</th><th>Result</th></tr><tr><td>Sep 3, 2026</td><td>Building rough frame</td><td>Not ready</td></tr><tr><td>Sep 3, 2026</td><td>Green building rough</td><td>Not ready</td></tr><tr><td>Sep 3, 2026</td><td>Verify sprinkler sign-off</td><td>Not ready</td></tr><tr><td>Sep 28, 2026</td><td>Building rough frame</td><td>Not ready</td></tr><tr><td>Sep 28, 2026</td><td>Green building rough</td><td>Not ready</td></tr></table></div>
+    <h3 style="margin-top:22px">The sequence, if they don't reply</h3><div class="fus"><div class="fu"><b>Day 0</b><p>The email above.</p></div><div class="fu"><b>Day 3</b><p>How teams use a log like that: before an inspection gets booked, the site lead confirms each item on the request is ready, and crews and deliveries move to the real date. Merlin runs that check inside the job schedule, across every site at once. Want me to show it on Aderno Way?</p></div><div class="fu"><b>Day 8</b><p>One more from the log: across Palisades rebuild permits, 14.0% of inspection results come back not ready or no access. Your other jobs show 1 in 8, so this is one site, not the whole team. Should I send the log?</p></div></div>
+    <div class="two">
+      <div class="pane"><h4>Why they'd reply</h4><p>Each bounced call burns an inspector slot and pushes the next trade, and for a modular builder the module set. Knowing which items keep bouncing on which job is something they can fix on the very next call.</p></div>
+      <div class="pane"><h4>Where Merlin AI comes in</h4><p>Merlin&#x27;s agents coordinate labour and information across jobs. An inspection request waits until the crew lead confirms each item is ready, and crews, deliveries and the module set move with the real inspection date instead of the hoped-for one.</p></div>
+    </div>
+    <div class="scores"><span>independent value <b>4</b></span><span>specificity <b>5</b></span><span>pain <b>4</b></span><span>product fit <b>4</b></span><span>provable <b>5</b></span><span>actionable <b>5</b></span></div>
+    <h3 style="margin-top:22px">Where every fact comes from</h3><ul class="ev"><li>[1] Bevyhouse LLC is contractor of record on 376 N Aderno Way (25010-10000-05316). <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail</a> · read 2026-10-09</li><li>[2] 18 completed results on 05316 since Jul 22, 2026, 9 Not Ready or No Access. Other Bevyhouse permits (04349, 05971): 1 in 8. <a href="https://data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%2005316" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%2005316</a> · read 2026-10-09</li><li>[3] Rough frame, green rough and sprinkler sign-off: Not Ready on Sep 3 and again Sep 28, 2026. <a href="https://data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%2005316" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json?permit=25010%2010000%2005316</a> · read 2026-10-09</li><li>[4] Palisades rebuild permits: 2,508 of 17,855 completed results Not Ready or No Access (14.0%). <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a> · read 2026-10-09</li></ul>
+  </div>
+</section>
+
+<section class="s" data-key="cut" data-label="What I threw out" data-sub="10 ideas and why">
+  <div class="wrap">
+    <p class="kick"><b>Taste</b> <s>The ideas that lost</s></p>
+    <h2>10 ideas didn't make it. Here's why each one lost.</h2>
+    <p class="lede">Each candidate was judged from the recipient's seat: would they pay for this on its own?
+      <strong>"PQS"</strong> means good for choosing who to message, but the message would really be about Merlin AI.</p>
+    <div class="boxed"><table class="tbl"><tr><th>Idea</th><th>Verdict</th><th>Why it lost</th></tr><tr><td><b>Issued permits with no inspection, against the expiry clock</b></td><td><span class='k kill'>kill</span></td><td>The expiry clock is unsettled for fire rebuilds (the Mayor&#x27;s EO 8 gives them years). A warning that might be false burns trust.</td></tr><tr><td><b>A live readiness board of your own jobs from public records</b></td><td><span class='k kill'>kill</span></td><td>They already know their own job status. Public data only repeats it back.</td></tr><tr><td><b>Rebuild permits filing truss submittals: a demand list for truss shops</b></td><td><span class='k maybe'>maybe</span></td><td>Thin (46 permits) and late: a deferred truss submittal means the supplier is already chosen. Retest on LA County&#x27;s rebuild.</td></tr><tr><td><b>Burned lots on your streets with no rebuild permit filed yet</b></td><td><span class='k kill'>kill</span></td><td>A lead list. The next step is a CRM, not Merlin, so it fails product fit.</td></tr><tr><td><b>Factory-built rebuilds get permitted faster</b></td><td><span class='k kill'>kill</span></td><td>The data killed it: 20 issued factory-built rebuild permits took a median 114 days, against 101 for all rebuilds.</td></tr><tr><td><b>Your plan-check engineer&#x27;s turnaround</b></td><td><span class='k kill'>kill</span></td><td>The builder can&#x27;t pick the engineer, and naming city staff reads as a complaint.</td></tr><tr><td><b>Your pre-approved standard plan is still sitting in plan check</b></td><td><span class='k kill'>kill</span></td><td>The record names no owner for these plans, so there&#x27;s no named recipient.</td></tr><tr><td><b>Congrats on your first Palisades module set</b></td><td><span class='k kill'>kill</span></td><td>A congratulations trigger. It hands them nothing.</td></tr><tr><td><b>Rival modular builders are hiring estimators and PMs</b></td><td><span class='k kill'>kill</span></td><td>Job posts about a competitor, not the recipient. Known-weak data.</td></tr><tr><td><b>Your rebuilds are slipping; you need better coordination</b></td><td><span class='k kill'>PQS</span></td><td>PQS: &#x27;you have the problem Merlin solves&#x27;. Good for targeting, not a message.</td></tr></table></div>
+  </div>
+</section>
+
+<section class="s" data-key="engine" data-label="The engine" data-sub="How the next ten get found">
+  <div class="wrap">
+    <p class="kick"><b>Engine</b> <s>How the next ten get found</s></p>
+    <h2>The ten leads are a sample. This is the engine behind them.</h2>
+    <div class="three"><div class="pane"><h4>Plan-check gap watch</h4>
 <dl><dt>Trigger</dt><dd>A modular, factory-built or Standard Plan rebuild permit changes status in LA City (submitted, corrections, resubmitted, approved, issued).</dd><dt>How</dt><dd>Weekly pull of the LADBS submitted-permits dataset, filtered to rebuild permits whose description says modular, factory built, prefab or Standard Plan. Read each permit page for the contractor or plan owner and the status history. Score by days sitting in the builder&#x27;s turn (corrections to resubmittal) against the cohort median.</dd>
 <dt>Output</dt><dd>Per account: the permit timeline table, the cohort benchmark, and a Message 1 draft for the owner, queued for rep review.</dd><dt>Cadence</dt><dd>Weekly</dd></dl>
-<div class="chips"><a class="chip" href="https://data.lacity.org/resource/gwh9-jnip.json" rel="noopener" target="_blank">LA City open data: building permits submitted, 2020 to present</a><a class="chip" href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">LADBS Permit and Inspection Report (one page per permit)</a></div></div><div class="play"><h3>Inspection-readiness watcher</h3>
+<div class="chips"><a class="chip" href="https://data.lacity.org/resource/gwh9-jnip.json" rel="noopener" target="_blank">LA City open data: building permits submitted, 2020 to present</a><a class="chip" href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">LADBS Permit and Inspection Report (one page per permit)</a></div></div><div class="pane"><h4>Inspection-readiness watcher</h4>
 <dl><dt>Trigger</dt><dd>The same inspection item comes back Not Ready or No Access twice on one permit within 30 days.</dd><dt>How</dt><dd>Daily pull of the LADBS inspections dataset for rebuild permits. Group results by permit and item, flag repeats, then read the permit page for the contractor. Score by repeat count and by how many active permits that contractor holds.</dd>
 <dt>Output</dt><dd>Per contractor: the inspection log by item and date, the 14.0% city benchmark, and a Message 2 draft, ready the day after the second miss.</dd><dt>Cadence</dt><dd>Daily</dd></dl>
-<div class="chips"><a class="chip" href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">LA City open data: Building and Safety inspections</a><a class="chip" href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">LADBS Permit and Inspection Report (one page per permit)</a><a class="chip" href="https://data.lacity.org/resource/gwh9-jnip.json" rel="noopener" target="_blank">LA City open data: building permits submitted, 2020 to present</a></div></div><div class="play"><h3>Modular-market trigger</h3>
+<div class="chips"><a class="chip" href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">LA City open data: Building and Safety inspections</a><a class="chip" href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">LADBS Permit and Inspection Report (one page per permit)</a><a class="chip" href="https://data.lacity.org/resource/gwh9-jnip.json" rel="noopener" target="_blank">LA City open data: building permits submitted, 2020 to present</a></div></div><div class="pane"><h4>Modular-market trigger</h4>
 <dl><dt>Trigger</dt><dd>A prefab or modular builder shows up in a state award, a press story or a new factory-built permit in a fire-rebuild area.</dd><dt>How</dt><dd>Weekly scan of SGC and HCD announcements, LA press on prefab rebuilds and new factory-built permit descriptions. Match each builder to a named founder or president from its site or the release, then attach the permit benchmarks above as the asset.</dd>
 <dt>Output</dt><dd>A named founder-level lead with signal, source and copy, like leads 4 to 9 on this board.</dd><dt>Cadence</dt><dd>Weekly</dd></dl>
 <div class="chips"><a class="chip" href="https://data.lacity.org/resource/gwh9-jnip.json" rel="noopener" target="_blank">LA City open data: building permits submitted, 2020 to present</a><a class="chip" href="https://sgc.ca.gov/newsroom/press-releases/2026/california-awards-10-million-to-accelerate-development-and-use-of-factory-built-housing-statewide/" rel="noopener" target="_blank">sgc.ca.gov/newsroom/press-releas</a><a class="chip" href="https://www.newstribune.com/news/2026/jul/12/prefab-housing-builders-seek-to-show-their-stuff/" rel="noopener" target="_blank">newstribune.com/news/2026/jul/12</a></div></div></div>
-<h4>One run, end to end</h4>
-<ol class="steps">
-<li>Describe Merlin AI's buyer, and where public data is strongest for them.</li>
-<li>Set kill rules, then test 3 pain segments against them.</li>
-<li>Map the public sources that describe each account: 5 in this run.</li>
-<li>Generate 12 candidate messages, judge each from the recipient's seat, keep 2.</li>
-<li>Rank accounts by live signal and pull 10 named leads, each with its source.</li>
-<li>Write the copy last, under a checker that blocks any number with no source behind it.</li>
-</ol>
-<h4>Does the segment support it</h4><table><tr><td style='width:45%'>Segment</td><td>Contractors on LA City Palisades fire-rebuild permits (new homes)</td></tr><tr><td style='width:45%'>Accounts in it</td><td>2,244 rebuild permits (jobs; contractors not yet de-duplicated) <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27%20AND%20permit_type%3D%27Bldg-New%27%20AND%20permit_sub_type%3D%271%20or%202%20Family%20Dwelling%27%20AND%20submitted_date%3E%3D%272025-01-07%27&amp;%24limit=10000" rel="noopener" target="_blank">source</a></td></tr><tr><td style='width:45%'>Meetings a month, as the goal</td><td>4</td></tr><tr><td style='width:45%'>Share of the segment contacted each month</td><td>25%</td></tr><tr><td style='width:45%'>Positive replies that book</td><td>50%</td></tr></table><p class='meta' style='margin-top:10px'>One zip code, so the message has to be sharp; the needed reply rate waits on a de-duplicated contractor count. Scale comes from LA County&#x27;s Eaton-fire rebuild and other cities that publish inspections. These are planning inputs, not results.</p>
-</div></section><section id="plan"><div class="wrap">
-<p class="kicker">First 14 days</p>
-<h2>What I'd run first, each step measured on its own.</h2>
-<table><tr><th>When</th><th>What</th><th>Measured by</th></tr><tr><td style='width:18%'><b>Days 1-2</b></td><td>Map Merlin&#x27;s current pipeline and customers against LA contractor and plan-owner names on rebuild permits; agree the ICP filter (modular, factory-built, multi-job residential).</td><td style='width:30%'>Share of target accounts matched to a licence and at least one live permit</td></tr><tr><td style='width:18%'><b>Days 3-5</b></td><td>Ship the plan-check gap watch as a weekly job writing timelines and Message 1 drafts into Merlin&#x27;s CRM.</td><td style='width:30%'>Accounts with a fresh timeline asset each week, and hand-checked accuracy on 20 of them</td></tr><tr><td style='width:18%'><b>Days 6-8</b></td><td>Ship the inspection-readiness watcher as a daily job with Message 2 drafts.</td><td style='width:30%'>Flagged jobs with a named contractor per day; false-positive rate on 20 hand-checked flags</td></tr><tr><td style='width:18%'><b>Days 9-11</b></td><td>Founder-approved sends from the queue, 5-10 a day, each play tagged separately.</td><td style='width:30%'>Reply rate and positive replies per play, tracked on their own</td></tr><tr><td style='width:18%'><b>Days 12-14</b></td><td>Extend both watchers to LA County&#x27;s Eaton-fire rebuild permits, then write a one-page readout: what to keep, what to kill.</td><td style='width:30%'>New accounts added from LA County, and a keep/kill call on each play</td></tr></table>
-</div></section><section id="why"><div class="wrap">
-<p class="kicker">Why me</p>
-<h2>I build the systems behind outbound, then test them like experiments.</h2>
-<div class="proof"><div><b>2,202,516</b><p class="lb">emails sent across 638 client campaigns</p><p>Run end to end for 10 client workspaces: list, enrichment, copy, sending infrastructure, reply handling.</p></div><div><b>0.400% vs 0.053%</b><p class="lb">positive-reply rate, by list source</p><p>Same offer, copy and inboxes for a capital-markets client; only the list changed. Mined positive-repliers beat ZoomInfo by that margin, so I test lists before I touch copy.</p></div><div><b>18 vs 0</b><p class="lb">interested replies from byte-identical copy</p><p>One email went to two audiences for an interview-prep company: 9,244 sends to career centres, 4,422 to K-12 administrators. The copy was fine; the segment was the problem.</p></div><div><b>35,096</b><p class="lb">US HVAC companies mapped, 25,705 with domains</p><p>Built from a 1,000-city maps grid, deduplicated, chains flagged: the kind of list no data vendor sells.</p></div></div>
-<p class="meta" style="margin-top:16px">Case studies with live numbers: <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
-</div></section><section class="cta"><div class="wrap">
-<h2>The ten leads are yours. The engine that finds the next ten is the job.</h2>
-<p>Shubham Sharma · <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
-</div></section><section id="appendix"><div class="wrap">
-<p class="kicker">Appendix</p>
-<details><summary>How the segment was picked</summary>
-<p class="meta" style="margin-top:10px"><b>Merlin AI</b> sells one AI-native operating system for construction firms: estimating, procurement, inventory, job costing, scheduling and billing, with agents that flag delays and overruns early.<br><b>Buyer</b> Owner or COO of a modular, prefab or residential builder running many jobs at once (about 10-300 people; Merlin&#x27;s launch post names modular builders first). The daily pain sits with the ops manager lining up factory, crews, inspections and deliveries.</p>
-<p>Public-data impact <b>high</b> · buyer complexity <b>low</b>. Every permit, plan-check step and inspection in LA City is public and names the contractor, and the buyer is owner-led. The PVP goes straight to the owner or ops lead.</p>
-<table><tr><th>Track</th><th>Segment</th><th>Kill if</th><th>Result</th></tr><tr><td>Primary</td><td>Modular builders with LA City Palisades fire-rebuild permits. Survival metric: days to module set, gated by permit and site readiness.</td><td>Under 10% run slower than the city median, or the contractor can&#x27;t be named from public records.</td><td><span class='k held'>held</span> Permit pages name the contractor. 12 of 20 issued factory-built rebuild permits took longer than the 101-day median.</td></tr><tr><td>Backup</td><td>Residential GCs running several rebuilds, where bounced inspections push every trade back.</td><td>Under 10% of inspection results are Not Ready or No Access, or results can&#x27;t be tied to a contractor.</td><td><span class='k held'>held</span> 14.0% of 17,855 completed results were Not Ready or No Access; some jobs run near 50%.</td></tr><tr><td>Wildcard</td><td>Truss and panel fabricators selling into the rebuild, demand read from permits.</td><td>Under 50 signals a quarter, or the signal lands after the supplier is chosen.</td><td><span class='k killed'>killed</span> 46 truss-related rebuild permits in total, mostly deferred submittals filed once a supplier is engaged.</td></tr></table></details>
-<details><summary>10 ideas I threw out, and why</summary>
-<p class="meta" style="margin-top:10px">"PQS" means good for choosing who to message, but the message would really be
-about Merlin AI, not about them.</p>
-<table><tr><th>Idea</th><th>Verdict</th><th>Why it failed</th></tr><tr><td>Issued permits with no inspection, against the expiry clock</td><td><span class='k killed'>kill</span></td><td>The expiry clock is unsettled for fire rebuilds (the Mayor&#x27;s EO 8 gives them years). A warning that might be false burns trust.</td></tr><tr><td>A live readiness board of your own jobs from public records</td><td><span class='k killed'>kill</span></td><td>They already know their own job status. Public data only repeats it back.</td></tr><tr><td>Rebuild permits filing truss submittals: a demand list for truss shops</td><td><span class='k maybe'>maybe</span></td><td>Thin (46 permits) and late: a deferred truss submittal means the supplier is already chosen. Retest on LA County&#x27;s rebuild.</td></tr><tr><td>Burned lots on your streets with no rebuild permit filed yet</td><td><span class='k killed'>kill</span></td><td>A lead list. The next step is a CRM, not Merlin, so it fails product fit.</td></tr><tr><td>Factory-built rebuilds get permitted faster</td><td><span class='k killed'>kill</span></td><td>The data killed it: 20 issued factory-built rebuild permits took a median 114 days, against 101 for all rebuilds.</td></tr><tr><td>Your plan-check engineer&#x27;s turnaround</td><td><span class='k killed'>kill</span></td><td>The builder can&#x27;t pick the engineer, and naming city staff reads as a complaint.</td></tr><tr><td>Your pre-approved standard plan is still sitting in plan check</td><td><span class='k killed'>kill</span></td><td>The record names no owner for these plans, so there&#x27;s no named recipient.</td></tr><tr><td>Congrats on your first Palisades module set</td><td><span class='k killed'>kill</span></td><td>A congratulations trigger. It hands them nothing.</td></tr><tr><td>Rival modular builders are hiring estimators and PMs</td><td><span class='k killed'>kill</span></td><td>Job posts about a competitor, not the recipient. Known-weak data.</td></tr><tr><td>Your rebuilds are slipping; you need better coordination</td><td><span class='k killed'>PQS</span></td><td>PQS: &#x27;you have the problem Merlin solves&#x27;. Good for targeting, not a message.</td></tr></table></details>
-<details><summary>Every source this page drew on</summary><ul class="ev"><li><span class="n">·</span>LA City open data: building permits submitted, 2020 to present: Every LA City building permit with submitted date, issue date, status and work description. Rebuilds carry a &#x27;2025 WILDFIRE&#x27; tag and factory-built jobs say so in the description. <a href="https://data.lacity.org/resource/gwh9-jnip.json" rel="noopener" target="_blank">data.lacity.org/resource/gwh9-jnip.json</a></li><li><span class="n">·</span>LADBS Permit and Inspection Report (one page per permit): Contractor of record and licence number, the full plan-check history (submitted, corrections, resubmittal, approval, issue) and the inspection log. <a href="https://www.ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermitDetail?id1=25010&amp;id2=10000&amp;id3=05316" rel="noopener" target="_blank">ladbsservices2.lacity.org/OnlineServices/PermitReport/PcisPermit</a></li><li><span class="n">·</span>LA City open data: Building and Safety inspections: Every inspection result by permit: Approved, Partial, Not Ready for Inspection, No Access, Corrections. Current to 2026-10-03 when pulled. <a href="https://data.lacity.org/resource/9w5z-rg2h.json" rel="noopener" target="_blank">data.lacity.org/resource/9w5z-rg2h.json</a></li><li><span class="n">·</span>LA City open data: certificates of occupancy: Certificate of occupancy dates per permit, with the contractor&#x27;s licence number. <a href="https://data.lacity.org/resource/3f9m-afei.json" rel="noopener" target="_blank">data.lacity.org/resource/3f9m-afei.json</a></li><li><span class="n">·</span>Builder&#x27;s own website (bevyhouse.com fire-rebuild page): How the builder works: factory location, module delivery and set, fire-rebuild track record. <a href="https://bevyhouse.com/fire-rebuild/" rel="noopener" target="_blank">bevyhouse.com/fire-rebuild/</a></li></ul></details>
-</div></section>
-<footer><div class="wrap">Merlin AI · prepared by Shubham Sharma · 2026-10-08 · unlisted page, not indexed</div></footer>
+  </div>
+</section>
+
+<section class="s" data-key="run" data-label="One run, end to end" data-sub="Method and the TAM math">
+  <div class="wrap">
+    <p class="kick"><b>Method</b> <s>One run, end to end</s></p>
+    <h2>Six steps, and the copy comes last.</h2>
+    <div class="steps"><div class="step"><b>Describe the buyer</b><p>Merlin AI&#x27;s buyer, and where public data is strongest for them.</p></div><div class="step"><b>Kill rules first</b><p>Set before looking, then 3 pain segments tested against them.</p></div><div class="step"><b>Map the sources</b><p>Public data that describes each account: 5 in this run.</p></div><div class="step"><b>Generate and judge</b><p>12 candidate messages, judged from the recipient&#x27;s seat; 2 kept.</p></div><div class="step"><b>Rank by live signal</b><p>10 named leads, each with its source.</p></div><div class="step"><b>Copy last</b><p>Written under a checker that blocks any number with no source behind it.</p></div></div>
+    <h3 style="margin-top:26px">Does the segment support it</h3><div class="boxed"><table class="tbl"><tr><td style='width:38%'>Segment</td><td>Contractors on LA City Palisades fire-rebuild permits (new homes)</td></tr><tr><td style='width:38%'>Accounts in it</td><td>2,244 rebuild permits (jobs; contractors not yet de-duplicated) <a href="https://data.lacity.org/resource/gwh9-jnip.json?%24where=upper%28work_desc%29%20like%20%27%25WILDFIRE%25%27%20AND%20permit_type%3D%27Bldg-New%27%20AND%20permit_sub_type%3D%271%20or%202%20Family%20Dwelling%27%20AND%20submitted_date%3E%3D%272025-01-07%27&amp;%24limit=10000" rel="noopener" target="_blank">source</a></td></tr><tr><td style='width:38%'>Meetings a month, as the goal</td><td>4</td></tr><tr><td style='width:38%'>Share of the segment contacted each month</td><td>25%</td></tr><tr><td style='width:38%'>Positive replies that book</td><td>50%</td></tr></table></div><p class="src">One zip code, so the message has to be sharp; the needed reply rate waits on a de-duplicated contractor count. Scale comes from LA County&#x27;s Eaton-fire rebuild and other cities that publish inspections. These are planning inputs, not results.</p>
+  </div>
+</section>
+
+<section class="s" data-key="plan" data-label="If hired: first 14 days" data-sub="Each step measured on its own">
+  <div class="wrap">
+    <p class="kick"><b>If hired</b> <s>The first two weeks</s></p>
+    <h2>What I'd run first, each step measured on its own.</h2>
+    <div class="rows"><div class="row"><em>Days 1-2</em><p><b>Map Merlin&#x27;s current pipeline and customers against LA contractor and plan-owner names on rebuild permits; agree the ICP filter (modular, factory-built, multi-job residential).</b>Measured by: Share of target accounts matched to a licence and at least one live permit</p></div><div class="row"><em>Days 3-5</em><p><b>Ship the plan-check gap watch as a weekly job writing timelines and Message 1 drafts into Merlin&#x27;s CRM.</b>Measured by: Accounts with a fresh timeline asset each week, and hand-checked accuracy on 20 of them</p></div><div class="row"><em>Days 6-8</em><p><b>Ship the inspection-readiness watcher as a daily job with Message 2 drafts.</b>Measured by: Flagged jobs with a named contractor per day; false-positive rate on 20 hand-checked flags</p></div><div class="row"><em>Days 9-11</em><p><b>Founder-approved sends from the queue, 5-10 a day, each play tagged separately.</b>Measured by: Reply rate and positive replies per play, tracked on their own</p></div><div class="row"><em>Days 12-14</em><p><b>Extend both watchers to LA County&#x27;s Eaton-fire rebuild permits, then write a one-page readout: what to keep, what to kill.</b>Measured by: New accounts added from LA County, and a keep/kill call on each play</p></div></div>
+  </div>
+</section>
+
+<section class="s" data-key="me" data-label="Who&#x27;s building it" data-sub="The receipts">
+  <div class="wrap">
+    <p class="kick"><b>Me</b> <s>Shubham Sharma · GTM engineer</s></p>
+    <h2>I build the systems behind outbound, then test them like experiments.</h2>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span><p>Run end to end for 10 client workspaces: list, enrichment, copy, sending infrastructure, reply handling.</p></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span><p>Replies a person marked as interested, so it&#x27;s a floor, not a classifier&#x27;s guess.</p></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span><p>Booked calls across client accounts, as of the September snapshot.</p></div><div class="stat"><b>35K</b><span>US HVAC companies mapped, 25,705 with domains</span><p>Built from a 1,000-city maps grid, deduplicated, chains flagged: the kind of list no data vendor sells.</p></div></div>
+    <p class="src">Case studies with live numbers: <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a>. Clients are described, not named, on a page that can be forwarded.</p>
+  </div>
+</section>
+
+<section class="s mid" data-key="close" data-label="Close" data-sub="The leads are yours">
+  <div class="wrap">
+    <p class="kick"><b>Merlin AI</b> <s>2026-10-08</s></p>
+    <h1>The ten leads are yours. The engine that finds the next ten is the job.</h1>
+    <p class="lede">Shubham Sharma · <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Merlin AI</b> &middot; Shubham Sharma</span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 11</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
 <script>
 (function(){
-  document.documentElement.classList.add('js');
-  var btns = document.querySelectorAll('.list button'), leads = document.querySelectorAll('.lead');
-  function show(i){
-    leads.forEach(function(l, k){ l.classList.toggle('on', k === i); });
-    btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
-  }
-  btns.forEach(function(b, k){ b.addEventListener('click', function(){
-    show(k);
-    if (window.innerWidth < 760) leads[k].scrollIntoView({behavior:'smooth', block:'start'});
-  }); });
-  if (leads.length) show(0);
-  document.querySelectorAll('[data-copy]').forEach(function(b){
-    b.addEventListener('click', function(){
-      var t = b.closest('.msg').querySelector('pre').innerText;
-      (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
-        function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
-        function(){ b.textContent = 'Select and copy'; });
-    });
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
   });
-  window.addEventListener('beforeprint', function(){
-    document.querySelectorAll('details').forEach(function(d){ d.open = true; });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
   });
 })();
+
+})();
 </script>
-</body></html>
+</body>
+</html>
