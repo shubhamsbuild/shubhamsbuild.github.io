@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Third Chair</title>
+<meta name="description" content="10 named leads with copy and three things I'd build, prepared for Third Chair.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
+.asset-h span:first-child{color:var(--ink);font-weight:500}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
+.scores b{color:var(--ink)}
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="What&#x27;s on this page">
+  <div class="wrap">
+    <p class="kick"><b>For Third Chair</b> <s>from Shubham Sharma</s></p>
+    <h1 class="xl">Ten indie labels, publishers and artists you could email today.</h1>
+    <p class="lede">Three messages they'd pay to receive, ten named leads to send them to,
+      and three things I'd build at Third Chair. Every fact links to its public source.</p>
+    <p class="src">I'm looking for my next GTM role. &middot; <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+
+<section class="s" data-key="messages" data-label="Three messages" data-sub="What they&#x27;d pay to receive">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The messages</s></p>
+    <h2>Three messages your indie labels, publishers and artists would pay to receive.</h2>
+    <div class="board">
+      <div class="leads"><button type="button" aria-pressed="false"><em>01</em><span>The master side of BOO, left out of two October brand suits<i>For Head of business affairs or owner at the master&#x27;s label or distributor</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Your 3-month window to register Bow Bow Bow<i>For Owner of an indie label or a self-releasing artist with a charting track</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Brands sued over creator-post music since August, as Enterprise prospects<i>For Head of enterprise sales or licensing at a production music library</i></span></button></div>
+      <div class="detail" aria-live="polite"><article class="pm">
+<h3>The master side of BOO, left out of two October brand suits</h3>
+<p class="take">Two brands were sued over videos set to BOO, and both suits carve out the master, so that claim is still open.</p>
+<div class="mail"><div class="to">To: Head of business affairs or owner at the master&#x27;s label or distributor, WatchDatBaby Records / Hitmaker Distro</div>
+<div class="subj">The master side of BOO</div><p>Two brands were sued this month over sponsored videos the complaints say are set to BOO: SHEIN and Oner Active. Both claim only the drum composition, and the SHEIN complaint says it doesn&#x27;t claim the master or vocals.</p><p>That&#x27;s the side your ℗ line covers. When I checked on Oct 29, the Copyright Office catalog showed no recording registration for BOO. It runs weeks behind, so one may be pending, and you&#x27;d need it before suing.</p><p>I pulled each BOO video from both complaints. Want the list?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: BOO in the October brand complaints &middot; first 3 of 2</span></div><table class="tbl"><tr><th>Brand</th><th>Post</th><th>Posted or seen</th><th>Views</th><th>What the suit claims</th></tr><tr><td>Oner Active</td><td>TikTok creator video with an Oner discount code</td><td>Posted Jan 16, 2026</td><td>45,500 (Oct 12)</td><td>Drum composition only</td></tr><tr><td>SHEIN</td><td>TikTok video with paid-partnership disclosure, tags @SHEIN</td><td>Seen Oct 4, 2026</td><td>Not stated</td><td>Drum composition only; master, vocals, lyrics excluded</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 7</summary><ul class="ev"><li>[1] Music L.A.A. (LAA Music) sued SHEIN US Services and SHEIN Distribution on Oct 9, 2026 (E.D. Mich. 5:26-cv-13851). The suit covers an Instagram Reel with a &#x27;Paid Partnership&#x27; label and a TikTok video observed on Oct 4, 2026 that used BOO and promoted SHEIN with a paid-partnership disclosure. As to BOO, LAA claims only the drum composition registered as PA 2-569-090, and the complaint excludes the master recording and vocals. The other work in the suit is a sound recording registered as SR 1-075-539. <a href="https://storage.courtlistener.com/recap/gov.uscourts.mied.398871/gov.uscourts.mied.398871.1.0.pdf" rel="noopener" target="_blank">storage.courtlistener.com/recap/gov.uscourts.mied.398871/gov.usc</a></li><li>[2] Music L.A.A. (LAA Music) sued Oner Active USA LLC on Oct 15, 2026 (E.D. Mich. 4:26-cv-13928) over at least 16 creator videos set to three works, with 1,058,000+ combined views. Video No. 15 is a TikTok posted Jan 16, 2026, with an Oner discount code and 45,500 views as of Oct 12, 2026. TikTok links its audio to BOO by H3adband. LAA&#x27;s BOO claim is the musical work &#x27;Boo (original drum composition)&#x27;. <a href="https://storage.courtlistener.com/recap/gov.uscourts.mied.399004/gov.uscourts.mied.399004.1.0.pdf" rel="noopener" target="_blank">storage.courtlistener.com/recap/gov.uscourts.mied.399004/gov.usc</a></li><li>[3] Apple Music: BOO - Single, released Oct 14, 2025, and BOO (Radio Edit) - Single, released Oct 13, 2025, both carry the line &#x27;℗ 2025 WatchDatBaby Records/Hitmaker Distro&#x27;. BOO (GudGroove Remix) - Single (May 15, 2026) reads &#x27;℗ 2026 WatchDatBaby Records/Hitmaker Music Group/Hitmaker Distro&#x27;. <a href="https://itunes.apple.com/lookup?id=1869371918,1870095196,6769504703&amp;country=us" rel="noopener" target="_blank">itunes.apple.com/lookup?id=1869371918,1870095196,6769504703&amp;coun</a></li><li>[4] When I checked the Copyright Office public records on Oct 29, 2026, searches for WatchDatBaby, Hitmaker Distro and H3adband returned 0 records. The only BOO record was PA0002569090, &#x27;Boo (original drum composition)&#x27;, a music registration effective 2026-01-26 that names Music LAA among its claimants. There was no sound recording registration for BOO. The catalog lags, and pending applications don&#x27;t show. <a href="https://api.publicrecords.copyright.gov/search_service_external/simple_search_dsl?page_number=1&amp;records_per_page=25&amp;type_of_query=keyword&amp;query=WatchDatBaby&amp;field_type=keyword" rel="noopener" target="_blank">api.publicrecords.copyright.gov/search_service_external/simple_s</a></li><li>[5] 17 U.S.C. 411(a): for a United States work, registration must be made before an infringement suit is filed. <a href="https://www.law.cornell.edu/uscode/text/17/411" rel="noopener" target="_blank">law.cornell.edu/uscode/text/17/411</a></li><li>[6] 17 U.S.C. 507(b): a civil copyright claim must be brought within three years after it accrued. <a href="https://www.law.cornell.edu/uscode/text/17/507" rel="noopener" target="_blank">law.cornell.edu/uscode/text/17/507</a></li><li>[7] Docket dates: Music LAA v. SHEIN filed Oct 9, 2026; Music LAA v. Oner Active filed Oct 15, 2026. <a href="https://www.courtlistener.com/docket/74942131/music-laa-inc-v-shein-us-services-llc/" rel="noopener" target="_blank">courtlistener.com/docket/74942131/music-laa-inc-v-shein-us-servi</a></li></ul></details>
+</article><article class="pm">
+<h3>Your 3-month window to register Bow Bow Bow</h3>
+<p class="take">Register Bow Bow Bow by Dec 17 and brand uses from release day can still earn statutory damages.</p>
+<div class="mail"><div class="to">To: Owner of an indie label or a self-releasing artist with a charting track, Power Moves Inc (Zeddy Will)</div>
+<div class="subj">Bow Bow Bow&#x27;s Dec 17 deadline</div><p>Bow Bow Bow came out Sep 17 and was #27 on Shazam&#x27;s US chart this week. Brands jump on sounds while they climb.</p><p>Register the recording by Dec 17 and a brand that used it before the certificate can still owe statutory damages and fees. After that date, only uses that start after you register can.</p><p>When I checked on Oct 29, the public catalog showed no registration yet, though new filings take weeks to appear. I listed your 2026 singles with each one&#x27;s deadline. Want it?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Power Moves Inc releases and their registration dates &middot; first 3 of 5</span></div><table class="tbl"><tr><th>Release</th><th>First out</th><th>Register by</th><th>In public catalog, Oct 29</th></tr><tr><td>A$$ Like That</td><td>Aug 13, 2026</td><td>Nov 13, 2026</td><td>Not found</td></tr><tr><td>Bow Bow Bow (and Remix)</td><td>Sep 17, 2026</td><td>Dec 17, 2026</td><td>Not found</td></tr><tr><td>#ZEDDY</td><td>Oct 13, 2026</td><td>Jan 13, 2027</td><td>Not found</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 5</summary><ul class="ev"><li>[1] Apple Music lists Zeddy Will releases with the ℗ line Power Moves Inc. Bow Bow Bow - Single and Bow Bow Bow (Remix) came out Sep 17, 2026; A$$ Like That on Aug 13, 2026; There It Is on Mar 20, 2026; Strut on Nov 21, 2025. #ZEDDY (℗ 2026 PMI) came out Oct 13, 2026. <a href="https://itunes.apple.com/lookup?id=1627730378&amp;entity=album&amp;limit=60&amp;country=us&amp;sort=recent" rel="noopener" target="_blank">itunes.apple.com/lookup?id=1627730378&amp;entity=album&amp;limit=60&amp;coun</a></li><li>[2] Shazam&#x27;s US Top 200, week to Oct 28, 2026 (checked Oct 29, 2026): 27,&quot;Zeddy Will&quot;,&quot;Bow Bow Bow&quot; <a href="https://www.shazam.com/services/charts/csv/top-200/united-states" rel="noopener" target="_blank">shazam.com/services/charts/csv/top-200/united-states</a></li><li>[3] 17 U.S.C. 412: a published work registered within three months after first publication keeps statutory damages and attorney&#x27;s fees even for infringement that began before registration. Otherwise, those remedies apply only to infringement that starts after registration. The House report says the grace period exists for &#x27;suddenly popular works&#x27;. <a href="https://www.law.cornell.edu/uscode/text/17/412" rel="noopener" target="_blank">law.cornell.edu/uscode/text/17/412</a></li><li>[4] Three months after each first release: A$$ Like That Aug 13 -&gt; Nov 13, 2026; Bow Bow Bow Sep 17 -&gt; Dec 17, 2026; #ZEDDY Oct 13 -&gt; Jan 13, 2027; There It Is Mar 20 -&gt; Jun 20, 2026 (passed); Strut Nov 21, 2025 -&gt; Feb 21, 2026 (passed). <a href="https://www.law.cornell.edu/uscode/text/17/412" rel="noopener" target="_blank">law.cornell.edu/uscode/text/17/412</a></li><li>[5] Copyright Office public records, name search &#x27;Power Moves&#x27;, checked Oct 29, 2026: 2 records, one sound recording, &#x27;YUP AND I DO.&#x27; (SR0001077014, 2026-04-29, claimant POWER MOVES, INC.). No record for Bow Bow Bow, A$$ Like That, #ZEDDY, There It Is or Strut. Newest catalog files date from Sep 2026, and pending applications don&#x27;t show. <a href="https://api.publicrecords.copyright.gov/search_service_external/simple_search_dsl?page_number=1&amp;records_per_page=25&amp;type_of_query=keyword&amp;query=Power%20Moves&amp;field_type=name" rel="noopener" target="_blank">api.publicrecords.copyright.gov/search_service_external/simple_s</a></li></ul></details>
+</article><article class="pm">
+<h3>Brands sued over creator-post music since August, as Enterprise prospects</h3>
+<p class="take">Brands sued since August over music in creator posts, each a buyer for a license that covers creators.</p>
+<div class="mail"><div class="to">To: Head of enterprise sales or licensing at a production music library, Epidemic Sound</div>
+<div class="subj">Brands now clearing creator music</div><p>Since August, brands with large creator programs have been sued over music in creator posts. SHEIN over paid partnerships, Oner Active over 16 ambassador videos and Bissell over a TikTok ad.</p><p>Each one now has a reason to check what its creators play. Your Enterprise plan says it covers &quot;your creators&quot;, which is the exact use those complaints are about.</p><p>I pulled the brands sued since August, with filing date, plaintiff, platform and the posts named. Want the list?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Brands sued over music in creator or social posts, Aug 1 to Oct 28, 2026 &middot; first 3 of 3</span></div><table class="tbl"><tr><th>Brand</th><th>Filed</th><th>Plaintiff</th><th>What the complaint targets</th></tr><tr><td>Oner Active</td><td>Oct 15</td><td>LAA Music</td><td>16 ambassador and affiliate videos, two run as paid TikTok ads</td></tr><tr><td>SHEIN</td><td>Oct 9</td><td>LAA Music</td><td>An Instagram Reel and a TikTok video, both paid partnerships</td></tr><tr><td>Bissell</td><td>Oct 19</td><td>An independent artist</td><td>An ad on Bissell&#x27;s TikTok page</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 4</summary><ul class="ev"><li>[1] Oner Active complaint (filed Oct 15, 2026): at least sixteen (16) promotional videos by Oner&#x27;s ambassadors and affiliates, two run as paid TikTok advertisements. It quotes Oner&#x27;s own &#x27;Senior Partnerships Manager - US&#x27; post about &#x27;usage rights&#x27; and scaling creator content through &#x27;whitelisting/partnership ads&#x27;. <a href="https://storage.courtlistener.com/recap/gov.uscourts.mied.399004/gov.uscourts.mied.399004.1.0.pdf" rel="noopener" target="_blank">storage.courtlistener.com/recap/gov.uscourts.mied.399004/gov.usc</a></li><li>[2] SHEIN complaint (filed Oct 9, 2026): &#x27;two sponsored social media uses&#x27;, an Instagram Reel labelled &#x27;Paid Partnership&#x27; and a TikTok video with a paid-partnership disclosure. <a href="https://storage.courtlistener.com/recap/gov.uscourts.mied.398871/gov.uscourts.mied.398871.1.0.pdf" rel="noopener" target="_blank">storage.courtlistener.com/recap/gov.uscourts.mied.398871/gov.usc</a></li><li>[5] Epidemic Sound&#x27;s business plans page: the license &#x27;covers your team, your channels and your creators&#x27;. The Business plan lists &#x27;Influencer marketing&#x27;, and the Enterprise plan covers &#x27;influencer channels&#x27;. <a href="https://www.epidemicsound.com/business/" rel="noopener" target="_blank">epidemicsound.com/business/</a></li><li>[6] Lowe v. Bissell Homecare, Inc. (C.D. Cal.), complaint filed Oct 19, 2026 by an independent artist, over an advertisement on Bissell&#x27;s TikTok page. <a href="https://www.courtlistener.com/docket/74985167/lowe-v-bissell-homecare-inc/" rel="noopener" target="_blank">courtlistener.com/docket/74985167/lowe-v-bissell-homecare-inc/</a></li></ul></details>
+</article></div>
+    </div>
+    <p class="src">Each one was run on a real, named account. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten leads</s></p>
+    <h2>Ten leads, each with a reason to email now.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>H3adband<i>WatchDatBaby Records / Hitmaker Music Group &middot; BOO named in two October brand suits</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Zeddy Will<i>Power Moves Inc &middot; Bow Bow Bow #27 on Shazam US</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Tunde Balogun<i>LVRN Records (Love Renaissance) &middot; WTF GOIN #6 on Shazam US</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Zac Hiller<i>LAA Music (Music L.A.A., Inc.) &middot; Three brand suits filed in October</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Erik Wahlberg<i>Epidemic Sound (Epidemic Group) &middot; Named Epidemic Group CEO, effective Oct 1</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Samantha Rhulen<i>Primary Wave &middot; Robert Palmer catalog deal, announced Sep 23</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Lylette Pizarro McLean<i>Influence Media Partners &middot; Backed IPNation; Anthem deal closing Q4</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Zena White<i>Partisan Records &middot; Apocalypse back at #30 on Shazam US</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Golnar Khosrowshahi<i>Reservoir Media &middot; Sued Suno over 1,050 compositions, Oct 21</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Alex Sheridan<i>OTM Music &middot; Merged with Partisan; sync teams combined</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>H3adband</h4>
+<p class="meta">Recording artist, WatchDatBaby Records / Hitmaker Music Group, WatchDatBaby Records / Hitmaker Music Group</p>
+<p class="sig"><strong>Why now:</strong> LAA Music sued SHEIN on Oct 9 and Oner Active on Oct 15 over sponsored videos the complaints say use BOO. Both claim only the drum composition; the SHEIN complaint excludes the master and vocals.</p>
+<div class="msg"><header><span>Email &amp;middot; The master side of BOO</span><button type="button" data-copy>Copy</button></header><pre>BOO is in two brand lawsuits filed this month, against SHEIN and Oner Active, over sponsored videos the complaints say use it. Both suits claim only the drum composition, and the SHEIN one says outright it doesn&#x27;t claim the master or vocals.
+
+That&#x27;s your side, and neither suit claims it. When I checked on Oct 29, the public catalog had no sound recording registration for BOO, and you&#x27;d need one to sue.
+
+I pulled every BOO video from both complaints, with date and views. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>H3adband, two October suits against SHEIN and Oner Active cover videos set to BOO, but both claim only the drum composition and leave out the master. That side is still open. I pulled every BOO video from both complaints, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Music L.A.A. (LAA Music) sued SHEIN US Services and SHEIN Distribution on Oct 9, 2026 (E.D. Mich. 5:26-cv-13851). The suit covers an Instagram Reel with a &#x27;Paid Partnership&#x27; label and a TikTok video observed on Oct 4, 2026 that used BOO and promoted SHEIN with a paid-partnership disclosure. As to BOO, LAA claims only the drum composition registered as PA 2-569-090, and the complaint excludes the master recording and vocals. The other work in the suit is a sound recording registered as SR 1-075-539. <a href="https://storage.courtlistener.com/recap/gov.uscourts.mied.398871/gov.uscourts.mied.398871.1.0.pdf" rel="noopener" target="_blank">storage.courtlistener.com/recap/gov.uscourts.mied.398871/gov.usc</a></li><li>[2] Music L.A.A. (LAA Music) sued Oner Active USA LLC on Oct 15, 2026 (E.D. Mich. 4:26-cv-13928) over at least 16 creator videos set to three works, with 1,058,000+ combined views. Video No. 15 is a TikTok posted Jan 16, 2026, with an Oner discount code and 45,500 views as of Oct 12, 2026. TikTok links its audio to BOO by H3adband. LAA&#x27;s BOO claim is the musical work &#x27;Boo (original drum composition)&#x27;. <a href="https://storage.courtlistener.com/recap/gov.uscourts.mied.399004/gov.uscourts.mied.399004.1.0.pdf" rel="noopener" target="_blank">storage.courtlistener.com/recap/gov.uscourts.mied.399004/gov.usc</a></li><li>[3] Apple Music: BOO - Single, released Oct 14, 2025, and BOO (Radio Edit) - Single, released Oct 13, 2025, both carry the line &#x27;℗ 2025 WatchDatBaby Records/Hitmaker Distro&#x27;. BOO (GudGroove Remix) - Single (May 15, 2026) reads &#x27;℗ 2026 WatchDatBaby Records/Hitmaker Music Group/Hitmaker Distro&#x27;. <a href="https://itunes.apple.com/lookup?id=1869371918,1870095196,6769504703&amp;country=us" rel="noopener" target="_blank">itunes.apple.com/lookup?id=1869371918,1870095196,6769504703&amp;coun</a></li><li>[4] When I checked the Copyright Office public records on Oct 29, 2026, searches for WatchDatBaby, Hitmaker Distro and H3adband returned 0 records. The only BOO record was PA0002569090, &#x27;Boo (original drum composition)&#x27;, a music registration effective 2026-01-26 that names Music LAA among its claimants. There was no sound recording registration for BOO. The catalog lags, and pending applications don&#x27;t show. <a href="https://api.publicrecords.copyright.gov/search_service_external/simple_search_dsl?page_number=1&amp;records_per_page=25&amp;type_of_query=keyword&amp;query=WatchDatBaby&amp;field_type=keyword" rel="noopener" target="_blank">api.publicrecords.copyright.gov/search_service_external/simple_s</a></li></ul>
+</article><article class="lead">
+<h4>Zeddy Will</h4>
+<p class="meta">Recording artist, releases via Power Moves Inc, Power Moves Inc</p>
+<p class="sig"><strong>Why now:</strong> Bow Bow Bow came out Sep 17, 2026 on Power Moves Inc and was #27 on Shazam&#x27;s US chart for the week to Oct 28. Its 3-month registration window runs to Dec 17.</p>
+<div class="msg"><header><span>Email &amp;middot; Bow Bow Bow&#x27;s Dec 17 deadline</span><button type="button" data-copy>Copy</button></header><pre>Bow Bow Bow came out Sep 17 and was #27 on Shazam&#x27;s US chart this week. Brands jump on sounds while they climb.
+
+Register the recording by Dec 17 and a brand that used it before the certificate can still owe statutory damages and fees. After that date, only uses that start after you register can.
+
+When I checked on Oct 29, the public catalog showed no registration for it yet. I listed your 2026 singles with each one&#x27;s deadline. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Zeddy, Bow Bow Bow was #27 on Shazam&#x27;s US chart this week. Register it by Dec 17 and brand uses from release day keep statutory damages. I didn&#x27;t find it in the public catalog yet. I listed your 2026 singles with each deadline, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Apple Music lists Zeddy Will releases with the ℗ line Power Moves Inc. Bow Bow Bow - Single and Bow Bow Bow (Remix) came out Sep 17, 2026; A$$ Like That on Aug 13, 2026; There It Is on Mar 20, 2026; Strut on Nov 21, 2025. #ZEDDY (℗ 2026 PMI) came out Oct 13, 2026. <a href="https://itunes.apple.com/lookup?id=1627730378&amp;entity=album&amp;limit=60&amp;country=us&amp;sort=recent" rel="noopener" target="_blank">itunes.apple.com/lookup?id=1627730378&amp;entity=album&amp;limit=60&amp;coun</a></li><li>[2] Shazam&#x27;s US Top 200, week to Oct 28, 2026 (checked Oct 29, 2026): 27,&quot;Zeddy Will&quot;,&quot;Bow Bow Bow&quot; <a href="https://www.shazam.com/services/charts/csv/top-200/united-states" rel="noopener" target="_blank">shazam.com/services/charts/csv/top-200/united-states</a></li><li>[3] 17 U.S.C. 412: a published work registered within three months after first publication keeps statutory damages and attorney&#x27;s fees even for infringement that began before registration. Otherwise, those remedies apply only to infringement that starts after registration. The House report says the grace period exists for &#x27;suddenly popular works&#x27;. <a href="https://www.law.cornell.edu/uscode/text/17/412" rel="noopener" target="_blank">law.cornell.edu/uscode/text/17/412</a></li><li>[4] Three months after each first release: A$$ Like That Aug 13 -&gt; Nov 13, 2026; Bow Bow Bow Sep 17 -&gt; Dec 17, 2026; #ZEDDY Oct 13 -&gt; Jan 13, 2027; There It Is Mar 20 -&gt; Jun 20, 2026 (passed); Strut Nov 21, 2025 -&gt; Feb 21, 2026 (passed). <a href="https://www.law.cornell.edu/uscode/text/17/412" rel="noopener" target="_blank">law.cornell.edu/uscode/text/17/412</a></li><li>[5] Copyright Office public records, name search &#x27;Power Moves&#x27;, checked Oct 29, 2026: 2 records, one sound recording, &#x27;YUP AND I DO.&#x27; (SR0001077014, 2026-04-29, claimant POWER MOVES, INC.). No record for Bow Bow Bow, A$$ Like That, #ZEDDY, There It Is or Strut. Newest catalog files date from Sep 2026, and pending applications don&#x27;t show. <a href="https://api.publicrecords.copyright.gov/search_service_external/simple_search_dsl?page_number=1&amp;records_per_page=25&amp;type_of_query=keyword&amp;query=Power%20Moves&amp;field_type=name" rel="noopener" target="_blank">api.publicrecords.copyright.gov/search_service_external/simple_s</a></li></ul>
+</article><article class="lead">
+<h4>Tunde Balogun</h4>
+<p class="meta">CEO and Co-founder, LVRN Records, LVRN Records (Love Renaissance)</p>
+<p class="sig"><strong>Why now:</strong> WTF GOIN by Belly Gang Kushington &amp; 21 Savage (℗ 2026 LVRN Records / Belly Gang Kushington) was #6 on Shazam&#x27;s US chart for the week to Oct 28. His next single, No Jewelry, came out Aug 18, 2026, so its 3-month registration window runs to Nov 18.</p>
+<div class="msg"><header><span>Email &amp;middot; No Jewelry&#x27;s Nov 18 deadline</span><button type="button" data-copy>Copy</button></header><pre>WTF GOIN was #6 on Shazam&#x27;s US chart this week, and No Jewelry followed on Aug 18. Brands jump on an artist&#x27;s sound while it climbs.
+
+Register No Jewelry by Nov 18 and a brand that used it before the certificate can still owe statutory damages and fees. After that date, only uses that start after you register can.
+
+When I checked on Oct 29, the public catalog showed neither track yet, though it runs weeks behind. Want the dates for both?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Tunde, WTF GOIN was #6 on Shazam&#x27;s US chart this week. Register No Jewelry by Nov 18 and brand uses from release day keep statutory damages and fees. I didn&#x27;t see either track in the public catalog yet. Happy to send the dates, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Shazam&#x27;s US Top 200, week to Oct 28, 2026 (checked Oct 29, 2026): #6 is WTF GOIN by Belly Gang Kushington &amp; 21 Savage. <a href="https://www.shazam.com/services/charts/csv/top-200/united-states" rel="noopener" target="_blank">shazam.com/services/charts/csv/top-200/united-states</a></li><li>[2] Apple Music: WTF GOIN - Single, released Jun 18, 2026, and No Jewelry - Single, released Aug 18, 2026, both ℗ 2026 LVRN Records (Love Renaissance)/Belly Gang Kushington. <a href="https://itunes.apple.com/lookup?id=6803229863,6779392179&amp;country=us" rel="noopener" target="_blank">itunes.apple.com/lookup?id=6803229863,6779392179&amp;country=us</a></li><li>[3] Milken Institute Global Conference 2026 speaker page: Tunde Balogun, CEO and Co-founder, LVRN Records. <a href="https://milkeninstitute.org/index.php/events/global-conference-2026/speakers/tunde-balogun" rel="noopener" target="_blank">milkeninstitute.org/index.php/events/global-conference-2026/spea</a></li><li>[4] 17 U.S.C. 412: registering within three months after first publication keeps statutory damages and fees even for infringement that began before registration. No Jewelry: Aug 18 + 3 months = Nov 18, 2026. WTF GOIN: Jun 18 + 3 months = Sep 18, 2026 (passed). <a href="https://www.law.cornell.edu/uscode/text/17/412" rel="noopener" target="_blank">law.cornell.edu/uscode/text/17/412</a></li><li>[5] Copyright Office public records, keyword &#x27;Belly Gang Kushington&#x27;, checked Oct 29, 2026: 5 records, the newest dated 2026-05-04; none for WTF GOIN or No Jewelry. The catalog runs weeks behind and doesn&#x27;t show pending applications. <a href="https://api.publicrecords.copyright.gov/search_service_external/simple_search_dsl?page_number=1&amp;records_per_page=25&amp;type_of_query=keyword&amp;query=Belly%20Gang%20Kushington&amp;field_type=keyword" rel="noopener" target="_blank">api.publicrecords.copyright.gov/search_service_external/simple_s</a></li></ul>
+</article><article class="lead">
+<h4>Zac Hiller</h4>
+<p class="meta">Principal, LAA Music (Music L.A.A., Inc.)</p>
+<p class="sig"><strong>Why now:</strong> LAA Music sued SHEIN (Oct 9), Oner Active (Oct 15) and Fans First Entertainment (Oct 23). The Oner complaint documents 16 creator videos with more than 1,058,000 views.</p>
+<div class="msg"><header><span>Email &amp;middot; Finding the next Oner Active</span><button type="button" data-copy>Copy</button></header><pre>Your Oner Active complaint lists 16 creator videos across three of your works, each tied to the brand by a code, a tag or a paid-ad label. That evidence is the slow part.
+
+Third Chair&#x27;s Monitor runs the same search across TikTok, Instagram and YouTube for your whole catalog. It separates paid and branded posts from fan videos and ranks them by brand. You decide which get a license offer and which go to counsel.
+
+Want me to run it on Baby and Take It Off first?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Zac, saw the October suits against SHEIN, Oner Active and Fans First. The Oner complaint lists 16 creator videos with codes and tags. Third Chair&#x27;s Monitor runs that search across a whole catalog. Happy to run it on yours, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Oner Active complaint (filed Oct 15, 2026): Zac Hiller is &#x27;a principal of LAA&#x27;. LAA &#x27;acquires and administers copyright interests in musical works and sound recordings&#x27;. Sixteen (16) videos with codes, tags or paid-ad labels; 1,058,000+ views. <a href="https://storage.courtlistener.com/recap/gov.uscourts.mied.399004/gov.uscourts.mied.399004.1.0.pdf" rel="noopener" target="_blank">storage.courtlistener.com/recap/gov.uscourts.mied.399004/gov.usc</a></li><li>[2] CourtListener, checked Oct 29, 2026: Music L.A.A. v. Fans First Entertainment, LLC (M.D. Tenn.), filed Oct 23, 2026; Music LAA v. SHEIN (Oct 9, 2026); Music L.A.A. v. Oner Active (Oct 15, 2026). <a href="https://www.courtlistener.com/?q=%22Music+L.A.A.%22+OR+%22LAA+Music%22&amp;type=r&amp;order_by=dateFiled+desc&amp;filed_after=07%2F31%2F2026" rel="noopener" target="_blank">courtlistener.com/?q=%22Music+L.A.A.%22+OR+%22LAA+Music%22&amp;type=</a></li><li>[3] SHEIN complaint (Oct 9, 2026): the creator-account operators are named as Doe defendants. <a href="https://storage.courtlistener.com/recap/gov.uscourts.mied.398871/gov.uscourts.mied.398871.1.0.pdf" rel="noopener" target="_blank">storage.courtlistener.com/recap/gov.uscourts.mied.398871/gov.usc</a></li></ul>
+</article><article class="lead">
+<h4>Erik Wahlberg</h4>
+<p class="meta">CEO, Epidemic Group, Epidemic Sound (Epidemic Group)</p>
+<p class="sig"><strong>Why now:</strong> Epidemic Group named Erik Wahlberg CEO on Sep 23, 2026, effective Oct 1, and he said the world&#x27;s biggest brands trust Epidemic. Since August, brands with creator programs have been sued over music in creator posts.</p>
+<div class="msg"><header><span>Email &amp;middot; Brands now clearing creator music</span><button type="button" data-copy>Copy</button></header><pre>Since August, brands with large creator programs have been sued over music in creator posts: SHEIN over paid partnerships, Oner Active over 16 ambassador videos, Bissell over a TikTok ad.
+
+Each one now has a reason to check what its creators play. Epidemic&#x27;s business license says it covers &quot;your creators&quot;, the exact use those complaints are about.
+
+I pulled the brands sued since August, with filing date, plaintiff, platform and the posts named. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Erik, since August SHEIN, Oner Active and Bissell have been sued over music in creator posts. Epidemic&#x27;s license already covers &quot;your creators&quot;, the exact use in those complaints. I pulled the brands sued since August, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Epidemic Group press release, Sep 23, 2026: Erik Wahlberg becomes Chief Executive Officer of Epidemic Group, effective Oct 1, 2026; Sara Börsvik moves from interim CEO to COO and CFO. <a href="https://corporate.epidemicsound.com/press-and-media/press-releases/2026/epidemic-group-names-erik-wahlberg-as-ceo/" rel="noopener" target="_blank">corporate.epidemicsound.com/press-and-media/press-releases/2026/</a></li><li>[2] Oner Active complaint (filed Oct 15, 2026): at least sixteen (16) promotional videos by Oner&#x27;s ambassadors and affiliates, two run as paid TikTok advertisements. It quotes Oner&#x27;s own &#x27;Senior Partnerships Manager - US&#x27; post about &#x27;usage rights&#x27; and scaling creator content through &#x27;whitelisting/partnership ads&#x27;. <a href="https://storage.courtlistener.com/recap/gov.uscourts.mied.399004/gov.uscourts.mied.399004.1.0.pdf" rel="noopener" target="_blank">storage.courtlistener.com/recap/gov.uscourts.mied.399004/gov.usc</a></li><li>[3] SHEIN complaint (filed Oct 9, 2026): &#x27;two sponsored social media uses&#x27;, an Instagram Reel labelled &#x27;Paid Partnership&#x27; and a TikTok video with a paid-partnership disclosure. <a href="https://storage.courtlistener.com/recap/gov.uscourts.mied.398871/gov.uscourts.mied.398871.1.0.pdf" rel="noopener" target="_blank">storage.courtlistener.com/recap/gov.uscourts.mied.398871/gov.usc</a></li><li>[4] Lowe v. Bissell Homecare, Inc. (C.D. Cal.), complaint filed Oct 19, 2026 by an independent artist, over an advertisement on Bissell&#x27;s TikTok page. <a href="https://www.courtlistener.com/docket/74985167/lowe-v-bissell-homecare-inc/" rel="noopener" target="_blank">courtlistener.com/docket/74985167/lowe-v-bissell-homecare-inc/</a></li><li>[5] Epidemic Sound&#x27;s business plans page: the license &#x27;covers your team, your channels and your creators&#x27;. The Business plan lists &#x27;Influencer marketing&#x27;, and the Enterprise plan covers &#x27;influencer channels&#x27;. <a href="https://www.epidemicsound.com/business/" rel="noopener" target="_blank">epidemicsound.com/business/</a></li></ul>
+</article><article class="lead">
+<h4>Samantha Rhulen</h4>
+<p class="meta">SVP, Business &amp; Legal Affairs, Primary Wave</p>
+<p class="sig"><strong>Why now:</strong> Primary Wave announced its partnership with the Robert Palmer estate on Sep 23, 2026. It covers publishing and recording catalogs, and Rhulen is the executive quoted.</p>
+<div class="msg"><header><span>Email &amp;middot; Addicted to Love on brand socials</span><button type="button" data-copy>Copy</button></header><pre>Addicted to Love has been registered since 1986, so a brand post that uses it can carry statutory damages, not just a license fee.
+
+When I checked on Oct 29, the public catalog still listed Bungalow Music, N.V. and Heavy Nova Music as claimants of record on Addicted to Love and Simply Irresistible. Worth lining up before any demand goes out under Primary Wave&#x27;s name.
+
+I can pull brand posts that appear to use the Palmer catalog on TikTok and Instagram. Want a first pass?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Samantha, congrats on the Palmer partnership. Addicted to Love has been registered since 1986, so brand posts using it can carry statutory damages. The public record still lists the old claimants. Happy to pull brand posts that appear to use the catalog, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] MBW, Sep 23, 2026: Primary Wave struck a partnership with the Robert Palmer estate covering his publishing and recording catalog plus name, image and likeness. Samantha Rhulen, SVP, Business &amp; Legal Affairs at Primary Wave, is quoted. <a href="https://www.musicbusinessworldwide.com/robert-palmer-estate-strikes-deal-with-primary-wave-covering-publishing-and-recording-catalogs-plus-name-image-likeness-rights/" rel="noopener" target="_blank">musicbusinessworldwide.com/robert-palmer-estate-strikes-deal-wit</a></li><li>[2] Copyright Office public records, checked Oct 29, 2026: &#x27;Addicted to love /words and music by Robert Palmer&#x27;, PA0000284698, registered 1986-04-02, claimant Bungalow Music, N.V. <a href="https://api.publicrecords.copyright.gov/search_service_external/simple_search_dsl?page_number=1&amp;records_per_page=25&amp;type_of_query=keyword&amp;query=Robert%20Palmer%20Addicted%20to%20Love&amp;field_type=keyword" rel="noopener" target="_blank">api.publicrecords.copyright.gov/search_service_external/simple_s</a></li><li>[3] Copyright Office public records, checked Oct 29, 2026: &#x27;Simply irresistible /words &amp; music by Robert Palmer&#x27;, PA0000391845, registered 1988-11-18, claimant Heavy Nova Music. <a href="https://api.publicrecords.copyright.gov/search_service_external/simple_search_dsl?page_number=1&amp;records_per_page=25&amp;type_of_query=keyword&amp;query=Robert%20Palmer%20Simply%20Irresistible&amp;field_type=keyword" rel="noopener" target="_blank">api.publicrecords.copyright.gov/search_service_external/simple_s</a></li></ul>
+</article><article class="lead">
+<h4>Lylette Pizarro McLean</h4>
+<p class="meta">Founder and Co-Managing Partner, Influence Media Partners</p>
+<p class="sig"><strong>Why now:</strong> Influence Media took a stake in IPNation, which launched on Aug 12, 2026 with a $100 million target. Its acquisition of Anthem Entertainment&#x27;s catalogs, over 24,000 released songs, is expected to close in Q4 2026.</p>
+<div class="msg"><header><span>Email &amp;middot; SexyBack and Counting Stars on socials</span><button type="button" data-copy>Copy</button></header><pre>When the Anthem deal closes this quarter, you take on over 24,000 released songs, including SexyBack, Counting Stars and Oops!... I Did It Again. Songs like those are what Third Chair looks for under brand creator posts and ads.
+
+When Third Chair swept Symphonic&#x27;s catalog, a few advertisers had licensed properly and most had not. Starting that sweep at closing gives the catalog a licensing line from day one.
+
+Want a first pull of brand posts that appear to use the Anthem hits?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Lylette, congrats on the Anthem deal. Once it closes, songs like SexyBack and Counting Stars are worth a sweep of brand creator posts that appear to use them without a license. Happy to send a first pull, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] MBW, Jul 29, 2026: Influence Media Partners agreed to acquire Anthem Entertainment&#x27;s catalogs (over 24,000 released songs, including SexyBack, Counting Stars and Oops!... I Did It Again), expected to close in Q4 2026. Lylette Pizarro McLean is quoted as Founder and Co-Managing Partner. <a href="https://www.musicbusinessworldwide.com/influence-media-partners-to-acquire-anthem-entertainment-catalogs-for-over-usd-600m" rel="noopener" target="_blank">musicbusinessworldwide.com/influence-media-partners-to-acquire-a</a></li><li>[2] Digital Music News, Aug 12, 2026: IPNation launched with support from Influence Media, which took a stake, and a target investment size of $100 million for Arabic catalogs. <a href="https://www.digitalmusicnews.com/2026/08/12/ipnation-launch-influence-media/" rel="noopener" target="_blank">digitalmusicnews.com/2026/08/12/ipnation-launch-influence-media/</a></li><li>[3] Third Chair&#x27;s Symphonic case study: more than 8,000 unlicensed commercial uses identified across the Symphonic catalog, and a 10x increase in licensing revenue on one song. Symphonic found that a few advertisers licensed properly and most did not. <a href="https://usethirdchair.com/case-studies/symphonic-distribution" rel="noopener" target="_blank">usethirdchair.com/case-studies/symphonic-distribution</a></li></ul>
+</article><article class="lead">
+<h4>Zena White</h4>
+<p class="meta">COO, Partisan Records</p>
+<p class="sig"><strong>Why now:</strong> Cigarettes After Sex&#x27;s Apocalypse (℗ 2017 Partisan Records) was #30 on Shazam&#x27;s US chart for the week to Oct 28, 2026. Partisan merged its sync team with OTM&#x27;s on Sep 24.</p>
+<div class="msg"><header><span>Email &amp;middot; Apocalypse is climbing again</span><button type="button" data-copy>Copy</button></header><pre>Apocalypse, from 2017, was #30 on Shazam&#x27;s US chart this week, alongside songs released this month. A track that climbs on social gets picked up by brand accounts too.
+
+When Third Chair ran this for Symphonic, a few advertisers had licensed the music they used and most had not. With Partisan&#x27;s sync team now combined with OTM&#x27;s, those posts are a list to call.
+
+Want a first pull of brand posts that appear to use Apocalypse?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Zena, Apocalypse was #30 on Shazam&#x27;s US chart this week, nine years after release. Brand accounts follow songs like that. Happy to pull the brand posts that appear to use it, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Shazam&#x27;s US Top 200, week to Oct 28, 2026 (checked Oct 29, 2026): 30,&quot;Cigarettes After Sex&quot;,&quot;Apocalypse&quot; <a href="https://www.shazam.com/services/charts/csv/top-200/united-states" rel="noopener" target="_blank">shazam.com/services/charts/csv/top-200/united-states</a></li><li>[2] Apple Music: Apocalypse by Cigarettes After Sex, released Mar 20, 2017, ℗ 2017 Partisan Records. <a href="https://itunes.apple.com/lookup?id=1217977525&amp;country=us" rel="noopener" target="_blank">itunes.apple.com/lookup?id=1217977525&amp;country=us</a></li><li>[3] MBW, Sep 24, 2026: Zena White is quoted as COO of Partisan; Partisan&#x27;s sync team will be combined with OTM&#x27;s. <a href="https://www.musicbusinessworldwide.com/partisan-acquires-firebirds-interest-in-indie-pubco-otm-music-merges-it-with-its-left-music-publishing-arm/" rel="noopener" target="_blank">musicbusinessworldwide.com/partisan-acquires-firebirds-interest-</a></li><li>[4] Third Chair&#x27;s Symphonic case study: more than 8,000 unlicensed commercial uses identified across the Symphonic catalog, and a 10x increase in licensing revenue on one song. Symphonic found that a few advertisers licensed properly and most did not. <a href="https://usethirdchair.com/case-studies/symphonic-distribution" rel="noopener" target="_blank">usethirdchair.com/case-studies/symphonic-distribution</a></li></ul>
+</article><article class="lead">
+<h4>Golnar Khosrowshahi</h4>
+<p class="meta">Founder &amp; CEO, Reservoir Media</p>
+<p class="sig"><strong>Why now:</strong> Reservoir sued Suno on Oct 21, 2026 over 1,050 compositions it owns or controls, and filed a separate suit against Anthropic the same day. Khosrowshahi said Reservoir will hold platforms accountable.</p>
+<div class="msg"><header><span>Email &amp;middot; The other unlicensed use</span><button type="button" data-copy>Copy</button></header><pre>Your Suno complaint lists 1,050 compositions you own or control and says Reservoir will hold platforms accountable. The quieter version of the same issue is brands putting those songs under creator posts and ads on TikTok and Instagram.
+
+Third Chair finds those posts, separates paid and branded posts from fan videos, and turns them into license offers, with attorneys behind it if a brand ignores one.
+
+Want a sample pull on a few Reservoir standards?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Golnar, saw the Suno and Anthropic suits. The same catalog shows up under brand creator posts, often without a license. Third Chair finds those posts and turns them into license offers. Happy to send a sample pull, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] MBW, Oct 22, 2026: Reservoir sued Suno on Oct 21, 2026 over 1,050 compositions, and filed a separate suit against Anthropic the same day. Golnar Khosrowshahi is quoted as Founder and CEO. <a href="https://www.musicbusinessworldwide.com/reservoir-sues-suno-for-infringment-over-1050-songs-including-tracks-by-joni-mitchell-johnny-cash-madonna-and-more/" rel="noopener" target="_blank">musicbusinessworldwide.com/reservoir-sues-suno-for-infringment-o</a></li><li>[2] Third Chair&#x27;s Symphonic case study: more than 8,000 unlicensed commercial uses identified across the Symphonic catalog, and a 10x increase in licensing revenue on one song. Symphonic found that a few advertisers licensed properly and most did not. <a href="https://usethirdchair.com/case-studies/symphonic-distribution" rel="noopener" target="_blank">usethirdchair.com/case-studies/symphonic-distribution</a></li></ul>
+</article><article class="lead">
+<h4>Alex Sheridan</h4>
+<p class="meta">Founder &amp; CEO, OTM Music</p>
+<p class="sig"><strong>Why now:</strong> On Sep 24, 2026, OTM became the primary publishing arm of Partisan Music after Partisan bought Firebird&#x27;s interest. Partisan&#x27;s sync team is being combined with OTM&#x27;s.</p>
+<div class="msg"><header><span>Email &amp;middot; One sync desk, two catalogs</span><button type="button" data-copy>Copy</button></header><pre>OTM is now the publishing arm of Partisan Music, and the two sync teams are one desk. It&#x27;s pitching a catalog that includes Left Music&#x27;s 1,500-plus copyrights.
+
+Brand creator posts are the other half of that desk&#x27;s market. When Third Chair swept Symphonic&#x27;s catalog, a few advertisers had licensed properly and most had not.
+
+Third Chair finds the brand posts that appear to use your songs and makes the license offer. Want a sample pull on a few OTM writers?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Alex, congrats on the Partisan merger. With one sync desk across OTM and Partisan, brand creator posts that use your writers&#x27; songs without a license are a second market. Happy to send a sample pull, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] MBW, Sep 24, 2026: OTM Music merged with Partisan Music after Partisan acquired Firebird&#x27;s interest; Sheridan continues as Founder and CEO; Partisan&#x27;s sync team will be combined with OTM&#x27;s; Left Music held more than 1,500 copyrights at launch. <a href="https://www.musicbusinessworldwide.com/partisan-acquires-firebirds-interest-in-indie-pubco-otm-music-merges-it-with-its-left-music-publishing-arm/" rel="noopener" target="_blank">musicbusinessworldwide.com/partisan-acquires-firebirds-interest-</a></li><li>[2] Third Chair&#x27;s Symphonic case study: more than 8,000 unlicensed commercial uses identified across the Symphonic catalog, and a 10x increase in licensing revenue on one song. Symphonic found that a few advertisers licensed properly and most did not. <a href="https://usethirdchair.com/case-studies/symphonic-distribution" rel="noopener" target="_blank">usethirdchair.com/case-studies/symphonic-distribution</a></li></ul>
+</article></div>
+    </div>
+    <p class="src">Copy is written as Third Chair's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="build" data-label="Three things I&#x27;d build" data-sub="At Third Chair">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>If I join</s></p>
+    <h2>Three things I'd build at Third Chair.</h2>
+    <div class="three"><div class="pane"><h4>1. A brand-lawsuit radar for the sales queue</h4><p>Every morning: new music copyright suits against brands on CourtListener, read for which rights each complaint carves out, matched to the owner left out through Apple ℗ lines and Copyright Office records. Reps start with named rights holders and documented posts.</p></div><div class="pane"><h4>2. A registration-clock trigger for indie breakouts</h4><p>A daily pull of Shazam and Spotify US charts, filtered to indie and self-released tracks, each checked against the Copyright Office catalog and dated to its 3-month deadline. Reps open with the deadline as a free tip, and Monitor is the follow-up.</p></div><div class="pane"><h4>3. Turn the market share report into pipeline</h4><p>Score every download of the October Production Music Market Share Report by company type and role. Route libraries, labels and funds to the right rep within the hour, and send each a follow-up built on its own top brand uses from Monitor.</p></div></div>
+  </div>
+</section>
+
+<section class="s mid" data-key="ask" data-label="The ask" data-sub="A GTM role, or a pilot first">
+  <div class="wrap">
+    <p class="kick"><b>Third Chair</b> <s>Shubham Sharma</s></p>
+    <h1>I'm looking for my next GTM role. I'd like to build this at Third Chair.</h1>
+    <p class="lede">Happy to start with a 1-month pilot. My work, with live numbers:
+      <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Third Chair</b> &middot; <a href="https://shubhamsbuild.github.io">Shubham Sharma</a></span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 05</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
+  });
+})();
+
+})();
+</script>
+</body>
+</html>

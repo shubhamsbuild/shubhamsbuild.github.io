@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Healthleap</title>
+<meta name="description" content="10 named leads with copy and three things I'd build, prepared for Healthleap.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
+.asset-h span:first-child{color:var(--ink);font-weight:500}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
+.scores b{color:var(--ink)}
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="What&#x27;s on this page">
+  <div class="wrap">
+    <p class="kick"><b>For Healthleap</b> <s>from Shubham Sharma</s></p>
+    <h1 class="xl">Ten hospital leaders you could email today.</h1>
+    <p class="lede">Three messages they'd pay to receive, ten named leads to send them to,
+      and three things I'd build at Healthleap. Every fact links to its public source.</p>
+    <p class="src">I'm looking for my next GTM role. &middot; <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+
+<section class="s" data-key="messages" data-label="Three messages" data-sub="What they&#x27;d pay to receive">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The messages</s></p>
+    <h2>Three messages your hospital leaders would pay to receive.</h2>
+    <div class="board">
+      <div class="leads"><button type="button" aria-pressed="false"><em>01</em><span>Your sepsis cases coded with an MCC, against your neighbors<i>For Director of Clinical Documentation Integrity</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Severity capture across your DRG families, sized against your cost report<i>For Chief Financial Officer or VP of Revenue Cycle</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Pressure injuries and your distance to the HAC penalty line<i>For Chief Nursing Officer</i></span></button></div>
+      <div class="detail" aria-live="polite"><article class="pm">
+<h3>Your sepsis cases coded with an MCC, against your neighbors</h3>
+<p class="take">How many more of your Medicare sepsis cases would carry an MCC at your neighbors&#x27; rate, and which two diagnoses to check.</p>
+<div class="mail"><div class="to">To: Director of Clinical Documentation Integrity, Sutter Roseville Medical Center</div>
+<div class="subj">Sepsis MCC capture in Roseville</div><p>In 2024, 78.6% of your Medicare sepsis cases were coded with an MCC. Mercy San Juan and the California median were both near 84%. At your volume, that gap is about 70 cases a year.</p><p>Two MCCs that often go undocumented in sepsis are severe malnutrition and metabolic encephalopathy. Both need real clinical support in the chart.</p><p>I pulled the sepsis split for you and five hospitals nearby, including your Sutter sister sites. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Medicare sepsis discharges by MCC tier, Sacramento area (2024) &middot; first 3 of 6</span></div><table class="tbl"><tr><th>Hospital</th><th>Sepsis discharges</th><th>With MCC (871)</th><th>MCC share</th></tr><tr><td>Sutter Roseville Medical Center</td><td>1,323</td><td>1,040</td><td>78.6%</td></tr><tr><td>Mercy San Juan Medical Center</td><td>476</td><td>400</td><td>84.0%</td></tr><tr><td>UC Davis Medical Center</td><td>623</td><td>523</td><td>83.9%</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] CMS 2024 Medicare inpatient data, DRG 871 (sepsis with MCC) / 872 (without MCC): Sutter Roseville Medical Center 1,040 / 283 = 1,323 discharges, 78.6% with an MCC. Mercy San Juan 400 / 76 (84.0%); UC Davis Medical Center 523 / 100 (83.9%); Sutter Medical Center Sacramento 488 / 123 (79.9%); Sutter Davis 218 / 53 (80.4%); Sutter Auburn Faith 241 / 62 (79.5%). All four Sutter hospitals are under 81%. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bc%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_CCN&amp;filter%5Bc%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=050309&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=050516&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=050599&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B4%5D=050108&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B5%5D=050498&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B6%5D=050537&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;size=500" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[2] California median share of sepsis discharges in DRG 871: 83.9% (about 84%) across 229 California hospitals with 50+ Medicare sepsis discharges in 2024. At Sutter Roseville&#x27;s 1,323 discharges, matching it means about 70 more cases in 871 (69.5). <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bs%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_State_Abrvtn&amp;filter%5Bs%5D%5Bcondition%5D%5Boperator%5D=%3D&amp;filter%5Bs%5D%5Bcondition%5D%5Bvalue%5D=CA&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;size=5000" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[3] Sutter Roseville&#x27;s 2024 average Medicare payment: $18,382 for DRG 871 vs $9,060 for 872, a $9,321 difference. About 70 cases x $9,321 is about $648K a year in Medicare fee-for-service. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bc%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_CCN&amp;filter%5Bc%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=050309&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;size=500" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[4] Severe malnutrition (ICD-10 E43, and E41) is classified as an MCC; OIG has audited hospitals for billing it without support, so it needs clinical validation in the chart. <a href="https://palmettogba.com/jja/did/c5nq03l60l" rel="noopener" target="_blank">palmettogba.com/jja/did/c5nq03l60l</a></li><li>[5] Toxic encephalopathy (G92) and metabolic encephalopathy (G93.41) each count as an MCC. <a href="https://acdis.org/node/33286" rel="noopener" target="_blank">acdis.org/node/33286</a></li><li>[6] When I checked on Oct 22, Healthleap&#x27;s evidence page listed Penn Medicine HUP $23.8M annualized impact ($6.3M reimbursement lift plus $17.5M from 8,632 bed-days saved); Cedars-Sinai 39% more malnutrition diagnoses at the same staffing; 88% higher sensitivity than the modified MST. <a href="https://healthleap.ai/evidence" rel="noopener" target="_blank">healthleap.ai/evidence</a></li></ul></details>
+</article><article class="pm">
+<h3>Severity capture across your DRG families, sized against your cost report</h3>
+<p class="take">What matching your state&#x27;s severity mix would pay you, family by family, next to the loss in your own cost report.</p>
+<div class="mail"><div class="to">To: Chief Financial Officer or VP of Revenue Cycle, Stony Brook University Hospital</div>
+<div class="subj">Severity capture at Stony Brook, sized</div><p>In 8 DRG families, your Medicare cases landed in the &#x27;with MCC&#x27; tier less often than the New York median in 2024: sepsis, stroke, GI bleeding, hip fractures and more.</p><p>At your own Medicare rates, matching the median is worth about $1.8M a year, and that&#x27;s fee-for-service only. It won&#x27;t close the $108M net loss in your 2024 cost report, but it&#x27;s payment for care you already deliver.</p><p>I sized each family: cases, gap and dollars. Want it?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Stony Brook&#x27;s Medicare severity mix vs the New York median (2024) &middot; first 3 of 8</span></div><table class="tbl"><tr><th>DRG family</th><th>Discharges</th><th>With MCC</th><th>NY median</th><th>Gap (cases)</th><th>Per case</th><th>Per year</th></tr><tr><td>Sepsis</td><td>1,190</td><td>82.3%</td><td>84.8%</td><td>29.7</td><td>$11,413</td><td>$338,383</td></tr><tr><td>Stroke</td><td>267</td><td>40.1%</td><td>51.4%</td><td>30.3</td><td>$10,492</td><td>$318,062</td></tr><tr><td>GI bleeding</td><td>298</td><td>34.2%</td><td>45.6%</td><td>33.8</td><td>$8,764</td><td>$296,109</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] CMS 2024 Medicare discharges at Stony Brook University Hospital, with-MCC tier of total: sepsis 979 of 1,190 (82.3%); stroke 107 of 267 (40.1%); GI bleeding 102 of 298 (34.2%); hip and femur procedures 45 of 236 (19.1%); kidney and UTI 224 of 554 (40.4%); renal failure 102 of 237 (43.0%); cellulitis 36 of 208 (17.3%); nutrition and metabolic 96 of 208 (46.2%); pneumonia 351 of 476 (73.7%); COPD 98 of 141 (69.5%). <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bc%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_CCN&amp;filter%5Bc%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=330393&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=064&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B4%5D=065&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B5%5D=066&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B6%5D=377&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B7%5D=378&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B8%5D=379&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B9%5D=480&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B10%5D=481&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B11%5D=482&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B12%5D=689&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B13%5D=690&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B14%5D=682&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B15%5D=683&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B16%5D=684&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B17%5D=602&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B18%5D=603&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B19%5D=640&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B20%5D=641&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B21%5D=193&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B22%5D=194&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B23%5D=195&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B24%5D=190&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B25%5D=191&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B26%5D=192&amp;size=500" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[2] New York medians (hospitals with 50+ discharges in the family): sepsis 84.8%, stroke 51.4%, GI bleeding 45.6%, hip and femur 28.7%, kidney and UTI 48.1%, renal failure 50.6%, cellulitis 24.6%, nutrition 53.7%, pneumonia 72.0%, COPD 69.0%. Stony Brook is below the median in 8 of 10 families. Gap in cases x Stony Brook&#x27;s own payment difference between tiers: sepsis 29.7 x $11,413 = $338,383; stroke 30.3 x $10,492 = $318,062; GI bleeding 33.8 x $8,764 = $296,109; hip and femur 22.8 x $11,599 = $264,633; kidney and UTI 42.7 x $5,201 = $222,290; renal failure $190,431; cellulitis $98,312; nutrition $98,253. Total $1,826,473, about $1.8M a year in Medicare fee-for-service. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bs%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_State_Abrvtn&amp;filter%5Bs%5D%5Bcondition%5D%5Boperator%5D=%3D&amp;filter%5Bs%5D%5Bcondition%5D%5Bvalue%5D=NY&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=064&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B4%5D=065&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B5%5D=066&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B6%5D=377&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B7%5D=378&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B8%5D=379&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B9%5D=480&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B10%5D=481&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B11%5D=482&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B12%5D=689&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B13%5D=690&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B14%5D=682&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B15%5D=683&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B16%5D=684&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B17%5D=602&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B18%5D=603&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B19%5D=640&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B20%5D=641&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B21%5D=193&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B22%5D=194&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B23%5D=195&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B24%5D=190&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B25%5D=191&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B26%5D=192&amp;size=5000" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[3] Stony Brook University Hospital&#x27;s 2024 cost report (fiscal year 2024-01-01 to 2024-12-31): net income -$108,164,000, a $108M net loss; net income from service to patients -$314,366,352; 725 beds. <a href="https://data.cms.gov/data-api/v1/dataset/44060663-47d8-4ced-a115-b53b4c270acb/data?filter%5BProvider+CCN%5D=330393" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/44060663-47d8-4ced-a115-b53b4c2</a></li><li>[4] Severe malnutrition (ICD-10 E43, and E41) is classified as an MCC; OIG has audited hospitals for billing it without support, so it needs clinical validation in the chart. <a href="https://palmettogba.com/jja/did/c5nq03l60l" rel="noopener" target="_blank">palmettogba.com/jja/did/c5nq03l60l</a></li><li>[5] When I checked on Oct 22, Healthleap&#x27;s evidence page listed Penn Medicine HUP $23.8M annualized impact ($6.3M reimbursement lift plus $17.5M from 8,632 bed-days saved); Cedars-Sinai 39% more malnutrition diagnoses at the same staffing; 88% higher sensitivity than the modified MST. <a href="https://healthleap.ai/evidence" rel="noopener" target="_blank">healthleap.ai/evidence</a></li><li>[6] When I checked on Oct 22, Healthleap&#x27;s evidence page cited its peer-reviewed study (Bernstein et al., Applied Clinical Informatics, 2025): patients were identified a mean of 4 days before the first dietitian documentation. <a href="https://healthleap.ai/evidence" rel="noopener" target="_blank">healthleap.ai/evidence</a></li></ul></details>
+</article><article class="pm">
+<h3>Pressure injuries and your distance to the HAC penalty line</h3>
+<p class="take">How far your hospital sat over the Medicare HAC penalty line, which measure drives it, and why pressure injuries start with nutrition.</p>
+<div class="mail"><div class="to">To: Chief Nursing Officer, Sharp Memorial Hospital</div>
+<div class="subj">Pressure injuries and your HAC line</div><p>Sharp Memorial&#x27;s FY2026 HAC score sat about 0.035 over the penalty line. PSI-90 was the biggest of your six scores, and inside it pressure ulcers were the one measure where you were worse than national, at more than twice the rate.</p><p>Malnourished patients have about 3 times the odds of a hospital-acquired pressure injury, so knowing who they are on day one is where prevention starts.</p><p>I laid out your six HAC scores and what it takes to clear the line. Want it?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Sharp Memorial&#x27;s FY2026 HAC scores and the penalty line &middot; first 3 of 7</span></div><table class="tbl"><tr><th>Measure</th><th>Sharp Memorial</th><th>Benchmark</th><th>Note</th></tr><tr><td>Total HAC Score</td><td>0.4146</td><td>0.3799 (lowest penalized)</td><td>About 0.035 over the line</td></tr><tr><td>PSI-90 composite (z-score)</td><td>1.5149</td><td>0 = average</td><td>Largest of the six scores</td></tr><tr><td>Pressure ulcer rate (PSI-03)</td><td>1.41 per 1,000</td><td>0.63 national</td><td>Only PSI-90 part worse than national</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 8</summary><ul class="ev"><li>[1] Care Compare HAC Reduction Program FY2026, Sharp Memorial Hospital: Total HAC Score 0.4146, payment reduction Yes. Measure z-scores: PSI-90 1.5149, CLABSI 0.2081, CAUTI 0.0819, SSI 0.0510, C. diff 0.9540, MRSA -0.3225. PSI-90 is the largest of the six. <a href="https://data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?conditions%5B0%5D%5Bproperty%5D=facility_id&amp;conditions%5B0%5D%5Bvalue%5D=050100" rel="noopener" target="_blank">data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?con</a></li><li>[2] In the FY2026 HAC file (3,055 records), the lowest penalized Total HAC Score is 0.3799 and the highest non-penalized one is 0.3792, so the cutoff sits near 0.38. Sharp Memorial is about 0.035 over it (0.4146 - 0.3799 = 0.0347). With six equally weighted measures, that is about 0.21 off its PSI-90 z-score. <a href="https://data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?limit=500" rel="noopener" target="_blank">data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?lim</a></li><li>[3] Care Compare Complications and Deaths, Sharp Memorial, 07/01/2022-06/30/2024: pressure ulcer rate (PSI-03) 1.41 per 1,000, &#x27;Worse Than the National Rate&#x27;. Every other PSI-90 component is &#x27;No Different Than the National Rate&#x27;; PSI-90 composite 1.19. <a href="https://data.cms.gov/provider-data/api/1/datastore/query/ynj2-r877/0?conditions%5B0%5D%5Bproperty%5D=facility_id&amp;conditions%5B0%5D%5Bvalue%5D=050100" rel="noopener" target="_blank">data.cms.gov/provider-data/api/1/datastore/query/ynj2-r877/0?con</a></li><li>[4] Care Compare national rates, 07/01/2022-06/30/2024: pressure ulcer rate (PSI-03) 0.63 per 1,000 discharges; 181 hospitals worse than national. <a href="https://data.cms.gov/provider-data/api/1/datastore/query/qqw3-t4ie/0?limit=100" rel="noopener" target="_blank">data.cms.gov/provider-data/api/1/datastore/query/qqw3-t4ie/0?lim</a></li><li>[5] CMS HAC Reduction Program: hospitals in the worst-performing quartile (Total HAC Score above the 75th percentile) get a 1% cut on all Medicare fee-for-service discharges. The Total HAC Score is the equally weighted average of six measure scores. <a href="https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/AcuteInpatientPPS/HAC-Reduction-Program" rel="noopener" target="_blank">cms.gov/Medicare/Medicare-Fee-for-Service-Payment/AcuteInpatient</a></li><li>[6] Sharp Memorial&#x27;s 2024 Medicare inpatient payments: $98,851,072 on 5,313 discharges. 1% of that is about $990K. <a href="https://data.cms.gov/data-api/v1/dataset/ee6fb1a5-39b9-46b3-a980-a7284551a732/data?filter%5BRndrng_Prvdr_CCN%5D=050100" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/ee6fb1a5-39b9-46b3-a980-a728455</a></li><li>[7] Dreyfus et al. (Am J Med Qual, 2018), 110,808 matched US inpatients: malnutrition was one of the three strongest risk factors for a hospital-acquired pressure injury (OR 3.11), about 3 times the odds. <a href="https://europepmc.org/article/MED/29262690" rel="noopener" target="_blank">europepmc.org/article/MED/29262690</a></li><li>[8] TechCrunch reported on Oct 7, 2026 that Healthleap was deployed in more than 50 hospitals, that the CEO said every customer had seen a 5x hard ROI or more, and that its pressure-ulcer and CHF-readmission programs were in further clinical validation. <a href="https://techcrunch.com/2026/10/07/healthleap-raises-38m-for-its-ai-that-flags-hospital-patients-who-may-need-a-closer-look" rel="noopener" target="_blank">techcrunch.com/2026/10/07/healthleap-raises-38m-for-its-ai-that-</a></li></ul></details>
+</article></div>
+    </div>
+    <p class="src">Each one was run on a real, named account. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten leads</s></p>
+    <h2>Ten leads, each with a reason to email now.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>Michael Harrington<i>Jefferson Health &middot; FY2026 operating loss of $181.5M reported</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Andrew DeVoe<i>Albany Med Health System &middot; Started as system CFO on Oct 5</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Karen Keady<i>Mass General Brigham &middot; Joined as first chief nurse executive Oct 5</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Irfan Mirza<i>Memorial Healthcare System (Hollywood, FL) &middot; Named CFO; system CDI director role open</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Kevin L. Smith<i>Providence &middot; Named system CFO, starting Oct 26</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Corinne Lora<i>Secaucus University Hospital (Hudson Regional Health) &middot; Promoted to CNO on Oct 2</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Kristen Pulio<i>Health First &middot; 214 positions cut on Sept 16</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Maulin Patel<i>OHSU (Oregon Health &amp; Science University) &middot; Named CFO after a national search</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Lori Sumner<i>St. Tammany Health System &middot; Named CNO Aug 3; started in September</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Seanna Zimmerman<i>Concord Hospital Health System &middot; Started as CNO on Aug 24</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>Michael Harrington</h4>
+<p class="meta">Chief Financial Officer, Jefferson Health</p>
+<p class="sig"><strong>Why now:</strong> Jefferson reported a $181.5 million operating loss for fiscal 2026 on Aug 14, and Harrington said its gains were threatened by commercial insurers. Jefferson Stratford coded 80.9% of its 2024 Medicare sepsis cases with an MCC, against a New Jersey median of 84.6%.</p>
+<div class="msg"><header><span>Email &amp;middot; Sepsis capture at Jefferson Stratford</span><button type="button" data-copy>Copy</button></header><pre>Jefferson Stratford coded 80.9% of its 2024 Medicare sepsis cases with an MCC. The New Jersey median was 84.6%. At Stratford&#x27;s volume, matching it is worth about $405K a year in Medicare fee-for-service alone, at your own payment rates.
+
+Severe malnutrition is one of the MCCs that moves a sepsis case into the higher tier, and it&#x27;s hard to catch without screening every chart.
+
+I pulled Stratford&#x27;s sepsis split against every New Jersey peer. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Michael, one number from CMS 2024 data: Jefferson Stratford coded 80.9% of Medicare sepsis cases with an MCC, against 84.6% for New Jersey. That gap is an estimated $405K a year in Medicare FFS. Happy to send the table.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Philadelphia Inquirer, Aug 14, 2026: Thomas Jefferson University and Jefferson Health posted a $181.5 million operating loss for the year ended June 30; CFO Michael Harrington said gains are threatened by commercial insurers. <a href="https://inquirer.com/health/jefferson-health-financial-loss-fiscal-2026-20260814.html" rel="noopener" target="_blank">inquirer.com/health/jefferson-health-financial-loss-fiscal-2026-</a></li><li>[2] CMS 2024 Medicare data, Jefferson Stratford Hospital: DRG 871 1,078 and 872 254, so 80.9% of 1,332 sepsis discharges with an MCC. New Jersey median 84.6% across 53 hospitals with 50+ sepsis discharges. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bc%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_CCN&amp;filter%5Bc%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=310086&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;size=500" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[3] Gap: (84.6% - 80.9%) x 1,332 = about 49 cases; Stratford&#x27;s 871 vs 872 average Medicare payment differs by $8,222; about $405K a year. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bc%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_CCN&amp;filter%5Bc%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=310086&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;size=500" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[4] Severe malnutrition (ICD-10 E43, and E41) is classified as an MCC; OIG has audited hospitals for billing it without support, so it needs clinical validation in the chart. <a href="https://palmettogba.com/jja/did/c5nq03l60l" rel="noopener" target="_blank">palmettogba.com/jja/did/c5nq03l60l</a></li><li>[5] TechCrunch reported on Oct 7, 2026 that Healthleap was deployed in more than 50 hospitals, that the CEO said every customer had seen a 5x hard ROI or more, and that its pressure-ulcer and CHF-readmission programs were in further clinical validation. <a href="https://techcrunch.com/2026/10/07/healthleap-raises-38m-for-its-ai-that-flags-hospital-patients-who-may-need-a-closer-look" rel="noopener" target="_blank">techcrunch.com/2026/10/07/healthleap-raises-38m-for-its-ai-that-</a></li></ul>
+</article><article class="lead">
+<h4>Andrew DeVoe</h4>
+<p class="meta">EVP and Chief Financial Officer, Albany Med Health System</p>
+<p class="sig"><strong>Why now:</strong> DeVoe started as Albany Med Health System&#x27;s CFO on Oct 5, 2026, with revenue cycle in his remit. Albany Medical Center was in the FY2026 HAC penalty group, a 1% cut on Medicare fee-for-service payments, and PSI-90 was its largest score.</p>
+<div class="msg"><header><span>Email &amp;middot; Albany Med&#x27;s HAC score, by measure</span><button type="button" data-copy>Copy</button></header><pre>Albany Medical Center was in the FY2026 HAC penalty group: 1% off Medicare fee-for-service payments, about $1.6M a year on your 2024 Medicare inpatient base.
+
+PSI-90 was the largest of its six scores by a wide margin, so patient-safety events, more than infections, kept it over the line. Pressure injuries sit inside PSI-90, and malnutrition is one of their strongest risk factors.
+
+I broke the score into its six measures, with the distance to the cutoff. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Andrew, one number for your first month at Albany Med: Albany Medical Center&#x27;s FY2026 HAC penalty comes to an estimated $1.6M a year, and PSI-90 is the score driving it. I broke it down by measure if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Albany Med Health System named Andrew DeVoe EVP and CFO, effective Oct. 5, 2026, overseeing revenue cycle among other functions (release dated Sept 2, 2026). <a href="https://www.albanymed.org/news/andrew-devoe-named-chief-financial-officer-of-health-system/" rel="noopener" target="_blank">albanymed.org/news/andrew-devoe-named-chief-financial-officer-of</a></li><li>[2] Care Compare HAC FY2026, Albany Medical Center Hospital: Total HAC Score 0.5060, payment reduction Yes; PSI-90 z-score 1.6027, the largest of six (CLABSI 0.1687, CAUTI 0.5375, SSI 0.5871, C. diff 0.0905, MRSA 0.0495). <a href="https://data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?conditions%5B0%5D%5Bproperty%5D=facility_id&amp;conditions%5B0%5D%5Bvalue%5D=330013" rel="noopener" target="_blank">data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?con</a></li><li>[3] Albany Medical Center&#x27;s 2024 Medicare inpatient payments: $158,125,452. 1% is about $1.6M. <a href="https://data.cms.gov/data-api/v1/dataset/ee6fb1a5-39b9-46b3-a980-a7284551a732/data?filter%5BRndrng_Prvdr_CCN%5D=330013" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/ee6fb1a5-39b9-46b3-a980-a728455</a></li><li>[4] CMS HAC Reduction Program: hospitals in the worst-performing quartile (Total HAC Score above the 75th percentile) get a 1% cut on all Medicare fee-for-service discharges. The Total HAC Score is the equally weighted average of six measure scores. <a href="https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/AcuteInpatientPPS/HAC-Reduction-Program" rel="noopener" target="_blank">cms.gov/Medicare/Medicare-Fee-for-Service-Payment/AcuteInpatient</a></li><li>[5] Dreyfus et al. (Am J Med Qual, 2018), 110,808 matched US inpatients: malnutrition was one of the three strongest risk factors for a hospital-acquired pressure injury (OR 3.11), about 3 times the odds. <a href="https://europepmc.org/article/MED/29262690" rel="noopener" target="_blank">europepmc.org/article/MED/29262690</a></li><li>[6] When I checked on Oct 22, Healthleap&#x27;s evidence page listed Penn Medicine HUP $23.8M annualized impact ($6.3M reimbursement lift plus $17.5M from 8,632 bed-days saved); Cedars-Sinai 39% more malnutrition diagnoses at the same staffing; 88% higher sensitivity than the modified MST. <a href="https://healthleap.ai/evidence" rel="noopener" target="_blank">healthleap.ai/evidence</a></li></ul>
+</article><article class="lead">
+<h4>Karen Keady</h4>
+<p class="meta">Chief Nurse Executive, Mass General Brigham</p>
+<p class="sig"><strong>Why now:</strong> Mass General Brigham named Keady its first chief nurse executive, and she joined on Oct 5, 2026. Across seven MGB hospitals, matching the state median severity mix was worth an estimated $714K a year in 2024 Medicare FFS.</p>
+<div class="msg"><header><span>Email &amp;middot; Severity mix across your MGB hospitals</span><button type="button" data-copy>Copy</button></header><pre>At seven Mass General Brigham hospitals, 2024 Medicare cases landed in the &#x27;with MCC&#x27; tier less often than the state median in at least one DRG family, from pneumonia at Mass General to sepsis at North Shore Medical Center. Matching the median is an estimated $714K a year in Medicare FFS.
+
+Cooley Dickinson and Brigham and Women&#x27;s Faulkner were also in the FY2026 HAC penalty group. Malnutrition and pressure injuries sit with nursing in both.
+
+I sized it by hospital and family. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Karen, congratulations on the new role at MGB. One number from CMS 2024 data: across seven MGB hospitals, matching each state&#x27;s median severity mix is an estimated $714K a year in Medicare FFS. Happy to share the table.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Healthcare Dive, Aug. 24, 2026: Karen Keady, previously system chief nursing officer at Vanderbilt Health, joins Mass General Brigham on Oct. 5 as its first chief nurse executive. <a href="https://www.healthcaredive.com/news/mass-general-brigham-appoints-vanderbilt-exec-inaugural-nurse-role-karen-keady/828564/" rel="noopener" target="_blank">healthcaredive.com/news/mass-general-brigham-appoints-vanderbilt</a></li><li>[2] CMS 2024 Medicare data: seven MGB hospitals sat below their state&#x27;s median MCC share in at least one DRG family, incl. Massachusetts General pneumonia 62.6% vs MA 72.6% and North Shore Medical Center sepsis 83.4% vs MA 85.9%. Gap x each hospital&#x27;s own payment difference: North Shore $165,685, Newton-Wellesley $155,201, Mass General $137,230, Wentworth-Douglass $127,474, Cooley Dickinson $58,327, Brigham and Women&#x27;s $53,855, Faulkner $16,321. Total $714,093, an estimated $714K a year in Medicare FFS. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bc%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_CCN&amp;filter%5Bc%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=220015&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=220035&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=220071&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B4%5D=220101&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B5%5D=220110&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B6%5D=220119&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B7%5D=300018&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=064&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B4%5D=065&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B5%5D=066&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B6%5D=377&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B7%5D=378&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B8%5D=379&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B9%5D=480&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B10%5D=481&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B11%5D=482&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B12%5D=689&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B13%5D=690&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B14%5D=682&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B15%5D=683&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B16%5D=684&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B17%5D=602&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B18%5D=603&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B19%5D=640&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B20%5D=641&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B21%5D=193&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B22%5D=194&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B23%5D=195&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B24%5D=190&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B25%5D=191&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B26%5D=192&amp;size=500" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[3] Care Compare HAC FY2026: Cooley Dickinson Hospital Total HAC Score 1.2717 and Brigham and Women&#x27;s Faulkner Hospital 0.4149, both with payment reduction Yes. <a href="https://data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?conditions%5B0%5D%5Bproperty%5D=state&amp;conditions%5B0%5D%5Bvalue%5D=MA" rel="noopener" target="_blank">data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?con</a></li><li>[4] When I checked on Oct 22, Healthleap&#x27;s evidence page listed Penn Medicine HUP $23.8M annualized impact ($6.3M reimbursement lift plus $17.5M from 8,632 bed-days saved); Cedars-Sinai 39% more malnutrition diagnoses at the same staffing; 88% higher sensitivity than the modified MST. <a href="https://healthleap.ai/evidence" rel="noopener" target="_blank">healthleap.ai/evidence</a></li></ul>
+</article><article class="lead">
+<h4>Irfan Mirza</h4>
+<p class="meta">Chief Financial Officer, Memorial Healthcare System (Hollywood, FL)</p>
+<p class="sig"><strong>Why now:</strong> Memorial named Mirza its permanent CFO in an Aug 25, 2026 release, and when I checked on Oct 29 Memorial had a system-level CDI director role posted. Memorial Hospital West coded 80.8% of its 2024 Medicare sepsis cases with an MCC, against a Florida median of 85.5%.</p>
+<div class="msg"><header><span>Email &amp;middot; Severity capture across Memorial&#x27;s four hospitals</span><button type="button" data-copy>Copy</button></header><pre>Memorial Hospital West coded 80.8% of its 2024 Medicare sepsis cases with an MCC; the Florida median was 85.5%. Across your four adult hospitals, cases landed in the &#x27;with MCC&#x27; tier less often than the Florida median in several DRG families, worth about $739K a year in Medicare fee-for-service.
+
+Whoever fills your system CDI director role will want this on day one.
+
+I sized it by hospital and family. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Irfan, congratulations on the CFO role. One number from CMS 2024 data: across Memorial&#x27;s adult hospitals, matching Florida&#x27;s median severity mix is worth about $739K a year in Medicare fee-for-service. Happy to send the table.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Memorial Healthcare System release, Aug. 25, 2026: Irfan Mirza named Chief Financial Officer; he had been interim CFO since April 2025. <a href="https://www.mhs.net/news/2026/08/memorial-healthcare-system-appoints-irfan-mirza-as-chief-financial-officer" rel="noopener" target="_blank">mhs.net/news/2026/08/memorial-healthcare-system-appoints-irfan-m</a></li><li>[2] When I checked on Oct 29, 2026, a Director of Clinical Documentation Integrity role at Memorial Healthcare System, overseeing CDI for all its hospitals, was posted. <a href="https://simplify.jobs/p/9476e950-8ba3-4a9b-8910-0d7c4293f9e0/Director-Clinical-Documentation-Integrity" rel="noopener" target="_blank">simplify.jobs/p/9476e950-8ba3-4a9b-8910-0d7c4293f9e0/Director-Cl</a></li><li>[3] CMS 2024 Medicare data: Memorial Hospital West DRG 871 173 and 872 41, 80.8% with an MCC; Florida median 85.5% across 144 hospitals with 50+ sepsis discharges. Across Memorial Hospital West, Memorial Regional, Memorial Pembroke and Memorial Miramar, families below the Florida median x each hospital&#x27;s own payment difference sum to $738,822, about $739K a year. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bc%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_CCN&amp;filter%5Bc%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=100281&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=100038&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=100230&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B4%5D=100285&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=064&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B4%5D=065&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B5%5D=066&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B6%5D=377&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B7%5D=378&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B8%5D=379&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B9%5D=480&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B10%5D=481&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B11%5D=482&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B12%5D=689&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B13%5D=690&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B14%5D=682&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B15%5D=683&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B16%5D=684&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B17%5D=602&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B18%5D=603&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B19%5D=640&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B20%5D=641&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B21%5D=193&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B22%5D=194&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B23%5D=195&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B24%5D=190&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B25%5D=191&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B26%5D=192&amp;size=500" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[4] Severe malnutrition (ICD-10 E43, and E41) is classified as an MCC; OIG has audited hospitals for billing it without support, so it needs clinical validation in the chart. <a href="https://palmettogba.com/jja/did/c5nq03l60l" rel="noopener" target="_blank">palmettogba.com/jja/did/c5nq03l60l</a></li><li>[5] When I checked on Oct 22, Healthleap&#x27;s evidence page listed Penn Medicine HUP $23.8M annualized impact ($6.3M reimbursement lift plus $17.5M from 8,632 bed-days saved); Cedars-Sinai 39% more malnutrition diagnoses at the same staffing; 88% higher sensitivity than the modified MST. <a href="https://healthleap.ai/evidence" rel="noopener" target="_blank">healthleap.ai/evidence</a></li></ul>
+</article><article class="lead">
+<h4>Kevin L. Smith</h4>
+<p class="meta">Chief Financial Officer (incoming), Providence</p>
+<p class="sig"><strong>Why now:</strong> Providence named Smith CFO on Aug 19, 2026, effective Oct 26. In 2024, 10 Providence hospitals coded fewer of their Medicare sepsis cases with an MCC than their state&#x27;s median.</p>
+<div class="msg"><header><span>Email &amp;middot; Sepsis capture across Providence hospitals</span><button type="button" data-copy>Copy</button></header><pre>Ten Providence hospitals coded fewer of their 2024 Medicare sepsis cases with an MCC than their state&#x27;s median, from St. Joseph in Orange to St. Mary in Walla Walla. Matching the median is worth about $928K a year in Medicare fee-for-service, at each hospital&#x27;s own rates.
+
+Severe malnutrition is one of the MCCs that moves a sepsis case up a tier, and it&#x27;s hard to catch without screening every chart.
+
+I ranked the hospitals by dollars. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Kevin, ahead of your start at Providence: 10 Providence hospitals coded Medicare sepsis with an MCC less often than their state median in 2024, an estimated $928K a year in Medicare FFS. Happy to share the ranked list.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Providence, Aug 19, 2026: Kevin L. Smith appointed chief financial officer, effective Oct. 26; currently CFO at SSM Health. <a href="https://blog.providence.org/national-news/providence-names-kevin-l-smith-new-chief-financial-officer" rel="noopener" target="_blank">blog.providence.org/national-news/providence-names-kevin-l-smith</a></li><li>[2] CMS 2024 Medicare data: 10 Providence hospitals sat below their state median share of sepsis discharges in DRG 871, incl. Providence St. Joseph Hospital, Orange (79.3% vs CA 83.9%) and Providence St Mary Medical Center, Walla Walla (77.8% vs WA 84.7%). Gap x each hospital&#x27;s own 871/872 payment difference sums to $927,881, about $928K a year. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bc%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_CCN&amp;filter%5Bc%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=050069&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=050235&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=050761&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B4%5D=380004&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B5%5D=380037&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B6%5D=380038&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B7%5D=380075&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B8%5D=380082&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B9%5D=500002&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B10%5D=500024&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;size=500" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[3] Severe malnutrition (ICD-10 E43, and E41) is classified as an MCC; OIG has audited hospitals for billing it without support, so it needs clinical validation in the chart. <a href="https://palmettogba.com/jja/did/c5nq03l60l" rel="noopener" target="_blank">palmettogba.com/jja/did/c5nq03l60l</a></li><li>[4] When I checked on Oct 22, Healthleap&#x27;s evidence page listed Penn Medicine HUP $23.8M annualized impact ($6.3M reimbursement lift plus $17.5M from 8,632 bed-days saved); Cedars-Sinai 39% more malnutrition diagnoses at the same staffing; 88% higher sensitivity than the modified MST. <a href="https://healthleap.ai/evidence" rel="noopener" target="_blank">healthleap.ai/evidence</a></li></ul>
+</article><article class="lead">
+<h4>Corinne Lora</h4>
+<p class="meta">Chief Nursing Officer, Secaucus University Hospital (Hudson Regional Health)</p>
+<p class="sig"><strong>Why now:</strong> Hudson Regional Health promoted Lora to CNO of Secaucus University Hospital on Oct 2, 2026. Its FY2026 Total HAC Score sat about 0.1 under the penalty cutoff, and its pressure ulcer rate was 0.95 against 0.63 nationally.</p>
+<div class="msg"><header><span>Email &amp;middot; Secaucus&#x27;s HAC score, by measure</span><button type="button" data-copy>Copy</button></header><pre>In FY2026, Secaucus University Hospital&#x27;s Total HAC Score sat about 0.1 under the penalty cutoff (CMS lists it as Hudson Regional Hospital). That&#x27;s close enough that one rough measurement window could tip it over.
+
+The patient-safety composite and CAUTI drive the score. Inside the composite, your pressure ulcer rate was 0.95 against 0.63 nationally, and malnutrition is one of the strongest risk factors for those injuries.
+
+I laid out your six scores and the distance to the line. Want the sheet?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Corinne, congratulations on the CNO role. One thing from CMS data: Secaucus&#x27;s FY2026 HAC score sat about 0.1 under the penalty line, with PSI-90 and CAUTI driving it. Happy to share the measure-by-measure sheet.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] NJBIZ, Oct 5, 2026: Hudson Regional Health announced Oct. 2, 2026, the promotion of Corinne Lora to chief nursing officer of Secaucus University Hospital. <a href="https://njbiz.com/hudson-regional-secaucus-chief-nursing-officer/" rel="noopener" target="_blank">njbiz.com/hudson-regional-secaucus-chief-nursing-officer/</a></li><li>[2] Care Compare HAC FY2026, Hudson Regional Hospital (Secaucus): Total HAC Score 0.2808, not penalized; z-scores PSI-90 1.1763 and CAUTI 1.7427 lead. The lowest penalized score was 0.3799, so it sat about 0.1 under the line (0.0991). <a href="https://data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?conditions%5B0%5D%5Bproperty%5D=facility_id&amp;conditions%5B0%5D%5Bvalue%5D=310118" rel="noopener" target="_blank">data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?con</a></li><li>[3] Care Compare, Hudson Regional Hospital: pressure ulcer rate (PSI-03) 0.95 per 1,000, 07/2022-06/2024; national rate 0.63. <a href="https://data.cms.gov/provider-data/api/1/datastore/query/ynj2-r877/0?conditions%5B0%5D%5Bproperty%5D=facility_id&amp;conditions%5B0%5D%5Bvalue%5D=310118" rel="noopener" target="_blank">data.cms.gov/provider-data/api/1/datastore/query/ynj2-r877/0?con</a></li><li>[4] Dreyfus et al. (Am J Med Qual, 2018), 110,808 matched US inpatients: malnutrition was one of the three strongest risk factors for a hospital-acquired pressure injury (OR 3.11), about 3 times the odds. <a href="https://europepmc.org/article/MED/29262690" rel="noopener" target="_blank">europepmc.org/article/MED/29262690</a></li></ul>
+</article><article class="lead">
+<h4>Kristen Pulio</h4>
+<p class="meta">Chief Financial Officer, Health First</p>
+<p class="sig"><strong>Why now:</strong> Health First announced it was cutting 214 positions, about 2% of its workforce, on Sept 16, 2026. Palm Bay Hospital coded 78.8% of its 2024 Medicare sepsis cases with an MCC, against a Florida median of 85.5%.</p>
+<div class="msg"><header><span>Email &amp;middot; Severity capture across Health First</span><button type="button" data-copy>Copy</button></header><pre>Palm Bay Hospital coded 78.8% of its 2024 Medicare sepsis cases with an MCC; the Florida median was 85.5%. Palm Bay and Viera also sat under the median in stroke, renal failure and nutrition. Across your three main hospitals, matching the median is worth about $218K a year in Medicare fee-for-service.
+
+That&#x27;s payment for care already given, at a time you&#x27;re cutting costs elsewhere.
+
+I sized it by hospital and DRG family. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Kristen, one number from CMS 2024 data: Palm Bay coded 78.8% of Medicare sepsis cases with an MCC, against 85.5% for Florida. Across Health First that gap is an estimated $218K a year in Medicare FFS. Happy to send the table.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] WFTV, Sept 16, 2026: Health First is eliminating 214 positions, about 2% of its workforce, mostly administrative, management and clerical roles. <a href="https://www.wftv.com/news/local/health-first-announces-layoffs-ends-some-local-programs/X4FGTXAHYFHM5KHZNE7NIDVMAI/" rel="noopener" target="_blank">wftv.com/news/local/health-first-announces-layoffs-ends-some-loc</a></li><li>[2] When I checked on Oct 22, Health First&#x27;s leadership page listed Kristen Pulio as Chief Financial Officer, having joined in September 2024. <a href="https://www.hf.org/node/6476" rel="noopener" target="_blank">hf.org/node/6476</a></li><li>[3] CMS 2024 Medicare data: Palm Bay Hospital DRG 871 130 and 872 35, 78.8% with an MCC; Florida median 85.5% across 144 hospitals with 50+ sepsis discharges. Palm Bay and Viera sat below the Florida median in stroke, renal failure and nutrition. Gap x own payment difference: Palm Bay $102,405, Viera $95,849, Holmes Regional $19,860; total $218,114, about $218K a year. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bc%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_CCN&amp;filter%5Bc%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=100316&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=100315&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=100019&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=064&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B4%5D=065&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B5%5D=066&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B6%5D=377&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B7%5D=378&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B8%5D=379&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B9%5D=480&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B10%5D=481&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B11%5D=482&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B12%5D=689&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B13%5D=690&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B14%5D=682&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B15%5D=683&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B16%5D=684&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B17%5D=602&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B18%5D=603&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B19%5D=640&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B20%5D=641&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B21%5D=193&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B22%5D=194&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B23%5D=195&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B24%5D=190&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B25%5D=191&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B26%5D=192&amp;size=500" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[4] TechCrunch reported on Oct 7, 2026 that Healthleap was deployed in more than 50 hospitals, that the CEO said every customer had seen a 5x hard ROI or more, and that its pressure-ulcer and CHF-readmission programs were in further clinical validation. <a href="https://techcrunch.com/2026/10/07/healthleap-raises-38m-for-its-ai-that-flags-hospital-patients-who-may-need-a-closer-look" rel="noopener" target="_blank">techcrunch.com/2026/10/07/healthleap-raises-38m-for-its-ai-that-</a></li></ul>
+</article><article class="lead">
+<h4>Maulin Patel</h4>
+<p class="meta">EVP and Chief Financial Officer, OHSU (Oregon Health &amp; Science University)</p>
+<p class="sig"><strong>Why now:</strong> OHSU named Patel CFO in early September 2026, succeeding an interim. OHSU Hospital was in the FY2026 HAC penalty group, an estimated $1.5M a year on its 2024 Medicare base, and PSI-90 was its largest score.</p>
+<div class="msg"><header><span>Email &amp;middot; OHSU&#x27;s HAC penalty, measure by measure</span><button type="button" data-copy>Copy</button></header><pre>OHSU Hospital was in the FY2026 HAC penalty group, which takes 1% off Medicare fee-for-service payments: roughly $1.5M a year on your 2024 Medicare inpatient base.
+
+PSI-90 was the largest of your six scores, ahead of C. diff and CAUTI. Pressure injuries are one of the events inside PSI-90, and malnutrition is one of their strongest risk factors, so a daily risk list is a cheap place to start.
+
+I mapped all six scores against the cutoff. Want the sheet?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Maulin, congratulations on the CFO role. One number you may want early: OHSU Hospital&#x27;s FY2026 HAC penalty is an estimated $1.5M a year, and PSI-90 is the biggest driver. I mapped the six scores if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] American Bazaar, Sept 2, 2026: OHSU named Maulin Patel CFO and executive vice president, announced by President Shereef Elnahal after a nationwide search; he succeeds interim CFO Jeff Jones. <a href="https://americanbazaaronline.com/2026/09/02/oregon-health-science-university-names-maulin-patel-as-cfo-487420/" rel="noopener" target="_blank">americanbazaaronline.com/2026/09/02/oregon-health-science-univer</a></li><li>[2] Care Compare HAC FY2026, OHSU Hospital and Clinics: Total HAC Score 1.0194, payment reduction Yes; PSI-90 z-score 2.2167, the largest of six (C. diff 1.2483, CAUTI 1.1039, SSI 0.7447, MRSA 0.7037, CLABSI 0.0991). <a href="https://data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?conditions%5B0%5D%5Bproperty%5D=facility_id&amp;conditions%5B0%5D%5Bvalue%5D=380009" rel="noopener" target="_blank">data.cms.gov/provider-data/api/1/datastore/query/yq43-i98g/0?con</a></li><li>[3] OHSU Hospital and Clinics&#x27; 2024 Medicare inpatient payments: $149,572,283. 1% is about $1.5M. <a href="https://data.cms.gov/data-api/v1/dataset/ee6fb1a5-39b9-46b3-a980-a7284551a732/data?filter%5BRndrng_Prvdr_CCN%5D=380009" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/ee6fb1a5-39b9-46b3-a980-a728455</a></li><li>[4] CMS HAC Reduction Program: hospitals in the worst-performing quartile (Total HAC Score above the 75th percentile) get a 1% cut on all Medicare fee-for-service discharges. The Total HAC Score is the equally weighted average of six measure scores. <a href="https://www.cms.gov/Medicare/Medicare-Fee-for-Service-Payment/AcuteInpatientPPS/HAC-Reduction-Program" rel="noopener" target="_blank">cms.gov/Medicare/Medicare-Fee-for-Service-Payment/AcuteInpatient</a></li><li>[5] Dreyfus et al. (Am J Med Qual, 2018), 110,808 matched US inpatients: malnutrition was one of the three strongest risk factors for a hospital-acquired pressure injury (OR 3.11), about 3 times the odds. <a href="https://europepmc.org/article/MED/29262690" rel="noopener" target="_blank">europepmc.org/article/MED/29262690</a></li><li>[6] When I checked on Oct 22, Healthleap&#x27;s evidence page listed Penn Medicine HUP $23.8M annualized impact ($6.3M reimbursement lift plus $17.5M from 8,632 bed-days saved); Cedars-Sinai 39% more malnutrition diagnoses at the same staffing; 88% higher sensitivity than the modified MST. <a href="https://healthleap.ai/evidence" rel="noopener" target="_blank">healthleap.ai/evidence</a></li></ul>
+</article><article class="lead">
+<h4>Lori Sumner</h4>
+<p class="meta">Chief Nursing Officer, St. Tammany Health System</p>
+<p class="sig"><strong>Why now:</strong> St. Tammany Health System named Sumner CNO in an Aug 3, 2026 release, starting in September. St. Tammany Parish Hospital coded 45.0% of its 2024 Medicare nutrition and metabolic discharges with an MCC, against a Louisiana median of 55.7%.</p>
+<div class="msg"><header><span>Email &amp;middot; St. Tammany&#x27;s nutrition cases, by severity</span><button type="button" data-copy>Copy</button></header><pre>In 2024, 45.0% of St. Tammany Parish Hospital&#x27;s Medicare nutrition and metabolic discharges landed in the &#x27;with MCC&#x27; tier. The Louisiana median was 55.7%. That family is where malnutrition itself shows up, so screening and assessment at the bedside are one place the gap can start.
+
+You also sat under the median in renal failure, GI bleeding and kidney infections. Together that&#x27;s about $83K a year in Medicare fee-for-service.
+
+I pulled the family-by-family table. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Lori, congratulations on joining St. Tammany. One number from CMS 2024 data: 45.0% of the hospital&#x27;s Medicare nutrition and metabolic cases carried an MCC, against 55.7% across Louisiana. Happy to share the full table.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] St. Tammany Health System release, Monday, Aug. 3, 2026: Lori Sumner, MSN, RN, named chief nursing officer, scheduled to begin in September; previously CNO at Baptist Health Princeton Hospital. <a href="https://www.sttammany.health/news/lorisumnernamedcno" rel="noopener" target="_blank">sttammany.health/news/lorisumnernamedcno</a></li><li>[2] CMS 2024 Medicare data, St. Tammany Parish Hospital: DRG 640 (nutrition and metabolic with MCC) 36 of 80 discharges, 45.0%; Louisiana median 55.7% across 12 hospitals with 50+ discharges. Also below the Louisiana median: renal failure 35.5% vs 44.4%, GI bleeding 28.2% vs 34.3%, kidney and UTI 42.7% vs 45.8%. Gap x own payment difference sums to $83,189, about $83K a year. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bc%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_CCN&amp;filter%5Bc%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bc%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=190045&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=871&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=872&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=064&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B4%5D=065&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B5%5D=066&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B6%5D=377&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B7%5D=378&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B8%5D=379&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B9%5D=480&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B10%5D=481&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B11%5D=482&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B12%5D=689&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B13%5D=690&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B14%5D=682&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B15%5D=683&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B16%5D=684&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B17%5D=602&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B18%5D=603&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B19%5D=640&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B20%5D=641&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B21%5D=193&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B22%5D=194&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B23%5D=195&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B24%5D=190&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B25%5D=191&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B26%5D=192&amp;size=500" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[3] When I checked on Oct 22, Healthleap&#x27;s evidence page listed Penn Medicine HUP $23.8M annualized impact ($6.3M reimbursement lift plus $17.5M from 8,632 bed-days saved); Cedars-Sinai 39% more malnutrition diagnoses at the same staffing; 88% higher sensitivity than the modified MST. <a href="https://healthleap.ai/evidence" rel="noopener" target="_blank">healthleap.ai/evidence</a></li></ul>
+</article><article class="lead">
+<h4>Seanna Zimmerman</h4>
+<p class="meta">Chief Nursing Officer, Concord Hospital Health System</p>
+<p class="sig"><strong>Why now:</strong> Concord Hospital Health System named Zimmerman CNO in a July 14 release, effective Aug 24, 2026. Concord coded 36.4% of its 2024 Medicare stroke discharges in the with-MCC tier, against a New Hampshire median of 48.7%.</p>
+<div class="msg"><header><span>Email &amp;middot; Stroke patients at Concord, by severity</span><button type="button" data-copy>Copy</button></header><pre>Concord Hospital coded 36.4% of its 2024 Medicare stroke discharges in the &#x27;with MCC&#x27; tier. The median across New Hampshire hospitals with 50+ stroke cases was 48.7%.
+
+Stroke patients often have trouble swallowing, which puts them at risk of malnutrition and aspiration, things your nurses see first. When those are assessed and documented, the record shows how sick these patients really are.
+
+I pulled your 2024 severity mix by DRG family against New Hampshire peers. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Seanna, welcome to Concord. One thing from CMS data: Concord coded 36.4% of 2024 Medicare stroke discharges with an MCC, against 48.7% across New Hampshire peers. Happy to share the full severity mix by family.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Concord Hospital Health System release, published July 14, 2026: Seanna Zimmerman appointed chief nursing officer, effective Aug. 24, 2026, from The Miriam Hospital (Brown University Health). The page returned 403 to my fetch on Oct 22; title, date and effective date are as shown in search results that day. <a href="https://www.concordhospital.org/about-us/news-publications/2026/concord-hospital-health-system-appoints-seanna-zimmerman/" rel="noopener" target="_blank">concordhospital.org/about-us/news-publications/2026/concord-hosp</a></li><li>[2] CMS 2024 Medicare data, Concord Hospital: stroke DRG 064 (with MCC) 44 of 121 discharges, 36.4%. New Hampshire median 48.7% across 5 hospitals with 50+ stroke discharges. <a href="https://data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2bf27c/data?filter%5Bs%5D%5Bcondition%5D%5Bpath%5D=Rndrng_Prvdr_State_Abrvtn&amp;filter%5Bs%5D%5Bcondition%5D%5Boperator%5D=%3D&amp;filter%5Bs%5D%5Bcondition%5D%5Bvalue%5D=NH&amp;filter%5Bd%5D%5Bcondition%5D%5Bpath%5D=DRG_Cd&amp;filter%5Bd%5D%5Bcondition%5D%5Boperator%5D=IN&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B1%5D=064&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B2%5D=065&amp;filter%5Bd%5D%5Bcondition%5D%5Bvalue%5D%5B3%5D=066&amp;size=5000" rel="noopener" target="_blank">data.cms.gov/data-api/v1/dataset/690ddc6c-2767-4618-b277-420ffb2</a></li><li>[3] When I checked on Oct 22, Healthleap&#x27;s evidence page listed Penn Medicine HUP $23.8M annualized impact ($6.3M reimbursement lift plus $17.5M from 8,632 bed-days saved); Cedars-Sinai 39% more malnutrition diagnoses at the same staffing; 88% higher sensitivity than the modified MST. <a href="https://healthleap.ai/evidence" rel="noopener" target="_blank">healthleap.ai/evidence</a></li></ul>
+</article></div>
+    </div>
+    <p class="src">Copy is written as Healthleap's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="build" data-label="Three things I&#x27;d build" data-sub="At Healthleap">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>If I join</s></p>
+    <h2>Three things I'd build at Healthleap.</h2>
+    <div class="three"><div class="pane"><h4>1. A capture-gap estimate on every target account</h4><p>A weekly job over CMS DRG files, cost reports and Care Compare that writes each hospital&#x27;s numbers into Salesforce: MCC share against state peers by DRG family, dollars at its own Medicare rates, HAC position. The RVP opens each first call with a Sutter-style table.</p></div><div class="pane"><h4>2. A trigger feed for the RVP and growth marketing</h4><p>New CFOs, CNOs, CMIOs and CDI leaders, Epic go-lives, losses and layoffs, pulled daily from hospital newsrooms, filings and job boards, matched to Definitive accounts and queued in Salesforce with the account&#x27;s capture numbers and a drafted first email.</p></div><div class="pane"><h4>3. Partner results turned into peer benchmarks</h4><p>With customer permission, turn finance-validated partner outcomes into account-specific plays for the Growth PMM: a prospect sees a comparable partner hospital&#x27;s results, its own CMS baseline on the same measures, and a one-page ROI model priced on its licensed beds.</p></div></div>
+  </div>
+</section>
+
+<section class="s mid" data-key="ask" data-label="The ask" data-sub="A GTM role, or a pilot first">
+  <div class="wrap">
+    <p class="kick"><b>Healthleap</b> <s>Shubham Sharma</s></p>
+    <h1>I'm looking for my next GTM role. I'd like to build this at Healthleap.</h1>
+    <p class="lede">Happy to start with a 1-month pilot. My work, with live numbers:
+      <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Healthleap</b> &middot; <a href="https://shubhamsbuild.github.io">Shubham Sharma</a></span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 05</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
+  });
+})();
+
+})();
+</script>
+</body>
+</html>

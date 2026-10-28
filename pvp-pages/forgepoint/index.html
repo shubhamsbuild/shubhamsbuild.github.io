@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Forgepoint</title>
+<meta name="description" content="10 named leads with copy and three things I'd build, prepared for Forgepoint.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
+.asset-h span:first-child{color:var(--ink);font-weight:500}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
+.scores b{color:var(--ink)}
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="What&#x27;s on this page">
+  <div class="wrap">
+    <p class="kick"><b>For Forgepoint</b> <s>from Shubham Sharma</s></p>
+    <h1 class="xl">Ten foundries, forges and job shops you could email today.</h1>
+    <p class="lede">Three messages they'd pay to receive, ten named leads to send them to,
+      and three things I'd build at Forgepoint. Every fact links to its public source.</p>
+    <p class="src">I'm looking for my next GTM role. &middot; <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+
+<section class="s" data-key="messages" data-label="Three messages" data-sub="What they&#x27;d pay to receive">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The messages</s></p>
+    <h2>Three messages your foundries, forges and job shops would pay to receive.</h2>
+    <div class="board">
+      <div class="leads"><button type="button" aria-pressed="false"><em>01</em><span>The breechblock forging Watervliet wants by Nov 4, and what it paid last time<i>For President or sales lead at a forge shop that supplies the Army</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Northern Iron&#x27;s customers need a new iron foundry<i>For President of an independent iron foundry</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>The Army lever casting that keeps drawing a single bid<i>For CEO or sales lead at an investment-casting foundry with defense work</i></span></button></div>
+      <div class="detail" aria-live="polite"><article class="pm">
+<h3>The breechblock forging Watervliet wants by Nov 4, and what it paid last time</h3>
+<p class="take">What Watervliet paid last time for the breechblock forging it wants quoted by Nov 4, so you know the price to beat.</p>
+<div class="mail"><div class="to">To: President or sales lead at a forge shop that supplies the Army, Scot Forge</div>
+<div class="subj">Your Nov 4 breechblock quote</div><p>When I checked on Oct 29, Watervliet was asking for quotes on rough-machined breechblock forgings, due Nov 4. It&#x27;s the same cannon as the breech ring you won there in 2024, against three other offers.</p><p>The last time Watervliet bought this drawing, in April 2024, it paid $2,178 a piece. That&#x27;s the number to beat before you open the drawing package.</p><p>I lined up every breech forging Watervliet has bought since 2024: quantity, price per piece, winner and offers. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Watervliet&#x27;s M20 breech forging buys since 2024, and the open RFQ &middot; first 3 of 5</span></div><table class="tbl"><tr><th>Signed</th><th>Part (drawing)</th><th>Qty</th><th>Total</th><th>Per piece</th><th>Winner</th><th>Offers</th></tr><tr><td>Due 2026-11-04</td><td>Breechblock 12591138 Rev B (open)</td><td>77</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>2024-04-10</td><td>Breechblock 12591138</td><td>142</td><td>$309,276</td><td>$2,178</td><td>Canadian Commercial Corp.</td><td>2</td></tr><tr><td>2024-04-11</td><td>Breech ring 12591139</td><td>25</td><td>$189,378</td><td>$7,575</td><td>Patriot Forge</td><td>2</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 8</summary><ul class="ev"><li>[1] When I checked on Oct 29, 2026, Watervliet Arsenal (ACC Watervliet) had RFQ W911PT27QA009 open: 77 each, Breechblock Forging (Rough Machined), drawing 12591138 Rev B, for the 105mm M20; quotes due Nov 4, 2026, 4:00 pm ET (2026-11-04). Posted Oct 19, 2026. <a href="https://sam.gov/opp/8cdb47bc2dd84e3f839dc90cb06cf403/view" rel="noopener" target="_blank">sam.gov/opp/8cdb47bc2dd84e3f839dc90cb06cf403/view</a></li><li>[2] W911PT24C0005, signed 2024-04-10: 142 breechblock forgings, part 12591138, $309,276 to the Canadian Commercial Corporation (Ottawa), 2 offers received, full and open competition. 309,276 / 142 = $2,178 each. This is the last time the drawing was bought (April 2024). <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24C0005_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24C0005_9700_-N</a></li><li>[3] W911PT24P0153, signed 2024-08-13: 30 M20 breech ring forgings to Scot Forge Company, Spring Grove, IL, $217,500, 4 offers received (Scot Forge plus three others). 217,500 / 30 = $7,250 each. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24P0153_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24P0153_9700_-N</a></li><li>[4] W911PT24P0112, signed 2024-04-11: 25 breech ring forgings, drawing 12591139, to Patriot Forge (Brantford, Canada), $189,378, 2 offers. About $7,575 each (7,575.12). <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24P0112_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24P0112_9700_-N</a></li><li>[5] W911PT26PA029, signed 2026-01-08: 15 breech ring forgings, drawing 12591139, to Patriot Forge, $102,405, 2 offers. $6,827 each. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26PA029_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26PA029_9700_-N</a></li><li>[6] Watervliet&#x27;s FY2024-FY2026 forging awards, searched by award ID: the M20 breech forgings above, plus breech block forgings on part 12529569 and two 2026 breech block orders with no part number (not shown). <a href="https://api.usaspending.gov/api/v2/search/spending_by_award/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/search/spending_by_award/</a></li><li>[7] When I checked on Oct 29, 2026, a second RFQ, W911PT26RA014, asked for 54 breech ring forgings on drawing 12591139 Rev B; it closed Oct 23, 2026. <a href="https://sam.gov/opp/ccfbcf0a2a3e4af78b68e73a982abdbf/view" rel="noopener" target="_blank">sam.gov/opp/ccfbcf0a2a3e4af78b68e73a982abdbf/view</a></li><li>[8] Forgepoint: Frank analyzes part files, prices on each manufacturer&#x27;s own cost model and routes engineering work for human review. <a href="https://finance.yahoo.com/technology/ai/articles/forgepoint-raises-9-8m-help-130000709.html" rel="noopener" target="_blank">finance.yahoo.com/technology/ai/articles/forgepoint-raises-9-8m-</a></li></ul></details>
+</article><article class="pm">
+<h3>Northern Iron&#x27;s customers need a new iron foundry</h3>
+<p class="take">Which buyers a closing St. Paul iron foundry leaves behind, and how closely their castings match your alloys and weights.</p>
+<div class="mail"><div class="to">To: President of an independent iron foundry, Washburn Iron Works</div>
+<div class="subj">Northern Iron&#x27;s patterns need a home</div><p>Northern Iron in St. Paul poured its last mold on Sep 30, and its WARN notice says shipping ends Nov 27. Its customers buy gray, ductile and austempered iron up to 250 lbs, almost exactly your range.</p><p>Every one of those patterns now needs a new foundry, and you take transfer tooling with open melt capacity.</p><p>I put Northern Iron&#x27;s alloys, weights and markets next to yours, with its wind-down dates. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Northern Iron (closing) next to Washburn Iron Works &middot; first 3 of 5</span></div><table class="tbl"><tr><th></th><th>Northern Iron, St. Paul</th><th>Washburn Iron Works</th></tr><tr><td>Gray iron</td><td>Yes</td><td>ASTM A48 grades 25-40</td></tr><tr><td>Ductile iron</td><td>Yes</td><td>ASTM A536</td></tr><tr><td>Austempered ductile</td><td>Yes</td><td>ASTM A897</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] Foundry Management &amp; Technology, Aug 4, 2026: Northern Iron LLC, St. Paul, MN, filed a WARN notice to close by the end of 2026, in stages from October 1, affecting 86 employees. It produces and machines gray, ductile and austempered iron castings up to 250 lbs for industrial equipment builders, oil-and-gas, commercial vehicle, and locomotive and off-highway builders. <a href="https://www.foundrymag.com/issues-and-ideas/news/55395436/northern-iron-files-warn-notice-lawton-standard-co" rel="noopener" target="_blank">foundrymag.com/issues-and-ideas/news/55395436/northern-iron-file</a></li><li>[2] Northern Iron&#x27;s WARN notice (dated July 30, 2026): last mold poured Wednesday, September 30, 2026; last day of foundry production October 1; last day of finishing October 23; last of machining and shipping Friday, November 27, 2026; full closure December 31, 2026. Dates subject to change. <a href="https://mn.gov/deed/assets/warn-2026-northern-iron-llc_tcm1045-762226.pdf" rel="noopener" target="_blank">mn.gov/deed/assets/warn-2026-northern-iron-llc_tcm1045-762226.pd</a></li><li>[3] Washburn Iron Works pours gray iron (ASTM A48 25-40), ductile iron (A536) and austempered ductile iron (A897) from ounces up to about 200 lbs; accepts transfer tooling; says it has open capacity after a 2025 melt system doubled melt capacity; standard lead time about 6 weeks. <a href="https://washburnironworks.com/services-and-capabilities/" rel="noopener" target="_blank">washburnironworks.com/services-and-capabilities/</a></li><li>[4] Washburn Iron Works serves agriculture and implement, industrial equipment (compressors, gear boxes, transmissions), and pump and valve customers. <a href="https://washburnironworks.com/industries-served/" rel="noopener" target="_blank">washburnironworks.com/industries-served/</a></li><li>[5] Foundry Management &amp; Technology, Aug 20, 2026: Grede filed a WARN notice to close its ductile iron foundry in Meadville, PA, by October 10, affecting about 170 workers; it made castings for heavy truck, construction, railroad and mining equipment. <a href="https://www.foundrymag.com/issues-and-ideas/news/55399346/warn-notice-filed-for-penn-iron-foundry-grede-llc" rel="noopener" target="_blank">foundrymag.com/issues-and-ideas/news/55399346/warn-notice-filed-</a></li><li>[6] Forgepoint: at a foundry, Frank reviews part files, gathers missing drawing specifications from the buyer, and prepares a first draft for an engineer. <a href="https://finance.yahoo.com/technology/ai/articles/forgepoint-raises-9-8m-help-130000709.html" rel="noopener" target="_blank">finance.yahoo.com/technology/ai/articles/forgepoint-raises-9-8m-</a></li></ul></details>
+</article><article class="pm">
+<h3>The Army lever casting that keeps drawing a single bid</h3>
+<p class="take">Watervliet&#x27;s lever castings: five buys since 2024 from one foundry, mostly single-bid, so a second bidder can set the next price.</p>
+<div class="mail"><div class="to">To: CEO or sales lead at an investment-casting foundry with defense work, Rangeview</div>
+<div class="subj">Watervliet&#x27;s single-bid lever castings</div><p>When I checked on Oct 29, Watervliet had bought lever castings five times since 2024, about $988,000 in all, every order from the same investment-casting foundry. Four of the five drew a single offer.</p><p>The latest order&#x27;s delivery window closed on Oct 19, so the next buy is the one to be ready for. A second qualified bidder changes that price.</p><p>I lined up all five orders: date, quantity, total, price per piece and offers. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Watervliet&#x27;s lever-casting orders since 2024 (all to Barron Industries) &middot; first 3 of 5</span></div><table class="tbl"><tr><th>Signed</th><th>Description</th><th>Qty</th><th>Total</th><th>Per piece</th><th>Offers</th></tr><tr><td>2024-03-28</td><td>Casting, lever (with option)</td><td>114</td><td>$376,625</td><td>-</td><td>1</td></tr><tr><td>2024-09-05</td><td>Lever casting</td><td>115</td><td>$129,168</td><td>$1,123</td><td>1</td></tr><tr><td>2025-02-05</td><td>M256 lever casting</td><td>100</td><td>$116,725</td><td>$1,167</td><td>1</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 9</summary><ul class="ev"><li>[1] When I checked on Oct 29, 2026, Watervliet Arsenal had placed five lever-casting orders since March 2024, all with Barron Industries, Oxford, MI: W911PT24C0004 $376,624.80; W911PT24P0166 $129,168; W911PT25P0043 $116,725; W911PT25P0112 $83,535; W911PT26PA114 $282,125.63. Total $988,178.43, about $988,000. Offers received 1, 1, 1, 2, 1: four of the five drew a single offer. <a href="https://api.usaspending.gov/api/v2/search/spending_by_award/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/search/spending_by_award/</a></li><li>[2] W911PT24C0004, signed 2024-03-28: 114 lever castings plus an option (ceiling $753,249.60), $376,624.80 obligated, 1 offer. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24C0004_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24C0004_9700_-N</a></li><li>[3] W911PT24P0166, signed 2024-09-05 (September 2024): 115 lever castings, $129,168, 1 offer, not competed under simplified acquisition. $1,123.20 each, about $1,123. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24P0166_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24P0166_9700_-N</a></li><li>[4] W911PT25P0043, signed 2025-02-05: 100 M256 lever castings, $116,725, 1 offer. $1,167.25 each, about $1,167. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT25P0043_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT25P0043_9700_-N</a></li><li>[5] W911PT25P0112, signed 2025-04-24 (April 2025): 60 M256 lever castings, $83,535, 2 offers, the only one of the five with a second offer. $1,392.25 each, about $1,392. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT25P0112_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT25P0112_9700_-N</a></li><li>[6] W911PT26PA114, signed 2026-06-25: lever casting, $282,125.63, 1 offer; period of performance ended Oct 19, 2026 (2026-10-19). Quantity not stated. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26PA114_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26PA114_9700_-N</a></li><li>[7] Barron Industries is an investment caster in Oxford, MI (Foundry Management &amp; Technology, Apr 30, 2026). <a href="https://www.foundrymag.com/melt-pour/news/55374465/investment-caster-buys-ti-vacuum-melting-capacity-barron-industries" rel="noopener" target="_blank">foundrymag.com/melt-pour/news/55374465/investment-caster-buys-ti</a></li><li>[8] The Defense Post, Aug 5, 2026: Rangeview, a California investment-casting company, won a US Navy contract to produce cast replacement parts for MRO programs. <a href="https://thedefensepost.com/2026/08/05/us-navy-rangeview-maintenance/" rel="noopener" target="_blank">thedefensepost.com/2026/08/05/us-navy-rangeview-maintenance/</a></li><li>[9] Forgepoint: Frank analyzes part files, prices on each manufacturer&#x27;s own cost model and routes engineering work for human review. <a href="https://finance.yahoo.com/technology/ai/articles/forgepoint-raises-9-8m-help-130000709.html" rel="noopener" target="_blank">finance.yahoo.com/technology/ai/articles/forgepoint-raises-9-8m-</a></li></ul></details>
+</article></div>
+    </div>
+    <p class="src">Each one was run on a real, named account. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten leads</s></p>
+    <h2>Ten leads, each with a reason to email now.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>John Fairbanks<i>Trinity Forge &amp; Machine &middot; Open Army breechblock forging RFQ, due Nov 4</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Taylor Pearson<i>Washburn Iron Works &middot; Nearby iron foundry poured its last mold</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Alex Newell<i>F&amp;B MFG &middot; Acquired by The Partner Companies</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Tony Goodman<i>Dalton Foundry LLC &middot; Restarting as Northern Iron stops pouring</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Gerry Schwarz<i>KMC Stampings &middot; Broke ground on 18,000 sq ft addition</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Dave Ferraguto<i>Ramar-Hall Inc. &middot; $5M expansion for Pratt and Collins demand</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Jeremy Baron<i>Baron Machine Company &middot; Acquired by Talon Precision; stays president</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Roger Hargens<i>Accumold &middot; $33.25M expansion nearly doubles capacity</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Tom Rimel<i>Stockwell Elastomerics &middot; $8M expansion with a new LIM press</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Cameron Schiller<i>Rangeview &middot; Navy castings award; single-bid Army lever castings</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>John Fairbanks</h4>
+<p class="meta">President and CEO, Trinity Forge &amp; Machine</p>
+<p class="sig"><strong>Why now:</strong> When I checked on Oct 29, Watervliet had a rough-machined breechblock forging RFQ open, due Nov 4; the last buy of that drawing was $2,178 a piece. Trinity is a 110-person closed-die forge doing mostly defense work.</p>
+<div class="msg"><header><span>Email &amp;middot; A breechblock forging due Nov 4</span><button type="button" data-copy>Copy</button></header><pre>When I checked on Oct 29, Watervliet was asking for quotes on rough-machined breechblock forgings, due Nov 4. You forge and machine to print, and most of your work is defense.
+
+The last time Watervliet bought this drawing, in April 2024, it paid $2,178 a piece, with two offers. That&#x27;s the number to beat.
+
+I lined up every breech forging Watervliet has bought since 2024: quantity, price per piece, winner and offers. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>John, Watervliet had a rough-machined breechblock forging RFQ open when I checked on Oct 29, due Nov 4. The last buy of that drawing was $2,178 a piece. I lined up every breech forging it has bought since 2024. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Fort Worth Business Press, Sep 25, 2026: John Fairbanks, President and CEO; Trinity Forge is a closed-die forging and precision machining custom contractor offering built-to-print parts; defense is 80% of its business; 110 employees. <a href="https://fortworthbusiness.com/business/trinity-forge-forging-ahead/" rel="noopener" target="_blank">fortworthbusiness.com/business/trinity-forge-forging-ahead/</a></li><li>[10] When I checked on Oct 29, 2026, Watervliet&#x27;s RFQ W911PT27QA009 asked for 77 rough-machined breechblock forgings, drawing 12591138 Rev B, due Nov 4, 2026; posted Oct 19, 2026. <a href="https://sam.gov/opp/8cdb47bc2dd84e3f839dc90cb06cf403/view" rel="noopener" target="_blank">sam.gov/opp/8cdb47bc2dd84e3f839dc90cb06cf403/view</a></li><li>[11] The last buy of drawing 12591138 (April 2024, W911PT24C0005): 142 forgings for $309,276, $2,178 each, 2 offers. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24C0005_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT24C0005_9700_-N</a></li></ul>
+</article><article class="lead">
+<h4>Taylor Pearson</h4>
+<p class="meta">President, Washburn Iron Works</p>
+<p class="sig"><strong>Why now:</strong> Northern Iron in St. Paul poured its last mold on Sep 30, 2026 and ends shipping on Nov 27. It made gray, ductile and austempered iron up to 250 lbs, and Washburn pours the same three irons up to about 200 lbs.</p>
+<div class="msg"><header><span>Email &amp;middot; Northern Iron&#x27;s patterns need a home</span><button type="button" data-copy>Copy</button></header><pre>Northern Iron in St. Paul poured its last mold on Sep 30, and its WARN notice says shipping ends Nov 27. Its customers buy gray, ductile and austempered iron up to 250 lbs, almost exactly your range.
+
+Those patterns now need a new foundry, and you take transfer tooling with open melt capacity.
+
+I put Northern Iron&#x27;s alloys, weights and markets next to yours, with its wind-down dates. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Taylor, Northern Iron in St. Paul poured its last mold Sep 30 and ends shipping Nov 27. Its gray, ductile and ADI work up to 250 lbs is close to your range. I lined up its alloys, weights and markets next to yours. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Northern Iron&#x27;s WARN notice: last mold poured September 30, 2026; last of machining and shipping November 27, 2026; full closure December 31, 2026. <a href="https://mn.gov/deed/assets/warn-2026-northern-iron-llc_tcm1045-762226.pdf" rel="noopener" target="_blank">mn.gov/deed/assets/warn-2026-northern-iron-llc_tcm1045-762226.pd</a></li><li>[2] Northern Iron makes gray, ductile and austempered iron castings up to 250 lbs (Foundry Management &amp; Technology, Aug 4, 2026). <a href="https://www.foundrymag.com/issues-and-ideas/news/55395436/northern-iron-files-warn-notice-lawton-standard-co" rel="noopener" target="_blank">foundrymag.com/issues-and-ideas/news/55395436/northern-iron-file</a></li><li>[3] Washburn Iron Works pours castings up to about 200 lbs, accepts transfer tooling and has open capacity. <a href="https://washburnironworks.com/services-and-capabilities/" rel="noopener" target="_blank">washburnironworks.com/services-and-capabilities/</a></li><li>[4] Washburn&#x27;s team page lists Taylor Pearson as President; he oversees all company operations. <a href="https://www.washburnironworks.com/about/" rel="noopener" target="_blank">washburnironworks.com/about/</a></li></ul>
+</article><article class="lead">
+<h4>Alex Newell</h4>
+<p class="meta">President, F&amp;B MFG</p>
+<p class="sig"><strong>Why now:</strong> The Partner Companies acquired F&amp;B MFG on Oct 26, 2026 to add its hydroforming to its aerospace and defense work. F&amp;B has more than 200 employees in Phoenix.</p>
+<div class="msg"><header><span>Email &amp;middot; More RFQs after the TPC deal</span><button type="button" data-copy>Copy</button></header><pre>With The Partner Companies behind F&amp;B, your hydroforming, tooling, heat treat and machining can be offered to a bigger book of aerospace and defense buyers.
+
+That usually means more RFQs per estimator, each with prints, specs and flow-downs to read before a price goes out.
+
+I sketched how F&amp;B&#x27;s quote desk could absorb that volume and still answer first. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Alex, saw the TPC acquisition. A bigger group usually means more aerospace RFQs per estimator, each with prints and flow-downs to read. I sketched how F&amp;B&#x27;s quote desk could absorb that and still answer first. Happy to share.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] PR Newswire, Oct 26, 2026: The Partner Companies acquires F&amp;B MFG, a Phoenix hydroforming and metal-forming manufacturer with more than 200 employees; Alex Newell is President. <a href="https://www.prnewswire.com/news-releases/the-partner-companies-acquires-fb-mfg-strengthening-precision-metal-forming-capabilities-for-aerospace-and-defense-302919477.html" rel="noopener" target="_blank">prnewswire.com/news-releases/the-partner-companies-acquires-fb-m</a></li></ul>
+</article><article class="lead">
+<h4>Tony Goodman</h4>
+<p class="meta">President, Dalton Foundry LLC</p>
+<p class="sig"><strong>Why now:</strong> On Oct 6, 2026, Warsaw heard Dalton expects $8.2 million of new equipment to restart. On Sep 30, Northern Iron in St. Paul poured its last mold, leaving gray and ductile iron buyers in trucks, rail and industrial equipment to re-source.</p>
+<div class="msg"><header><span>Email &amp;middot; Northern Iron&#x27;s gray iron buyers</span><button type="button" data-copy>Copy</button></header><pre>Northern Iron in St. Paul poured its last mold on Sep 30, and its WARN notice says shipping ends Nov 27. Its gray and ductile buyers in trucks, rail and industrial equipment now need a new foundry.
+
+You&#x27;re restarting with $8.2 million of new equipment and capacity to fill, and you said buyers are deciding right now.
+
+I put Northern Iron&#x27;s alloys, weights and markets in one table, with its wind-down dates. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Tony, Northern Iron in St. Paul poured its last mold Sep 30, and its gray iron truck and industrial buyers need a new foundry just as Dalton restarts. I put its alloys, weights and markets in one table. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] InkFreeNews, Oct 6, 2026: Dalton expects to spend $8.2 million in new manufacturing equipment and bring back 125 jobs; current employees about 17; Tony Goodman is president of Dalton Foundry LLC. <a href="https://www.inkfreenews.com/2026/10/06/dalton-foundry-looks-to-be-reborn-with-help-from-city-tax-abatement/" rel="noopener" target="_blank">inkfreenews.com/2026/10/06/dalton-foundry-looks-to-be-reborn-wit</a></li><li>[2] Goodman on lost work and timing. <a href="https://www.inkfreenews.com/2026/10/06/dalton-foundry-looks-to-be-reborn-with-help-from-city-tax-abatement/" rel="noopener" target="_blank">inkfreenews.com/2026/10/06/dalton-foundry-looks-to-be-reborn-wit</a></li><li>[10] Northern Iron&#x27;s WARN notice: last mold poured September 30, 2026; last of machining and shipping November 27, 2026. <a href="https://mn.gov/deed/assets/warn-2026-northern-iron-llc_tcm1045-762226.pdf" rel="noopener" target="_blank">mn.gov/deed/assets/warn-2026-northern-iron-llc_tcm1045-762226.pd</a></li><li>[11] Northern Iron made gray, ductile and austempered iron castings up to 250 lbs for industrial equipment, oil and gas, commercial vehicle, and locomotive and off-highway builders. <a href="https://www.foundrymag.com/issues-and-ideas/news/55395436/northern-iron-files-warn-notice-lawton-standard-co" rel="noopener" target="_blank">foundrymag.com/issues-and-ideas/news/55395436/northern-iron-file</a></li></ul>
+</article><article class="lead">
+<h4>Gerry Schwarz</h4>
+<p class="meta">CEO and President, KMC Stampings</p>
+<p class="sig"><strong>Why now:</strong> KMC broke ground on Sept. 23, 2026 on an 18,000-square-foot addition for fabrication and welding, and Schwarz said more new business is coming down the pipeline.</p>
+<div class="msg"><header><span>Email &amp;middot; Filling the new Port addition</span><button type="button" data-copy>Copy</button></header><pre>You broke ground Sept. 23 on an 18,000-square-foot addition for fabrication and welding, and said more new business is coming down the pipeline.
+
+New space fills from the quote desk: every OEM RFQ read, priced and sent before a competitor answers.
+
+I sketched how KMC&#x27;s estimators could quote that extra volume without adding headcount at the same pace. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Gerry, saw the groundbreaking on the Port Washington addition. New space fills from the quote desk. I sketched how KMC&#x27;s estimators could handle more RFQs without adding headcount at the same pace. Happy to share.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Ozaukee Press, Aug 12, 2026: KMC Stampings won approval for an 18,000-square-foot addition; CEO and President Gerry Schwarz; about 325 employees. <a href="https://ozaukeepress.com/content/kmc-stampings-plans-expand-port-plant" rel="noopener" target="_blank">ozaukeepress.com/content/kmc-stampings-plans-expand-port-plant</a></li><li>[2] Ozaukee Press, Oct 14, 2026: ground was broken for the addition on Sept. 23. <a href="https://www.ozaukeepress.com/content/celebrating-growth-kmc-stampings" rel="noopener" target="_blank">ozaukeepress.com/content/celebrating-growth-kmc-stampings</a></li></ul>
+</article><article class="lead">
+<h4>Dave Ferraguto</h4>
+<p class="meta">President, Ramar-Hall Inc.</p>
+<p class="sig"><strong>Why now:</strong> On Aug 28, 2026, Ramar-Hall announced a $5 million, 15,000-square-foot expansion. When I checked on Oct 29, Watervliet had extractor cartridges out for quote, due Nov 2, and had paid $442.50 each on its last buy.</p>
+<div class="msg"><header><span>Email &amp;middot; Extractor cartridges due Nov 2</span><button type="button" data-copy>Copy</button></header><pre>When I checked on Oct 29, Watervliet Arsenal was asking for quotes on extractor cartridges made to its drawing, due Nov 2. It&#x27;s small-lot precision machining, the work your Middlefield expansion adds room for.
+
+In June the Army paid a New Jersey shop $442.50 each, with three offers. That&#x27;s the price to beat.
+
+I pulled the RFQ and the last buy into one sheet. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Dave, saw the Middlefield expansion. When I checked on Oct 29, Watervliet had extractor cartridges out for quote, due Nov 2; in June it paid $442.50 each. I pulled the RFQ and the last buy into one sheet, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Patch, Aug 28, 2026: Ramar-Hall plans a $5 million expansion adding 15,000 square feet, with a $700,000 award from Connecticut DECD; customers include Pratt &amp; Whitney and Collins Aerospace; President Dave Ferraguto quoted. <a href="https://patch.com/connecticut/middletown-ct/middlefield-aerospace-supplier-plans-5-million-expansion-new-jobs-amid" rel="noopener" target="_blank">patch.com/connecticut/middletown-ct/middlefield-aerospace-suppli</a></li><li>[10] When I checked on Oct 29, 2026, Watervliet&#x27;s RFQ W911PT27QA012 asked for 61 extractor cartridges made to drawing, due Nov 2, 2026; posted Oct 22, 2026. <a href="https://sam.gov/opp/ed9c036f52434918a381493a83f32af3/view" rel="noopener" target="_blank">sam.gov/opp/ed9c036f52434918a381493a83f32af3/view</a></li><li>[11] Watervliet&#x27;s last extractor buy, W911PT26FA319, June 2026: 36 to Ruoff &amp; Sons (Runnemede, NJ, a New Jersey shop) for $15,930, $442.50 each, 3 offers. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26FA319_9700_W911PT21A0026_9700/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26FA319_9700_W9</a></li></ul>
+</article><article class="lead">
+<h4>Jeremy Baron</h4>
+<p class="meta">President and Owner, Baron Machine Company</p>
+<p class="sig"><strong>Why now:</strong> Talon Precision closed on Baron Machine on Aug. 19, 2026 to grow it. When I checked on Oct 29, Watervliet had extractor cartridges out for quote, due Nov 2, and had paid $442.50 each on its last buy.</p>
+<div class="msg"><header><span>Email &amp;middot; Extractor cartridges due Nov 2</span><button type="button" data-copy>Copy</button></header><pre>When I checked on Oct 29, Watervliet Arsenal was asking for quotes on extractor cartridges made to its drawing, due Nov 2. Defense is one of your main markets, and Talon is backing Baron&#x27;s growth.
+
+In June the Army paid a New Jersey shop $442.50 each, with three offers. That&#x27;s the price to beat.
+
+I pulled the RFQ and the last buy into one sheet. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Jeremy, saw the Talon deal. When I checked on Oct 29, Watervliet had extractor cartridges out for quote, due Nov 2; in June it paid $442.50 each. I put the RFQ and the last buy on one sheet, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Citybiz, Aug 25, 2026: Talon Precision acquired Baron Machine Company (Laconia, NH); completed Aug. 19, 2026; Jeremy Baron, President and owner, remains president; aerospace and defense are its primary markets; Talon is backed by $75 million of initial equity. <a href="https://www.citybiz.co/article/894252/talon-precision-acquires-baron-machine-expanding-northeast-aerospace-manufacturing-platform/" rel="noopener" target="_blank">citybiz.co/article/894252/talon-precision-acquires-baron-machine</a></li><li>[10] When I checked on Oct 29, 2026, Watervliet&#x27;s RFQ W911PT27QA012 asked for 61 extractor cartridges made to drawing, due Nov 2, 2026; posted Oct 22, 2026. <a href="https://sam.gov/opp/ed9c036f52434918a381493a83f32af3/view" rel="noopener" target="_blank">sam.gov/opp/ed9c036f52434918a381493a83f32af3/view</a></li><li>[11] Watervliet&#x27;s last extractor buy, W911PT26FA319, June 2026: 36 to Ruoff &amp; Sons (Runnemede, NJ, a New Jersey shop) for $15,930, $442.50 each, 3 offers. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26FA319_9700_W911PT21A0026_9700/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26FA319_9700_W9</a></li></ul>
+</article><article class="lead">
+<h4>Roger Hargens</h4>
+<p class="meta">President and CEO, Accumold</p>
+<p class="sig"><strong>Why now:</strong> In October 2026 Accumold broke ground on a $33.25 million, 53,000-square-foot building in Ankeny that nearly doubles production capacity and adds 150 jobs.</p>
+<div class="msg"><header><span>Email &amp;middot; Quoting a doubled Ankeny capacity</span><button type="button" data-copy>Copy</button></header><pre>Your $33.25 million Ankeny building nearly doubles production capacity and adds 150 jobs.
+
+Doubling capacity means far more micro-molding RFQs to quote, each with tight tolerances and a part file to review.
+
+I sketched how Accumold&#x27;s quote desk could keep up with that growth without doubling its estimators. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Roger, saw the Ankeny groundbreaking. Nearly doubling capacity means far more RFQs to quote. I sketched how your quote desk could keep up without doubling estimators. Happy to share.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] NAM, Oct 23, 2026: Accumold broke ground earlier this month on a $33.25 million expansion; the 53,000-square-foot building nearly doubles production capacity and creates 150 jobs; 425 employees; Roger Hargens is President and CEO. <a href="https://nam.org/accumold-breaks-new-ground-adds-jobs-thanks-to-landmark-tax-law/" rel="noopener" target="_blank">nam.org/accumold-breaks-new-ground-adds-jobs-thanks-to-landmark-</a></li></ul>
+</article><article class="lead">
+<h4>Tom Rimel</h4>
+<p class="meta">President, Stockwell Elastomerics</p>
+<p class="sig"><strong>Why now:</strong> On Aug 6, 2026, Stockwell announced more than $8 million in investment, including a 38,000-square-foot building and a new liquid injection molding press.</p>
+<div class="msg"><header><span>Email &amp;middot; Quoting the new LIM capacity</span><button type="button" data-copy>Copy</button></header><pre>Your $8 million investment adds a 38,000-square-foot building and a new liquid injection molding press, driven, you said, by customer needs.
+
+Custom silicone work means lots of prototype RFQs, each with a print, a material spec and tolerances to check before pricing.
+
+I sketched how Stockwell&#x27;s applications engineers could quote faster without giving up the engineering review. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Tom, saw the expansion and the new LIM press. Custom silicone means lots of prototype RFQs to price. I sketched how your engineers could quote faster without giving up the engineering review. Happy to share.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Citybiz, Aug 6, 2026: Stockwell Elastomerics invests more than $8 million, adding a 38,000-square-foot facility and a new LIM press; Tom Rimel is President. <a href="https://www.citybiz.co/article/885637/100-year-old-firm-invests-over-8m-in-expanded-facilities-manufacturing-capacity-and-engineering-talent-to-support-continued-customer-growth/" rel="noopener" target="_blank">citybiz.co/article/885637/100-year-old-firm-invests-over-8m-in-e</a></li></ul>
+</article><article class="lead">
+<h4>Cameron Schiller</h4>
+<p class="meta">CEO and Founder, Rangeview</p>
+<p class="sig"><strong>Why now:</strong> Rangeview won a Navy contract for cast replacement parts on Aug 5, 2026. When I checked on Oct 29, Watervliet had bought lever castings five times since 2024, about $988,000, from one foundry, with a single offer on four of them.</p>
+<div class="msg"><header><span>Email &amp;middot; Watervliet&#x27;s single-bid lever castings</span><button type="button" data-copy>Copy</button></header><pre>When I checked on Oct 29, Watervliet had bought lever castings five times since 2024, about $988,000 in all, every order from the same investment-casting foundry. Four of the five drew a single offer.
+
+The latest order&#x27;s delivery window closed on Oct 19, so the next buy is the one to be ready for. A second qualified bidder changes that price.
+
+I lined up all five orders: date, quantity, total, price per piece and offers. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Cameron, Watervliet has bought its lever castings five times since 2024 from one foundry, mostly with a single offer, and the latest order&#x27;s delivery window closed Oct 19. With the Navy castings win, worth a look. I lined up all five buys.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] The Defense Post, Aug 5, 2026: Rangeview secured a US Navy contract to produce cast replacement parts for MRO programs. <a href="https://thedefensepost.com/2026/08/05/us-navy-rangeview-maintenance/" rel="noopener" target="_blank">thedefensepost.com/2026/08/05/us-navy-rangeview-maintenance/</a></li><li>[2] Aerospace Manufacturing, Aug 3, 2026: Kratos selected Rangeview for cast superalloy engine hardware; Cameron Schiller is CEO and founder. <a href="https://www.aero-mag.com/rangeview-selected-to-supply-critical-castings-for-kratos-engine-work" rel="noopener" target="_blank">aero-mag.com/rangeview-selected-to-supply-critical-castings-for-</a></li><li>[10] When I checked on Oct 29, 2026: five Watervliet lever-casting orders since 2024, $988,178.43 total (about $988,000), all to Barron Industries; offers 1, 1, 1, 2, 1, so four of five drew a single offer. Latest order&#x27;s period of performance ended Oct 19, 2026. <a href="https://api.usaspending.gov/api/v2/search/spending_by_award/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/search/spending_by_award/</a></li></ul>
+</article></div>
+    </div>
+    <p class="src">Copy is written as Forgepoint's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="build" data-label="Three things I&#x27;d build" data-sub="At Forgepoint">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>If I join</s></p>
+    <h2>Three things I'd build at Forgepoint.</h2>
+    <div class="three"><div class="pane"><h4>1. An RFQ-and-closure signal feed for the AE queue</h4><p>A daily job reading SAM.gov RFQs, USAspending award prices, state WARN closures and expansion news, matched to shops by process, alloy and weight range. Each account reaches the AE with its own fact and a drafted first email, like the Scot Forge one here.</p></div><div class="pane"><h4>2. One clean record per shop in the CRM</h4><p>Accounts keyed to domain and CAGE code, enriched from each shop&#x27;s site (processes, alloys, certifications, ERP), with automated dedupe, lifecycle stages and a weekly pipeline report by segment and signal, so Jack sees which angle books meetings.</p></div><div class="pane"><h4>3. Founder-led selling turned into tools</h4><p>An agent that writes the call-prep brief before every demo (awards, nearby closures, likely ERP, open RFQs) and drafts the follow-up and proposal after it, so the new AE and partnerships hires start from Jack&#x27;s playbook.</p></div></div>
+  </div>
+</section>
+
+<section class="s mid" data-key="ask" data-label="The ask" data-sub="A GTM role, or a pilot first">
+  <div class="wrap">
+    <p class="kick"><b>Forgepoint</b> <s>Shubham Sharma</s></p>
+    <h1>I'm looking for my next GTM role. I'd like to build this at Forgepoint.</h1>
+    <p class="lede">Happy to start with a 1-month pilot. My work, with live numbers:
+      <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Forgepoint</b> &middot; <a href="https://shubhamsbuild.github.io">Shubham Sharma</a></span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 05</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
+  });
+})();
+
+})();
+</script>
+</body>
+</html>

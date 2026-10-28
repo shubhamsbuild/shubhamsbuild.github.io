@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Harmoni</title>
+<meta name="description" content="10 named leads with copy and three things I'd build, prepared for Harmoni.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
+.asset-h span:first-child{color:var(--ink);font-weight:500}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
+.scores b{color:var(--ink)}
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="What&#x27;s on this page">
+  <div class="wrap">
+    <p class="kick"><b>For Harmoni</b> <s>from Shubham Sharma</s></p>
+    <h1 class="xl">Ten CNC and aerospace-defense machine shops you could email today.</h1>
+    <p class="lede">Three messages they'd pay to receive, ten named leads to send them to,
+      and three things I'd build at Harmoni. Every fact links to its public source.</p>
+    <p class="src">I'm looking for my next GTM role. &middot; <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+
+<section class="s" data-key="messages" data-label="Three messages" data-sub="What they&#x27;d pay to receive">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The messages</s></p>
+    <h2>Three messages your CNC and aerospace-defense machine shops would pay to receive.</h2>
+    <div class="board">
+      <div class="leads"><button type="button" aria-pressed="false"><em>01</em><span>The option years on your Navy orders, and what decides them<i>For Owner or president</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>What your Navy buying office ordered from other shops this year<i>For Owner or president</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Your repeat Watervliet drawings, with the revision each order calls<i>For Owner or production manager</i></span></button></div>
+      <div class="detail" aria-live="polite"><article class="pm">
+<h3>The option years on your Navy orders, and what decides them</h3>
+<p class="take">Which of your Navy orders carry option years, how much is still to win, and what decides whether they get exercised.</p>
+<div class="mail"><div class="to">To: Owner or president, Virginia Highlands Machine (Derick Endicott)</div>
+<div class="subj">Option years on your NUWC orders</div><p>As of their May and June records, two of your NUWC Newport orders carried about $1.38M in option years running to 2030: the sonar housings and end-plates, and the cable pulley set.</p><p>Before exercising an option, the contracting officer has to find your performance on that order acceptable, and SPRS scores your on-time delivery every day. So those two jobs are worth far more than their first invoice.</p><p>I lined up your 6 NUWC orders this year: exercised value, full ceiling and end date. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Virginia Highlands Machine&#x27;s FY2026 NUWC Newport orders: exercised vs. full ceiling &middot; first 3 of 6</span></div><table class="tbl"><tr><th>Order</th><th>Part</th><th>Exercised</th><th>Ceiling with options</th><th>Runs to</th></tr><tr><td>N6660426P0205</td><td>Sonar housings and end-plates</td><td>$266,963</td><td>$1,407,002</td><td>2030-11-30</td></tr><tr><td>N6660426P0202</td><td>Cable pulley, pusher, support post</td><td>$61,280</td><td>$303,200</td><td>2030-07-29</td></tr><tr><td>N6660426P0321</td><td>TDU launch kit</td><td>$109,200</td><td>$109,200</td><td>2026-12-31</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 8</summary><ul class="ev"><li>[1] N6660426P0205, NUWC Division Newport, signed 2026-06-26: housing and end-plate components for underwater sonar. Exercised $266,963.40 of a $1,407,001.80 ceiling with all options; potential end 2030-11-30. Competed under simplified acquisition, 2 offers received. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_N6660426P0205_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_N6660426P0205_9700_-N</a></li><li>[2] N6660426P0202, NUWC Division Newport, signed 2026-05-08: cable pulley, cable pusher and pulley support post. Exercised $61,280 of a $303,200 ceiling; potential end 2030-07-29. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_N6660426P0202_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_N6660426P0202_9700_-N</a></li><li>[3] Unexercised options across the two orders: (1,407,001.80 - 266,963.40) + (303,200 - 61,280) = 1,140,038.40 + 241,920 = $1,381,958.40, about $1.38M, running to 2030. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_N6660426P0205_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_N6660426P0205_9700_-N</a></li><li>[4] Virginia Highlands Machine&#x27;s 6 FY2026 DoD orders, all from NUWC Division Newport ($599,305.63 exercised): P0205 sonar housings $266,963 (ceiling $1,407,002, to 2030-11-30); P0321 TDU launch kit $109,200 (ceiling $109,200, to 2026-12-31); P0105 gear kits $84,953 (ceiling $84,953, to 2026-05-29); P0202 cable pulley set $61,280 (ceiling $303,200, to 2030-07-29); P0214 hydraulic locking cylinders $39,401 (ceiling $39,401, to 2026-07-27); P0106 jigs, tools and fixtures $37,508 (ceiling $37,508, to 2026-06-30). <a href="https://api.usaspending.gov/api/v2/search/spending_by_award/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/search/spending_by_award/</a></li><li>[5] FAR 17.207(c): the contracting officer may exercise an option only after determining, among other things, that the contractor&#x27;s performance on this contract has been acceptable. <a href="https://www.acquisition.gov/far/17.207" rel="noopener" target="_blank">acquisition.gov/far/17.207</a></li><li>[6] Since the DFARS rule of March 22, 2023, contracting officers must consider SPRS risk assessments; SPRS calculates on-time quality and delivery scores and a supplier risk score from three years of performance data. <a href="https://www.wiley.law/alert-DOD-Issues-Final-Rule-Regarding-Use-of-SPRS-Assessments-in-Procurement" rel="noopener" target="_blank">wiley.law/alert-DOD-Issues-Final-Rule-Regarding-Use-of-SPRS-Asse</a></li><li>[7] Derick Endicott runs Virginia Highlands Machine with his father; a Mazak shop with 3-axis milling and 4th-axis capability. <a href="https://industrialmachinerydigest.com/directory/company/virginia-highlands-machine" rel="noopener" target="_blank">industrialmachinerydigest.com/directory/company/virginia-highlan</a></li><li>[8] Harmoni&#x27;s factory map shows every workcenter&#x27;s status live, with job, operator, active program and OEE. <a href="https://harmoni.io/platform/observability/" rel="noopener" target="_blank">harmoni.io/platform/observability/</a></li></ul></details>
+</article><article class="pm">
+<h3>What your Navy buying office ordered from other shops this year</h3>
+<p class="take">The MQ-4C ground-support parts your Lakehurst buyer ordered from other shops this year, so you can ask to quote the next ones.</p>
+<div class="mail"><div class="to">To: Owner or president, V.E.P. Manufacturing</div>
+<div class="subj">MQ-4C parts Lakehurst is buying</div><p>The Lakehurst office that buys your payload jacks and rear channel assemblies placed 9 MQ-4C ground-support orders between October and July with 4 other shops, about $315K in total: slings, fixtures, adapter sets.</p><p>That&#x27;s support equipment, the work you already build to print for the same buyer. Knowing the parts lets you ask the contracting office to include you on the next MQ-4C solicitation.</p><p>I pulled all 9 orders with the part, shop, value and delivery date. Want the list?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: NAWCAD Lakehurst MQ-4C ground-support orders to other shops, FY2026 &middot; first 3 of 9</span></div><table class="tbl"><tr><th>Part</th><th>Shop</th><th>Value</th><th>Signed</th><th>Delivery by</th></tr><tr><td>MQ-4C adjustable table top assembly</td><td>Coherent Technical Services</td><td>$97,863</td><td>2026-03-02</td><td>2026-08-03</td></tr><tr><td>MQ-4 aft fuselage support fixture</td><td>ATAP Inc.</td><td>$53,812</td><td>2026-06-24</td><td>2026-12-25</td></tr><tr><td>MQ-4 V-tail sling assembly</td><td>AVIOSS LLC</td><td>$50,326</td><td>2026-06-23</td><td>2026-10-24</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] N6833526F1011, NAVAIR Warfare Center Aircraft Division (Lakehurst), signed 2025-12-23: payload installation and removal jacks assembly, $246,000, a call under V.E.P.&#x27;s BPA N6833523A0021. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_N6833526F1011_9700_N6833523A0021_9700/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_N6833526F1011_9700_N6</a></li><li>[2] N6833526F1093, same office, signed 2026-05-19: rear channel assembly PN 3429AS0156-1 REV C, $89,300, delivery by November 6, 2026. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_N6833526F1093_9700_N6833523A0021_9700/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_N6833526F1093_9700_N6</a></li><li>[3] FY2026 DoD machine-shop orders from Lakehurst (award prefix N68335) naming MQ-4/MQ-4C: 9 orders to 4 other shops, $315,035.70 (about $315K): Coherent Technical Services adjustable table top $97,863.44; ATAP aft fuselage support fixture $53,812; AVIOSS V-tail sling $50,325.75; Delflo hydraulic adapter set $46,500; AVIOSS waveguide nitrogen service set $28,501.38; AVIOSS lift platform adapter $13,750; AVIOSS forward nacelle sling $13,178.48; AVIOSS SATCOM antenna adapter $8,487.20; AVIOSS lift handles $2,617.45. <a href="https://api.usaspending.gov/api/v2/search/spending_by_award/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/search/spending_by_award/</a></li><li>[4] Largest of them: N6833526F1042, Coherent Technical Services, MQ-4C adjustable table top assembly, $97,863.44, signed 2026-03-02, delivery by 2026-08-03. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_N6833526F1042_9700_N6833523D0030_9700/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_N6833526F1042_9700_N6</a></li><li>[5] V.E.P. Manufacturing, Jackson NJ: family-owned precision CNC machine shop that specializes in DoD support equipment. <a href="https://www.njmep.org/about-us/manufacturing-in-nj/company/v-e-p-manufacturing-inc/" rel="noopener" target="_blank">njmep.org/about-us/manufacturing-in-nj/company/v-e-p-manufacturi</a></li><li>[6] Harmoni surfaces the correct setup sheets, tooling and quality checkpoints when a job&#x27;s RFID is scanned, and only approved revisions can load. <a href="https://harmoni.io/platform/process-control/" rel="noopener" target="_blank">harmoni.io/platform/process-control/</a></li></ul></details>
+</article><article class="pm">
+<h3>Your repeat Watervliet drawings, with the revision each order calls</h3>
+<p class="take">Which Watervliet parts you&#x27;ve made more than once this year, and the drawing revision each new order calls for.</p>
+<div class="mail"><div class="to">To: Owner or production manager, Ruoff &amp; Sons</div>
+<div class="subj">Your U-bolt run due December 7</div><p>Watervliet ordered the U-bolt on drawing 12591508 from you twice this fiscal year. The October order names no revision; the June one calls Revision A and is due December 7.</p><p>If anything on the print moved between the two, the program and setup sheet from the October run are where a mismatch hides.</p><p>I listed your 30 Watervliet orders this year with the repeat drawings grouped and the revision each one calls. Want the list?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Ruoff &amp; Sons&#x27; repeat Watervliet drawings, FY2026 &middot; first 3 of 30</span></div><table class="tbl"><tr><th>Part</th><th>Order</th><th>Signed</th><th>Value</th><th>Revision called</th></tr><tr><td>U-bolt, dwg 12591508</td><td>W911PT26FA017</td><td>2025-10-27</td><td>$28,004</td><td>not named</td></tr><tr><td>U-bolt, dwg 12591508 (105mm M20)</td><td>W911PT26FA361</td><td>2026-06-24</td><td>$64,563</td><td>Rev A</td></tr><tr><td>Spindle, rough machined</td><td>W911PT26PA021</td><td>2025-12-08</td><td>$117,916</td><td>not named</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] W911PT26FA017, Army Contracting Command Watervliet, signed 2025-10-27: U-bolts per drawing 12591508, $28,003.55, delivery by 2026-03-20; a call under Ruoff&#x27;s BPA W911PT21A0026. No revision named in the award text. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26FA017_9700_W911PT21A0026_9700/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26FA017_9700_W9</a></li><li>[2] W911PT26FA361, same office and BPA, signed 2026-06-24: U-bolt per drawing 12591508, Revision A, for the 105mm M20 cannon, $64,563.38, due December 7, 2026. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26FA361_9700_W911PT21A0026_9700/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26FA361_9700_W9</a></li><li>[3] Rough-machined spindles ordered twice: W911PT26PA021 signed 2025-12-08, $117,916.05; W911PT26FA287 signed 2026-05-13, $76,980. Spindle coupons W911PT26FA239, 2026-04-16, $8,166. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26PA021_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26PA021_9700_-N</a></li><li>[4] Ruoff &amp; Sons&#x27; FY2026 Watervliet orders (award prefix W911PT26): 30 orders, $528,081.88. Repeat drawings: U-bolt dwg 12591508 W911PT26FA017 2025-10-27 $28,004 (no revision named) and W911PT26FA361 2026-06-24 $64,563 (Revision A); spindle, rough machined W911PT26PA021 2025-12-08 $117,916 and W911PT26FA287 2026-05-13 $76,980; spindle coupons W911PT26FA239 2026-04-16 $8,166. <a href="https://api.usaspending.gov/api/v2/search/spending_by_award/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/search/spending_by_award/</a></li><li>[5] Watervliet bought M20 operating sear levers twice: from Raloid Tool under its parallel BPA W911PT21A0027 on 2026-01-27 ($12,555.90), and from Ruoff on 2026-05-11 ($20,214.06). <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26FA123_9700_W911PT21A0027_9700/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_W911PT26FA123_9700_W9</a></li><li>[6] Harmoni ties program delivery to revision control; approved revisions are the only versions operators can load. <a href="https://harmoni.io/platform/process-control/" rel="noopener" target="_blank">harmoni.io/platform/process-control/</a></li></ul></details>
+</article></div>
+    </div>
+    <p class="src">Each one was run on a real, named account. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten leads</s></p>
+    <h2>Ten leads, each with a reason to email now.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>Larry Collins<i>Collins Manufacturing Company (Greene Machine &amp; Manufacturing) &middot; Named to $31M Indian Head IDIQ</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Brett Kelley<i>BK Aerospace &middot; Indian Head IDIQ; $1.9M AMRAAM option open</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Sean Khosrovani<i>Aeromax &middot; Acquired Loutech; repeat DLA fairing orders</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Tammy Stepanski<i>Service &amp; Sales, Inc. &middot; Acquired by Threadlock Precision</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Michael Polo<i>ACMT &middot; Named to $2.4B F100 IDIQ; third building</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Ki Ho Kang<i>KIHOMAC &middot; $25M Oklahoma City expansion; $205M in options</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Paul Knoll<i>Schneider Elite Machining Group &middot; Acquired Toolcraft, its third Wisconsin shop</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Kody Guidry<i>Coastal Machine &amp; Supply &middot; $25.5M Carencro expansion for space and defense</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Mark Seyer<i>Seyer Industries &middot; Second Starrag STC 1800; repeat DLA parts</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Aron Stevenson<i>Crescent Manufacturing &middot; Tripling Burlington footprint; $24M backlog</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>Larry Collins</h4>
+<p class="meta">Co-owner and Vice President, Collins Manufacturing Company (Greene Machine &amp; Manufacturing)</p>
+<p class="sig"><strong>Why now:</strong> On Sep 3, 2026, NSWC Indian Head named Greene Machine &amp; Manufacturing to a $31 million, seven-company IDIQ for ordnance handling equipment. The Lakehurst office that buys its stake and edge clamp packages also bought MQ-4C ground-support equipment from 4 other shops between October and July.</p>
+<div class="msg"><header><span>Email &amp;middot; MQ-4C parts Lakehurst is buying</span><button type="button" data-copy>Copy</button></header><pre>The Lakehurst office that buys your stake and edge clamp packages placed 9 MQ-4C ground-support orders between October and July with 4 other shops, about $315K in total: slings, fixtures, adapter sets.
+
+That&#x27;s the support equipment you already build for the same buyer. Knowing the parts lets you ask the contracting office to include you on the next MQ-4C buy.
+
+I pulled all 9 orders with the part, shop, value and delivery date. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Larry, congrats on the Indian Head ordnance-equipment award. The Lakehurst office that buys your clamp packages also placed 9 MQ-4C ground-support orders with 4 other shops between October and July. I pulled the list, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] War Department contracts, Sep 3, 2026: Greene Machine &amp; Manufacturing Co., Macon, Georgia, is one of seven small businesses awarded a combined $31 million ($31,000,000) IDIQ for ordnance handling equipment; NSWC Indian Head is the contracting activity. <a href="https://www.war.gov/News/Contracts/Contract/Article/4590748/contracts-for-sept-3-2026/" rel="noopener" target="_blank">war.gov/News/Contracts/Contract/Article/4590748/contracts-for-se</a></li><li>[2] Collins Manufacturing Company is the trade name of Greene Machine &amp; Manufacturing, Inc., bought by Gwen and Larry Collins in 2006; Larry Collins is Vice President; AS9100 certified in 2015; sixth facility purchased in 2024. <a href="https://www.collins-mfg.com/about-us" rel="noopener" target="_blank">collins-mfg.com/about-us</a></li><li>[3] N6833526F0533, NAVAIR Warfare Center Aircraft Division (Lakehurst), signed 2026-07-08: F74 stake and edge clamp package, $1,538,306, aircraft landing equipment. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_N6833526F0533_9700_N6833523D0040_9700/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_N6833526F0533_9700_N6</a></li><li>[4] FY2026 Lakehurst (N68335) machine-shop orders naming MQ-4/MQ-4C: 9 orders to 4 shops (Coherent Technical Services, ATAP, AVIOSS, Delflo), $315,035.70, about $315K. <a href="https://api.usaspending.gov/api/v2/search/spending_by_award/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/search/spending_by_award/</a></li></ul>
+</article><article class="lead">
+<h4>Brett Kelley</h4>
+<p class="meta">Co-owner, BK Aerospace</p>
+<p class="sig"><strong>Why now:</strong> On Sep 3, 2026, NSWC Indian Head put BK Aerospace on a $31 million, seven-company IDIQ for ordnance handling equipment. As of its Aug 5 update, its Air Force order for AMRAAM wings and fins showed about $1.9M in unexercised options, running to July 2027.</p>
+<div class="msg"><header><span>Email &amp;middot; Your AMRAAM wings and fins option</span><button type="button" data-copy>Copy</button></header><pre>As of its Aug 5 update, your Air Force order for AMRAAM wings and fins showed about $3.7M exercised against a $5.7M ceiling, with the remaining option running to July 2027.
+
+Before exercising an option, the contracting officer has to find your performance on that order acceptable. With the new Indian Head work starting, the same floor carries both.
+
+I laid the order out next to your other DoD orders: exercised value, ceiling and dates. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Brett, congrats on the Indian Head ordnance-equipment award. As of August, your AMRAAM wings-and-fins order showed about $1.9M in options to July 2027, and option years depend on acceptable performance. I laid that order out next to your others, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] War Department contracts, Sep 3, 2026: BK Manufacturing Co., doing business as BK Aerospace, Arab, Alabama, is one of seven small businesses awarded a combined $31 million ($31,000,000) IDIQ for ordnance handling equipment; NSWC Indian Head is the contracting activity. <a href="https://www.war.gov/News/Contracts/Contract/Article/4590748/contracts-for-sept-3-2026/" rel="noopener" target="_blank">war.gov/News/Contracts/Contract/Article/4590748/contracts-for-se</a></li><li>[2] FA855624CB001, Air Force (AFLCMC EBUK): wings and fins for AIM-120 (AMRAAM) missiles. Exercised $3,735,648 (about $3.7M) of a $5,662,749.40 ceiling (about $5.7M); unexercised $1,927,101.40 (about $1.9M); potential end July 15, 2027. Last modified August 5, 2026. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_FA855624CB001_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_FA855624CB001_9700_-N</a></li><li>[3] BK Aerospace: family-owned build-to-print machine shop, 75,000 square feet, more than 50 people, owned and operated by Brett Kelley and Rhonda Collins. <a href="https://bkaerospace.com/our-story/" rel="noopener" target="_blank">bkaerospace.com/our-story/</a></li><li>[4] FAR 17.207(c)(7): options are exercised only after finding the contractor&#x27;s performance on that contract acceptable. <a href="https://www.acquisition.gov/far/17.207" rel="noopener" target="_blank">acquisition.gov/far/17.207</a></li></ul>
+</article><article class="lead">
+<h4>Sean Khosrovani</h4>
+<p class="meta">President and CEO, Aeromax</p>
+<p class="sig"><strong>Why now:</strong> Aeromax acquired Loutech on Oct 21, 2026, a Chino, California AS9100 shop running 5-axis mills and 11-axis mill-turns. Last fall DLA Aviation ordered an aircraft fairing from Aeromax twice within a month, at $31,250 each.</p>
+<div class="msg"><header><span>Email &amp;middot; The fairing DLA ordered twice</span><button type="button" data-copy>Copy</button></header><pre>Last fall DLA Aviation ordered an aircraft fairing from Aeromax twice within a month, at $31,250 each, and radomes twice since.
+
+Repeat parts are where the first run&#x27;s program, setup sheet and inspection points should come back to the machine, not get rebuilt. As Loutech&#x27;s cells join the platform, that habit decides what each shop can take on.
+
+I grouped Aeromax&#x27;s repeat DLA items this fiscal year with dates and values. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Sean, congrats on Loutech. DLA ordered an aircraft fairing from Aeromax twice within a month last fall, at $31,250 each. Repeat parts are where saved programs and setups pay back. I grouped your repeat DLA items, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Oct 21, 2026: Aeromax acquires Loutech (Chino, CA), which runs 5-axis CNC mills and 11-axis CNC mill-turns and is AS9100 certified; Sean Khosrovani, President and CEO of Aeromax, quoted. <a href="https://finance.yahoo.com/small-business/articles/aeromax-acquires-loutech-further-expanding-133100148.html" rel="noopener" target="_blank">finance.yahoo.com/small-business/articles/aeromax-acquires-loute</a></li><li>[2] DLA Aviation orders to Aeromax Industries (Fort Worth): fairing, aircraft SPE4A726P0995 signed 2025-10-24, $31,250; fairing, aircraft SPE4A726P2599 signed 2025-11-18, $31,250; radome SPE4A726P1633 signed 2025-11-21, $30,500; radome SPE4A726P7988 signed 2026-03-16, $29,400. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_SPE4A726P2599_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_SPE4A726P2599_9700_-N</a></li></ul>
+</article><article class="lead">
+<h4>Tammy Stepanski</h4>
+<p class="meta">President, Service &amp; Sales, Inc.</p>
+<p class="sig"><strong>Why now:</strong> Threadlock Precision acquired SSI on Oct 20, 2026 and plans to invest in its people and equipment to expand capacity for its defense customers.</p>
+<div class="msg"><header><span>Email &amp;middot; Expanding SSI&#x27;s capacity, with numbers</span><button type="button" data-copy>Copy</button></header><pre>Threadlock plans to expand SSI&#x27;s capacity for its defense customers. The first question a new owner asks is where the hours go today: setup, waiting, rework or running.
+
+Most shops answer that from timecards and travelers, which can&#x27;t say which job or machine the time belonged to.
+
+I sketched how to capture hours by job and workcenter on your Tempe floor before the new equipment arrives. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Tammy, congrats on joining Threadlock. Before new capacity arrives, it helps to know where today&#x27;s hours go by job and workcenter. I sketched how to capture that on your Tempe floor, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] PR Newswire, Oct 20, 2026: Threadlock Precision acquires Service &amp; Sales, Inc. (Tempe, AZ), AS9100D, Nadcap and ITAR-registered; Tammy Stepanski, President of SSI, quoted; Threadlock plans to invest in people and equipment and expand capacity. <a href="https://www.prnewswire.com/news-releases/threadlock-precision-supported-by-the-d-e-shaw-group-acquires-service--sales-inc-to-expand-us-aerospace-and-defense-precision-manufacturing-network-302913013.html" rel="noopener" target="_blank">prnewswire.com/news-releases/threadlock-precision-supported-by-t</a></li><li>[2] Harmoni&#x27;s published customer result: WessDel gained 17 productive hours per employee per month. <a href="https://harmoni.io/platform/observability/" rel="noopener" target="_blank">harmoni.io/platform/observability/</a></li></ul>
+</article><article class="lead">
+<h4>Michael Polo</h4>
+<p class="meta">President and Founder, ACMT</p>
+<p class="sig"><strong>Why now:</strong> On Sep 30, 2026, the Air Force named ACMT one of 21 holders of a $2.4B F100 engine-parts IDIQ, five weeks after Hartford Business reported on Aug 24 that it had leased a third Manchester building.</p>
+<div class="msg"><header><span>Email &amp;middot; F100 parts Tinker bought elsewhere</span><button type="button" data-copy>Copy</button></header><pre>The DLA office at Tinker behind your two augmentor-liner contracts placed at least 13 other engine-part orders between October and July with 4 New England machine shops, about $9.6M: Numet, Paramount, Union Machine and Beacon.
+
+Numet, Paramount and Union Machine also joined you on the new engine-parts IDIQ, so these are the shops you&#x27;ll meet on its task orders.
+
+I pulled the 13 orders with part, shop, value and delivery date. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Michael, congrats on the F100 IDIQ. The Tinker DLA office behind your liner contracts placed at least 13 other engine-part orders between October and July with 4 New England shops, three of them now on the same IDIQ. I pulled the list, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Hartford Business Journal, Aug 24, 2026: Michael Polo, president and founder of Manchester-based ACMT; the company recently leased a third building in Manchester. <a href="https://hartfordbusiness.com/article/commercial-defense-demand-fuels-strong-growth-for-ct-aerospace-manufacturers/" rel="noopener" target="_blank">hartfordbusiness.com/article/commercial-defense-demand-fuels-str</a></li><li>[2] SPRTA126C0012, DLA Aviation at Oklahoma City, signed 2026-06-03: liner, augmentor for the F100, $8,943,000 (about $8.9M), through 2028-07-31. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_SPRTA126C0012_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_SPRTA126C0012_9700_-N</a></li><li>[3] SPRTA126C0080, DLA Aviation at Oklahoma City, signed 2026-07-09: liner, augmentor for the F100, $7,627,500 (about $7.6M), through 2028-09-30. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_SPRTA126C0080_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_SPRTA126C0080_9700_-N</a></li><li>[4] Contracting officers must consider SPRS supplier risk, built from quality and delivery data, when evaluating offers. <a href="https://www.wiley.law/alert-DOD-Issues-Final-Rule-Regarding-Use-of-SPRS-Assessments-in-Procurement" rel="noopener" target="_blank">wiley.law/alert-DOD-Issues-Final-Rule-Regarding-Use-of-SPRS-Asse</a></li><li>[5] War Department contracts, Sep 30, 2026: ACMT Inc., Manchester CT, plus Numet, Paramount Machine Co. and Union Machine Co. of Lynn are among 21 awardees ($500 each, $10,500 total) of a maximum $2.4 billion ($2,400,000,000) F100 engine-parts IDIQ; Air Force Sustainment Center, Tinker AFB. <a href="https://www.war.gov/News/Contracts/Contract/Article/4615442/contracts-for-sept-30-2026/" rel="noopener" target="_blank">war.gov/News/Contracts/Contract/Article/4615442/contracts-for-se</a></li><li>[6] FY2026 DLA Aviation at Oklahoma City (award prefix SPRTA1) gas-turbine-part orders (PSC 2840) to other New England machine shops, from the 1,400 largest DLA PSC-2840 awards: at least 13 orders to 4 shops, $9,645,790.18 (about $9.6M). Numet (Orange CT) 3, $7,905,388; Paramount Machine (Manchester CT) 7, $920,482.57; Union Machine Co. of Lynn (Groveland MA) 2, $473,358.61; Beacon Industries (Newington CT) 1, $346,561. <a href="https://api.usaspending.gov/api/v2/search/spending_by_award/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/search/spending_by_award/</a></li></ul>
+</article><article class="lead">
+<h4>Ki Ho Kang</h4>
+<p class="meta">Chief Executive Officer, KIHOMAC</p>
+<p class="sig"><strong>Why now:</strong> KIHOMAC announced a $25 million, 130,000-square-foot Oklahoma City expansion on Sep 18, 2026. As of its July 21 update, its Air Force carriage-equipment order carried about $205M in unexercised options running to 2032.</p>
+<div class="msg"><header><span>Email &amp;middot; The options on your carriage order</span><button type="button" data-copy>Copy</button></header><pre>As of its July 21 update, your carriage-equipment order from the Air Force Nuclear Weapons Center showed about $69M exercised against a $274M ceiling, running to 2032. Most of that ceiling sat in option years.
+
+Before exercising an option, the contracting officer has to find your performance on that order acceptable. With the Oklahoma City expansion coming, those jobs will be moving while they run.
+
+I laid the order out next to your other Air Force and Navy orders this year: exercised, ceiling, end date. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Ki Ho, as of July your carriage-equipment order showed about $205M in options still to earn through 2032, and option years depend on acceptable performance on that order. With the OKC expansion coming, I laid it out next to your others, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Sep 18, 2026: KIHOMAC announces a $25 million capital investment including an approximately 130,000-square-foot facility in Oklahoma City; CEO Ki Ho Kang quoted. <a href="https://www.tradeandindustrydev.com/region/oklahoma/news/ok-defense-manufacturer-kihomac-announces-25-36343" rel="noopener" target="_blank">tradeandindustrydev.com/region/oklahoma/news/ok-defense-manufact</a></li><li>[2] FA210326FB004, Air Force Nuclear Weapons Center (FA2103), signed 2026-07-09: carriage equipment production delivery order. Exercised $69,236,370.55 (about $69M) of a $274,240,515.67 ceiling (about $274M); unexercised about $205M; potential end 2032-04-09. Last modified July 21, 2026. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_FA210326FB004_9700_FA865621DA019_9700/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_FA210326FB004_9700_FA</a></li><li>[3] FAR 17.207(c)(7): options are exercised only after finding the contractor&#x27;s performance on that contract acceptable. <a href="https://www.acquisition.gov/far/17.207" rel="noopener" target="_blank">acquisition.gov/far/17.207</a></li></ul>
+</article><article class="lead">
+<h4>Paul Knoll</h4>
+<p class="meta">Chief Executive Officer, Schneider Elite Machining Group</p>
+<p class="sig"><strong>Why now:</strong> SEMG acquired Toolcraft Machining on Sep 9, 2026, joining JR Machine in Shawano and ETW Precision Machining in Waukesha. Toolcraft keeps its own team and leadership in Germantown.</p>
+<div class="msg"><header><span>Email &amp;middot; Three shops, one floor view</span><button type="button" data-copy>Copy</button></header><pre>With Toolcraft in, SEMG runs three shops: Shawano, Waukesha and Germantown. Each kept its own team and leadership, which usually means three ways of tracking jobs, labor and quality.
+
+Comparing them on the same terms is the first thing a group CEO needs: which workcenters meet rate, where the hours go, which jobs slip.
+
+I sketched how one shared floor view would map across your three shops. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Paul, congrats on adding Toolcraft. Three shops with their own teams usually means three ways of tracking jobs and labor. I sketched how one shared floor view would map across Shawano, Waukesha and Germantown, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Aerospace Manufacturing and Design, Sep 9, 2026: SEMG acquires Toolcraft Machining (Germantown, WI), joining JR Machine (Shawano) and ETW Precision Machining (Waukesha); Toolcraft keeps its employees and leadership; Paul Knoll is CEO of SEMG. <a href="https://www.aerospacemanufacturinganddesign.com/news/schneider-elite-machining-group-acquires-toolcraft-machining/" rel="noopener" target="_blank">aerospacemanufacturinganddesign.com/news/schneider-elite-machini</a></li></ul>
+</article><article class="lead">
+<h4>Kody Guidry</h4>
+<p class="meta">Chief Executive Officer, Coastal Machine &amp; Supply</p>
+<p class="sig"><strong>Why now:</strong> Coastal announced a $25.5 million Carencro expansion on Sep 3, 2026: a 20,000-square-foot addition first, then up to 100,000 more square feet, for space and defense parts.</p>
+<div class="msg"><header><span>Email &amp;middot; Setting up the Carencro addition</span><button type="button" data-copy>Copy</button></header><pre>Your 20,000-square-foot Carencro addition is the first phase, with up to 100,000 more to follow, all for space and defense parts.
+
+Defense customers audit what an oilfield floor never had to show: which revision ran, who ran it, what was inspected. Paper travelers make that slow.
+
+I wrote a one-page plan for a new aerospace floor that records operator, job, program and inspection at each workcenter from day one. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Kody, saw the Carencro expansion for space and defense work. A new floor is the cheapest moment to set up traceability at each workcenter. I wrote a one-page plan for that, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Manufacturing.net, Sep 3, 2026: Coastal Machine &amp; Supply announces a $25.5 million Carencro expansion for aerospace and defense, starting with a 20,000-square-foot addition followed by up to 100,000 additional square feet; CEO Kody Guidry quoted. <a href="https://www.manufacturing.net/aerospace/news/22973760/precision-contract-manufacturer-expanding-in-louisiana-to-support-aerospace-defense" rel="noopener" target="_blank">manufacturing.net/aerospace/news/22973760/precision-contract-man</a></li></ul>
+</article><article class="lead">
+<h4>Mark Seyer</h4>
+<p class="meta">President, Seyer Industries</p>
+<p class="sig"><strong>Why now:</strong> Seyer ordered a second Starrag STC 1800 on Aug 31, 2026, its fourth Starrag machining center. Between February and May, DLA Aviation ordered &#x27;support, structural&#x27; from it three times: $19,573, $19,573 and $39,146.</p>
+<div class="msg"><header><span>Email &amp;middot; The structural support DLA reorders</span><button type="button" data-copy>Copy</button></header><pre>DLA Aviation ordered &#x27;support, structural&#x27; from you three times between February and May: $19,573, then $19,573 again, then $39,146, exactly double.
+
+A part that keeps coming back is where the first run&#x27;s program, setup sheet and inspection points should be waiting at the machine, not rebuilt each time. With the second STC 1800 adding capacity, repeats are the easy wins.
+
+I grouped your repeat DLA items this fiscal year with dates and values. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Mark, saw the second STC 1800 order. DLA ordered &#x27;support, structural&#x27; from you three times between February and May. Repeats like that are where program and setup control pay back fastest. I grouped your repeat DLA items, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] MMS, Aug 31, 2026: Seyer Industries orders a second Starrag STC 1800 and will run four Starrag machining centers (two Heckert HEC 800 X5, two STC 1800; X5 = 5-axis) for large titanium, stainless and high-alloy aerospace and defense parts. Mark Seyer, president, quoted. <a href="https://www.mmsonline.com/news/starrag-machining-center-expands-capacity-for-aerospace-defense-manufacturer" rel="noopener" target="_blank">mmsonline.com/news/starrag-machining-center-expands-capacity-for</a></li><li>[2] DLA orders keep coming: SPE8EF26P0157, DLA Troop Support, signed 2026-02-19, aircraft landing jack, $281,241. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_SPE8EF26P0157_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_SPE8EF26P0157_9700_-N</a></li><li>[3] DLA Aviation &#x27;support, structural&#x27; orders to Seyer Industries (PSC 1560, airframe structural components): SPE4A726P6965 signed 2026-02-18 (February), $19,573; SPE4A726PA255 signed 2026-04-30, $19,573; SPE4A726PB172 signed 2026-05-19 (May), $39,146. Three orders. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_SPE4A726PB172_9700_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_SPE4A726PB172_9700_-N</a></li></ul>
+</article><article class="lead">
+<h4>Aron Stevenson</h4>
+<p class="meta">Chief Financial Officer, Crescent Manufacturing</p>
+<p class="sig"><strong>Why now:</strong> Hartford Business reported on Aug 24, 2026 that Crescent is tripling its Burlington footprint, carries a $24 million backlog, and wants to lift output from up to 5 million parts a week to 7.5 million.</p>
+<div class="msg"><header><span>Email &amp;middot; Getting to 7.5 million a week</span><button type="button" data-copy>Copy</button></header><pre>You want to go from up to 5 million parts a week to 7.5 million, mostly through productivity, with a $24 million backlog waiting.
+
+You named the target already: handling and queue time between machine and door. The hard part is seeing it, because travelers and timecards don&#x27;t show where a job sat.
+
+I sketched how to measure queue time by job and machine on your Burlington floor. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Aron, read the HBJ piece on the Burlington expansion. Getting to 7.5 million parts a week through productivity starts with seeing where jobs sit. I sketched how to measure queue time by job and machine, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Hartford Business Journal, Aug 24, 2026: Crescent Manufacturing (Burlington, CT, 50 employees) is tripling its footprint with a 20,000-square-foot expansion, has a $24 million order backlog, produces between 3.5 million and 5 million parts a week and aims for as many as 7.5 million. CFO Aron Stevenson on eliminating handling and queue times. <a href="https://hartfordbusiness.com/article/commercial-defense-demand-fuels-strong-growth-for-ct-aerospace-manufacturers/" rel="noopener" target="_blank">hartfordbusiness.com/article/commercial-defense-demand-fuels-str</a></li></ul>
+</article></div>
+    </div>
+    <p class="src">Copy is written as Harmoni's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="build" data-label="Three things I&#x27;d build" data-sub="At Harmoni">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>If I join</s></p>
+    <h2>Three things I'd build at Harmoni.</h2>
+    <div class="three"><div class="pane"><h4>1. Trade-show lists turned into a booked pre-show pipeline</h4><p>Before IMTS, WESTEC or a regional show: pull the exhibitor and registered-company lists, keep the machine shops, score each on DoD awards, AS9100 status and machine count, and book owner meetings in the weeks before. The team arrives with a calendar, not just a booth.</p></div><div class="pane"><h4>2. A defense-award trigger feed for the rep&#x27;s queue</h4><p>A daily job on USAspending and the DoD contract announcements: each new machine-shop award, option ceiling or repeat drawing becomes an account with its own fact attached, routed to a rep the same day. The emails on this page, for every new award.</p></div><div class="pane"><h4>3. Outbound built from zero, measured from week one</h4><p>Sending domains and warm-up, a CRM keyed to each shop&#x27;s CAGE code so no shop is emailed twice, and a weekly cadence of PVP emails. Every reply, meeting and loss tagged by angle and segment, so Adam sees which message books meetings.</p></div></div>
+  </div>
+</section>
+
+<section class="s mid" data-key="ask" data-label="The ask" data-sub="A GTM role, or a pilot first">
+  <div class="wrap">
+    <p class="kick"><b>Harmoni</b> <s>Shubham Sharma</s></p>
+    <h1>I'm looking for my next GTM role. I'd like to build this at Harmoni.</h1>
+    <p class="lede">Happy to start with a 1-month pilot. My work, with live numbers:
+      <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Harmoni</b> &middot; <a href="https://shubhamsbuild.github.io">Shubham Sharma</a></span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 05</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
+  });
+})();
+
+})();
+</script>
+</body>
+</html>
