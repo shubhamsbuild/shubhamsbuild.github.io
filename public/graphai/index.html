@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Graph AI</title>
+<meta name="description" content="10 named leads with copy and three things I'd build, prepared for Graph AI.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
+.asset-h span:first-child{color:var(--ink);font-weight:500}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
+.scores b{color:var(--ink)}
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="What&#x27;s on this page">
+  <div class="wrap">
+    <p class="kick"><b>For Graph AI</b> <s>from Shubham Sharma</s></p>
+    <h1 class="xl">Ten pharma and biotech safety teams you could email today.</h1>
+    <p class="lede">Three messages they'd pay to receive, ten named leads to send them to,
+      and three things I'd build at Graph AI. Every fact links to its public source.</p>
+    <p class="src">I'm looking for my next GTM role. &middot; <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+
+<section class="s" data-key="messages" data-label="Three messages" data-sub="What they&#x27;d pay to receive">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The messages</s></p>
+    <h2>Three messages your pharma and biotech safety teams would pay to receive.</h2>
+    <div class="board">
+      <div class="leads"><button type="button" aria-pressed="false"><em>01</em><span>Your launch&#x27;s safety intake curve, quarter by quarter<i>For Head of drug safety / PV, or the regulatory lead who owns it</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Your expedited (15-day) reports, sized by quarter<i>For Head of drug safety / PV or CMO</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Safety intake sized before your PDUFA date<i>For Head of regulatory and PV, or CMO, at a pre-launch or just-approved sponsor</i></span></button></div>
+      <div class="detail" aria-live="polite"><article class="pm">
+<h3>Your launch&#x27;s safety intake curve, quarter by quarter</h3>
+<p class="take">Your product&#x27;s AEMS reports per quarter since launch, by reporter and seriousness: next year&#x27;s case load, before the vendor invoice.</p>
+<div class="mail"><div class="to">To: Head of drug safety / PV, or the regulatory lead who owns it, Verastem Oncology</div>
+<div class="subj">Avmapki safety intake, quarter by quarter</div><p>AEMS reports naming Avmapki Fakzynja climbed from 80 in July to September 2025 to 269 in April to June 2026. About four in five came from consumers, patients and families rather than clinicians, so many need follow-up before the case is complete.</p><p>With new starts and refills still driving sales, that curve is your team&#x27;s case load for next year.</p><p>I broke it out by quarter, reporter type, seriousness and expedited share. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: AEMS reports naming Avmapki Fakzynja, by quarter received &middot; first 3 of 4</span></div><table class="tbl"><tr><th>Quarter</th><th>Reports</th><th>From consumers</th><th>Serious</th><th>Expedited</th></tr><tr><td>Jul-Sep 2025</td><td>80</td><td>56</td><td>15</td><td>9</td></tr><tr><td>Oct-Dec 2025</td><td>208</td><td>159</td><td>28</td><td>14</td></tr><tr><td>Jan-Mar 2026</td><td>237</td><td>189</td><td>46</td><td>25</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 10</summary><ul class="ev"><li>[1] Drugs@FDA: NDA219616, Verastem Inc, AVMAPKI FAKZYNJA CO-PACK, original approval 2025-05-08, priority review. <a href="https://api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA219616&quot;" rel="noopener" target="_blank">api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA219</a></li><li>[2] AEMS reports naming Avmapki received Jul 1-Sep 30, 2025: 80. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AVMAPKI&quot;+AND+receivedate:[20250701+TO+20250930]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[3] AEMS reports naming Avmapki received Apr 1-Jun 30, 2026: 269. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AVMAPKI&quot;+AND+receivedate:[20260401+TO+20260630]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[4] AEMS reports naming Avmapki by quarter received (daily counts summed): Jul-Sep 2025 80, Oct-Dec 2025 208, Jan-Mar 2026 237, Apr-Jun 2026 269; total 794. Of these, from consumers 56 | 159 | 189 | 238; serious 15 | 28 | 46 | 39; expedited 9 | 14 | 25 | 21 (same query with qualification:5, serious:1, fulfillexpeditecriteria:1). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AVMAPKI&quot;&amp;count=receivedate" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[5] AEMS reports naming Avmapki from consumers or non-health professionals: 642 of 794 (about four in five). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AVMAPKI&quot;+AND+primarysource.qualification:5&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[6] AEMS reports naming Avmapki with report type &#x27;Other&#x27; (not spontaneous, not study): 375 of 794. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AVMAPKI&quot;+AND+reporttype:3&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[7] AEMS reports naming Avmapki flagged serious: 128; flagged expedited: 69. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AVMAPKI&quot;+AND+serious:1&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[8] openFDA field definitions: primarysource.qualification 5 = consumer or non-health professional; reporttype 3 = Other; serious 1 = serious outcome; fulfillexpeditecriteria 1 = expedited report (processed within 15 days). <a href="https://open.fda.gov/fields/drugevent.yaml" rel="noopener" target="_blank">open.fda.gov/fields/drugevent.yaml</a></li><li>[9] Verastem, Aug 6, 2026: Q2 2026 AVMAPKI FAKZYNJA CO-PACK net product revenue of $25.1 million, driven by new patient starts and increased refills. <a href="https://www.sec.gov/Archives/edgar/data/0001526119/000110465926092058/tm2622452d2_ex99-1.htm" rel="noopener" target="_blank">sec.gov/Archives/edgar/data/0001526119/000110465926092058/tm2622</a></li><li>[10] When checked on Oct 29, 2026, the openFDA drug event dataset was last updated 2026-07-30; report receive dates run through June 30, 2026 (20260630). <a href="https://api.fda.gov/drug/event.json?limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?limit=1</a></li></ul></details>
+</article><article class="pm">
+<h3>Your expedited (15-day) reports, sized by quarter</h3>
+<p class="take">How many of your reports carried a 15-day clock last quarter, from FDA&#x27;s own data, so you can staff for it.</p>
+<div class="mail"><div class="to">To: Head of drug safety / PV or CMO, Cytokinetics</div>
+<div class="subj">Myqorzo&#x27;s 15-day reports, by quarter</div><p>Nearly every AEMS report naming Myqorzo through June was flagged expedited, and 55 of them landed from April to June alone, the quarter you reached about 1,500 patients. Each of those is due within 15 calendar days of first receipt.</p><p>With Germany live and the nHCM filing next, that clock gets busier.</p><p>I pulled the expedited count by quarter, with seriousness and reporter type, so you can size the team against it. Want the breakdown?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: AEMS reports naming Myqorzo, by quarter received &middot; first 3 of 3</span></div><table class="tbl"><tr><th>Quarter</th><th>Reports</th><th>Expedited</th><th>Serious</th><th>From consumers</th></tr><tr><td>Jan-Mar 2026</td><td>6</td><td>6</td><td>6</td><td>5</td></tr><tr><td>Apr-Jun 2026</td><td>61</td><td>55</td><td>58</td><td>30</td></tr><tr><td>Through Jun 30, 2026</td><td>67</td><td>61</td><td>64</td><td>35</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 10</summary><ul class="ev"><li>[1] Drugs@FDA: NDA219083, Cytokinetics, MYQORZO (aficamten), original approval 2025-12-19. <a href="https://api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA219083&quot;" rel="noopener" target="_blank">api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA219</a></li><li>[2] AEMS reports naming Myqorzo through Jun 30, 2026: 67 (Jan-Mar 2026: 6; Apr-Jun 2026: 61). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;MYQORZO&quot;&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[3] AEMS reports naming Myqorzo flagged expedited: 61 of 67. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;MYQORZO&quot;+AND+fulfillexpeditecriteria:1&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[4] AEMS reports naming Myqorzo flagged expedited and received Apr 1-Jun 30, 2026: 55. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;MYQORZO&quot;+AND+fulfillexpeditecriteria:1+AND+receivedate:[20260401+TO+20260630]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[5] AEMS reports naming Myqorzo by quarter: Jan-Mar 2026 6 reports (6 expedited, 6 serious, 5 from consumers); Apr-Jun 2026 61 reports (55 expedited, 58 serious, 30 from consumers). Serious overall 64 of 67; from consumers 35. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;MYQORZO&quot;&amp;count=receivedate" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[6] openFDA field definitions: primarysource.qualification 5 = consumer or non-health professional; reporttype 3 = Other; serious 1 = serious outcome; fulfillexpeditecriteria 1 = expedited report (processed within 15 days). <a href="https://open.fda.gov/fields/drugevent.yaml" rel="noopener" target="_blank">open.fda.gov/fields/drugevent.yaml</a></li><li>[7] 21 CFR 314.80(c)(1)(i): each serious and unexpected adverse drug experience must be reported as soon as possible but no later than 15 calendar days from initial receipt. <a href="https://www.law.cornell.edu/cfr/text/21/314.80" rel="noopener" target="_blank">law.cornell.edu/cfr/text/21/314.80</a></li><li>[8] Cytokinetics, Aug 6, 2026: approximately 1,500 patients had been dispensed MYQORZO as of June 30, 2026 (cumulative since launch); launched in Germany in June; UK marketing authorization; supplemental NDA for nHCM expected in Q4 2026. <a href="https://www.sec.gov/Archives/edgar/data/0001061983/000119312526338021/cytk-ex99_1.htm" rel="noopener" target="_blank">sec.gov/Archives/edgar/data/0001061983/000119312526338021/cytk-e</a></li><li>[9] FDA warning letter to Novo Nordisk Inc., March 5, 2026, citing PADE reporting violations under 21 CFR 314.80, including a case invalidated because the patient identifier wasn&#x27;t captured. <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/novo-nordisk-inc-717576-03052026" rel="noopener" target="_blank">fda.gov/inspections-compliance-enforcement-and-criminal-investig</a></li><li>[10] When checked on Oct 29, 2026, the openFDA drug event dataset was last updated 2026-07-30; report receive dates run through June 30, 2026 (20260630). <a href="https://api.fda.gov/drug/event.json?limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?limit=1</a></li></ul></details>
+</article><article class="pm">
+<h3>Safety intake sized before your PDUFA date</h3>
+<p class="take">Plan launch safety intake on real numbers: the approved drug your patients take today, its AEMS volume by quarter, against your dates.</p>
+<div class="mail"><div class="to">To: Head of regulatory and PV, or CMO, at a pre-launch or just-approved sponsor, Cogent Biosciences</div>
+<div class="subj">Sizing safety intake before December 30</div><p>Bezuclastinib has two PDUFA dates ahead: GIST on November 30 and NonAdvSM on December 30.</p><p>In SM, the approved drug patients know today is Ayvakit, and reports naming it ran 535 in AEMS from April to June. If even part of that population moves to bezuclastinib, that is the inflow your intake, coding and expedited reporting take on.</p><p>I lined up Ayvakit&#x27;s AEMS volume by quarter, with expedited and serious counts, against your approval dates. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: AEMS reports naming Ayvakit, by quarter received (all indications) &middot; first 3 of 5</span></div><table class="tbl"><tr><th>Quarter</th><th>Reports</th><th>Expedited</th><th>Serious</th></tr><tr><td>Apr-Jun 2025</td><td>676</td><td>172</td><td>193</td></tr><tr><td>Jul-Sep 2025</td><td>587</td><td>133</td><td>142</td></tr><tr><td>Oct-Dec 2025</td><td>575</td><td>160</td><td>181</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 10</summary><ul class="ev"><li>[1] Cogent, Aug 10, 2026: PDUFA date of November 30, 2026 for bezuclastinib in GIST and December 30, 2026 in NonAdvSM; commercial field team in place; pro forma cash $865.9 million. <a href="https://www.sec.gov/Archives/edgar/data/0001622229/000119312526341315/cogt-ex99_1.htm" rel="noopener" target="_blank">sec.gov/Archives/edgar/data/0001622229/000119312526341315/cogt-e</a></li><li>[2] Cogent, Mar 16, 2026: FDA accepted the NDA for bezuclastinib in NonAdvanced Systemic Mastocytosis with a PDUFA target action date of December 30, 2026. <a href="https://www.biospace.com/press-releases/cogent-biosciences-announces-fda-acceptance-of-new-drug-application-for-bezuclastinib-in-patients-with-nonadvanced-systemic-mastocytosis-nonadvsm" rel="noopener" target="_blank">biospace.com/press-releases/cogent-biosciences-announces-fda-acc</a></li><li>[3] AEMS reports naming Ayvakit received Apr 1-Jun 30, 2026: 535 (all indications). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AYVAKIT&quot;+AND+receivedate:[20260401+TO+20260630]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[4] AEMS reports naming Ayvakit flagged expedited, Apr 1-Jun 30, 2026: 128. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AYVAKIT&quot;+AND+fulfillexpeditecriteria:1+AND+receivedate:[20260401+TO+20260630]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[5] AEMS reports naming Ayvakit by quarter received: Apr-Jun 2025 676 (172 expedited, 193 serious); Jul-Sep 2025 587 (133, 142); Oct-Dec 2025 575 (160, 181); Jan-Mar 2026 589 (129, 145); Apr-Jun 2026 535 (128, 145). Calendar 2025 total: 2,362. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AYVAKIT&quot;&amp;count=receivedate" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[6] Drugs@FDA: NDA212608, Blueprint Medicines, AYVAKIT (avapritinib), original approval 2020-01-09. <a href="https://api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA212608&quot;" rel="noopener" target="_blank">api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA212</a></li><li>[7] ClinicalTrials.gov NCT06915766: Expanded Access to Bezuclastinib for Patients With NonAdvanced Systemic Mastocytosis, sponsor Cogent Biosciences, status Available. <a href="https://clinicaltrials.gov/api/v2/studies/NCT06915766" rel="noopener" target="_blank">clinicaltrials.gov/api/v2/studies/NCT06915766</a></li><li>[8] 21 CFR 314.80(c)(2)(i): periodic adverse drug experience reports are due at quarterly intervals for 3 years from the date of approval, each within 30 days of the close of the quarter, then annually. <a href="https://www.law.cornell.edu/cfr/text/21/314.80" rel="noopener" target="_blank">law.cornell.edu/cfr/text/21/314.80</a></li><li>[9] Cogent&#x27;s leadership page lists Ben Exter, PharmD, as Senior Vice President, Head of Regulatory and Pharmacovigilance. <a href="https://www.cogentbio.com/about/" rel="noopener" target="_blank">cogentbio.com/about/</a></li><li>[10] When checked on Oct 29, 2026, the openFDA drug event dataset was last updated 2026-07-30; report receive dates run through June 30, 2026 (20260630). <a href="https://api.fda.gov/drug/event.json?limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?limit=1</a></li></ul></details>
+</article></div>
+    </div>
+    <p class="src">Each one was run on a real, named account. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten leads</s></p>
+    <h2>Ten leads, each with a reason to email now.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>Paul Mudd<i>Priovant Therapeutics &middot; Lisraya approved August 27</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Ben Exter<i>Cogent Biosciences &middot; Two PDUFA dates: Nov 30 and Dec 30</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Dong-Gun Kim<i>Elevar Therapeutics &middot; Lyrfigtu approved September 23</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Akshay Vaishnaw<i>Scholar Rock &middot; Isembyld approved September 11</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Alan Sandler<i>Revolution Medicines &middot; Rasonque approved August 26</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Igor Gorbatchevsky<i>Celcuity &middot; Revtorpyk launching; expanded access running</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Terry Ferguson<i>Mineralys Therapeutics &middot; New CMO; lorundrostat PDUFA December 22</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Colleen Mockbee<i>Verastem Oncology &middot; Q2 sales $25.1M; AEMS reports rising</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Stephen Heitner<i>Cytokinetics &middot; 1,500 Myqorzo patients; Germany launched</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Rob Myers<i>Mirum Pharmaceuticals &middot; Atebrioz approved September 25</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>Paul Mudd</h4>
+<p class="meta">Chief Development Officer, Priovant Therapeutics</p>
+<p class="sig"><strong>Why now:</strong> FDA approved Lisraya (brepocitinib), Priovant&#x27;s first product, on August 27, 2026 under priority review. Sotyktu, the closest approved oral analog, drew 135 AEMS reports in its first full quarter and 273 in its second.</p>
+<div class="msg"><header><span>Email &amp;middot; Lisraya&#x27;s first year of safety intake</span><button type="button" data-copy>Copy</button></header><pre>Lisraya was approved on August 27, so your first postmarketing quarter is filling now.
+
+The closest approved oral analog, Sotyktu, drew 135 AEMS reports in its first full quarter and 273 in its second. Oral drugs taken at home bring a lot of consumer reports, which need follow-up.
+
+I pulled Sotyktu&#x27;s first-year curve by quarter, with reporter type and seriousness, as a sizing input for your intake. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Paul, congrats on Lisraya. As a sizing input for postmarketing intake: Sotyktu, the closest oral analog, drew 135 AEMS reports in its first full quarter and 273 in its second. I pulled its first-year curve. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Drugs@FDA: NDA220106, Priovant Therapeutics, LISRAYA (brepocitinib), original approval 2026-08-27, priority review. <a href="https://api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA220106&quot;" rel="noopener" target="_blank">api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA220</a></li><li>[2] AEMS reports naming Sotyktu: Oct-Dec 2022 135 (first full quarter after the 2022-09-09 approval, NDA214958). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;SOTYKTU&quot;+AND+receivedate:[20221001+TO+20221231]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[3] AEMS reports naming Sotyktu: Jan-Mar 2023 273. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;SOTYKTU&quot;+AND+receivedate:[20230101+TO+20230331]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[4] Priovant&#x27;s team page lists Paul Mudd as Chief Development Officer; no title on the page covers safety or pharmacovigilance. <a href="https://priovant.com/team/" rel="noopener" target="_blank">priovant.com/team/</a></li></ul>
+</article><article class="lead">
+<h4>Ben Exter</h4>
+<p class="meta">Senior Vice President, Head of Regulatory and Pharmacovigilance, Cogent Biosciences</p>
+<p class="sig"><strong>Why now:</strong> Cogent&#x27;s Aug 10, 2026 update confirmed PDUFA dates of November 30 (GIST) and December 30 (NonAdvSM), with a commercial field team in place. Reports naming Ayvakit, the approved SM drug today, ran 535 in AEMS from April to June 2026.</p>
+<div class="msg"><header><span>Email &amp;middot; Sizing safety intake before December 30</span><button type="button" data-copy>Copy</button></header><pre>Bezuclastinib has two PDUFA dates ahead: GIST on November 30 and NonAdvSM on December 30.
+
+In SM, the approved drug patients know today is Ayvakit, and reports naming it ran 535 in AEMS from April to June. If even part of that population moves to bezuclastinib, that is the inflow your intake, coding and expedited reporting take on.
+
+I lined up Ayvakit&#x27;s AEMS volume by quarter, with expedited and serious counts, against your approval dates. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Ben, with PDUFA dates on Nov 30 and Dec 30, I lined up AEMS volume for Ayvakit, the approved SM drug today: 535 reports from April to June. Useful for sizing bezuclastinib safety intake before launch. Happy to send the table.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Cogent, Aug 10, 2026: PDUFA date of November 30, 2026 for bezuclastinib in GIST and December 30, 2026 in NonAdvSM; commercial field team in place; pro forma cash $865.9 million. <a href="https://www.sec.gov/Archives/edgar/data/0001622229/000119312526341315/cogt-ex99_1.htm" rel="noopener" target="_blank">sec.gov/Archives/edgar/data/0001622229/000119312526341315/cogt-e</a></li><li>[3] AEMS reports naming Ayvakit received Apr 1-Jun 30, 2026: 535 (all indications). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AYVAKIT&quot;+AND+receivedate:[20260401+TO+20260630]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[4] AEMS reports naming Ayvakit flagged expedited, Apr 1-Jun 30, 2026: 128. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AYVAKIT&quot;+AND+fulfillexpeditecriteria:1+AND+receivedate:[20260401+TO+20260630]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[9] Cogent&#x27;s leadership page lists Ben Exter, PharmD, as Senior Vice President, Head of Regulatory and Pharmacovigilance. <a href="https://www.cogentbio.com/about/" rel="noopener" target="_blank">cogentbio.com/about/</a></li></ul>
+</article><article class="lead">
+<h4>Dong-Gun Kim</h4>
+<p class="meta">Chief Executive Officer, Elevar Therapeutics</p>
+<p class="sig"><strong>Why now:</strong> FDA approved Lyrfigtu (lirafugratinib), Elevar&#x27;s first product, on September 23, 2026 under priority review. Pemazyre, the first FGFR drug approved in cholangiocarcinoma, drew 13 AEMS reports in its launch quarter and 50 in the next.</p>
+<div class="msg"><header><span>Email &amp;middot; Lyrfigtu&#x27;s first year of safety intake</span><button type="button" data-copy>Copy</button></header><pre>Lyrfigtu was approved on September 23, so your first postmarketing quarter is filling now.
+
+For scale: Pemazyre, the first FGFR drug approved in cholangiocarcinoma, drew 13 AEMS reports in its launch quarter and 50 in the next. Small numbers, but each serious, unexpected case still runs on the expedited clock.
+
+I pulled the Pemazyre curve by quarter, with serious and expedited counts. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Dong-Gun, congrats on Lyrfigtu. As a sizing input for postmarketing safety intake: Pemazyre drew 13 AEMS reports in its launch quarter and 50 in the next. I pulled its curve by quarter. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Drugs@FDA: NDA220425, Elevar, LYRFIGTU (lirafugratinib), original approval 2026-09-23, priority review. <a href="https://api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA220425&quot;" rel="noopener" target="_blank">api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA220</a></li><li>[2] AEMS reports naming Pemazyre: Apr-Jun 2020 13 (approved 2020-04-17, NDA213736). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;PEMAZYRE&quot;+AND+receivedate:[20200401+TO+20200630]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[3] AEMS reports naming Pemazyre: Jul-Sep 2020 50. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;PEMAZYRE&quot;+AND+receivedate:[20200701+TO+20200930]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[4] 21 CFR 314.80(c)(1)(i): each serious and unexpected adverse drug experience must be reported as soon as possible but no later than 15 calendar days from initial receipt. <a href="https://www.law.cornell.edu/cfr/text/21/314.80" rel="noopener" target="_blank">law.cornell.edu/cfr/text/21/314.80</a></li><li>[5] Elevar, Jan 29, 2026: Dong-Gun (DG) Kim appointed Chief Executive Officer. <a href="https://www.santelog.com/actualites-sante-nasdaq/elevar-therapeutics-names-dong-gun-kim-ceo-it-focuses-post-nda" rel="noopener" target="_blank">santelog.com/actualites-sante-nasdaq/elevar-therapeutics-names-d</a></li></ul>
+</article><article class="lead">
+<h4>Akshay Vaishnaw</h4>
+<p class="meta">President of R&amp;D, Scholar Rock</p>
+<p class="sig"><strong>Why now:</strong> FDA approved Isembyld (apitegromab), Scholar Rock&#x27;s first product, on September 11, 2026 under priority review. Evrysdi, which many SMA patients already take, drew 111 AEMS reports in Oct-Dec 2020, its first full quarter, and 137 in the next.</p>
+<div class="msg"><header><span>Email &amp;middot; Isembyld&#x27;s first year of safety intake</span><button type="button" data-copy>Copy</button></header><pre>Isembyld was approved on September 11, so your first postmarketing quarter is filling now.
+
+For scale: Evrysdi, which many of the same SMA families know, drew 111 AEMS reports in its first full quarter and 137 in its second. Patients on more than one SMA drug produce reports that name both, so duplicates and attribution take work.
+
+I pulled the Evrysdi curve by quarter as a sizing input for your intake. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Akshay, congrats on Isembyld. As a sizing input for postmarketing intake: Evrysdi drew 111 AEMS reports in its first full quarter and 137 in its second. I pulled the curve by quarter. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Drugs@FDA: BLA761463, Scholar Rock, ISEMBYLD (apitegromab-mstn), original approval 2026-09-11, priority review. <a href="https://api.fda.gov/drug/drugsfda.json?search=application_number:&quot;BLA761463&quot;" rel="noopener" target="_blank">api.fda.gov/drug/drugsfda.json?search=application_number:&quot;BLA761</a></li><li>[2] AEMS reports naming Evrysdi: Oct-Dec 2020 111 (first full quarter after the 2020-08-07 approval, NDA213535). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;EVRYSDI&quot;+AND+receivedate:[20201001+TO+20201231]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[3] AEMS reports naming Evrysdi: Jan-Mar 2021 137. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;EVRYSDI&quot;+AND+receivedate:[20210101+TO+20210331]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[4] Scholar Rock&#x27;s management team page lists Akshay Vaishnaw, M.D., Ph.D., as President of R&amp;D. <a href="https://scholarrock.com/our-company/management-team/" rel="noopener" target="_blank">scholarrock.com/our-company/management-team/</a></li></ul>
+</article><article class="lead">
+<h4>Alan Sandler</h4>
+<p class="meta">Chief Development Officer, Revolution Medicines</p>
+<p class="sig"><strong>Why now:</strong> FDA approved Rasonque (daraxonrasib), Revolution Medicines&#x27; first product, on August 26, 2026 under priority review. Lumakras, the first approved KRAS drug, drew 65 AEMS reports in its first full quarter on sale and 110 by its third.</p>
+<div class="msg"><header><span>Email &amp;middot; Rasonque&#x27;s first year of safety intake</span><button type="button" data-copy>Copy</button></header><pre>Rasonque was approved on August 26, so your first postmarketing quarter is filling now.
+
+For scale: Lumakras, the first approved KRAS drug, drew 65 AEMS reports in its first full quarter on sale and 110 by its third.
+
+I put the Lumakras and Krazati launch curves side by side, by quarter, with serious and expedited counts, so you can size intake and expedited reporting for the year. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Alan, congrats on Rasonque. For sizing postmarketing safety intake: Lumakras drew 65 AEMS reports in its first full quarter and 110 by its third. I put the Lumakras and Krazati launch curves side by side. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Drugs@FDA: NDA220910, Revolution Medicines, RASONQUE (daraxonrasib), original approval 2026-08-26, priority review. <a href="https://api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA220910&quot;" rel="noopener" target="_blank">api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA220</a></li><li>[2] AEMS reports naming Lumakras: Jul-Sep 2021 65 (its first full quarter after the 2021-05-28 approval, NDA214665). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;LUMAKRAS&quot;+AND+receivedate:[20210701+TO+20210930]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[3] AEMS reports naming Lumakras: Jan-Mar 2022 110 (third full quarter). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;LUMAKRAS&quot;+AND+receivedate:[20220101+TO+20220331]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[4] Revolution Medicines, June 22, 2026: Alan Sandler, M.D., chief development officer, will continue to oversee the development department. <a href="https://ir.revmed.com/news-releases/news-release-details/revolution-medicines-announces-planned-leadership-transition" rel="noopener" target="_blank">ir.revmed.com/news-releases/news-release-details/revolution-medi</a></li></ul>
+</article><article class="lead">
+<h4>Igor Gorbatchevsky</h4>
+<p class="meta">Chief Medical Officer, Celcuity</p>
+<p class="sig"><strong>Why now:</strong> Celcuity said on August 13, 2026 that Revtorpyk (approved July 14) was on track for commercial launch late in the third quarter, with an expanded access program supplying patients. Truqap, a recent breast cancer launch, drew 75 AEMS reports in its first full quarter and 200 in its second.</p>
+<div class="msg"><header><span>Email &amp;middot; Revtorpyk&#x27;s first year of safety intake</span><button type="button" data-copy>Copy</button></header><pre>Revtorpyk is moving from expanded access to commercial supply this quarter.
+
+For scale: Truqap, a recent HR+ breast cancer launch, drew 75 AEMS reports in its first full quarter and 200 in its second.
+
+I pulled Truqap&#x27;s first-year curve by quarter, with serious and expedited counts, as a sizing input for your intake and expedited reporting. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Igor, as Revtorpyk moves to commercial supply: Truqap drew 75 AEMS reports in its first full quarter and 200 in its second. I pulled its first-year curve with serious and expedited counts. Happy to send it as a sizing input.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Celcuity, Aug 13, 2026: REVTORPYK approved by FDA on July 14, 2026; on track for commercial launch late third quarter 2026; expanded access program supplying patients. <a href="https://www.sec.gov/Archives/edgar/data/0001603454/000119312526349227/celc-ex99_1.htm" rel="noopener" target="_blank">sec.gov/Archives/edgar/data/0001603454/000119312526349227/celc-e</a></li><li>[2] AEMS reports naming Truqap: Jan-Mar 2024 75 (first full quarter after the 2023-11-16 approval, NDA218197). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;TRUQAP&quot;+AND+receivedate:[20240101+TO+20240331]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[3] AEMS reports naming Truqap: Apr-Jun 2024 200. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;TRUQAP&quot;+AND+receivedate:[20240401+TO+20240630]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[4] Celcuity&#x27;s leadership page lists Igor Gorbatchevsky, M.D., as Chief Medical Officer. <a href="https://celcuity.com/about/leadership/" rel="noopener" target="_blank">celcuity.com/about/leadership/</a></li></ul>
+</article><article class="lead">
+<h4>Terry Ferguson</h4>
+<p class="meta">Chief Medical Officer, Mineralys Therapeutics</p>
+<p class="sig"><strong>Why now:</strong> Mineralys appointed Terry Ferguson CMO effective August 10, 2026, ahead of a December 22, 2026 PDUFA date for lorundrostat, and expects its sales organization in place before that date.</p>
+<div class="msg"><header><span>Email &amp;middot; Lorundrostat safety intake before December 22</span><button type="button" data-copy>Copy</button></header><pre>You joined with lorundrostat&#x27;s PDUFA date set for December 22 and the sales team being built ahead of it.
+
+The closest approved analog is AstraZeneca&#x27;s Baxfendy, which logged 12 AEMS reports in its first six weeks on the market. If prescribing widens the way primary-care launches tend to, that curve climbs quickly.
+
+I pulled Baxfendy&#x27;s reports with reporter type and seriousness, and can refresh it when the next quarter posts. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Terry, congrats on the CMO role. With lorundrostat&#x27;s PDUFA on Dec 22, I pulled AEMS data for Baxfendy, the closest approved analog: 12 reports in its first six weeks. Happy to share it as a sizing input for launch safety intake.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Mineralys, Aug 11, 2026: appointed James J. &#x27;Terry&#x27; Ferguson III, M.D., as CMO effective August 10, 2026; PDUFA target date of December 22, 2026; sales organization to be established before the PDUFA date. <a href="https://www.sec.gov/Archives/edgar/data/0001933414/000193341426000112/mlys2026q28kex991.htm" rel="noopener" target="_blank">sec.gov/Archives/edgar/data/0001933414/000193341426000112/mlys20</a></li><li>[2] AEMS reports naming Baxfendy (baxdrostat, AstraZeneca) through June 30, 2026: 12. Approved 2026-05-15 (NDA219878), so about six weeks of data. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;BAXFENDY&quot;&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li></ul>
+</article><article class="lead">
+<h4>Colleen Mockbee</h4>
+<p class="meta">Global Head of Regulatory Affairs and Development, Verastem Oncology</p>
+<p class="sig"><strong>Why now:</strong> Verastem reported $25.1 million in second-quarter 2026 Avmapki Fakzynja net product revenue on August 6, 2026, driven by new starts and refills. AEMS reports naming the co-pack rose from 80 to 269 a quarter over the same stretch.</p>
+<div class="msg"><header><span>Email &amp;middot; Avmapki safety intake, quarter by quarter</span><button type="button" data-copy>Copy</button></header><pre>AEMS reports naming Avmapki Fakzynja climbed from 80 in July to September 2025 to 269 in April to June 2026. About four in five came from consumers, patients and families rather than clinicians, so many need follow-up before the case is complete.
+
+With new starts and refills still driving sales, that curve is your team&#x27;s case load for next year.
+
+I broke it out by quarter, reporter type, seriousness and expedited share. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Colleen, AEMS reports naming Avmapki Fakzynja went from 80 a quarter to 269 within a year, about four in five from consumers. I broke it out by quarter, reporter type and seriousness. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[9] Verastem, Aug 6, 2026: Q2 2026 AVMAPKI FAKZYNJA CO-PACK net product revenue of $25.1 million, driven by new patient starts and increased refills. <a href="https://www.sec.gov/Archives/edgar/data/0001526119/000110465926092058/tm2622452d2_ex99-1.htm" rel="noopener" target="_blank">sec.gov/Archives/edgar/data/0001526119/000110465926092058/tm2622</a></li><li>[2] AEMS reports naming Avmapki received Jul 1-Sep 30, 2025: 80. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AVMAPKI&quot;+AND+receivedate:[20250701+TO+20250930]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[3] AEMS reports naming Avmapki received Apr 1-Jun 30, 2026: 269. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AVMAPKI&quot;+AND+receivedate:[20260401+TO+20260630]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[5] AEMS reports naming Avmapki from consumers or non-health professionals: 642 of 794 (about four in five). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;AVMAPKI&quot;+AND+primarysource.qualification:5&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[5] Verastem&#x27;s leadership page lists Colleen Mockbee as Global Head of Regulatory Affairs and Development; no title on the page covers safety or pharmacovigilance. <a href="https://www.verastem.com/about-us/leadership/" rel="noopener" target="_blank">verastem.com/about-us/leadership/</a></li></ul>
+</article><article class="lead">
+<h4>Stephen Heitner</h4>
+<p class="meta">SVP, Chief Medical Officer, Cytokinetics</p>
+<p class="sig"><strong>Why now:</strong> Cytokinetics reported on August 6, 2026 that about 1,500 patients had been dispensed Myqorzo by June 30 and that it launched in Germany in June. 55 AEMS reports naming Myqorzo were flagged expedited from April to June alone.</p>
+<div class="msg"><header><span>Email &amp;middot; Myqorzo&#x27;s 15-day reports, by quarter</span><button type="button" data-copy>Copy</button></header><pre>Nearly every AEMS report naming Myqorzo through June was flagged expedited, and 55 of them landed from April to June alone, the quarter you reached about 1,500 patients. Each of those is due within 15 calendar days of first receipt.
+
+With Germany live and the nHCM filing next, that clock gets busier.
+
+I pulled the expedited count by quarter, with seriousness and reporter type, so you can size the team against it. Want the breakdown?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Stephen, congrats on the CMO role. Nearly every AEMS report naming Myqorzo through June was flagged expedited, 55 of them in April to June alone. I pulled the count by quarter with seriousness and reporter type. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[8] Cytokinetics, Aug 6, 2026: approximately 1,500 patients had been dispensed MYQORZO as of June 30, 2026 (cumulative since launch); launched in Germany in June; UK marketing authorization; supplemental NDA for nHCM expected in Q4 2026. <a href="https://www.sec.gov/Archives/edgar/data/0001061983/000119312526338021/cytk-ex99_1.htm" rel="noopener" target="_blank">sec.gov/Archives/edgar/data/0001061983/000119312526338021/cytk-e</a></li><li>[4] AEMS reports naming Myqorzo flagged expedited and received Apr 1-Jun 30, 2026: 55. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;MYQORZO&quot;+AND+fulfillexpeditecriteria:1+AND+receivedate:[20260401+TO+20260630]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[3] AEMS reports naming Myqorzo flagged expedited: 61 of 67. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;MYQORZO&quot;+AND+fulfillexpeditecriteria:1&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[7] 21 CFR 314.80(c)(1)(i): each serious and unexpected adverse drug experience must be reported as soon as possible but no later than 15 calendar days from initial receipt. <a href="https://www.law.cornell.edu/cfr/text/21/314.80" rel="noopener" target="_blank">law.cornell.edu/cfr/text/21/314.80</a></li><li>[5] Cytokinetics&#x27; site: Stephen B. Heitner, M.D., SVP, Chief Medical Officer, appointed Chief Medical Officer in July 2026. <a href="https://cytokinetics.com/company/senior-management/team-member/stephen-b-heitner/" rel="noopener" target="_blank">cytokinetics.com/company/senior-management/team-member/stephen-b</a></li></ul>
+</article><article class="lead">
+<h4>Rob Myers</h4>
+<p class="meta">Chief Medical Officer, Mirum Pharmaceuticals</p>
+<p class="sig"><strong>Why now:</strong> FDA approved Atebrioz (zilurgisertib) on September 25, 2026 under priority review. When Mirum launched Livmarli, AEMS reports naming it went from 40 in January to March 2022 to 100 by October to December.</p>
+<div class="msg"><header><span>Email &amp;middot; Atebrioz intake, sized from Livmarli</span><button type="button" data-copy>Copy</button></header><pre>Atebrioz was approved on September 25, which adds another product to your safety team&#x27;s queue.
+
+Your own launch is the best guide: AEMS reports naming Livmarli went from 40 in early 2022 to 100 by the end of that year.
+
+I pulled Livmarli&#x27;s first-year curve by quarter, with reporter type and seriousness, so you can plan Atebrioz intake against something real. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Rob, congrats on Atebrioz. Your Livmarli launch is a good sizing guide: AEMS reports went from 40 a quarter in early 2022 to 100 by year-end. I pulled the curve by quarter. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Drugs@FDA: NDA221198, Mirum, ATEBRIOZ (zilurgisertib fumarate), original approval 2026-09-25, priority review. <a href="https://api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA221198&quot;" rel="noopener" target="_blank">api.fda.gov/drug/drugsfda.json?search=application_number:&quot;NDA221</a></li><li>[2] AEMS reports naming Livmarli: Jan-Mar 2022 40 (approved 2021-09-29, NDA214662; Oct-Dec 2021 had 2). <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;LIVMARLI&quot;+AND+receivedate:[20220101+TO+20220331]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[3] AEMS reports naming Livmarli: Oct-Dec 2022 100. <a href="https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:&quot;LIVMARLI&quot;+AND+receivedate:[20221001+TO+20221231]&amp;limit=1" rel="noopener" target="_blank">api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct</a></li><li>[4] Mirum&#x27;s leadership page lists Rob Myers, M.D., as Chief Medical Officer. <a href="https://www.mirumpharma.com/about-us/leadership/" rel="noopener" target="_blank">mirumpharma.com/about-us/leadership/</a></li></ul>
+</article></div>
+    </div>
+    <p class="src">Copy is written as Graph AI's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="build" data-label="Three things I&#x27;d build" data-sub="At Graph AI">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>If I join</s></p>
+    <h2>Three things I'd build at Graph AI.</h2>
+    <div class="three"><div class="pane"><h4>1. A launch-and-volume signal feed for the new Enterprise Sales Executive</h4><p>A weekly job joining openFDA adverse-event counts, Drugs@FDA approvals and announced PDUFA dates, so every account in the Northeast hub arrives with its own number: reports per quarter, expedited share, next approval. The Cytokinetics email above, for every sponsor.</p></div><div class="pane"><h4>2. A PDUFA-timed campaign calendar for the VP of Marketing</h4><p>Every sponsor with an approval or PDUFA date in the next two quarters, its safety, regulatory and medical leads named, and a sequence timed to the date: analog volume before approval, their own AEMS curve once the first quarter posts.</p></div><div class="pane"><h4>3. Inbound demo requests enriched and routed in minutes</h4><p>Each form fill matched to its company&#x27;s marketed products, AEMS volume, active trials and recent filings, scored against Graph&#x27;s best customers, and routed to the right seller or to customer success with the reason attached.</p></div></div>
+  </div>
+</section>
+
+<section class="s mid" data-key="ask" data-label="The ask" data-sub="A GTM role, or a pilot first">
+  <div class="wrap">
+    <p class="kick"><b>Graph AI</b> <s>Shubham Sharma</s></p>
+    <h1>I'm looking for my next GTM role. I'd like to build this at Graph AI.</h1>
+    <p class="lede">Happy to start with a 1-month pilot. My work, with live numbers:
+      <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Graph AI</b> &middot; <a href="https://shubhamsbuild.github.io">Shubham Sharma</a></span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 05</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
+  });
+})();
+
+})();
+</script>
+</body>
+</html>

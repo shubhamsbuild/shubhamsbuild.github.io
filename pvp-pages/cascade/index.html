@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Cascade</title>
+<meta name="description" content="10 named leads with copy and three things I'd build, prepared for Cascade.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
+.asset-h span:first-child{color:var(--ink);font-weight:500}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
+.scores b{color:var(--ink)}
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="What&#x27;s on this page">
+  <div class="wrap">
+    <p class="kick"><b>For Cascade</b> <s>from Shubham Sharma</s></p>
+    <h1 class="xl">Ten architecture, engineering and construction firms you could email today.</h1>
+    <p class="lede">Three messages they'd pay to receive, ten named leads to send them to,
+      and three things I'd build at Cascade. Every fact links to its public source.</p>
+    <p class="src">I'm looking for my next GTM role. &middot; <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+
+<section class="s" data-key="messages" data-label="Three messages" data-sub="What they&#x27;d pay to receive">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The messages</s></p>
+    <h2>Three messages your architecture, engineering and construction firms would pay to receive.</h2>
+    <div class="board">
+      <div class="leads"><button type="button" aria-pressed="false"><em>01</em><span>Your Cycle 9 SWARMP buildings, due again by February 2027<i>For Principal or president of a façade engineering (QEWI) firm</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>What NIST ordered under the MEP contract you just joined<i>For Principal or federal BD lead at an MEP engineering firm</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Past clients whose façades just filed Unsafe, with no repair permit yet<i>For Owner or estimating lead at a façade restoration contractor</i></span></button></div>
+      <div class="detail" aria-live="polite"><article class="pm">
+<h3>Your Cycle 9 SWARMP buildings, due again by February 2027</h3>
+<p class="take">Which buildings you rated SWARMP last cycle are due again by February, with no new report on file yet.</p>
+<div class="mail"><div class="to">To: Principal or president of a façade engineering (QEWI) firm, RAND Engineering &amp; Architecture (Stephen Varone)</div>
+<div class="subj">56 façade repairs to scope now</div><p>You rated 56 buildings SWARMP last cycle that sit in sub-cycle A, and that window closes Feb 21, 2027. None of them had a new-cycle report on file when I checked this week.</p><p>DOB&#x27;s rule: last cycle&#x27;s SWARMP repairs must be done by the next filing, or the façade goes Unsafe and the owner pays a $2,000 penalty. So each of those boards needs a repair scope this winter, from the engineer who already knows the wall.</p><p>I listed the 56 with owner, address and last filing. Want the list?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: RAND&#x27;s Cycle 9 SWARMP buildings in sub-cycle A with no Cycle 10 report on file (Oct 29) &middot; first 3 of 56</span></div><table class="tbl"><tr><th>Address</th><th>Owner as filed</th><th>Cycle 9 report</th><th>Filed</th></tr><tr><td>200 West 54 Street, Manhattan</td><td>200 W. 54 Corp.</td><td>TR6-903199-9A-I1</td><td>2022-09-20</td></tr><tr><td>1129 York Avenue, Manhattan</td><td>Memorial Sloan Kettering Cancer Center</td><td>TR6-917247-9A-I1</td><td>2021-10-25</td></tr><tr><td>10 Wall Street, Manhattan</td><td>ROZA 14W LLC</td><td>TR6-900142-9A-I1</td><td>2022-02-09</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] NYC DOB facade filings (FISP), checked 2026-10-29: 56 buildings whose latest Cycle 9 report by RAND Engineering &amp; Architecture is SWARMP, on tax blocks ending in 4, 5, 6 or 9 (sub-cycle A), have no Cycle 10 report on file yet. Records can lag, so a report may be pending. QEWIs on these reports include Michael Larkin and John Monroe. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%27%20AND%20upper(qewi_bus_name)%20like%20%27%RAND%20ENGINEERING%%27%20AND%20current_status=%27SWARMP%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%</a></li><li>[2] DOB service notice (Feb 24, 2025): FISP Cycle 10 sub-cycle A covers blocks ending in 4, 5, 6 or 9, with a filing window of February 21, 2025 to February 21, 2027. <a href="https://www.nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf</a></li><li>[3] DOB facade report guidelines: SWARMP repairs from the previous cycle must be completed by the next cycle, or the facade must be classified Unsafe. <a href="https://www.nyc.gov/site/buildings/safety/facade-report-guidelines.page" rel="noopener" target="_blank">nyc.gov/site/buildings/safety/facade-report-guidelines.page</a></li><li>[4] DOB service notice: an owner who fails to correct a SWARMP condition from the previous cycle, so the building is classified Unsafe, gets a violation and a one-time $2,000 civil penalty (1 RCNY 103-04). <a href="https://www.nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf</a></li><li>[5] RAND Engineering &amp; Architecture filed 30 Cycle 10 facade reports between 2026-08-01 and 2026-10-16: 21 Safe, 5 SWARMP, 2 Unsafe, 2 without a status yet. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710%27%20AND%20upper(qewi_bus_name)%20like%20%27%RAND%20ENGINEERING%%27%20AND%20filing_date&gt;=%272026-08-01%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710</a></li><li>[6] RAND&#x27;s leadership page lists Stephen A. Varone, AIA, as Founder &amp; President. <a href="https://randpc.com/rand-profile/bios/" rel="noopener" target="_blank">randpc.com/rand-profile/bios/</a></li></ul></details>
+</article><article class="pm">
+<h3>What NIST ordered under the MEP contract you just joined</h3>
+<p class="take">Every task order under NIST&#x27;s last campus MEP contract, by building, scope and firm, now that none of those firms returned.</p>
+<div class="mail"><div class="to">To: Principal or federal BD lead at an MEP engineering firm, Burdette, Koehler, Murphy &amp; Associates (BKM)</div>
+<div class="subj">NIST&#x27;s last MEP contract, itemized</div><p>You&#x27;re one of three firms on NIST&#x27;s new campus MEP A/E contract. None of the three firms on the last one is back, and under it NIST placed 17 task orders worth about $6.57M. IMEG alone took about 84% of the dollars, much of it in September.</p><p>That&#x27;s the work now open to you: underground utilities, electrical replacement and tower HVAC follow-on phases.</p><p>I listed all 17 with building, scope, firm, value and month. Want the list?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Task orders under NIST&#x27;s previous MEP A/E contracts (2021-2026), largest first &middot; first 3 of 17</span></div><table class="tbl"><tr><th>Signed</th><th>Firm</th><th>Building / scope</th><th>Obligated</th></tr><tr><td>2024-09-19</td><td>IMEG</td><td>Site underground utilities replacement, construction documents</td><td>$3,866,236</td></tr><tr><td>2023-05-17</td><td>IMEG</td><td>B215 cleanroom expansion design</td><td>$492,571</td></tr><tr><td>2024-07-03</td><td>IMEG</td><td>B220-B225 fire alarm design and AV replacement</td><td>$472,934</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 5</summary><ul class="ev"><li>[1] NIST campus-wide MEP A/E contract (solicitation 1333ND26QNB190164), all signed 2026-09-23, run to 2031-09-22, $9,800,000 ceiling each, 14 offers received, small-business set-aside. Awardees when checked on Oct 29: EBL Engineers (1333ND26DNB190019), Burdette, Koehler, Murphy and Associates (1333ND26DNB190020), DAE-Heapy JV (1333ND26DNB190021). <a href="https://api.usaspending.gov/api/v2/awards/CONT_IDV_1333ND26DNB190020_1341/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_IDV_1333ND26DNB190020_134</a></li><li>[2] NIST&#x27;s previous MEP A/E IDIQs (solicitation NB195000-20-01799), signed 2021-08-25, ended 2026-09-30: IMEG (1333ND21DNB190025), Henry Adams (1333ND21DNB190026), Summer Consultants (1333ND21DNB190027). Excluding three $0 base orders, NIST placed 17 task orders worth $6,572,994 (about $6.57M): IMEG 8 orders, $5,507,752 (about $5.51M, about 84%); Summer 7 orders, $832,015; Henry Adams 2 orders, $233,227. 7 of the 17 were signed in September. <a href="https://api.usaspending.gov/api/v2/idvs/awards/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/idvs/awards/</a></li><li>[3] Largest task orders under the old MEP contracts: 1333ND24FNB190236 IMEG, site underground utilities replacement construction documents, $3,866,236 (2024-09-19); 1333ND23FNB190102 IMEG, B215 cleanroom expansion design, $492,571 (2023-05-17); 1333ND24FNB190117 IMEG, B220/B221/B223/B225 fire alarm design and AV replacement, $472,934 (2024-07-03); 1333ND23FNB190168 IMEG, B226 AHU 16 &amp; 17 upgrade, $229,428 (2023-07-31); 1333ND24FNB190108 Summer, study of chilled water loops, $212,199 (2024-06-05). Also 1333ND25FNB190103 IMEG, B220 major electrical equipment replacement design (2025-09-17) and 1333ND25FNB190189 IMEG, B101 tower HVAC PCAS (2025-09-19). <a href="https://api.usaspending.gov/api/v2/idvs/awards/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/idvs/awards/</a></li><li>[4] 1333ND25CNB190044, Burdette, Koehler, Murphy and Associates: B215 cleanroom HEPA filter PCAS and redesign, $293,000, signed 2025-09-22, runs to 2028-09-30 (Gaithersburg). <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_1333ND25CNB190044_1341_-NONE-_-NONE-/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_1333ND25CNB190044_134</a></li><li>[5] 1333ND25FNB190195, AFG Group: construction manager as agent for the B215 clean room HEPA filter replacement, $1,098,868, signed 2025-09-22. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_1333ND25FNB190195_1341_1333ND24ANB190020_1341/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_1333ND25FNB190195_134</a></li></ul></details>
+</article><article class="pm">
+<h3>Past clients whose façades just filed Unsafe, with no repair permit yet</h3>
+<p class="take">Buildings you&#x27;ve worked on that filed Unsafe façade reports this year and still show no repair permit.</p>
+<div class="mail"><div class="to">To: Owner or estimating lead at a façade restoration contractor, Xinos Construction Corp</div>
+<div class="subj">Four past clients need façade repairs</div><p>Four buildings where you&#x27;ve done scaffold, shed or repair work filed Unsafe façade reports since June: Riverbay&#x27;s building on Hunter Avenue, Fairview Owners on Grand Central Parkway, Park 44 Corp and Dom Ben Realty on Plymouth Street. When I checked this week, none showed a repair permit since the filing.</p><p>DOB expects Unsafe conditions corrected within 90 days of filing, so those boards are picking a contractor now.</p><p>I listed the four with filing date, engineer of record and your last permit there. Want the list?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Xinos&#x27;s past buildings with a 2026 Unsafe filing and no repair permit since (Oct 29) &middot; first 3 of 4</span></div><table class="tbl"><tr><th>Building</th><th>Unsafe filed</th><th>Engineer of record</th><th>Your last permit</th></tr><tr><td>2400 Hunter Ave, Bronx (Riverbay Corporation)</td><td>2026-10-09</td><td>RAND Engineering &amp; Architecture</td><td>Supported scaffold, 2019</td></tr><tr><td>44 W 77 St, Manhattan (Park 44 Corp.)</td><td>2026-08-26</td><td>Lawless &amp; Mangione</td><td>Shed and scaffold, 2021</td></tr><tr><td>61-20 Grand Central Pkwy, Queens (Fairview Owners Corp.)</td><td>2026-07-14</td><td>RAND Engineering &amp; Architecture</td><td>Garage and laundry repair, 2022</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] 2400 Hunter Avenue, Bronx (Riverbay Corporation): Cycle 10 report TR6-1008762-10A-I2 filed Oct 9 (2026-10-09) with status UNSAFE, QEWI firm RAND Engineering &amp; Architecture. Xinos Construction held a supported-scaffold permit there (X00197352-I1, 2019-07-22). <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=tr6_no=%27TR6-1008762-10A-I2%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=tr6_no=%27T</a></li><li>[2] 61-20 Grand Central Parkway, Queens (Fairview Owners Corp.): TR6-1011025-10C-I1 filed 2026-07-14, UNSAFE (prior cycle also Unsafe), QEWI firm RAND. Xinos held a general construction and structural permit there (Q00790851-I1, 2022-11-10, garage and laundry room repair program, $771,000). <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=tr6_no=%27TR6-1011025-10C-I1%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=tr6_no=%27T</a></li><li>[3] 44 West 77 Street, Manhattan (Park 44 Corp.): TR6-1003472-10A-I1 filed 2026-08-26, UNSAFE (prior cycle SWARMP), QEWI firm Lawless &amp; Mangione. Xinos held sidewalk shed and supported scaffold permits there (M00477764-I1, 2021-03-01). Since the filing, the only permit is a sidewalk shed by Andamio Scaffolding. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=tr6_no=%27TR6-1003472-10A-I1%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=tr6_no=%27T</a></li><li>[4] 135 Plymouth Street, Brooklyn (Dom Ben Realty Corp.): TR6-1042960-10B-I1 filed 2026-06-17, UNSAFE, QEWI firm Saghari Architectural Services. Xinos held a sidewalk shed permit there (B01394393-I1, 2026-05-20). <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=tr6_no=%27TR6-1042960-10B-I1%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=tr6_no=%27T</a></li><li>[5] DOB NOW: Build approved permits, checked 2026-10-29: no permit of any kind at 2400 Hunter Avenue, 61-20 Grand Central Parkway or 135 Plymouth Street approved on or after each Unsafe filing date; at 44 West 77 Street only a sidewalk shed (Andamio Scaffolding). Older BIS-era permits are not in this dataset. <a href="https://data.cityofnewyork.us/resource/rbx6-tga4.json?$where=bin%20in(%272093857%27,%274445338%27,%271028821%27,%273329396%27)" rel="noopener" target="_blank">data.cityofnewyork.us/resource/rbx6-tga4.json?$where=bin%20in(%2</a></li><li>[6] DOB Facade Fees &amp; Penalties page: Unsafe conditions must be corrected within 90 days of filing a report with an Unsafe status; an amended report follows within two weeks of the repairs. <a href="https://www.nyc.gov/site/buildings/safety/facade-fees-penalties.page" rel="noopener" target="_blank">nyc.gov/site/buildings/safety/facade-fees-penalties.page</a></li></ul></details>
+</article></div>
+    </div>
+    <p class="src">Each one was run on a real, named account. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten leads</s></p>
+    <h2>Ten leads, each with a reason to email now.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>Andrew Kaplan<i>Stone Engineering &amp; Architecture &middot; Filing Cycle 10; 15 SWARMP still open</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Michael T. Foster<i>MTFA Architecture &middot; Named to NIST general A/E contract</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Edward Hubner<i>EBL Engineers &middot; Won NIST campus MEP A/E contract</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Chris Krepcio<i>Merritt Engineering Consultants &middot; Filing Cycle 10; 28 SWARMP still open</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Anthony Orlando<i>Lawless &amp; Mangione &middot; Filing Cycle 10; 30 SWARMP still open</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>George Xerakias<i>George J. Xerakias, P.E. &middot; Filing Cycle 10; 52 SWARMP still open</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Thomas Cataldo<i>Cataldo Engineering, P.C. &middot; Filing Cycle 10; 21 SWARMP still open</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Jim Hoffman<i>Summer Consultants &middot; NIST MEP contract ended; joined general A/E</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Spiro Markatos<i>Skyline Restoration &middot; 16 NYCHA sites it rigged filed Unsafe</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Jay Losak<i>APSI Construction Management &middot; CM-as-agent on NIST plant modernization</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>Andrew Kaplan</h4>
+<p class="meta">QEWI of record, Stone Engineering &amp; Architecture</p>
+<p class="sig"><strong>Why now:</strong> Stone Engineering &amp; Architecture filed 16 Cycle 10 façade reports between Aug 1 and Oct 27, 2026. Another 15 buildings it rated SWARMP in Cycle 9 sit in sub-cycle A, which closes Feb 21, 2027, with no Cycle 10 report on file when I checked on Oct 29.</p>
+<div class="msg"><header><span>Email &amp;middot; 15 SWARMP repairs due by February</span><button type="button" data-copy>Copy</button></header><pre>Your firm rated 15 buildings SWARMP last cycle that sit in sub-cycle A, Riverdale Latitude Condominium and The Guardsman Tenants Corp among them. That window closes Feb 21, 2027, and none of the 15 had a new report on file this week.
+
+Last cycle&#x27;s SWARMP repairs have to be done by the next filing, or the façade goes Unsafe and the owner pays a $2,000 penalty.
+
+I listed the 15 with owner, address and last filing. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Andrew, 15 buildings your firm rated SWARMP last cycle sit in sub-cycle A, which closes Feb 21, 2027, and none had a new report on file when I checked. Each needs repairs first or files Unsafe. I listed them, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] NYC DOB facade filings (FISP), checked 2026-10-29: 15 buildings whose latest Cycle 9 report by Stone Engineering &amp; Architecture is SWARMP, on tax blocks ending in 4, 5, 6 or 9 (sub-cycle A), have no Cycle 10 report on file yet. Records can lag, so a report may be pending. Owners on the list include Riverdale Latitude Condominium and The Guardsman Tenants Corp. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%27%20AND%20upper(qewi_bus_name)%20like%20%27%STONE%20ENGINEERING%%27%20AND%20current_status=%27SWARMP%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%</a></li><li>[2] Stone Engineering &amp; Architecture filed 16 Cycle 10 facade reports between 2026-08-01 and 2026-10-27; the latest, TR6-1003849-10A-I1, names Andrew Kaplan as QEWI. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710%27%20AND%20upper(qewi_bus_name)%20like%20%27%STONE%20ENGINEERING%%27%20AND%20filing_date&gt;=%272026-08-01%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710</a></li><li>[3] DOB service notice (Feb 24, 2025): FISP Cycle 10 sub-cycle A covers blocks ending in 4, 5, 6 or 9, with a filing window of February 21, 2025 to February 21, 2027. <a href="https://www.nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf</a></li><li>[4] DOB facade report guidelines: SWARMP repairs from the previous cycle must be completed by the next cycle, or the facade must be classified Unsafe. <a href="https://www.nyc.gov/site/buildings/safety/facade-report-guidelines.page" rel="noopener" target="_blank">nyc.gov/site/buildings/safety/facade-report-guidelines.page</a></li><li>[5] DOB service notice: an owner who fails to correct a SWARMP condition from the previous cycle, so the building is classified Unsafe, gets a violation and a one-time $2,000 civil penalty (1 RCNY 103-04). <a href="https://www.nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf</a></li></ul>
+</article><article class="lead">
+<h4>Michael T. Foster</h4>
+<p class="meta">Principal, MTFA Architecture</p>
+<p class="sig"><strong>Why now:</strong> MTFA started on NIST&#x27;s new general A/E multiple-award contract on Sep 24, 2026, one of five holders picked from 21 offers. On the last general contract, two firms not on the new one took about $10.7M of the $12.7M NIST ordered.</p>
+<div class="msg"><header><span>Email &amp;middot; NIST&#x27;s last general A/E contract, itemized</span><button type="button" data-copy>Copy</button></header><pre>You&#x27;re one of five firms on NIST&#x27;s new general A/E contract. On the last one, NIST placed 38 task orders worth about $12.7M, and IMEG and ATI, neither on the new contract, took about $10.7M of it: roads and parking, roof designs, cafeteria renovation.
+
+The one returning firm, LS&amp;Y, won the façade studies.
+
+I listed all 38 with building, scope, firm, value and month. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Michael, congrats on NIST&#x27;s general A/E contract. On the last one, IMEG and ATI took about $10.7M of the $12.7M NIST ordered, and neither is on the new list. I itemized all 38 orders, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] NIST general A/E multiple-award IDIQ (solicitation 1333ND26RNB190011), signed 2026-09-22, performance from 2026-09-24, $9,800,000 ceiling each, 21 offers received, small-business set-aside. Five holders: Summer Consultants (1333ND26DNB190017), North Arrow (1333ND26DNB190016), MTFA Architecture (1333ND26DNB190015), Louviere Stratton &amp; Yokel (1333ND26DNB190014), Alphatec (1333ND26DNB190013). <a href="https://api.usaspending.gov/api/v2/awards/CONT_IDV_1333ND26DNB190015_1341/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_IDV_1333ND26DNB190015_134</a></li><li>[2] NIST&#x27;s previous general A&amp;E IDIQs (solicitation NB195000-19-00193), 2020-04-01 to 2025-03-31: IMEG (1333ND20DNB190008), ATI (1333ND20DNB190009), Louviere Stratton &amp; Yokel (1333ND20DNB190015). Excluding three $0 base orders, 38 task orders worth $12,749,887 (about $12.7M): IMEG 19 orders, $6,768,712; ATI 7 orders, $3,916,637; LS&amp;Y 12 orders, $2,064,538. IMEG and ATI together: $10,685,349 (about $10.7M). Largest: ATI roads and parking lots $2,382,628; IMEG B101 cafeteria renovation CM $2,602,508; ATI multiple roof designs $1,035,697; LS&amp;Y facade studies (B202, 2021; facade study design, 2024). <a href="https://api.usaspending.gov/api/v2/idvs/awards/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/idvs/awards/</a></li><li>[3] MTFA&#x27;s site lists Michael T. Foster, FAIA, as Principal. <a href="https://www.mtfa.net/michael-t-foster" rel="noopener" target="_blank">mtfa.net/michael-t-foster</a></li></ul>
+</article><article class="lead">
+<h4>Edward Hubner</h4>
+<p class="meta">Principal, MEP engineering, EBL Engineers</p>
+<p class="sig"><strong>Why now:</strong> On Sep 23, 2026, NIST put EBL on its new five-year campus MEP A/E contract, one of three holders picked from 14 offers. IMEG, which took about 84% of the last MEP contract&#x27;s dollars, is not on it.</p>
+<div class="msg"><header><span>Email &amp;middot; What IMEG designed at NIST</span><button type="button" data-copy>Copy</button></header><pre>You joined NIST&#x27;s new campus MEP A/E contract on Sep 23. The firm that dominated the last one, IMEG, isn&#x27;t on it: of the about $6.57M NIST ordered under that contract, IMEG took about $5.51M.
+
+Its open threads are the work coming next: underground utilities, electrical replacement and tower HVAC follow-on phases.
+
+I pulled every order from the old contract with building, scope, value and month. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Edward, congrats on the NIST campus MEP contract. IMEG took about $5.51M of the $6.57M NIST ordered under the last one and isn&#x27;t on the new list. I pulled every old order with building, scope and value, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] NIST campus-wide MEP A/E contract (solicitation 1333ND26QNB190164), all signed 2026-09-23, run to 2031-09-22, $9,800,000 ceiling each, 14 offers received, small-business set-aside. Five-year term. Awardees when checked on Oct 29: EBL Engineers (1333ND26DNB190019), Burdette, Koehler, Murphy and Associates (1333ND26DNB190020), DAE-Heapy JV (1333ND26DNB190021). <a href="https://api.usaspending.gov/api/v2/awards/CONT_IDV_1333ND26DNB190020_1341/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_IDV_1333ND26DNB190020_134</a></li><li>[2] NIST&#x27;s previous MEP A/E IDIQs (solicitation NB195000-20-01799), signed 2021-08-25, ended 2026-09-30: IMEG (1333ND21DNB190025), Henry Adams (1333ND21DNB190026), Summer Consultants (1333ND21DNB190027). Excluding three $0 base orders, NIST placed 17 task orders worth $6,572,994 (about $6.57M): IMEG 8 orders, $5,507,752 (about $5.51M, about 84%); Summer 7 orders, $832,015; Henry Adams 2 orders, $233,227. 7 of the 17 were signed in September. <a href="https://api.usaspending.gov/api/v2/idvs/awards/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/idvs/awards/</a></li><li>[3] EBL&#x27;s leadership page lists Edward Hubner, PE, BCxP, F.MDSPE, as Principal, Mechanical, Electrical and Plumbing Engineering. <a href="https://www.eblengineers.com/about-EBL.html" rel="noopener" target="_blank">eblengineers.com/about-EBL.html</a></li></ul>
+</article><article class="lead">
+<h4>Chris Krepcio</h4>
+<p class="meta">Principal, Merritt Engineering Consultants</p>
+<p class="sig"><strong>Why now:</strong> Merritt Engineering filed 11 Cycle 10 façade reports between Aug 1 and Oct 22, 2026. Another 28 buildings it rated SWARMP in Cycle 9 sit in sub-cycle A, which closes Feb 21, 2027, with no Cycle 10 report on file when I checked on Oct 29.</p>
+<div class="msg"><header><span>Email &amp;middot; 28 SWARMP repairs due by February</span><button type="button" data-copy>Copy</button></header><pre>Your firm rated 28 buildings SWARMP last cycle that sit in sub-cycle A, Hospital for Special Surgery and Lincoln Plaza among them. That window closes Feb 21, 2027, and none of the 28 had a new report on file this week.
+
+Last cycle&#x27;s SWARMP repairs have to be done by the next filing, or the façade goes Unsafe and the owner pays a $2,000 penalty.
+
+I listed the 28 with owner, address and last filing. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Chris, 28 buildings your firm rated SWARMP last cycle sit in sub-cycle A, which closes Feb 21, 2027, and none had a new report on file when I checked. Each needs repairs first or files Unsafe. I listed them, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] NYC DOB facade filings (FISP), checked 2026-10-29: 28 buildings whose latest Cycle 9 report by Merritt Engineering is SWARMP, on tax blocks ending in 4, 5, 6 or 9 (sub-cycle A), have no Cycle 10 report on file yet. Records can lag, so a report may be pending. Owners on the list include Hospital for Special Surgery and Lincoln Plaza. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%27%20AND%20upper(qewi_bus_name)%20like%20%27%MERRITT%%27%20AND%20current_status=%27SWARMP%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%</a></li><li>[2] Merritt Engineering filed 11 Cycle 10 facade reports between 2026-08-01 and 2026-10-22; the latest, TR6-1001624-10A-I1, names Christopher Krepcio as QEWI. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710%27%20AND%20upper(qewi_bus_name)%20like%20%27%MERRITT%%27%20AND%20filing_date&gt;=%272026-08-01%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710</a></li><li>[3] DOB service notice (Feb 24, 2025): FISP Cycle 10 sub-cycle A covers blocks ending in 4, 5, 6 or 9, with a filing window of February 21, 2025 to February 21, 2027. <a href="https://www.nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf</a></li><li>[4] DOB facade report guidelines: SWARMP repairs from the previous cycle must be completed by the next cycle, or the facade must be classified Unsafe. <a href="https://www.nyc.gov/site/buildings/safety/facade-report-guidelines.page" rel="noopener" target="_blank">nyc.gov/site/buildings/safety/facade-report-guidelines.page</a></li><li>[5] DOB service notice: an owner who fails to correct a SWARMP condition from the previous cycle, so the building is classified Unsafe, gets a violation and a one-time $2,000 civil penalty (1 RCNY 103-04). <a href="https://www.nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf</a></li><li>[6] Merritt&#x27;s team page lists Chris Krepcio, P.E., QEWI, QPSI, as Principal; Merritt&#x27;s Cycle 9 SWARMP owners include Hospital for Special Surgery (310 East 71 Street, TR6-905264-9A-I1) and Lincoln Plaza Tenant Corp (44 West 62 Street, TR6-903380-9A-I1). <a href="https://merrittengineering.com/our-team/" rel="noopener" target="_blank">merrittengineering.com/our-team/</a></li></ul>
+</article><article class="lead">
+<h4>Anthony Orlando</h4>
+<p class="meta">QEWI of record, Lawless &amp; Mangione</p>
+<p class="sig"><strong>Why now:</strong> Lawless &amp; Mangione filed 12 Cycle 10 façade reports between Aug 1 and Oct 19, 2026. Another 30 buildings it rated SWARMP in Cycle 9 sit in sub-cycle A, which closes Feb 21, 2027, with no Cycle 10 report on file when I checked on Oct 29.</p>
+<div class="msg"><header><span>Email &amp;middot; 30 SWARMP repairs due by February</span><button type="button" data-copy>Copy</button></header><pre>Your firm rated 30 buildings SWARMP last cycle that sit in sub-cycle A, Seaport South Condominium and Esplanade Gardens among them. That window closes Feb 21, 2027, and none of the 30 had a new report on file this week.
+
+Last cycle&#x27;s SWARMP repairs have to be done by the next filing, or the façade goes Unsafe and the owner pays a $2,000 penalty.
+
+I listed the 30 with owner, address and last filing. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Anthony, 30 buildings your firm rated SWARMP last cycle sit in sub-cycle A, which closes Feb 21, 2027, and none had a new report on file when I checked. Each needs repairs first or files Unsafe. I listed them, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] NYC DOB facade filings (FISP), checked 2026-10-29: 30 buildings whose latest Cycle 9 report by Lawless &amp; Mangione is SWARMP, on tax blocks ending in 4, 5, 6 or 9 (sub-cycle A), have no Cycle 10 report on file yet. Records can lag, so a report may be pending. Owners on the list include Seaport South Condominium and Esplanade Gardens. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%27%20AND%20upper(qewi_bus_name)%20like%20%27%LAWLESS%%27%20AND%20current_status=%27SWARMP%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%</a></li><li>[2] Lawless &amp; Mangione filed 12 Cycle 10 facade reports between 2026-08-01 and 2026-10-19; the latest, TR6-1010180-10C-I1, names Anthony Orlando as QEWI. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710%27%20AND%20upper(qewi_bus_name)%20like%20%27%LAWLESS%%27%20AND%20filing_date&gt;=%272026-08-01%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710</a></li><li>[3] DOB service notice (Feb 24, 2025): FISP Cycle 10 sub-cycle A covers blocks ending in 4, 5, 6 or 9, with a filing window of February 21, 2025 to February 21, 2027. <a href="https://www.nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf</a></li><li>[4] DOB facade report guidelines: SWARMP repairs from the previous cycle must be completed by the next cycle, or the facade must be classified Unsafe. <a href="https://www.nyc.gov/site/buildings/safety/facade-report-guidelines.page" rel="noopener" target="_blank">nyc.gov/site/buildings/safety/facade-report-guidelines.page</a></li><li>[5] DOB service notice: an owner who fails to correct a SWARMP condition from the previous cycle, so the building is classified Unsafe, gets a violation and a one-time $2,000 civil penalty (1 RCNY 103-04). <a href="https://www.nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf</a></li></ul>
+</article><article class="lead">
+<h4>George Xerakias</h4>
+<p class="meta">Principal and QEWI of record, George J. Xerakias, P.E.</p>
+<p class="sig"><strong>Why now:</strong> George J. Xerakias, P.E. filed 4 Cycle 10 façade reports between Aug 1 and Oct 14, 2026. Another 52 buildings it rated SWARMP in Cycle 9 sit in sub-cycle A, which closes Feb 21, 2027, with no Cycle 10 report on file when I checked on Oct 29.</p>
+<div class="msg"><header><span>Email &amp;middot; 52 SWARMP repairs due by February</span><button type="button" data-copy>Copy</button></header><pre>Your firm rated 52 buildings SWARMP last cycle that sit in sub-cycle A, Cherokee Owners Corp among them. That window closes Feb 21, 2027, and none of the 52 had a new report on file this week.
+
+Last cycle&#x27;s SWARMP repairs have to be done by the next filing, or the façade goes Unsafe and the owner pays a $2,000 penalty.
+
+I listed the 52 with owner, address and last filing. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>George, 52 buildings your firm rated SWARMP last cycle sit in sub-cycle A, which closes Feb 21, 2027, and none had a new report on file when I checked. Each needs repairs first or files Unsafe. I listed them, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] NYC DOB facade filings (FISP), checked 2026-10-29: 52 buildings whose latest Cycle 9 report by George J. Xerakias, P.E. is SWARMP, on tax blocks ending in 4, 5, 6 or 9 (sub-cycle A), have no Cycle 10 report on file yet. Records can lag, so a report may be pending. Owners on the list include Cherokee Owners Corp. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%27%20AND%20upper(qewi_bus_name)%20like%20%27%XERAKIAS%%27%20AND%20current_status=%27SWARMP%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%</a></li><li>[2] George J. Xerakias, P.E. filed 4 Cycle 10 facade reports between 2026-08-01 and 2026-10-14; the latest, TR6-1010846-10A-I1, names George Xerakias as QEWI. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710%27%20AND%20upper(qewi_bus_name)%20like%20%27%XERAKIAS%%27%20AND%20filing_date&gt;=%272026-08-01%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710</a></li><li>[3] DOB service notice (Feb 24, 2025): FISP Cycle 10 sub-cycle A covers blocks ending in 4, 5, 6 or 9, with a filing window of February 21, 2025 to February 21, 2027. <a href="https://www.nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf</a></li><li>[4] DOB facade report guidelines: SWARMP repairs from the previous cycle must be completed by the next cycle, or the facade must be classified Unsafe. <a href="https://www.nyc.gov/site/buildings/safety/facade-report-guidelines.page" rel="noopener" target="_blank">nyc.gov/site/buildings/safety/facade-report-guidelines.page</a></li><li>[5] DOB service notice: an owner who fails to correct a SWARMP condition from the previous cycle, so the building is classified Unsafe, gets a violation and a one-time $2,000 civil penalty (1 RCNY 103-04). <a href="https://www.nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf</a></li><li>[6] Xerakias&#x27;s Cycle 9 SWARMP buildings include Cherokee Owners Corp (508 East 78th Street, TR6-916825-9A-I1). His practice files under his own name, and his Oct 14, 2026 Cycle 10 report lists him as the QEWI. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=tr6_no=%27TR6-916825-9A-I1%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=tr6_no=%27T</a></li></ul>
+</article><article class="lead">
+<h4>Thomas Cataldo</h4>
+<p class="meta">QEWI of record, Cataldo Engineering, P.C.</p>
+<p class="sig"><strong>Why now:</strong> Cataldo Engineering filed 7 Cycle 10 façade reports between Aug 1 and Oct 13, 2026. Another 21 buildings it rated SWARMP in Cycle 9 sit in sub-cycle A, which closes Feb 21, 2027, with no Cycle 10 report on file when I checked on Oct 29.</p>
+<div class="msg"><header><span>Email &amp;middot; 21 SWARMP repairs due by February</span><button type="button" data-copy>Copy</button></header><pre>Your firm rated 21 buildings SWARMP last cycle that sit in sub-cycle A, Brightwater Towers and Forest Hills South Owners among them. That window closes Feb 21, 2027, and none of the 21 had a new report on file this week.
+
+Last cycle&#x27;s SWARMP repairs have to be done by the next filing, or the façade goes Unsafe and the owner pays a $2,000 penalty.
+
+I listed the 21 with owner, address and last filing. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Thomas, 21 buildings your firm rated SWARMP last cycle sit in sub-cycle A, which closes Feb 21, 2027, and none had a new report on file when I checked. Each needs repairs first or files Unsafe. I listed them, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] NYC DOB facade filings (FISP), checked 2026-10-29: 21 buildings whose latest Cycle 9 report by Cataldo Engineering is SWARMP, on tax blocks ending in 4, 5, 6 or 9 (sub-cycle A), have no Cycle 10 report on file yet. Records can lag, so a report may be pending. Owners on the list include Brightwater Towers and Forest Hills South Owners. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%27%20AND%20upper(qewi_bus_name)%20like%20%27%CATALDO%%27%20AND%20current_status=%27SWARMP%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%279%</a></li><li>[2] Cataldo Engineering filed 7 Cycle 10 facade reports between 2026-08-01 and 2026-10-13; the latest, TR6-1013058-10C-I1, names Thomas Cataldo as QEWI. <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710%27%20AND%20upper(qewi_bus_name)%20like%20%27%CATALDO%%27%20AND%20filing_date&gt;=%272026-08-01%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710</a></li><li>[3] DOB service notice (Feb 24, 2025): FISP Cycle 10 sub-cycle A covers blocks ending in 4, 5, 6 or 9, with a filing window of February 21, 2025 to February 21, 2027. <a href="https://www.nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facadecycle-sn.pdf</a></li><li>[4] DOB facade report guidelines: SWARMP repairs from the previous cycle must be completed by the next cycle, or the facade must be classified Unsafe. <a href="https://www.nyc.gov/site/buildings/safety/facade-report-guidelines.page" rel="noopener" target="_blank">nyc.gov/site/buildings/safety/facade-report-guidelines.page</a></li><li>[5] DOB service notice: an owner who fails to correct a SWARMP condition from the previous cycle, so the building is classified Unsafe, gets a violation and a one-time $2,000 civil penalty (1 RCNY 103-04). <a href="https://www.nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf" rel="noopener" target="_blank">nyc.gov/assets/buildings/pdf/facades_failure_correct_sn.pdf</a></li></ul>
+</article><article class="lead">
+<h4>Jim Hoffman</h4>
+<p class="meta">President, Summer Consultants</p>
+<p class="sig"><strong>Why now:</strong> Summer&#x27;s NIST MEP A/E contract ran to Sep 30, 2026, after 7 task orders worth about $832K, and on Sep 24 Summer started on NIST&#x27;s new general A/E contract. The old general contract&#x27;s two biggest winners are not on the new one.</p>
+<div class="msg"><header><span>Email &amp;middot; Your next NIST orders, by building</span><button type="button" data-copy>Copy</button></header><pre>Your NIST MEP contract has run out, and you&#x27;re now on the new general A/E contract with four other firms. On the last general contract, NIST placed 38 task orders, about $12.7M, and the two biggest winners, IMEG and ATI, aren&#x27;t on the new one.
+
+Their work was site, roofs, HVAC and electrical, close to what you did under the MEP contract.
+
+I listed all 38 with building, scope, firm and value. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Jim, congrats on NIST&#x27;s general A/E contract. On the last one, NIST placed 38 orders worth about $12.7M, and the two biggest winners, IMEG and ATI, aren&#x27;t on the new list. I itemized them by building, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Summer Consultants&#x27; NIST MEP A/E IDIQ 1333ND21DNB190027 (signed 2021-08-25) ended 2026-09-30. Excluding the $0 base order, NIST placed 7 task orders under it worth $832,015 (about $832K). <a href="https://api.usaspending.gov/api/v2/awards/CONT_IDV_1333ND21DNB190027_1341/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_IDV_1333ND21DNB190027_134</a></li><li>[2] NIST general A/E multiple-award IDIQ (solicitation 1333ND26RNB190011), signed 2026-09-22, performance from 2026-09-24, $9,800,000 ceiling each, 21 offers received, small-business set-aside. Five holders: Summer Consultants (1333ND26DNB190017), North Arrow (1333ND26DNB190016), MTFA Architecture (1333ND26DNB190015), Louviere Stratton &amp; Yokel (1333ND26DNB190014), Alphatec (1333ND26DNB190013). <a href="https://api.usaspending.gov/api/v2/awards/CONT_IDV_1333ND26DNB190015_1341/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_IDV_1333ND26DNB190015_134</a></li><li>[3] NIST&#x27;s previous general A&amp;E IDIQs (solicitation NB195000-19-00193), 2020-04-01 to 2025-03-31: IMEG (1333ND20DNB190008), ATI (1333ND20DNB190009), Louviere Stratton &amp; Yokel (1333ND20DNB190015). Excluding three $0 base orders, 38 task orders worth $12,749,887 (about $12.7M): IMEG 19 orders, $6,768,712; ATI 7 orders, $3,916,637; LS&amp;Y 12 orders, $2,064,538. IMEG and ATI together: $10,685,349 (about $10.7M). Largest: ATI roads and parking lots $2,382,628; IMEG B101 cafeteria renovation CM $2,602,508; ATI multiple roof designs $1,035,697; LS&amp;Y facade studies (B202, 2021; facade study design, 2024). <a href="https://api.usaspending.gov/api/v2/idvs/awards/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/idvs/awards/</a></li><li>[4] Summer Consultants&#x27; team page lists Jim Hoffman, PE, as President. <a href="https://www.summerconsultants.com/team/jim-hoffman/" rel="noopener" target="_blank">summerconsultants.com/team/jim-hoffman/</a></li></ul>
+</article><article class="lead">
+<h4>Spiro Markatos</h4>
+<p class="meta">President, Skyline Restoration</p>
+<p class="sig"><strong>Why now:</strong> Between Sep 8 and Oct 16, 2026, 16 NYCHA buildings where Skyline has held suspended-scaffold permits filed Unsafe Cycle 10 façade reports. None shows a repair permit since.</p>
+<div class="msg"><header><span>Email &amp;middot; NYCHA façade repairs you already know</span><button type="button" data-copy>Copy</button></header><pre>16 NYCHA buildings where you&#x27;ve held scaffold permits filed Unsafe façade reports since Sep 8, most along Rockaway Beach and Hammels Boulevards in Queens, plus four in the Bronx. None shows a repair permit yet.
+
+DOB expects Unsafe conditions corrected within 90 days, so NYCHA has to buy those repairs soon, and you&#x27;ve already rigged those walls.
+
+I listed the 16 with filing date, engineer of record and your last permit. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Spiro, 16 NYCHA buildings where Skyline has held scaffold permits filed Unsafe façade reports since Sep 8, and none shows a repair permit yet. DOB expects repairs within 90 days. I listed them with the engineer of record, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] 16 NYCHA buildings with Cycle 10 Unsafe filings dated Sep 8 (2026-09-08) to 2026-10-16 (QEWI firm EDG on most), where Skyline Restoration held suspended-scaffold permits: e.g. 1420 Bronx River Avenue (TR6-1008374-10A-I1, 2026-09-08), 1575, 1595 and 1609 East 174 Street (Oct 6-7), and buildings on Rockaway Beach Boulevard and Hammels Boulevard, Queens (Oct 2-16). No permit approved at any of the 16 on or after its filing date (checked 2026-10-29). <a href="https://data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710%27%20AND%20owner_bus_name=%27NYCHA%27%20AND%20current_status=%27UNSAFE%27%20AND%20filing_date&gt;=%272026-08-01%27" rel="noopener" target="_blank">data.cityofnewyork.us/resource/xubg-57si.json?$where=cycle=%2710</a></li><li>[2] DOB Facade Fees &amp; Penalties page: Unsafe conditions must be corrected within 90 days of filing a report with an Unsafe status; an amended report follows within two weeks of the repairs. <a href="https://www.nyc.gov/site/buildings/safety/facade-fees-penalties.page" rel="noopener" target="_blank">nyc.gov/site/buildings/safety/facade-fees-penalties.page</a></li><li>[3] NYREJ (June 2026): Spiro Markatos, president of Skyline Restoration, named to Crain&#x27;s 2026 Notable Leaders in Architecture, Engineering &amp; Construction; he leads over 500 field workers, subcontractors, project managers and staff. <a href="https://nyrej.com/markatos-of-skyline-restoration-honored-in-crains-2026-notable-leaders-in-architecture-engineering-construction" rel="noopener" target="_blank">nyrej.com/markatos-of-skyline-restoration-honored-in-crains-2026</a></li></ul>
+</article><article class="lead">
+<h4>Jay Losak</h4>
+<p class="meta">President, APSI Construction Management</p>
+<p class="sig"><strong>Why now:</strong> NIST signed APSI&#x27;s first call order as construction manager for the central utility plant modernization on Sep 23, 2026 ($2,992,282), four days after HITT&#x27;s first task order on the same project ($51,830,842). Both start Oct 1.</p>
+<div class="msg"><header><span>Email &amp;middot; Everything touching NIST&#x27;s utility plant</span><button type="button" data-copy>Copy</button></header><pre>You&#x27;re construction manager on NIST&#x27;s central utility plant modernization, and HITT&#x27;s first task order there is $51.8M. J&amp;L Mavilia&#x27;s combined plant projects at Gaithersburg start the same day, Oct 1, and Metropolitan Architects wrote the schematic design.
+
+That&#x27;s several contractors in one plant at once, which is where a CM earns its fee.
+
+I mapped every NIST contract touching the plant since 2023: firm, scope, value and dates. Want the map?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Jay, congrats on the NIST central utility plant CM role. HITT&#x27;s first task order there is $51.8M, and J&amp;L Mavilia&#x27;s plant projects start the same day. I mapped every NIST contract touching the plant since 2023, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] 1333ND26FNB190167, APSI Construction Management: CMA services BPA call order 1 for the CUP, $2,992,282, signed 2026-09-23, performance 2026-10-01 to 2028-07-22, Gaithersburg. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_1333ND26FNB190167_1341_1333ND26ANB190006_1341/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_1333ND26FNB190167_134</a></li><li>[2] 1333ND26FNB190152, HITT Contracting: CUP IDIQ task order one, $51,830,842 (about $51.8M), signed 2026-09-19, performance 2026-10-01 to 2028-07-22, Gaithersburg. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_1333ND26FNB190152_1341_1333ND26DNB190009_1341/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_1333ND26FNB190152_134</a></li><li>[3] 1333ND26FNB190137, J. &amp; L. Mavilia: combined CUP projects, NIST, Gaithersburg, MD, $1,531,642.54, performance from 2026-10-01. 1333ND23FNB190107, Metropolitan Architects and Planners: central plant modernization POR and site utilities schematic design, $2,691,652, signed 2023-05-30. <a href="https://api.usaspending.gov/api/v2/awards/CONT_AWD_1333ND26FNB190137_1341_1333ND26DNB190003_1341/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_AWD_1333ND26FNB190137_134</a></li><li>[4] FDA construction management and inspection services BPA awarded to APSI Construction Management (75F40126A00023), start 2026-08-28. <a href="https://api.usaspending.gov/api/v2/awards/CONT_IDV_75F40126A00023_7524/" rel="noopener" target="_blank">api.usaspending.gov/api/v2/awards/CONT_IDV_75F40126A00023_7524/</a></li><li>[5] CB Insights lists Jay Losak, PE, CCM, LEED AP, as APSI&#x27;s President (third-party listing, undated). <a href="https://www.cbinsights.com/company/apsi-construction-management/people" rel="noopener" target="_blank">cbinsights.com/company/apsi-construction-management/people</a></li></ul>
+</article></div>
+    </div>
+    <p class="src">Copy is written as Cascade's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="build" data-label="Three things I&#x27;d build" data-sub="At Cascade">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>If I join</s></p>
+    <h2>Three things I'd build at Cascade.</h2>
+    <div class="three"><div class="pane"><h4>1. A public-signal feed into Hannia&#x27;s pipeline</h4><p>A daily job over USAspending A/E awards, NYC façade and permit filings and city award notices: every new award, Unsafe filing or expiring contract becomes a named AEC account with its own fact attached, routed to founder-led sales the same day.</p></div><div class="pane"><h4>2. Outbound where every email hands over a record</h4><p>Sending domains, a CRM keyed to each firm, and a weekly cadence of emails like the ones on this page: task-order histories, repair backlogs, past-client filings. Every reply and meeting tagged by segment and angle, so the team sees which message books calls.</p></div><div class="pane"><h4>3. Customer proof turned into the next ten logos</h4><p>Turn the Smallwood, S.A. Casey, Munoz and FORGE wins into short case pages with the dollar result, then use each customer&#x27;s public footprint (permits, contracts, co-bidders) to find look-alike firms and teaming partners for the AEC network.</p></div></div>
+  </div>
+</section>
+
+<section class="s mid" data-key="ask" data-label="The ask" data-sub="A GTM role, or a pilot first">
+  <div class="wrap">
+    <p class="kick"><b>Cascade</b> <s>Shubham Sharma</s></p>
+    <h1>I'm looking for my next GTM role. I'd like to build this at Cascade.</h1>
+    <p class="lede">Happy to start with a 1-month pilot. My work, with live numbers:
+      <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Cascade</b> &middot; <a href="https://shubhamsbuild.github.io">Shubham Sharma</a></span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 05</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
+  });
+})();
+
+})();
+</script>
+</body>
+</html>

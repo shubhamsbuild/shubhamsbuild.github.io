@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Hostie</title>
+<meta name="description" content="10 named leads with copy and three things I'd build, prepared for Hostie.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
+.asset-h span:first-child{color:var(--ink);font-weight:500}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
+.scores b{color:var(--ink)}
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="What&#x27;s on this page">
+  <div class="wrap">
+    <p class="kick"><b>For Hostie</b> <s>from Shubham Sharma</s></p>
+    <h1 class="xl">Ten Chicago restaurants you could email today.</h1>
+    <p class="lede">Three messages they'd pay to receive, ten named leads to send them to,
+      and three things I'd build at Hostie. Every fact links to its public source.</p>
+    <p class="src">I'm looking for my next GTM role. &middot; <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+
+<section class="s" data-key="messages" data-label="Three messages" data-sub="What they&#x27;d pay to receive">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The messages</s></p>
+    <h2>Three messages your Chicago restaurants would pay to receive.</h2>
+    <div class="board">
+      <div class="leads"><button type="button" aria-pressed="false"><em>01</em><span>Gibsons Tavern&#x27;s guest path before opening night<i>For Owner or CEO of a restaurant that just got its liquor license and passed its city inspection</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>What Black Briar&#x27;s site and Google each tell guests<i>For Chef-owner of a restaurant in its first months</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Beatnik Lincoln Park and Lolo y Lola: three listings, one line<i>For Owner or ops lead of a multi-concept hospitality group</i></span></button></div>
+      <div class="detail" aria-live="polite"><article class="pm">
+<h3>Gibsons Tavern&#x27;s guest path before opening night</h3>
+<p class="take">Licensed and inspected, opening in November, but the Google listing has no phone or hours and the site can&#x27;t book a table.</p>
+<div class="mail"><div class="to">To: Owner or CEO of a restaurant that just got its liquor license and passed its city inspection, Gibsons Tavern (Gibsons Restaurant Group)</div>
+<div class="subj">Gibsons Tavern&#x27;s listing before opening</div><p>Your Fulton Market tavern passed its city license inspection on Oct 15 and got its liquor license on Oct 28. When I checked the Google listing on Oct 29, it had no phone number and no hours, and your site offers private dining but no way to book a table yet.</p><p>The first guests who find you on Maps will have nothing to call or click.</p><p>I put together an opening-week checklist: what each channel shows today and what to add. Want it?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Gibsons Tavern: what a guest finds, Oct 29, 2026 &middot; first 3 of 5</span></div><table class="tbl"><tr><th>Channel</th><th>What it shows</th><th>Add before opening</th></tr><tr><td>City license inspection</td><td>Passed Oct 15 (three licenses)</td><td>-</td></tr><tr><td>Liquor license</td><td>Issued Oct 28</td><td>-</td></tr><tr><td>Google Maps listing</td><td>1 review; no phone, no hours</td><td>Phone, opening hours, booking link</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 7</summary><ul class="ev"><li>[1] Chicago Food Inspections: Gibsons Tavern, 925 W Fulton Market, three License inspections on Oct 15, 2026, all Pass (licenses 3078843, 3078844, 3078847). <a href="https://data.cityofchicago.org/resource/4ijn-s7e5.json?dba_name=GIBSONS%20TAVERN" rel="noopener" target="_blank">data.cityofchicago.org/resource/4ijn-s7e5.json?dba_name=GIBSONS%</a></li><li>[2] Chicago Business Licenses: Consumption on Premises - Incidental Activity, application type ISSUE, Gibsons Tavern (GRG Fulton Market LLC), 925 W Fulton Market, license start Oct 28, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=GIBSONS%20TAVERN&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[3] Google Maps, Oct 29, 2026 (logged out): Gibsons Tavern, 925 W Fulton Market, 5.0 from 1 review; the listing shows &#x27;Add place&#x27;s phone number&#x27; and &#x27;Add hours&#x27;, so no phone and no hours are listed; website gibsonstavern.com. <a href="https://www.google.com/maps/search/Gibsons+Tavern+925+W+Fulton+Market+Chicago" rel="noopener" target="_blank">google.com/maps/search/Gibsons+Tavern+925+W+Fulton+Market+Chicag</a></li><li>[4] gibsonstavern.com, Oct 29, 2026: &#x27;COMING FALL 2026&#x27;; no hours, no phone and no table reservation option; the only booking button is &#x27;BOOK PRIVATE DINING&#x27;. <a href="https://gibsonstavern.com" rel="noopener" target="_blank">gibsonstavern.com</a></li><li>[5] The Infatuation, Chicago fall restaurant openings, Sep 23, 2026: Gibsons Tavern, 925 W Fulton St, opening November. <a href="https://www.theinfatuation.com/chicago/guides/chicago-fall-restaurant-openings-2026" rel="noopener" target="_blank">theinfatuation.com/chicago/guides/chicago-fall-restaurant-openin</a></li><li>[6] What Now Chicago, Aug 14, 2026 (Nashville announcement): CEO Steve Lombardo of Gibsons Restaurant Group. <a href="https://whatnow.com/nashville/restaurants/gibsons-bar-steakhouse-plans-first-tennessee-location-in-downtown-nashville/" rel="noopener" target="_blank">whatnow.com/nashville/restaurants/gibsons-bar-steakhouse-plans-f</a></li><li>[7] Hostie features page: brings calls, texts, reservations, private dining, takeout and guest questions into one place; integrates with OpenTable, Resy, Toast and Square; transfers calls to any number, including specific departments. <a href="https://hostie.ai/features" rel="noopener" target="_blank">hostie.ai/features</a></li></ul></details>
+</article><article class="pm">
+<h3>What Black Briar&#x27;s site and Google each tell guests</h3>
+<p class="take">A month after opening, the site and Google give guests different hours and booking rules, and no phone appears on either.</p>
+<div class="mail"><div class="to">To: Chef-owner of a restaurant in its first months, Black Briar</div>
+<div class="subj">One answer for Black Briar guests</div><p>When I checked on Oct 29, your site and your Google listing told guests different things. The site still says you&#x27;ll reach out when reservations go live, and that you open daily at 4. Google takes bookings through OpenTable and says you open at 5. Neither shows a phone number.</p><p>A guest planning a group dinner has no one to ask.</p><p>I lined up what each channel says, with the fix for each. Want the sheet?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: What each channel tells a Black Briar guest, Oct 29, 2026 &middot; first 3 of 2</span></div><table class="tbl"><tr><th>Channel</th><th>Booking</th><th>Hours</th><th>Phone</th></tr><tr><td>blackbriarchi.com</td><td>&#x27;We&#x27;ll reach out as soon as reservations go live&#x27;</td><td>Open daily at 4 pm</td><td>None listed</td></tr><tr><td>Google Maps listing</td><td>Reserve a table, via OpenTable</td><td>Every day 5 to 11 pm</td><td>None (&#x27;Add place&#x27;s phone number&#x27;)</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 5</summary><ul class="ev"><li>[1] Google Maps, Oct 29, 2026 (logged out): Black Briar, 201 N Morgan St, 4.9 from 46 reviews; &#x27;Reserve a table&#x27; links to &#x27;Find a table, opentable.com&#x27;; hours every day 5 to 11 pm; the listing shows &#x27;Add place&#x27;s phone number&#x27; (no phone listed). <a href="https://www.google.com/maps/search/Black+Briar+201+N+Morgan+St+Chicago" rel="noopener" target="_blank">google.com/maps/search/Black+Briar+201+N+Morgan+St+Chicago</a></li><li>[2] blackbriarchi.com, Oct 29, 2026: &#x27;We&#x27;ll reach out as soon as reservations go live.&#x27; Hours: &#x27;OPEN DAILY at 4PM&#x27;. No phone number and no private events information; the only contact is a press email. <a href="https://blackbriarchi.com" rel="noopener" target="_blank">blackbriarchi.com</a></li><li>[3] Chicago records: Black Briar Tavern (Black Briar LLC), 205 N Morgan St, passed its License inspection on Aug 20, 2026 and was issued a Consumption on Premises license starting Aug 26, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=BLACK%20BRIAR%20TAVERN&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[4] Fine Dining Lovers, best Chicago openings September 2026: chef Jimmy Papadopoulos opened Black Briar in Fulton Market with Tim Anderson, his former Bellemore colleague. <a href="https://www.finedininglovers.com/explore/lists/best-restaurant-openings-chicago-september-2026" rel="noopener" target="_blank">finedininglovers.com/explore/lists/best-restaurant-openings-chic</a></li><li>[5] Hostie features page: brings calls, texts, reservations, private dining, takeout and guest questions into one place; integrates with OpenTable, Resy, Toast and Square; transfers calls to any number, including specific departments. <a href="https://hostie.ai/features" rel="noopener" target="_blank">hostie.ai/features</a></li></ul></details>
+</article><article class="pm">
+<h3>Beatnik Lincoln Park and Lolo y Lola: three listings, one line</h3>
+<p class="take">Two new restaurants, three Google listings, one phone line: a duplicate splits reviews and shows the sister bar&#x27;s hours.</p>
+<div class="mail"><div class="to">To: Owner or ops lead of a multi-concept hospitality group, Bonhomme Group (Beatnik Lincoln Park and Lolo y Lola)</div>
+<div class="subj">Lincoln Park: three listings, one line</div><p>When I checked Google Maps on Oct 29, your Lincoln Avenue address had three listings: Beatnik Lincoln Park twice, plus Lolo y Lola. Only one takes OpenTable bookings, the second Beatnik listing says it opens at 3 pm, and all three ring the same phone.</p><p>So one host answers for two restaurants with different hours, and the 2-review duplicate splits Beatnik&#x27;s reviews.</p><p>I mapped each listing against your two sites, with the merge and fix steps. Want it?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Your Lincoln Avenue listings on Google Maps, Oct 29, 2026 &middot; first 3 of 5</span></div><table class="tbl"><tr><th>Listing</th><th>Rating (reviews)</th><th>Booking</th><th>Hours shown</th><th>Phone</th></tr><tr><td>Beatnik Lincoln Park (A)</td><td>4.0 (19)</td><td>Reserve a table (OpenTable)</td><td>Opens 4 pm</td><td>Shared line</td></tr><tr><td>Beatnik Lincoln Park (B)</td><td>5.0 (2)</td><td>None</td><td>Opens 3 pm</td><td>Shared line</td></tr><tr><td>Lolo y Lola</td><td>4.8 (22)</td><td>None</td><td>Opens 3 pm</td><td>Shared line</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 10</summary><ul class="ev"><li>[1] Google Maps search &#x27;Beatnik Lincoln Park 2576 N Lincoln Ave Chicago&#x27;, Oct 29, 2026: two listings named Beatnik Lincoln Park at 2576 N Lincoln Ave. Listing A: 4.0 (19), opens 4 pm, Reserve a table and Order online. Listing B: 5.0 (2), opens 3 pm, no booking button. <a href="https://www.google.com/maps/search/Beatnik+Lincoln+Park+2576+N+Lincoln+Ave+Chicago" rel="noopener" target="_blank">google.com/maps/search/Beatnik+Lincoln+Park+2576+N+Lincoln+Ave+C</a></li><li>[2] Listing A detail, Oct 29, 2026: Reserve a table links to opentable.com; website beatniklincolnpark.com; shows a phone number (the same number appears on listing B and on Lolo y Lola). <a href="https://www.google.com/maps/place/Beatnik+Lincoln+Park/data=!4m7!3m6!1s0x880fd317f2f8dc4d:0x1c12cbe02865fd81!8m2!3d41.9286539!4d-87.6535478!16s%2Fg%2F11nvf93ltg" rel="noopener" target="_blank">google.com/maps/place/Beatnik+Lincoln+Park/data=!4m7!3m6!1s0x880</a></li><li>[3] Listing B detail, Oct 29, 2026: Beatnik Lincoln Park, 2576 N Lincoln Ave, 5.0 from 2 reviews, opens 3 pm, no Reserve button, same website and the same phone number as listing A. <a href="https://www.google.com/maps/place/Beatnik+Lincoln+Park/data=!4m7!3m6!1s0x880fd3d3752eeb93:0x32d021f4972a1310!8m2!3d41.9286525!4d-87.6535482!16s%2Fg%2F11zxmjsl23" rel="noopener" target="_blank">google.com/maps/place/Beatnik+Lincoln+Park/data=!4m7!3m6!1s0x880</a></li><li>[4] Google Maps, Oct 29, 2026: Lolo y Lola, 2580 N Lincoln Ave, 4.8 from 22 reviews, opens 3 pm, no booking button, and the same phone number as both Beatnik Lincoln Park listings. <a href="https://www.google.com/maps/search/Lolo+y+Lola+2580+N+Lincoln+Ave+Chicago" rel="noopener" target="_blank">google.com/maps/search/Lolo+y+Lola+2580+N+Lincoln+Ave+Chicago</a></li><li>[5] beatniklincolnpark.com, Oct 29, 2026: Tuesday to Thursday 4:00 PM to 10:00 PM; reservations through OpenTable (&#x27;Book Now&#x27;); private event space and semi-private rooms via the Events &amp; Catering page. <a href="https://beatniklincolnpark.com" rel="noopener" target="_blank">beatniklincolnpark.com</a></li><li>[6] loloylolachicago.com, Oct 29, 2026: Tuesday to Thursday 3:00 PM to 11:00 PM, closed Mondays; the bar is first-come, first-served; private events go to an events email. <a href="https://loloylolachicago.com" rel="noopener" target="_blank">loloylolachicago.com</a></li><li>[7] Chicago records: one Consumption on Premises license for &#x27;Beatnik &amp; Lolo y Lola&#x27; (Lincoln Avenue Hospitality LLC), 2576-2580 N Lincoln Ave, starting Sep 1, 2026; License re-inspections passed Aug 6, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=Beatnik%20%26%20Lolo%20y%20Lola&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[8] Fine Dining Lovers, September 2026: Beatnik Lincoln Park and Lolo y Lola are Bonhomme Group openings; Lolo y Lola is named for owner Daniel Alonso&#x27;s Galician grandparents. <a href="https://www.finedininglovers.com/explore/lists/best-restaurant-openings-chicago-september-2026" rel="noopener" target="_blank">finedininglovers.com/explore/lists/best-restaurant-openings-chic</a></li><li>[9] bonhommegroup.com, Oct 29, 2026: 11 Chicago venues listed (Beatnik Lincoln Park, Beatnik On The River, Beatnik West Town, Bordel, Expat, GoodFunk West Town, GoodFunk Loop, GoodFunk Wine Club, Kashmir, Lolo y Lola, Mama Delia); event inquiries through a Contact Us form. <a href="https://www.bonhommegroup.com" rel="noopener" target="_blank">bonhommegroup.com</a></li><li>[10] Hostie features page: brings calls, texts, reservations, private dining, takeout and guest questions into one place; integrates with OpenTable, Resy, Toast and Square; transfers calls to any number, including specific departments. <a href="https://hostie.ai/features" rel="noopener" target="_blank">hostie.ai/features</a></li></ul></details>
+</article></div>
+    </div>
+    <p class="src">Each one was run on a real, named account. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten leads</s></p>
+    <h2>Ten leads, each with a reason to email now.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>Steve Lombardo III<i>Gibsons Tavern (Gibsons Restaurant Group) &middot; Liquor license issued; listing has no phone</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Steve Gogolab<i>Carlyle Club &middot; Just opened; two reservation systems in use</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Daniel Alonso<i>Bonhomme Group (Beatnik Lincoln Park, Lolo y Lola) &middot; Two openings, three listings, one line</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Jimmy Papadopoulos<i>Black Briar &middot; Opened September; site and Google disagree</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Mauro Mafrici<i>Mauro Mafrici One Magnificent Mile Restaurant &middot; Just opened; bookings run through the phone</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Sean Rouzbeh<i>Chloe &middot; Licensed; listing still says &#x27;Opens October&#x27;</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Sergio Barbone<i>Osteria Gilberto &middot; New osteria; Friday hours differ by channel</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>D&#x27;Andre Carter<i>Soul &amp; Smoke Evanston &middot; Opened in the Payne Street barn</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Chanita Chayaluk<i>TAAN &middot; Liquor license issued; opened this summer</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Kiva Wenig<i>Logan Inn Lounge &amp; Cafe &middot; Liquor license issued; cafe-bar hybrid opened</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>Steve Lombardo III</h4>
+<p class="meta">CEO, Gibsons Restaurant Group, Gibsons Tavern (Gibsons Restaurant Group)</p>
+<p class="sig"><strong>Why now:</strong> Gibsons Tavern passed its city license inspection on Oct 15 and its liquor license started Oct 28, with a November opening listed. On Oct 29 its Google listing had no phone and no hours.</p>
+<div class="msg"><header><span>Email &amp;middot; Gibsons Tavern&#x27;s listing before opening</span><button type="button" data-copy>Copy</button></header><pre>Your Fulton Market tavern passed its city license inspection on Oct 15 and got its liquor license on Oct 28. When I checked the Google listing on Oct 29, it had no phone number and no hours, and your site offers private dining but no way to book a table yet.
+
+The first guests who find you on Maps will have nothing to call or click.
+
+I put together an opening-week checklist: what each channel shows today and what to add. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Steve, Gibsons Tavern passed its license inspection Oct 15 and got its liquor license Oct 28, but on Oct 29 the Google listing had no phone or hours and the site couldn&#x27;t book a table. I made an opening-week checklist, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Chicago Business Licenses: Consumption on Premises - Incidental Activity, application type ISSUE, Gibsons Tavern (GRG Fulton Market LLC), 925 W Fulton Market, license start Oct 28, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=GIBSONS%20TAVERN&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[2] Chicago Food Inspections: Gibsons Tavern, 925 W Fulton Market, three License inspections on Oct 15, 2026, all Pass (licenses 3078843, 3078844, 3078847). <a href="https://data.cityofchicago.org/resource/4ijn-s7e5.json?dba_name=GIBSONS%20TAVERN" rel="noopener" target="_blank">data.cityofchicago.org/resource/4ijn-s7e5.json?dba_name=GIBSONS%</a></li><li>[3] Google Maps, Oct 29, 2026 (logged out): Gibsons Tavern, 925 W Fulton Market, 5.0 from 1 review; the listing shows &#x27;Add place&#x27;s phone number&#x27; and &#x27;Add hours&#x27;, so no phone and no hours are listed; website gibsonstavern.com. <a href="https://www.google.com/maps/search/Gibsons+Tavern+925+W+Fulton+Market+Chicago" rel="noopener" target="_blank">google.com/maps/search/Gibsons+Tavern+925+W+Fulton+Market+Chicag</a></li><li>[4] gibsonstavern.com, Oct 29, 2026: &#x27;COMING FALL 2026&#x27;; no hours, no phone and no table reservation option; the only booking button is &#x27;BOOK PRIVATE DINING&#x27;. <a href="https://gibsonstavern.com" rel="noopener" target="_blank">gibsonstavern.com</a></li><li>[5] The Infatuation, Chicago fall restaurant openings, Sep 23, 2026: Gibsons Tavern, 925 W Fulton St, opening November. <a href="https://www.theinfatuation.com/chicago/guides/chicago-fall-restaurant-openings-2026" rel="noopener" target="_blank">theinfatuation.com/chicago/guides/chicago-fall-restaurant-openin</a></li><li>[6] What Now Chicago, Aug 14, 2026 (Nashville announcement): CEO Steve Lombardo of Gibsons Restaurant Group. <a href="https://whatnow.com/nashville/restaurants/gibsons-bar-steakhouse-plans-first-tennessee-location-in-downtown-nashville/" rel="noopener" target="_blank">whatnow.com/nashville/restaurants/gibsons-bar-steakhouse-plans-f</a></li></ul>
+</article><article class="lead">
+<h4>Steve Gogolab</h4>
+<p class="meta">Owner, Carlyle Club, Carlyle Club</p>
+<p class="sig"><strong>Why now:</strong> Carlyle Club&#x27;s liquor license started Sep 25 and it opened in October. On Oct 29 its site booked through SevenRooms while the Google Reserve button went to OpenTable, on a listing with 115 reviews.</p>
+<div class="msg"><header><span>Email &amp;middot; One reservation book for Carlyle Club</span><button type="button" data-copy>Copy</button></header><pre>When I checked on Oct 29, your site sent bookings to SevenRooms, while the Reserve button on your Google listing went to OpenTable. With 115 Google reviews in your first weeks, a lot of tables start on that listing.
+
+Two books means two places to check before you seat a party, and two places a private-room request can land.
+
+I put the two paths side by side, with the switch to make on Google. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Steve, on Oct 29 your site booked Carlyle Club tables through SevenRooms while the Reserve button on your Google listing went to OpenTable. I put the two paths side by side, with the one switch to make on Google, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Chicago Business Licenses: The Carlyle Club (RIVR 316, LLC), 316 N Clark St, Consumption on Premises license starting Sep 25, 2026; License inspections passed Sep 17, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=The%20Carlyle%20Club&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[2] Google Maps, Oct 29, 2026: Carlyle Club, 316 N Clark St, 4.6 from 115 reviews; &#x27;Reserve a table&#x27; links to &#x27;Find a table, opentable.com&#x27;. <a href="https://www.google.com/maps/search/The+Carlyle+Club+316+N+Clark+St+Chicago" rel="noopener" target="_blank">google.com/maps/search/The+Carlyle+Club+316+N+Clark+St+Chicago</a></li><li>[3] carlyle.club, Oct 29, 2026: reservations through SevenRooms via &#x27;Book a Table&#x27;; a private room plus bar, patio or whole-floor events via the &#x27;Get in Touch&#x27; form. <a href="https://www.carlyle.club/" rel="noopener" target="_blank">carlyle.club/</a></li><li>[4] Pearl, Oct 2, 2026: &#x27;Steve Gogolab&#x27;s Carlyle Club brings 100 seats, sushi, cocktails, and master-sommelier wine to River North&#x27;; he also runs Deliz in Bucktown. <a href="https://joinpearl.co/blogs/carlyle-club-river-north-brings-steak-and-sushi" rel="noopener" target="_blank">joinpearl.co/blogs/carlyle-club-river-north-brings-steak-and-sus</a></li></ul>
+</article><article class="lead">
+<h4>Daniel Alonso</h4>
+<p class="meta">Owner, Bonhomme Group, Bonhomme Group (Beatnik Lincoln Park, Lolo y Lola)</p>
+<p class="sig"><strong>Why now:</strong> Beatnik Lincoln Park and Lolo y Lola opened on one liquor license starting Sep 1. On Oct 29 the address had three Google listings on one phone number, including a 2-review Beatnik duplicate that opens at 3 pm.</p>
+<div class="msg"><header><span>Email &amp;middot; Lincoln Park: three listings, one line</span><button type="button" data-copy>Copy</button></header><pre>When I checked Google Maps on Oct 29, your Lincoln Avenue address had three listings: Beatnik Lincoln Park twice, plus Lolo y Lola. Only one takes OpenTable bookings, the second Beatnik listing says it opens at 3 pm, and all three ring the same phone.
+
+So one host answers for two restaurants with different hours, and the 2-review duplicate splits Beatnik&#x27;s reviews.
+
+I mapped each listing against your two sites, with the merge and fix steps. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Daniel, on Oct 29 your Lincoln Ave address had three Google listings (Beatnik twice, plus Lolo y Lola) on one phone line, and the duplicate Beatnik shows Lolo&#x27;s hours. I mapped the listings with merge and fix steps, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Chicago records: one Consumption on Premises license for &#x27;Beatnik &amp; Lolo y Lola&#x27; (Lincoln Avenue Hospitality LLC), 2576-2580 N Lincoln Ave, starting Sep 1, 2026; License re-inspections passed Aug 6, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=Beatnik%20%26%20Lolo%20y%20Lola&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[2] Google Maps search &#x27;Beatnik Lincoln Park 2576 N Lincoln Ave Chicago&#x27;, Oct 29, 2026: two listings named Beatnik Lincoln Park at 2576 N Lincoln Ave. Listing A: 4.0 (19), opens 4 pm, Reserve a table and Order online. Listing B: 5.0 (2), opens 3 pm, no booking button. <a href="https://www.google.com/maps/search/Beatnik+Lincoln+Park+2576+N+Lincoln+Ave+Chicago" rel="noopener" target="_blank">google.com/maps/search/Beatnik+Lincoln+Park+2576+N+Lincoln+Ave+C</a></li><li>[3] Listing B detail, Oct 29, 2026: Beatnik Lincoln Park, 2576 N Lincoln Ave, 5.0 from 2 reviews, opens 3 pm, no Reserve button, same website and the same phone number as listing A. <a href="https://www.google.com/maps/place/Beatnik+Lincoln+Park/data=!4m7!3m6!1s0x880fd3d3752eeb93:0x32d021f4972a1310!8m2!3d41.9286525!4d-87.6535482!16s%2Fg%2F11zxmjsl23" rel="noopener" target="_blank">google.com/maps/place/Beatnik+Lincoln+Park/data=!4m7!3m6!1s0x880</a></li><li>[4] Google Maps, Oct 29, 2026: Lolo y Lola, 2580 N Lincoln Ave, 4.8 from 22 reviews, opens 3 pm, no booking button, and the same phone number as both Beatnik Lincoln Park listings. <a href="https://www.google.com/maps/search/Lolo+y+Lola+2580+N+Lincoln+Ave+Chicago" rel="noopener" target="_blank">google.com/maps/search/Lolo+y+Lola+2580+N+Lincoln+Ave+Chicago</a></li><li>[5] beatniklincolnpark.com, Oct 29, 2026: Tuesday to Thursday 4:00 PM to 10:00 PM; reservations through OpenTable (&#x27;Book Now&#x27;); private event space and semi-private rooms via the Events &amp; Catering page. <a href="https://beatniklincolnpark.com" rel="noopener" target="_blank">beatniklincolnpark.com</a></li><li>[6] loloylolachicago.com, Oct 29, 2026: Tuesday to Thursday 3:00 PM to 11:00 PM, closed Mondays; the bar is first-come, first-served; private events go to an events email. <a href="https://loloylolachicago.com" rel="noopener" target="_blank">loloylolachicago.com</a></li><li>[7] Fine Dining Lovers, September 2026: Beatnik Lincoln Park and Lolo y Lola are Bonhomme Group openings; Lolo y Lola is named for owner Daniel Alonso&#x27;s Galician grandparents. <a href="https://www.finedininglovers.com/explore/lists/best-restaurant-openings-chicago-september-2026" rel="noopener" target="_blank">finedininglovers.com/explore/lists/best-restaurant-openings-chic</a></li><li>[8] bonhommegroup.com, Oct 29, 2026: 11 Chicago venues listed (Beatnik Lincoln Park, Beatnik On The River, Beatnik West Town, Bordel, Expat, GoodFunk West Town, GoodFunk Loop, GoodFunk Wine Club, Kashmir, Lolo y Lola, Mama Delia); event inquiries through a Contact Us form. <a href="https://www.bonhommegroup.com" rel="noopener" target="_blank">bonhommegroup.com</a></li></ul>
+</article><article class="lead">
+<h4>Jimmy Papadopoulos</h4>
+<p class="meta">Chef and co-founder, Black Briar, Black Briar</p>
+<p class="sig"><strong>Why now:</strong> Black Briar&#x27;s liquor license started Aug 26 and it opened in September. On Oct 29 the site said reservations weren&#x27;t live and it opens at 4, while Google took OpenTable bookings and said 5; no phone on either.</p>
+<div class="msg"><header><span>Email &amp;middot; One answer for Black Briar guests</span><button type="button" data-copy>Copy</button></header><pre>When I checked on Oct 29, your site and your Google listing told guests different things. The site still says you&#x27;ll reach out when reservations go live, and that you open daily at 4. Google takes bookings through OpenTable and says you open at 5. Neither shows a phone number.
+
+A guest planning a group dinner has no one to ask.
+
+I lined up what each channel says, with the fix for each. Want the sheet?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Jimmy, on Oct 29 Black Briar&#x27;s site still said reservations weren&#x27;t live and that you open at 4, while Google took OpenTable bookings and said 5. Neither shows a phone. I lined up what each channel says, with fixes, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Chicago records: Black Briar Tavern (Black Briar LLC), 205 N Morgan St, passed its License inspection on Aug 20, 2026 and was issued a Consumption on Premises license starting Aug 26, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=BLACK%20BRIAR%20TAVERN&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[2] Google Maps, Oct 29, 2026 (logged out): Black Briar, 201 N Morgan St, 4.9 from 46 reviews; &#x27;Reserve a table&#x27; links to &#x27;Find a table, opentable.com&#x27;; hours every day 5 to 11 pm; the listing shows &#x27;Add place&#x27;s phone number&#x27; (no phone listed). <a href="https://www.google.com/maps/search/Black+Briar+201+N+Morgan+St+Chicago" rel="noopener" target="_blank">google.com/maps/search/Black+Briar+201+N+Morgan+St+Chicago</a></li><li>[3] blackbriarchi.com, Oct 29, 2026: &#x27;We&#x27;ll reach out as soon as reservations go live.&#x27; Hours: &#x27;OPEN DAILY at 4PM&#x27;. No phone number and no private events information; the only contact is a press email. <a href="https://blackbriarchi.com" rel="noopener" target="_blank">blackbriarchi.com</a></li><li>[4] Fine Dining Lovers, best Chicago openings September 2026: chef Jimmy Papadopoulos opened Black Briar in Fulton Market with Tim Anderson, his former Bellemore colleague. <a href="https://www.finedininglovers.com/explore/lists/best-restaurant-openings-chicago-september-2026" rel="noopener" target="_blank">finedininglovers.com/explore/lists/best-restaurant-openings-chic</a></li></ul>
+</article><article class="lead">
+<h4>Mauro Mafrici</h4>
+<p class="meta">Chef, Mauro Mafrici Restaurant, Mauro Mafrici One Magnificent Mile Restaurant</p>
+<p class="sig"><strong>Why now:</strong> The liquor license started Aug 13 and the first Google reviews came in over the last two weeks. On Oct 29 the listing had no booking button and the reservations page asked guests to call.</p>
+<div class="msg"><header><span>Email &amp;middot; Booking at Mauro Mafrici from Google</span><button type="button" data-copy>Copy</button></header><pre>Your new dining room is open, and your first Google reviews are all five stars. When I checked on Oct 29, the listing had no booking button, and your site still says &#x27;Coming soon&#x27; above &#x27;Open for dinner&#x27;. Your reservations page asks guests to call the front desk, and larger parties go to the phone too.
+
+That makes the front desk your whole booking system in the first weeks.
+
+I listed what each channel shows today, with the fixes. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Mauro, on Oct 29 your Google listing had no booking button and the site still said &#x27;Coming soon&#x27; next to &#x27;Open for dinner&#x27;, so every table starts with a call to the front desk. I listed what each channel shows, with the fixes, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Chicago Business Licenses: Mauro Mafrici One Magnificent Mile Restaurant (Tergeste Partners LLC), 980 N Michigan Ave, Floor 2, Suite 230, Consumption on Premises license starting Aug 13, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=Mauro%20Mafrici%20One%20Magnificent%20Mile%20Restaurant&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[2] Google Maps, Oct 29, 2026: Mauro Mafrici One Magnificent Mile Restaurant, 5.0 from 5 reviews posted one to two weeks earlier; no booking button; open 5 to 9 pm Monday to Thursday, 5 to 9:30 pm Friday and Saturday, closed Sunday. <a href="https://www.google.com/maps/search/Mauro+Mafrici+Restaurant+980+N+Michigan+Ave+Chicago" rel="noopener" target="_blank">google.com/maps/search/Mauro+Mafrici+Restaurant+980+N+Michigan+A</a></li><li>[3] mauromafrici.com, Oct 29, 2026: header &#x27;COMING SOON&#x27; on a page that also says &#x27;Open for Dinner&#x27;; Monday-Thursday 5:00 to 9:00, Friday-Saturday 5:00 to 9:30; a Private Events link. <a href="https://mauromafrici.com" rel="noopener" target="_blank">mauromafrici.com</a></li><li>[4] mauromafrici.com/reservations, Oct 29, 2026: guests are asked to call the front desk to book or use a form; parties over six go to the front desk or, for private dining rooms, the private events director. <a href="https://mauromafrici.com/reservations" rel="noopener" target="_blank">mauromafrici.com/reservations</a></li><li>[5] Hoodline, Jan 17, 2026: &#x27;Chef Mauro Mafrici, the longtime force behind Pelago&#x27;, planning a 2026 opening at 980 N. Michigan Ave., Level 2. <a href="https://hoodline.com/2026/01/pelago-star-mauro-mafrici-plots-big-league-comeback-on-mag-mile/" rel="noopener" target="_blank">hoodline.com/2026/01/pelago-star-mauro-mafrici-plots-big-league-</a></li></ul>
+</article><article class="lead">
+<h4>Sean Rouzbeh</h4>
+<p class="meta">Owner, Chloe, Chloe</p>
+<p class="sig"><strong>Why now:</strong> Chloe passed its license inspection on Sep 1 and its liquor license started Sep 10. On Oct 29 its Google listing still said &#x27;Opens October&#x27; with no hours, and the site wasn&#x27;t taking reservations.</p>
+<div class="msg"><header><span>Email &amp;middot; Chloe&#x27;s listing for opening week</span><button type="button" data-copy>Copy</button></header><pre>You passed the city license inspection on Sep 1 and got your liquor license on Sep 10. When I checked on Oct 29, your Google listing still said &#x27;Opens October&#x27; with no hours, and your reservations page says you&#x27;re not taking bookings yet.
+
+People who find Chloe on Maps this week can&#x27;t tell if you&#x27;re open or how to get a table.
+
+I put together an opening-week checklist for your listing and site. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Sean, Chloe got its liquor license Sep 10, but on Oct 29 the Google listing still said &#x27;Opens October&#x27; with no hours and the site wasn&#x27;t taking reservations. I put together an opening-week checklist for both, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Chicago Food Inspections: Chloe Chicago, 1 S Wacker Dr, three License inspections on Sep 1, 2026, all Pass. <a href="https://data.cityofchicago.org/resource/4ijn-s7e5.json?dba_name=CHLOE%20CHICAGO" rel="noopener" target="_blank">data.cityofchicago.org/resource/4ijn-s7e5.json?dba_name=CHLOE%20</a></li><li>[2] Chicago Business Licenses: Chloe (Chloe Chicago LLC), 1 S Wacker Dr, Consumption on Premises license starting Sep 10, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=Chloe&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[3] Google Maps, Oct 29, 2026: Chloe Restaurant + Bar, 1 S Wacker Dr, shows &#x27;Opens October&#x27; and &#x27;Add hours&#x27;; no reviews, no booking button. <a href="https://www.google.com/maps/search/Chloe+1+S+Wacker+Dr+Chicago" rel="noopener" target="_blank">google.com/maps/search/Chloe+1+S+Wacker+Dr+Chicago</a></li><li>[4] chloe-chicago.com/new-page-1 (the site&#x27;s &#x27;reservations&#x27; link), Oct 29, 2026: not currently taking reservations. <a href="https://chloe-chicago.com/new-page-1" rel="noopener" target="_blank">chloe-chicago.com/new-page-1</a></li><li>[5] What Now Chicago, Jun 9, 2026: Chloe at 1 S Wacker is from local restaurateur Sean Rouzbeh, who opened The Marq in 2014. <a href="https://whatnow.com/chicago/restaurants/new-restaurant-chloe-planned-for-downtown-near-civic-opera-house/" rel="noopener" target="_blank">whatnow.com/chicago/restaurants/new-restaurant-chloe-planned-for</a></li></ul>
+</article><article class="lead">
+<h4>Sergio Barbone</h4>
+<p class="meta">Owner, Osteria Gilberto and Bakehouse Chicago, Osteria Gilberto</p>
+<p class="sig"><strong>Why now:</strong> Osteria Gilberto&#x27;s liquor license started Sep 8. On Oct 29 its site said Fridays open at 12, while its Google listing, with 112 reviews, said Friday opens at 4.</p>
+<div class="msg"><header><span>Email &amp;middot; Friday lunch at Osteria Gilberto</span><button type="button" data-copy>Copy</button></header><pre>Your site says you open at 12 on Fridays. When I checked Google on Oct 29, your listing said Friday opens at 4. With more than a hundred reviews already, that listing is where most people check before they come in or call.
+
+A Friday lunch crowd that trusts Google either goes elsewhere or rings to ask.
+
+I wrote down every hour and booking link on your site and Google, with what to change. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Sergio, on Oct 29 the Osteria Gilberto site said Fridays open at 12 while the Google listing said 4. Small, but that listing already carries more than a hundred reviews. I wrote up every hour and link on both, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Chicago Business Licenses: Osteria Gilberto (Webster Italy LLC), 1224 W Webster Ave, Consumption on Premises license starting Sep 8, 2026; License inspections passed Aug 20, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=Osteria%20Gilberto&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[2] Google Maps, Oct 29, 2026: Osteria Gilberto, 4.8 from 112 reviews, Reserve a table via OpenTable; weekly hours list Friday 4 to 11 pm and Saturday 12 to 11 pm. <a href="https://www.google.com/maps/search/Osteria+Gilberto+1224+W+Webster+Ave+Chicago" rel="noopener" target="_blank">google.com/maps/search/Osteria+Gilberto+1224+W+Webster+Ave+Chica</a></li><li>[3] osteriagilberto.com, Oct 29, 2026: &#x27;Monday to Thursday 4 - 10&#x27;, &#x27;Friday and Saturday 12 - 11&#x27;, &#x27;Sunday 12 - 10&#x27;; reservations through OpenTable; a private events page. <a href="https://osteriagilberto.com" rel="noopener" target="_blank">osteriagilberto.com</a></li><li>[4] What Now Chicago, May 29, 2026: owner Sergio Barbone, who also owns Bakehouse Chicago (Lakeview, Roscoe Village, Southport). <a href="https://whatnow.com/?p=402852" rel="noopener" target="_blank">whatnow.com/?p=402852</a></li></ul>
+</article><article class="lead">
+<h4>D&#x27;Andre Carter</h4>
+<p class="meta">Co-founder and chef, Soul &amp; Smoke, Soul &amp; Smoke Evanston</p>
+<p class="sig"><strong>Why now:</strong> Soul &amp; Smoke opened its Evanston restaurant in a century-old barn on Sep 1. On Oct 29 that listing had 619 Google reviews and took Resy bookings and online orders.</p>
+<div class="msg"><header><span>Email &amp;middot; Payne Street calls and Resy</span><button type="button" data-copy>Copy</button></header><pre>You opened Soul &amp; Smoke in the Payne Street barn on Sep 1. When I checked on Oct 29, the Evanston listing had 619 Google reviews and takes both Resy bookings and online orders.
+
+That&#x27;s three ways in for one host stand on a Saturday: the phone, the Resy button and the order button.
+
+Hostie answers the phone and texts in your voice, books into Resy and takes takeout orders. Want to hear a test call?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>D&#x27;Andre, congrats on the Payne Street barn. On Oct 29 the Evanston listing had 619 Google reviews plus Resy and online ordering. Hostie answers the calls and texts around those and books into Resy. Happy to send a sample call.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Fine Dining Lovers, September 2026: Soul &amp; Smoke Evanston, 1601 Payne St, from married co-founders chef D&#x27;Andre Carter and sommelier Heather Bublick, opened September 1 in a century-old barn. <a href="https://www.finedininglovers.com/explore/lists/best-restaurant-openings-chicago-september-2026" rel="noopener" target="_blank">finedininglovers.com/explore/lists/best-restaurant-openings-chic</a></li><li>[2] Google Maps, Oct 29, 2026: Soul &amp; Smoke Evanston, 1601 Payne St, 4.1 from 619 reviews; Reserve a table via resy.com; Order online; open 11 am daily. <a href="https://www.google.com/maps/search/Soul+%26+Smoke+1601+Payne+St+Evanston" rel="noopener" target="_blank">google.com/maps/search/Soul+%26+Smoke+1601+Payne+St+Evanston</a></li><li>[3] Hostie features page: brings calls, texts, reservations, private dining, takeout and guest questions into one place; integrates with OpenTable, Resy, Toast and Square; transfers calls to any number, including specific departments. <a href="https://hostie.ai/features" rel="noopener" target="_blank">hostie.ai/features</a></li></ul>
+</article><article class="lead">
+<h4>Chanita Chayaluk</h4>
+<p class="meta">Owner-chef, TAAN, TAAN</p>
+<p class="sig"><strong>Why now:</strong> TAAN&#x27;s liquor license started Aug 31 after its License inspection passed Aug 13. On Oct 29 its Google hours matched its site and Google took OpenTable bookings.</p>
+<div class="msg"><header><span>Email &amp;middot; TAAN&#x27;s calls on closed days</span><button type="button" data-copy>Copy</button></header><pre>TAAN got its liquor license on Aug 31, and when I checked on Oct 29, your hours matched on Google and your site, and Google sends bookings to OpenTable. That&#x27;s rare for a new opening.
+
+The one open door is Sunday and Monday, when you&#x27;re closed and a call about a Tuesday birthday table has no one to pick it up.
+
+I can show you how those calls would be answered and booked. Want to hear a sample?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Chanita, congrats on TAAN. On Oct 29 your hours matched on Google and your site, which is rare this early. The only gap I saw: Sunday and Monday calls about later tables. Happy to show how Hostie answers and books those.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Chicago Business Licenses: TAAN (Wild Pepper LLC), 2759 W Augusta Blvd, Consumption on Premises license starting Aug 31, 2026; License inspections passed Aug 13, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=TAAN&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[2] Google Maps, Oct 29, 2026: TAAN, 4.4 from 42 reviews, Reserve a table via OpenTable; Tuesday to Saturday 5 to 10 pm, closed Sunday and Monday; a top snippet mentions the soft opening menu. <a href="https://www.google.com/maps/search/TAAN+2759+W+Augusta+Blvd+Chicago" rel="noopener" target="_blank">google.com/maps/search/TAAN+2759+W+Augusta+Blvd+Chicago</a></li><li>[3] taanchicago.com, Oct 29, 2026: &#x27;Tuesday-Saturday 5PM-10PM&#x27;, &#x27;Sunday-Monday Closed&#x27;. <a href="https://taanchicago.com" rel="noopener" target="_blank">taanchicago.com</a></li><li>[4] Fine Dining Lovers, September 2026: &#x27;Owner-chef Chanita Chayaluk, a second-generation Thai Chicagoan&#x27;. <a href="https://www.finedininglovers.com/explore/lists/best-restaurant-openings-chicago-september-2026" rel="noopener" target="_blank">finedininglovers.com/explore/lists/best-restaurant-openings-chic</a></li></ul>
+</article><article class="lead">
+<h4>Kiva Wenig</h4>
+<p class="meta">Founder, Logan Inn Lounge &amp; Cafe, Logan Inn Lounge &amp; Cafe</p>
+<p class="sig"><strong>Why now:</strong> Logan Inn&#x27;s liquor license started Sep 8 after its License inspections passed Aug 27. On Oct 29 Google showed the lounge opening at 7 am, with a separate listing and number for the hotel.</p>
+<div class="msg"><header><span>Email &amp;middot; Logan Inn&#x27;s day and night calls</span><button type="button" data-copy>Copy</button></header><pre>Logan Inn Lounge &amp; Cafe got its liquor license on Sep 8. When I checked on Oct 29, Google showed you opening at 7 am, with reviews that range from sandwiches and lattes to cocktails.
+
+A cafe in the morning and a bar at night get different calls: orders, table questions, hotel guests asking what&#x27;s open.
+
+Hostie answers each in your voice, by phone or text. Want to hear a sample?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Kiva, congrats on Logan Inn. On Oct 29 Google showed the lounge opening at 7 am, with reviews covering everything from lattes to cocktails. Hostie answers day and night calls and texts in your voice. Happy to send a sample.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Chicago Business Licenses: Logan Inn (Armitage Cafe, LLC), 2001 N California Ave, Consumption on Premises license starting Sep 8, 2026; License inspections passed Aug 27, 2026. <a href="https://data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as_name=Logan%20Inn&amp;application_type=ISSUE&amp;license_description=Consumption%20on%20Premises%20-%20Incidental%20Activity" rel="noopener" target="_blank">data.cityofchicago.org/resource/r5kz-chrr.json?doing_business_as</a></li><li>[2] Google Maps search, Oct 29, 2026: two listings at the address, Logan Inn Lounge &amp; Cafe (bar, 4.7 from 71 reviews, opens 7 am) and Logan Inn (hotel, 4.7 from 27 reviews), each with its own phone number; lounge review topics include cocktail, tahini and mortadella. <a href="https://www.google.com/maps/search/Logan+Inn+2001+N+California+Ave+Chicago" rel="noopener" target="_blank">google.com/maps/search/Logan+Inn+2001+N+California+Ave+Chicago</a></li><li>[3] Fine Dining Lovers, September 2026: &#x27;the Logan Square hybrid from Lettuce Entertain You veteran Kiva Wenig&#x27;. <a href="https://www.finedininglovers.com/explore/lists/best-restaurant-openings-chicago-september-2026" rel="noopener" target="_blank">finedininglovers.com/explore/lists/best-restaurant-openings-chic</a></li></ul>
+</article></div>
+    </div>
+    <p class="src">Copy is written as Hostie's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="build" data-label="Three things I&#x27;d build" data-sub="At Hostie">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>If I join</s></p>
+    <h2>Three things I'd build at Hostie.</h2>
+    <div class="three"><div class="pane"><h4>1. An opening feed for the sales team</h4><p>Each week, restaurants that just passed a city license inspection or got a liquor license (Chicago and San Francisco first, then New York and Texas), each with its guest-path audit attached: listing, hours, booking button, phone. It lands in the CRM as the first email.</p></div><div class="pane"><h4>2. Venue-by-venue audits for groups</h4><p>For hospitality groups, Hostie&#x27;s bigger deals, map every venue&#x27;s Google listings, phone lines, booking platforms and event paths. Shared lines, duplicates and conflicting hours become the opener for the CEO or ops lead, like the Bonhomme map above.</p></div><div class="pane"><h4>3. A pre-launch pack for the new Onboarding Manager</h4><p>Hostie is hiring an Onboarding Manager. For every signed restaurant, generate the same audit before go-live so setup starts with correct hours and booking links in Hostie&#x27;s answers, and the listing fixes go to the owner on day one.</p></div></div>
+  </div>
+</section>
+
+<section class="s mid" data-key="ask" data-label="The ask" data-sub="A GTM role, or a pilot first">
+  <div class="wrap">
+    <p class="kick"><b>Hostie</b> <s>Shubham Sharma</s></p>
+    <h1>I'm looking for my next GTM role. I'd like to build this at Hostie.</h1>
+    <p class="lede">Happy to start with a 1-month pilot. My work, with live numbers:
+      <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Hostie</b> &middot; <a href="https://shubhamsbuild.github.io">Shubham Sharma</a></span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 05</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
+  });
+})();
+
+})();
+</script>
+</body>
+</html>

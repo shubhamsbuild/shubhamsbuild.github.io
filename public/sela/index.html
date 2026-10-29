@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Sela</title>
+<meta name="description" content="10 named leads with copy and three things I'd build, prepared for Sela.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
+.asset-h span:first-child{color:var(--ink);font-weight:500}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
+.scores b{color:var(--ink)}
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="What&#x27;s on this page">
+  <div class="wrap">
+    <p class="kick"><b>For Sela</b> <s>from Shubham Sharma</s></p>
+    <h1 class="xl">Ten mortgage lenders you could email today.</h1>
+    <p class="lede">Three messages they'd pay to receive, ten named leads to send them to,
+      and three things I'd build at Sela. Every fact links to its public source.</p>
+    <p class="src">I'm looking for my next GTM role. &middot; <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+
+<section class="s" data-key="messages" data-label="Three messages" data-sub="What they&#x27;d pay to receive">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The messages</s></p>
+    <h2>Three messages your mortgage lenders would pay to receive.</h2>
+    <div class="board">
+      <div class="leads"><button type="button" aria-pressed="false"><em>01</em><span>18,244 withdrawn cash-out applications, ranked by purpose and state<i>For Head of consumer direct or chief production officer</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>2,985 preapproved buyers who never closed with you<i>For Head of purchase or consumer-direct sales</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>7,840 approved borrowers who didn&#x27;t take the loan<i>For Chief production officer or head of refinance</i></span></button></div>
+      <div class="detail" aria-live="polite"><article class="pm">
+<h3>18,244 withdrawn cash-out applications, ranked by purpose and state</h3>
+<p class="take">Your own HMDA withdrawals against 139 peers, split by loan purpose and state, so you know which stalled files to call first.</p>
+<div class="mail"><div class="to">To: Head of consumer direct or chief production officer, NewDay USA (New Day Financial, LLC)</div>
+<div class="subj">18,244 cash-out files to reopen</div><p>Your 2025 HMDA filing shows 18,244 cash-out applications withdrawn, more than three for every cash-out loan you closed. Withdrawals were about 46% of all your applications; the typical large non-bank lender sits at 18%.</p><p>Every one of those veterans asked you for cash once, and the file is still in your LOS. If some still need the money, that&#x27;s the cheapest pipeline you&#x27;ll find this year.</p><p>I split your withdrawals by loan purpose and state. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: NewDay USA, 2025 HMDA: closed vs withdrawn by loan purpose &middot; first 3 of 4</span></div><table class="tbl"><tr><th>Loan purpose</th><th>Closed</th><th>Withdrawn</th></tr><tr><td>Cash-out refinance</td><td>5,649</td><td>18,244</td></tr><tr><td>Rate/term refinance</td><td>2,235</td><td>1,772</td></tr><tr><td>Other purpose</td><td>33</td><td>633</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] NewDay USA (New Day Financial, LLC, LEI 549300SUCQ1358EGVE89), 2025 HMDA by action taken: 8,395 originated (action 1), 776 approved but not accepted (2), 10,877 denied (3), 20,821 withdrawn by applicant (4), 4,585 closed for incompleteness (5). That is 45,454 applications; 20,821 withdrawn = 45.8% (about 46%). <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300SUCQ1358EGVE89&amp;actions_taken=1,2,3,4,5,6,7,8" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li><li>[2] NewDay USA 2025 by loan purpose, originated vs withdrawn: cash-out refinance (32) 5,649 vs 18,244; rate/term refinance (31) 2,235 vs 1,772; other purpose (4) 33 vs 633 (no home-improvement loans); home purchase (1) 478 vs 172. 18,244 is more than three times 5,649. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300SUCQ1358EGVE89&amp;actions_taken=1,2,3,4,5&amp;loan_purposes=1,2,31,32,4" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li><li>[3] Withdrawn share of 2025 applications across 139 large non-bank lenders: median 18.3% (rounds to 18%). NewDay&#x27;s 45.8% is the third-highest of the 139. Peer set: the 139 non-bank HMDA filers with 8,000+ 2025 records and 1,000+ applications (names without bank, credit union, federal, savings or trust). Per-lender counts pulled from the HMDA aggregations API on Oct 29, 2026. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/filers?years=2025" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/filers?years=2025</a></li><li>[4] NewDay USA 2025 withdrawn applications, loan-level: 20,821 rows across 44 states; VA 20,020; top states FL 2,567, GA 1,399, NC 1,341, CA 1,140, OH 946; $6,546,325,000 requested in total. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/csv?years=2025&amp;leis=549300SUCQ1358EGVE89&amp;actions_taken=4" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/csv?years=2025&amp;leis=5493</a></li><li>[5] Reg C: an application is reported as withdrawn when the applicant expressly withdraws before satisfying underwriting conditions and before the lender denies it or closes the file. <a href="https://www.consumerfinance.gov/rules-policy/regulations/1003/4/" rel="noopener" target="_blank">consumerfinance.gov/rules-policy/regulations/1003/4/</a></li><li>[6] NewDay USA&#x27;s site leads with VA cash-out: &#x27;Take an average of $83,000 cash out&#x27;. NMLS ID 1043. <a href="https://www.newdayusa.com/" rel="noopener" target="_blank">newdayusa.com/</a></li></ul></details>
+</article><article class="pm">
+<h3>2,985 preapproved buyers who never closed with you</h3>
+<p class="take">How many buyers you preapproved and never closed, from your own HMDA filing, split by loan type, now that rates have moved.</p>
+<div class="mail"><div class="to">To: Head of purchase or consumer-direct sales, American Financing Corporation</div>
+<div class="subj">2,985 preapproved buyers to re-price</div><p>Your 2025 HMDA filing shows 2,985 buyers you preapproved who never closed a loan with you, nearly three for every purchase loan you funded.</p><p>If that pattern holds this year, rates make it worse: Freddie Mac&#x27;s weekly average went from 6.3% in late April to 7.32% last week. A letter written in the spring now overstates what the buyer can afford, and they find out from someone else.</p><p>I split the preapprovals by loan type. Want the breakdown?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: American Financing, 2025 HMDA: preapprovals approved but not accepted, by loan type &middot; first 3 of 4</span></div><table class="tbl"><tr><th>Loan type</th><th>Preapprovals not accepted</th><th>Requested amount</th></tr><tr><td>FHA</td><td>1,824</td><td>$468.5M</td></tr><tr><td>Conventional</td><td>960</td><td>$340.2M</td></tr><tr><td>VA</td><td>176</td><td>$69.3M</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 5</summary><ul class="ev"><li>[1] American Financing Corporation (LEI 549300ALNLUNS3Y53T24), 2025 HMDA, home purchase: 1,035 originated; 2,985 preapproval requests approved but not accepted (action 8); 250 preapproval requests denied (7); 267 approved but not accepted (2); 198 withdrawn (4). 2,985 is nearly three times 1,035. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300ALNLUNS3Y53T24&amp;actions_taken=1,2,3,4,5,7,8&amp;loan_purposes=1" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li><li>[2] American Financing 2025 preapprovals approved but not accepted, loan-level (2,985 rows): FHA 1,824 (median requested $225,000), conventional 960, VA 176, USDA 25; $883,725,000 requested in total; 2,868 for a principal residence. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/csv?years=2025&amp;leis=549300ALNLUNS3Y53T24&amp;actions_taken=8" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/csv?years=2025&amp;leis=5493</a></li><li>[3] Reg C: preapproval approved but not accepted means the lender approved a request under a preapproval program but no covered loan was originated by that lender; such requests must be reported. <a href="https://www.consumerfinance.gov/rules-policy/regulations/1003/4/" rel="noopener" target="_blank">consumerfinance.gov/rules-policy/regulations/1003/4/</a></li><li>[4] Freddie Mac PMMS 30-year fixed average: 6.3% on Apr 30, 2026; 7.32% on Oct 22, 2026; 5.98% on Feb 26, 2026. <a href="https://www.freddiemac.com/pmms/docs/PMMS_history.csv" rel="noopener" target="_blank">freddiemac.com/pmms/docs/PMMS_history.csv</a></li><li>[5] American Financing&#x27;s site: licensed in all 50 states, salary-based mortgage consultants, and &#x27;Fast pre-approvals so you can start shopping&#x27;. <a href="https://www.americanfinancing.net/" rel="noopener" target="_blank">americanfinancing.net/</a></li></ul></details>
+</article><article class="pm">
+<h3>7,840 approved borrowers who didn&#x27;t take the loan</h3>
+<p class="take">Borrowers you approved who never closed, against a 2.2% peer median, split by state, loan type and purpose.</p>
+<div class="mail"><div class="to">To: Chief production officer or head of refinance, Village Capital &amp; Investment LLC</div>
+<div class="subj">7,840 approved borrowers, one more call</div><p>Your 2025 HMDA filing shows 7,840 borrowers you approved who didn&#x27;t take the loan, about 42% of everyone you approved. The typical large non-bank lender loses 2.2% at that stage.</p><p>Most were refinances that had cleared underwriting. Reg C counts rescissions the same way, so part of the gap may be those, but the rest said yes and then stalled.</p><p>I split the approvals by state, loan type and purpose. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Village Capital, 2025 HMDA: approved but not accepted, top states &middot; first 3 of 51</span></div><table class="tbl"><tr><th>State</th><th>Approved, not accepted</th></tr><tr><td>FL</td><td>786</td></tr><tr><td>CA</td><td>734</td></tr><tr><td>TX</td><td>656</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 5</summary><ul class="ev"><li>[1] Village Capital &amp; Investment LLC (LEI 549300VCMRO4ST680C11), 2025 HMDA: 10,858 originated, 7,840 approved but not accepted, 6,408 denied, 5,897 withdrawn, 1,885 incomplete. Approved-not-accepted share of approvals = 7,840 / 18,698 = 41.9% (about 42%). <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300VCMRO4ST680C11&amp;actions_taken=1,2,3,4,5,6,7,8" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li><li>[2] Approved-but-not-accepted share of approvals across 139 large non-bank lenders: median 2.2%. Peer set: the 139 non-bank HMDA filers with 8,000+ 2025 records and 1,000+ applications (names without bank, credit union, federal, savings or trust). Per-lender counts pulled from the HMDA aggregations API on Oct 29, 2026. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/filers?years=2025" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/filers?years=2025</a></li><li>[3] Village Capital 2025 approved but not accepted, loan-level (7,840 rows, 51 state codes): rate/term refinance 6,776, cash-out 944, purchase 120; VA 5,271, FHA 2,562; top states FL 786, CA 734, TX 656, GA 532, NC 495; $2,984,800,000 approved in total. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/csv?years=2025&amp;leis=549300VCMRO4ST680C11&amp;actions_taken=2" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/csv?years=2025&amp;leis=5493</a></li><li>[4] Reg C: approved but not accepted covers approvals the applicant didn&#x27;t accept, and rescinded transactions are reported the same way. <a href="https://www.consumerfinance.gov/rules-policy/regulations/1003/4/" rel="noopener" target="_blank">consumerfinance.gov/rules-policy/regulations/1003/4/</a></li><li>[5] Village Capital&#x27;s site leads with streamline refinancing. NMLS ID 3317. <a href="https://www.villagecapital.com/" rel="noopener" target="_blank">villagecapital.com/</a></li></ul></details>
+</article></div>
+    </div>
+    <p class="src">Each one was run on a real, named account. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten leads</s></p>
+    <h2>Ten leads, each with a reason to email now.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>Eric Wilson<i>Zillow Home Loans &middot; Launched FHA down payment assistance loan</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Christopher George<i>CMG Financial &middot; Buying Northpointe&#x27;s retail and consumer-direct channels</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Ben Halliday<i>Zippy &middot; $20M Series C to expand past 27 states</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Bill Cosgrove<i>Union Home Mortgage &middot; Joins USDA delegated-approval pilot on Dec 1</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Michael Guazon<i>West Capital Lending &middot; New SVP sales strategy, ex-loanDepot direct lending</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Vishal Garg<i>Better &middot; Weekly scorecard: $22.9M savings, conversion push</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Nick Liuzza<i>Beeline &middot; $3M cost cuts; AI lead-engagement push</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Tim Gough<i>Bay Capital Mortgage &middot; Rolled out LiteSpeed POS to win producing LOs</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Michael Tannenbaum<i>Figure &middot; Closed Kiavi deal; 480+ partners</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Andrew Taffet<i>Carrington Mortgage Services &middot; Closed Valon Mortgage deal; ~2M serviced loans</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>Eric Wilson</h4>
+<p class="meta">SVP and General Manager of Mortgages, Zillow Home Loans</p>
+<p class="sig"><strong>Why now:</strong> Zillow launched a forgivable FHA down payment loan of up to 3.5% on Oct 28, 2026. Zillow Home Loans&#x27; 2025 HMDA shows 886 FHA applications withdrawn against 2,554 FHA loans closed.</p>
+<div class="msg"><header><span>Email &amp;middot; 886 FHA buyers, one new reason</span><button type="button" data-copy>Copy</button></header><pre>Zillow Home Loans&#x27; 2025 HMDA filing shows 886 FHA applications withdrawn, against 2,554 FHA loans closed. The forgivable down payment loan you launched this week covers up to 3.5% for FHA buyers.
+
+That gives each of those applicants a new reason to pick the conversation back up, if they&#x27;re still shopping.
+
+I pulled your FHA closed and withdrawn counts, with the conventional and VA split. Want them?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Eric, Zillow Home Loans&#x27; 2025 HMDA shows 886 FHA applications withdrawn vs 2,554 closed. Your new FHA down payment loan gives those buyers a reason to come back. I pulled the counts by loan type. Happy to send.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] National Mortgage Professional, Oct 28, 2026: Zillow&#x27;s new program gives up to 3.5% of the price as a forgivable second mortgage for FHA buyers financing through Zillow Home Loans; minimum 640 credit score; 43 states and DC. Quotes Eric Wilson, Zillow&#x27;s senior vice president and general manager of mortgages. <a href="https://nationalmortgageprofessional.com/news/zillow-covers-fha-down-payments-steps-competition-purchase-loans" rel="noopener" target="_blank">nationalmortgageprofessional.com/news/zillow-covers-fha-down-pay</a></li><li>[2] Zillow Home Loans 2025 HMDA by loan type: FHA 2,554 originated, 886 withdrawn; conventional 10,622 / 3,164; VA 1,181 / 334. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300370QILXLFUWD20&amp;actions_taken=1,4&amp;loan_types=1,2,3,4" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li></ul>
+</article><article class="lead">
+<h4>Christopher George</h4>
+<p class="meta">Founder, CMG Financial</p>
+<p class="sig"><strong>Why now:</strong> Northpointe signed an Oct 26 agreement to sell its retail and consumer-direct mortgage channels to CMG, expected to close by Nov 30. CMG&#x27;s 2025 HMDA shows 2,069 preapprovals approved but not accepted.</p>
+<div class="msg"><header><span>Email &amp;middot; 2,069 preapprovals before Northpointe arrives</span><button type="button" data-copy>Copy</button></header><pre>CMG reported 2,069 preapproved buyers in 2025 who never closed a loan with you, 1,180 of them conventional. Northpointe&#x27;s retail and consumer-direct channels move to you by Nov 30, with their own open preapprovals.
+
+With rates up since spring, those letters need a fresh call before buyers shop elsewhere.
+
+I split CMG&#x27;s preapprovals by loan type. Want the breakdown, and the same cut once Northpointe&#x27;s pipeline is in?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Christopher, CMG&#x27;s 2025 HMDA shows 2,069 preapproved buyers who never closed with you. With Northpointe&#x27;s retail and consumer-direct channels arriving by Nov 30, I split those by loan type so the open letters get a fresh call first. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] HousingWire, Oct 28, 2026: Northpointe Bancshares signed an Oct 26 agreement to sell its retail and consumer direct mortgage channels to CMG Financial; close expected by Nov 30, 2026; CMG pays 0.15% on first-lien originations through Dec 31, 2028. Names &#x27;CMG founder Christopher George&#x27;. <a href="https://www.housingwire.com/articles/northpointe-sells-mortgage-channels/" rel="noopener" target="_blank">housingwire.com/articles/northpointe-sells-mortgage-channels/</a></li><li>[2] CMG Mortgage, Inc. 2025 HMDA: 70,353 originated; 2,069 preapproval requests approved but not accepted (action 8); 6,946 approved but not accepted. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300GKFNPRWNS0GF29&amp;actions_taken=1,2,3,4,5,6,7,8" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li><li>[3] CMG 2025 preapprovals approved but not accepted by loan type: conventional 1,180, FHA 594, VA 164, USDA 131. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300GKFNPRWNS0GF29&amp;actions_taken=8&amp;loan_types=1,2,3,4" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li></ul>
+</article><article class="lead">
+<h4>Ben Halliday</h4>
+<p class="meta">Co-founder and CEO, Zippy</p>
+<p class="sig"><strong>Why now:</strong> Zippy announced a $20M Series C on Oct 14, 2026 to expand beyond its 27 states. Its 2025 HMDA filing shows 2,686 purchase applications withdrawn against 2,547 closed.</p>
+<div class="msg"><header><span>Email &amp;middot; 2,686 Zippy buyers worth a callback</span><button type="button" data-copy>Copy</button></header><pre>Zippy&#x27;s 2025 HMDA filing shows 2,686 home-purchase applications withdrawn, slightly more than the 2,547 loans you closed. Another 1,678 were closed for incompleteness.
+
+Those buyers picked a home and applied. As the Series C opens new states, the same leak grows with every lead you add.
+
+I put the withdrawn and incomplete counts next to your closings. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Ben, Zippy&#x27;s 2025 HMDA shows 2,686 purchase applications withdrawn vs 2,547 closed. With the Series C taking you past 27 states, I put the withdrawn and incomplete counts next to your closings. Happy to send it.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] National Mortgage Professional, Oct 16, 2026: Zippy raised $20 million from Saluda Grade (Series C, announced Oct. 14) to expand beyond its 27-state footprint across community, retail and wholesale channels. <a href="https://nationalmortgageprofessional.com/news/zippy-adds-capital-manufactured-home-lending-push" rel="noopener" target="_blank">nationalmortgageprofessional.com/news/zippy-adds-capital-manufac</a></li><li>[2] Dallas Innovates, Oct 21, 2026: Ben Halliday is Zippy&#x27;s co-founder and CEO; Zippy offers manufactured-home mortgages in 27 states. <a href="https://dallasinnovates.com/?p=293216" rel="noopener" target="_blank">dallasinnovates.com/?p=293216</a></li><li>[3] Zippy Loans, LLC 2025 HMDA: 2,547 originated (all home purchase), 2,686 withdrawn, 1,678 closed for incompleteness, 4,007 denied. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=9845001DAE89414CBB55&amp;actions_taken=1,2,3,4,5,6,7,8" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li></ul>
+</article><article class="lead">
+<h4>Bill Cosgrove</h4>
+<p class="meta">CEO, Union Home Mortgage</p>
+<p class="sig"><strong>Why now:</strong> USDA added Union Home Mortgage to its Delegated Authority LITE pilot, effective Dec 1, so it approves USDA loans without the agency&#x27;s preclosing step. Its 2025 HMDA shows 661 USDA loans closed and 120 USDA applications withdrawn.</p>
+<div class="msg"><header><span>Email &amp;middot; Your USDA files after Dec 1</span><button type="button" data-copy>Copy</button></header><pre>From Dec 1, Union Home approves USDA loans itself under the LITE pilot, so the agency step that slowed closings drops out. Your 2025 HMDA shows 661 USDA loans closed and 120 USDA applications withdrawn.
+
+Faster approvals help most when the borrower is still answering the phone. The withdrawn ones are a ready list to test that on.
+
+I pulled your USDA closed, withdrawn and incomplete counts. Want them?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Bill, from Dec 1 Union Home approves USDA loans itself under the LITE pilot. Your 2025 HMDA shows 120 USDA applications withdrawn vs 661 closed, a ready list to test faster approvals on. Happy to send the counts.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] HousingWire, Oct 27, 2026: USDA Rural Development added six lenders to the Delegated Authority LITE pilot, effective Dec. 1; quotes Bill Cosgrove, CEO of Union Home Mortgage. <a href="https://www.housingwire.com/articles/usda-lite-pilot-lenders/" rel="noopener" target="_blank">housingwire.com/articles/usda-lite-pilot-lenders/</a></li><li>[2] Union Home Mortgage 2025 HMDA, USDA loans (loan type 4): 661 originated, 120 withdrawn, 87 closed for incompleteness, 30 preapprovals not accepted. All loans: 37,767 originated. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300RPOGWJRH63HS39&amp;actions_taken=1,4,5,8&amp;loan_types=4" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li></ul>
+</article><article class="lead">
+<h4>Michael Guazon</h4>
+<p class="meta">SVP of Sales Strategy, West Capital Lending</p>
+<p class="sig"><strong>Why now:</strong> West Capital named Guazon, most recently loanDepot&#x27;s SVP of direct lending, to run production, retention and sales data on Oct 2, 2026. On Oct 20 it added a Detroit team that is about 83% refinance by volume, drawn by its Lead Store.</p>
+<div class="msg"><header><span>Email &amp;middot; Lead Store leads, first call faster</span><button type="button" data-copy>Copy</button></header><pre>You joined West Capital to work on production and retention, and the Lead Store is the engine: exclusive leads handed to LOs. The new Detroit team is about 83% refinance by volume, the business where minutes decide who gets the borrower.
+
+I&#x27;d measure one thing first: time from lead to first live conversation, by LO and by lead source.
+
+I sketched how that report would look on a Lead Store export. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Michael, with the Lead Store handing exclusive leads to LOs, the first number I&#x27;d watch at West Capital is time from lead to first live conversation, by LO and source. I sketched that report, happy to share.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] National Mortgage Professional, Oct 2, 2026: West Capital Lending names Michael Guazon SVP of sales strategy; most recently loanDepot&#x27;s senior vice president of direct lending; focus on production, retention, recruiting, technology and data. <a href="https://nationalmortgageprofessional.com/news/west-capital-lending-names-michael-guazon-svp-sales-strategy" rel="noopener" target="_blank">nationalmortgageprofessional.com/news/west-capital-lending-names</a></li><li>[2] National Mortgage Professional, Oct 20, 2026: Home Advantage&#x27;s Detroit team joins West Capital, citing its Lead Store of exclusive leads; refinances were approximately 83% of the team&#x27;s dollar volume. <a href="https://nationalmortgageprofessional.com/news/home-advantage-brings-555m-team-back-west-capital" rel="noopener" target="_blank">nationalmortgageprofessional.com/news/home-advantage-brings-555m</a></li></ul>
+</article><article class="lead">
+<h4>Vishal Garg</h4>
+<p class="meta">Founder, Head of Product and Innovation, Better</p>
+<p class="sig"><strong>Why now:</strong> Better&#x27;s Oct 28 scorecard reported $22.9M in annualized savings, with Garg saying Tinman AI is meant to improve response time and conversion. Its 2025 HMDA shows 11,371 applications withdrawn against 14,567 funded.</p>
+<div class="msg"><header><span>Email &amp;middot; 11,371 Better files to reopen</span><button type="button" data-copy>Copy</button></header><pre>Better&#x27;s 2025 HMDA filing shows 11,371 applications withdrawn and 6,927 closed for incompleteness, against 14,567 loans funded.
+
+Your scorecard says Tinman is there to improve response time and conversion. Those files are its cleanest test set: people who applied and went quiet.
+
+I split the withdrawals by loan purpose. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Vishal, Better&#x27;s 2025 HMDA shows 11,371 applications withdrawn and 6,927 closed incomplete vs 14,567 funded. If Tinman&#x27;s job is response time and conversion, that&#x27;s its cleanest test set. I split them by purpose, happy to send.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] HousingWire, Oct 28, 2026: Better reported $22.9 million in completed annualized savings; Garg is founder and head of product and innovation; quote on Tinman AI. <a href="https://www.housingwire.com/articles/better-annualized-savings-turnaround/" rel="noopener" target="_blank">housingwire.com/articles/better-annualized-savings-turnaround/</a></li><li>[2] Better Mortgage Corporation 2025 HMDA: 14,567 originated, 11,371 withdrawn, 6,927 closed for incompleteness; purchase: 6,060 originated, 3,750 withdrawn. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300XY701IELCE5Q08&amp;actions_taken=1,4,5&amp;loan_purposes=1,2,31,32,4" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li></ul>
+</article><article class="lead">
+<h4>Nick Liuzza</h4>
+<p class="meta">CEO, Beeline</p>
+<p class="sig"><strong>Why now:</strong> Beeline announced about $3 million in annual cost cuts on Oct 20, 2026 while using MagicBlocks to convert more inquiries into closings. Its 2025 HMDA shows 1,341 applications withdrawn and 1,702 incomplete against 618 funded.</p>
+<div class="msg"><header><span>Email &amp;middot; 1,341 Beeline applicants worth a callback</span><button type="button" data-copy>Copy</button></header><pre>Beeline Loans&#x27; 2025 HMDA filing shows 1,341 applications withdrawn and 1,702 closed for incompleteness, against 618 loans funded.
+
+You&#x27;re cutting costs while asking MagicBlocks to turn more inquiries into closings. Applicants who already started a file are the cheapest place to find that lift.
+
+I put the withdrawn and incomplete counts next to your closings. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Nick, Beeline Loans&#x27; 2025 HMDA shows 1,341 withdrawn and 1,702 incomplete applications vs 618 funded. With MagicBlocks aimed at converting more inquiries, those files are the cheapest lift. Happy to send the table.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] National Mortgage Professional, Oct 26, 2026: in an Oct. 20 announcement Beeline outlined about $3 million in annual expense reductions; it is using MagicBlocks technology to improve lead engagement and convert more inquiries into closings. <a href="https://nationalmortgageprofessional.com/news/beeline-announces-job-cuts-while-pursuing-non-qm-growth" rel="noopener" target="_blank">nationalmortgageprofessional.com/news/beeline-announces-job-cuts</a></li><li>[2] Pulse 2.0, Aug 14, 2026: names Nick Liuzza as CEO of Beeline. <a href="https://pulse2.com/beeline-ends-q2-with-no-corporate-debt-as-it-tries-to-minimize-future-dilution/" rel="noopener" target="_blank">pulse2.com/beeline-ends-q2-with-no-corporate-debt-as-it-tries-to</a></li><li>[3] Beeline Loans, Inc. 2025 HMDA: 618 originated, 1,341 withdrawn, 1,702 closed for incompleteness, 1,096 denied. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=984500F03B9034CQB904&amp;actions_taken=1,2,3,4,5,8" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li></ul>
+</article><article class="lead">
+<h4>Tim Gough</h4>
+<p class="meta">CEO, Bay Capital Mortgage</p>
+<p class="sig"><strong>Why now:</strong> Bay Capital deployed LenderLogix&#x27;s LiteSpeed on Oct 19, 2026, pitched to loan officers as more time for customer conversations. Its 2025 HMDA shows 125 applications withdrawn against 722 funded.</p>
+<div class="msg"><header><span>Email &amp;middot; More conversations for Bay Capital LOs</span><button type="button" data-copy>Copy</button></header><pre>On the LiteSpeed launch, Nick Thomas said technology should help your loan officers have more conversations with customers and referral partners. The POS handles the application; the calls before and after it still sit with the LO.
+
+Your 2025 HMDA shows 125 applications withdrawn against 722 funded, a small list but a clean one to test on.
+
+I put those counts side by side. Want them?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Tim, on the LiteSpeed launch Nick said tech should give your LOs more conversations. Bay Capital&#x27;s 2025 HMDA shows 125 withdrawn applications vs 722 funded, a clean list to test that on. Happy to send the counts.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] National Mortgage Professional, Oct 19, 2026: Bay Capital Mortgage Corporation deployed LiteSpeed; quotes CEO Tim Gough and president Nick Thomas; recruiting site targets LOs producing $10 million to $35 million. <a href="https://nationalmortgageprofessional.com/news/bay-capital-adds-litespeed-its-pitch-producing-los" rel="noopener" target="_blank">nationalmortgageprofessional.com/news/bay-capital-adds-litespeed</a></li><li>[2] Bay Capital Mortgage Corporation 2025 HMDA: 722 originated, 125 withdrawn, 63 denied. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300LT75BG7Z054795&amp;actions_taken=1,2,3,4,5,8" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li></ul>
+</article><article class="lead">
+<h4>Michael Tannenbaum</h4>
+<p class="meta">CEO, Figure</p>
+<p class="sig"><strong>Why now:</strong> Figure closed its Kiavi acquisition on Sep 1, 2026, extending its platform across more than 480 partners. Figure Lending&#x27;s 2025 HMDA shows 15,291 approved borrowers who didn&#x27;t take the loan, about 31% of approvals.</p>
+<div class="msg"><header><span>Email &amp;middot; 15,291 approved borrowers to call back</span><button type="button" data-copy>Copy</button></header><pre>Figure Lending&#x27;s 2025 HMDA filing shows 15,291 borrowers you approved who didn&#x27;t take the loan, about 31% of everyone approved. The typical large non-bank lender is at 2.2%.
+
+Some of that is the nature of instant online offers. But each of those people finished an application and got a yes.
+
+I split the approvals by loan purpose. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Michael, Figure Lending&#x27;s 2025 HMDA shows 15,291 approved borrowers who didn&#x27;t take the loan, about 31% of approvals vs a 2.2% median for large non-bank lenders. I split them by purpose, happy to send.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] National Mortgage Professional, Sep 1, 2026: Figure acquired Kiavi&#x27;s platform; Kiavi&#x27;s brand and technology go across Figure&#x27;s network of more than 480 active partners; quotes Figure CEO Michael Tannenbaum. <a href="https://nationalmortgageprofessional.com/news/figure-closes-kiavi-deal-dscr-competition-tightens" rel="noopener" target="_blank">nationalmortgageprofessional.com/news/figure-closes-kiavi-deal-d</a></li><li>[2] Figure Lending LLC 2025 HMDA: 33,415 originated, 15,291 approved but not accepted = 31.4% of approvals (about 31%). Median across 139 large non-bank lenders: 2.2%. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=254900UL88QFG0E40516&amp;actions_taken=1,2,3,4,5,6,7,8" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li></ul>
+</article><article class="lead">
+<h4>Andrew Taffet</h4>
+<p class="meta">CEO, The Carrington Companies, Carrington Mortgage Services</p>
+<p class="sig"><strong>Why now:</strong> Carrington closed its Valon Mortgage acquisition on Aug 5, 2026, taking its servicing book toward 2 million loans. Its 2025 HMDA shows 4,558 approved borrowers who didn&#x27;t take the loan, about 23% of approvals.</p>
+<div class="msg"><header><span>Email &amp;middot; 4,558 approved refinances to revisit</span><button type="button" data-copy>Copy</button></header><pre>Carrington&#x27;s 2025 HMDA filing shows 4,558 borrowers you approved who didn&#x27;t take the loan, most of them cash-out refinances. That&#x27;s about 23% of approvals; the median across large non-bank lenders is 2.2%.
+
+With Valon&#x27;s servicing book now in house, some of those borrowers may already be loans you service.
+
+I split the approvals by loan purpose. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Andrew, Carrington&#x27;s 2025 HMDA shows 4,558 approved borrowers who didn&#x27;t take the loan, about 23% of approvals vs a 2.2% median for large non-bank lenders. Most were cash-out refis. I split them by purpose, happy to send.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] National Mortgage Professional, Aug 5, 2026: Carrington closed its Valon Mortgage acquisition, adding about 810,000 loans; the combined servicing portfolio approaches 2 million loans; quotes Andrew Taffet, CEO of The Carrington Companies. <a href="https://nationalmortgageprofessional.com/news/carrington-closes-valon-mortgage-acquisition-nears-2-million-serviced-loans" rel="noopener" target="_blank">nationalmortgageprofessional.com/news/carrington-closes-valon-mo</a></li><li>[2] Carrington Mortgage Services 2025 HMDA: 15,089 originated, 4,558 approved but not accepted = 23.2% of approvals (about 23%); 3,142 of those were cash-out refinances. Median across 139 large non-bank lenders: 2.2%. <a href="https://ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;leis=549300R9S3MVDV4MGF56&amp;actions_taken=1,2&amp;loan_purposes=1,2,31,32,4" rel="noopener" target="_blank">ffiec.cfpb.gov/v2/data-browser-api/view/aggregations?years=2025&amp;</a></li><li>[3] National Mortgage Professional, Jul 16, 2026: Carrington selected Kastle as its enterprise AI agent provider for servicing and collections. <a href="https://nationalmortgageprofessional.com/news/carrington-deploys-ai-agents-servicing-and-collections" rel="noopener" target="_blank">nationalmortgageprofessional.com/news/carrington-deploys-ai-agen</a></li></ul>
+</article></div>
+    </div>
+    <p class="src">Copy is written as Sela's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="build" data-label="Three things I&#x27;d build" data-sub="At Sela">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>If I join</s></p>
+    <h2>Three things I'd build at Sela.</h2>
+    <div class="three"><div class="pane"><h4>1. An HMDA account board for the new strategic AE</h4><p>Every non-bank lender&#x27;s 2025 HMDA funnel (withdrawn, approved but not accepted, preapprovals not accepted) ranked against 139 peers and refreshed each filing year, so the BD hire opens every account with that lender&#x27;s own number, like the NewDay email above.</p></div><div class="pane"><h4>2. A lender benchmark the founding marketer can launch</h4><p>A public lookup: type a lender, see its HMDA funnel next to peers, full table gated. It turns into inbound from production and consumer-direct leads checking their own name, and gives webinars and conference dinners a data hook.</p></div><div class="pane"><h4>3. A trigger feed into the AE queue</h4><p>A daily watch on channel acquisitions, product launches, agency pilots, executive moves and competitor deployments, each matched to the lender&#x27;s HMDA numbers and routed to the owning rep with a drafted first line. Ten of those are on this page.</p></div></div>
+  </div>
+</section>
+
+<section class="s mid" data-key="ask" data-label="The ask" data-sub="A GTM role, or a pilot first">
+  <div class="wrap">
+    <p class="kick"><b>Sela</b> <s>Shubham Sharma</s></p>
+    <h1>I'm looking for my next GTM role. I'd like to build this at Sela.</h1>
+    <p class="lede">Happy to start with a 1-month pilot. My work, with live numbers:
+      <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Sela</b> &middot; <a href="https://shubhamsbuild.github.io">Shubham Sharma</a></span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 05</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
+  });
+})();
+
+})();
+</script>
+</body>
+</html>

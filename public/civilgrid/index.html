@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For CivilGrid</title>
+<meta name="description" content="10 named leads with copy and three things I'd build, prepared for CivilGrid.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
+.asset-h span:first-child{color:var(--ink);font-weight:500}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
+.scores b{color:var(--ink)}
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="What&#x27;s on this page">
+  <div class="wrap">
+    <p class="kick"><b>For CivilGrid</b> <s>from Shubham Sharma</s></p>
+    <h1 class="xl">Ten utilities, civil engineering firms and public works agencies you could email today.</h1>
+    <p class="lede">Three messages they'd pay to receive, ten named leads to send them to,
+      and three things I'd build at CivilGrid. Every fact links to its public source.</p>
+    <p class="src">I'm looking for my next GTM role. &middot; <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+
+<section class="s" data-key="messages" data-label="Three messages" data-sub="What they&#x27;d pay to receive">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The messages</s></p>
+    <h2>Three messages your utilities, civil engineering firms and public works agencies would pay to receive.</h2>
+    <div class="board">
+      <div class="leads"><button type="button" aria-pressed="false"><em>01</em><span>Your Oakland renewals that sit on moratorium streets<i>For Pipeline engineering manager at the utility</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>A repave about to lock Contract B&#x27;s alignment<i>For Design manager at the engineering firm</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Fold the Cesar Chavez bikeway into the coming repave<i>For Project manager at the city transportation agency</i></span></button></div>
+      <div class="detail" aria-live="polite"><article class="pm">
+<h3>Your Oakland renewals that sit on moratorium streets</h3>
+<p class="take">Five FY26 Oakland renewal stretches sit on streets repaved in 2024 and 2025, under moratorium into 2029 and 2030.</p>
+<div class="mail"><div class="to">To: Pipeline engineering manager at the utility, East Bay Municipal Utility District (EBMUD)</div>
+<div class="subj">Sequencing your Oakland renewals</div><p>Five stretches on your FY26 Pipeline Work Plan in Oakland sit on streets OakDOT repaved in 2024 and 2025: Gaskill St, Richmond Blvd, Hedge Ln, and parts of Revere Ave and E 9th St.</p><p>Oakland bars trenching on a street resurfaced in the last five years without Public Works&#x27; permission, and the patch has to match the new pavement. Those moratoriums run into 2029 and 2030.</p><p>I matched each stretch to its paving date and moratorium end, block by block. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: EBMUD FY26 Oakland renewal stretches on moratorium streets &middot; first 3 of 5</span></div><table class="tbl"><tr><th>EBMUD stretch</th><th>Oakland blocks</th><th>Repaved</th><th>Moratorium ends</th></tr><tr><td>Gaskill St (53rd to 57th St)</td><td>5300-5699</td><td>2024-04-18</td><td>2029-04-18</td></tr><tr><td>Richmond Blvd (Randwick to MacArthur)</td><td>3000-3449</td><td>2025-03-11</td><td>2030-03-11</td></tr><tr><td>E 9th St (toward Fruitvale Ave)</td><td>3100-3299</td><td>2024-04-18 / 2025-11-19</td><td>2029-04-18 / 2030-11-19</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] EBMUD filed a Notice of Exemption for its Pipeline Infrastructure Renewal Projects (Alameda County), received 7/30/2026, with Tables A and B of forecasted pipeline design and construction attached. It refiled the same program for Contra Costa County on 8/4/2026. <a href="https://ceqanet.lci.ca.gov/2026071239" rel="noopener" target="_blank">ceqanet.lci.ca.gov/2026071239</a></li><li>[2] EBMUD&#x27;s FY26 Pipeline Work Plan (October 2025), attached to the notice, lists these Oakland stretches: Gaskill St (53rd St to 57th St); Richmond Blvd (Randwick Ave to MacArthur Blvd), south side; E 9th St (Derby Ave to Fruitvale Ave); Hedge Ln (Joaquin Miller Rd to Burdeck Dr); Revere Ave (Marlow Dr to 3378). EBMUD forecasts about 25 miles of renewal construction and about 30 miles of design in FY26. <a href="https://ceqanet.lci.ca.gov/2026071239/Attachment/q2Pbld" rel="noopener" target="_blank">ceqanet.lci.ca.gov/2026071239/Attachment/q2Pbld</a></li><li>[3] Oakland&#x27;s street layer gives each block&#x27;s last paving date (M_DATEPAVE) and moratorium end (M_DATEEND). Matched to EBMUD&#x27;s limits by street geometry, 5 stretches sit on repaved blocks: Gaskill St 5300-5699 repaved 2024-04-18, ends 2029-04-18; Richmond Blvd 3000-3449 repaved 2025-03-11, ends 2030-03-11; E 9th St 3100-3200 repaved 2024-04-18 (ends 2029-04-18) and 3201-3299 repaved 2025-11-19 (ends 2030-11-19); Hedge Ln 4900-4999 repaved 2024-02-28, ends 2029-02-28; Revere Ave 2900-3148 repaved 2024-04-30, ends 2029-04-30. <a href="https://gismaps.oaklandca.gov/server/rest/services/OaklandStreets/FeatureServer/0/query?where=NAME+IN+(%27GASKILL+ST%27,%27RICHMOND+BLVD%27,%27E+9TH+ST%27,%27HEDGE+LN%27,%27REVERE+AV%27)&amp;outFields=NAME,L_LADD,L_HADD,M_DATEPAVE,M_DATEEND&amp;f=json" rel="noopener" target="_blank">gismaps.oaklandca.gov/server/rest/services/OaklandStreets/Featur</a></li><li>[4] Oakland: no trenching or excavation on a street constructed or resurfaced within the last five years without express permission of Public Works; trench paving must match or exceed the latest resurfacing section. <a href="https://www.oaklandca.gov/Public-Safety-Streets/Streets/Street-Paving/Paving-Moratorium-and-Street-Excavation" rel="noopener" target="_blank">oaklandca.gov/Public-Safety-Streets/Streets/Street-Paving/Paving</a></li><li>[5] When I checked on Oct 29, 293 Oakland street segments carried a 2026 paving date. <a href="https://gismaps.oaklandca.gov/server/rest/services/OaklandStreets/FeatureServer/0/query?where=M_DATEPAVE+%3E%3D+DATE+%272026-01-01%27&amp;returnCountOnly=true&amp;f=json" rel="noopener" target="_blank">gismaps.oaklandca.gov/server/rest/services/OaklandStreets/Featur</a></li><li>[6] CivilGrid consolidates utility records, geotechnical and environmental data, paving moratoriums and jurisdictional requirements from 3,000+ utilities, agencies and municipalities. <a href="https://jobs.ashbyhq.com/civilgrid/071308c0-142d-47c2-ba3c-636715b60a1c" rel="noopener" target="_blank">jobs.ashbyhq.com/civilgrid/071308c0-142d-47c2-ba3c-636715b60a1c</a></li></ul></details>
+</article><article class="pm">
+<h3>A repave about to lock Contract B&#x27;s alignment</h3>
+<p class="take">A 37th Ave block on your Contract B line is in this year&#x27;s repave program; once paved it&#x27;s a moratorium street.</p>
+<div class="mail"><div class="to">To: Design manager at the engineering firm, AGS, Inc. (LEE+RO and AGS Joint Venture)</div>
+<div class="subj">Contract B and the Sunset repave</div><p>Public Works&#x27; current resurfacing program, in construction through July 2027, includes 37th Ave between Santiago and Taraval. Your EFWS Contract B line runs down 37th Ave and stays in design until March 2028.</p><p>Once that block is repaved it becomes a moratorium street: no excavation permit without a Director&#x27;s waiver. The block just north, Rivera to Santiago, already is, until January 2030.</p><p>I lined up every Contract B block against moratoriums and the other city projects planned on it. Want the table?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: EFWS Contract B blocks with a conflict or a partner &middot; first 3 of 68</span></div><table class="tbl"><tr><th>Block</th><th>What&#x27;s there</th><th>Dates</th></tr><tr><td>37th Ave, Santiago to Taraval</td><td>Public Works BBSR repave (construction); Sewer Replacement No 30 (design)</td><td>2026-07-01 to 2027-07-07; 2027-04-12 to 2028-07-19</td></tr><tr><td>37th Ave, Rivera to Santiago</td><td>Moratorium street</td><td>until 2030-01-06</td></tr><tr><td>Wawona St at Sunset Blvd</td><td>Moratorium intersection</td><td>until 2029-09-18</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 8</summary><ul class="ev"><li>[1] SF Board of Supervisors Resolution 315-26, adopted June 2, 2026: Amendment No. 1 to Contract PRO.0163(R), Engineering Services for the Emergency Firefighting Water System, with LEE+RO and AGS Joint Venture, adds $5,000,000 for a $13,000,000 not-to-exceed, to complete planning and final design for EFWS Pipeline contracts A through C. <a href="https://media.api.sf.gov/documents/r0315-26.pdf" rel="noopener" target="_blank">media.api.sf.gov/documents/r0315-26.pdf</a></li><li>[2] SF dotMaps coordinated-projects feed: PEFWS Pipeline Contract B - 36-inch Welded Steel Pipe (SFPUC Engineering Management Bureau), Design, 2024-04-01 to 2028-03-01, on 36th Ave (Wawona St to Sloat Blvd), 37th Ave (Irving St to Wawona St), Sloat Blvd (36th Ave to 22nd Ave) and Wawona St: 68 blocks. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=PEFWS%20Pipeline%20Contract%20B%20-%2036-inch%20Welded%20Steel%20Pipe" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=PEFWS%20Pipeline%20Cont</a></li><li>[3] Public Works&#x27; Street Resurfacing Program - BBSR Paving FY 26-27 is in construction, 2026-07-01 to 2027-07-07, on 37th Ave from Santiago St to Taraval St (CNN 1837000), a Contract B block. Various Locations Sewer Replacement No 30 is on the same block, in design 2027-04-12 to 2028-07-19. <a href="https://data.sf.gov/resource/btxj-k9uh.json?cnn=1837000" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?cnn=1837000</a></li><li>[4] SF moratorium streets (blocks paved within the last 5 years): 37th Ave, Rivera St to Santiago St (2200-2299), effective 2025-01-06, expires 2030-01-06; Wawona St at Sunset Blvd, expires 2029-09-18. <a href="https://data.sf.gov/resource/5wbp-dwzt.json?cnn=1836000" rel="noopener" target="_blank">data.sf.gov/resource/5wbp-dwzt.json?cnn=1836000</a></li><li>[5] Public Works&#x27; Sunset Irrigation Recycled Water project, in design 2027-06-29 to 2029-03-02, shares 4 Contract B blocks: Wawona St 36th Ave to Sunset Blvd and Sunset Blvd to 37th Ave, 36th Ave Wawona St to Yorba St, 37th Ave Vicente St to Wawona St, plus 2 intersections. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=Sunset%20Irrigation%20Recycled%20Water" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=Sunset%20Irrigation%20R</a></li><li>[6] SF Public Works Code Sec. 2.4.21: no excavation permit on a moratorium street unless the Director grants a waiver for good cause. <a href="https://codelibrary.amlegal.com/codes/san_francisco/latest/sf_publicworks/0-0-0-183" rel="noopener" target="_blank">codelibrary.amlegal.com/codes/san_francisco/latest/sf_publicwork</a></li><li>[7] PG&amp;E holds excavation permit 26EXC-05515 to replace a pole on 37th Ave between Vicente St and Wawona St, 2026-11-03 to 2026-12-01. <a href="https://data.sf.gov/resource/smdf-6c45.json?permit_number=26EXC-05515" rel="noopener" target="_blank">data.sf.gov/resource/smdf-6c45.json?permit_number=26EXC-05515</a></li><li>[8] CivilGrid consolidates utility records, geotechnical and environmental data, paving moratoriums and jurisdictional requirements from 3,000+ utilities, agencies and municipalities. <a href="https://jobs.ashbyhq.com/civilgrid/071308c0-142d-47c2-ba3c-636715b60a1c" rel="noopener" target="_blank">jobs.ashbyhq.com/civilgrid/071308c0-142d-47c2-ba3c-636715b60a1c</a></li></ul></details>
+</article><article class="pm">
+<h3>Fold the Cesar Chavez bikeway into the coming repave</h3>
+<p class="take">3 bikeway blocks were just repaved and are locked to 2031; 5 more get repaved from 2027. Build with that contract.</p>
+<div class="mail"><div class="to">To: Project manager at the city transportation agency, SFMTA Livable Streets (Cesar Chavez Bikeway Improvements Project)</div>
+<div class="subj">Folding the bikeway into the repave</div><p>Public Works repaved Cesar Chavez from 3rd St to Indiana in August, so those 3 blocks are moratorium streets until 2031. A trench there for signal conduit or drainage now needs a Director&#x27;s waiver.</p><p>West of the freeway, 5 of your blocks, Pennsylvania to Kansas, are in Public Works&#x27; Bayshore and Cesar Chavez repave, planned to start November 2027. Building the bikeway into that contract means one closure and no cut into new asphalt.</p><p>I mapped all 23 of your blocks by status. Want the block list?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: Cesar Chavez bikeway blocks by status &middot; first 3 of 23</span></div><table class="tbl"><tr><th>Blocks</th><th>Status</th><th>Dates</th></tr><tr><td>3rd St to Indiana St (3 segments)</td><td>Moratorium: repaved by Public Works</td><td>2026-08-17 to 2031-08-17</td></tr><tr><td>Pennsylvania Ave to Kansas St (5 segments)</td><td>In Public Works&#x27; Bayshore/Cesar Chavez repave (planning)</td><td>2027-11-09 to 2029-01-21</td></tr><tr><td>Tennessee St to Pennsylvania Ave</td><td>Anvil Builders permit 26EXC-01110, facilities underground</td><td>2026-04-02 to 2027-01-31</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] SF dotMaps feed: Cesar Chavez Bikeway Improvements Project, SFMTA Livable Streets, Design, 2026-09-01 to 2028-12-31 (design started Sep 1, 2026), Cesar Chavez St from Kansas St to Illinois St, 23 blocks; project manager Gabe Ho. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=Cesar%20Chavez%20Bikeway%20Improvements%20Project" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=Cesar%20Chavez%20Bikewa</a></li><li>[2] SF moratorium streets: Cesar Chavez St 3rd St to Tennessee St (1000-1099), Tennessee St to Minnesota St (1100-1199) and Minnesota St to Indiana St (1200-1299), 3 segments, effective 2026-08-17, expire 2031-08-17. <a href="https://data.sf.gov/resource/5wbp-dwzt.json?streetname=CESAR%20CHAVEZ%20ST" rel="noopener" target="_blank">data.sf.gov/resource/5wbp-dwzt.json?streetname=CESAR%20CHAVEZ%20</a></li><li>[3] Public Works&#x27; Bay Shore Blvd and Cesar Chavez Pavement Renovation, Planning, 2027-11-09 to 2029-01-21, covers 5 bikeway segments on Cesar Chavez St: I-280 off-ramp/Pennsylvania Ave to Mississippi St, Mississippi St to Missouri St, Missouri St to Connecticut St, Connecticut St to Evans Ave, Evans Ave to Kansas St; project manager Paul Barradas. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=Bay%20Shore%20Blvd%20and%20Cesar%20Chavez%20Pavement%20Renovation" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=Bay%20Shore%20Blvd%20an</a></li><li>[4] Active excavation permits on the bikeway: 26EXC-01110, Anvil Builders Inc, place facilities underground (water service, sewer, electric), Tennessee St to Pennsylvania Ave, 2026-04-02 to 2027-01-31; 26EXC-02675, Mitchell Engineering, AWSS install service, Pennsylvania Ave to Evans Ave, 2026-06-06 to 2026-12-31. <a href="https://data.sf.gov/resource/smdf-6c45.json?streetname=CESAR%20CHAVEZ%20ST" rel="noopener" target="_blank">data.sf.gov/resource/smdf-6c45.json?streetname=CESAR%20CHAVEZ%20</a></li><li>[5] SF Public Works Code Sec. 2.4.21: no excavation permit on a moratorium street unless the Director grants a waiver for good cause. <a href="https://codelibrary.amlegal.com/codes/san_francisco/latest/sf_publicworks/0-0-0-183" rel="noopener" target="_blank">codelibrary.amlegal.com/codes/san_francisco/latest/sf_publicwork</a></li><li>[6] CivilGrid consolidates utility records, geotechnical and environmental data, paving moratoriums and jurisdictional requirements from 3,000+ utilities, agencies and municipalities. <a href="https://jobs.ashbyhq.com/civilgrid/071308c0-142d-47c2-ba3c-636715b60a1c" rel="noopener" target="_blank">jobs.ashbyhq.com/civilgrid/071308c0-142d-47c2-ba3c-636715b60a1c</a></li></ul></details>
+</article></div>
+    </div>
+    <p class="src">Each one was run on a real, named account. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten leads</s></p>
+    <h2>Ten leads, each with a reason to email now.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>Gabe Ho<i>San Francisco Municipal Transportation Agency (SFMTA) &middot; Cesar Chavez bikeway entered design</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Ryan Freeborn<i>San Francisco Public Utilities Commission (SFPUC) &middot; Lincoln Way main moved into design</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Serge Terentieff<i>East Bay Municipal Utility District (EBMUD) &middot; FY26 renewal plan refiled with CEQA</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Deanna Fraley<i>City of Lomita &middot; Zone G water main replacement cleared CEQA</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Jason Chou<i>City of Mountain View &middot; Middlefield and Moffett sewer reroute cleared CEQA</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Erik Scheller<i>AGS, Inc. (LEE+RO and AGS Joint Venture) &middot; New Public Works geotechnical contract</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>Nik Lyuber<i>Rancho California Water District &middot; Old Town Front Street pipeline cleared CEQA</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Paul Barradas<i>San Francisco Public Works &middot; SFMTA bikeway design started on his segments</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Jennifer Molina<i>San Francisco Municipal Transportation Agency (SFMTA) &middot; Townsend St block repaved inside hardening program</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Homer Arredondo<i>Ventura County Waterworks District No. 17 &middot; Bell Canyon pipeline design cleared CEQA</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>Gabe Ho</h4>
+<p class="meta">Project Manager, Cesar Chavez Bikeway Improvements Project (SFMTA Livable Streets), San Francisco Municipal Transportation Agency (SFMTA)</p>
+<p class="sig"><strong>Why now:</strong> The Cesar Chavez bikeway (Kansas St to Illinois St, 23 blocks) entered design on Sep 1, 2026, two weeks after Public Works repaved 3 of its segments. 5 more are in a repave planned from November 2027.</p>
+<div class="msg"><header><span>Email &amp;middot; Folding the bikeway into the repave</span><button type="button" data-copy>Copy</button></header><pre>Public Works repaved Cesar Chavez from 3rd St to Indiana in August, so those 3 segments are moratorium streets until 2031. A trench there for signal conduit or drainage now needs a waiver.
+
+West of the freeway, 5 segments from Pennsylvania to Kansas are in Public Works&#x27; Bayshore and Cesar Chavez repave, planned from November 2027. Building the bikeway into it means one closure.
+
+I mapped all 23 of your blocks by status. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Gabe, 3 Cesar Chavez bikeway segments (3rd to Indiana) were repaved in August and are moratorium streets to 2031, and 5 more (Pennsylvania to Kansas) are in Public Works&#x27; repave from Nov 2027. I mapped all 23 blocks by status, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] SF dotMaps feed: Cesar Chavez Bikeway Improvements Project, SFMTA Livable Streets, Design, 2026-09-01 to 2028-12-31 (design started Sep 1, 2026), Cesar Chavez St from Kansas St to Illinois St, 23 blocks; project manager Gabe Ho. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=Cesar%20Chavez%20Bikeway%20Improvements%20Project" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=Cesar%20Chavez%20Bikewa</a></li><li>[2] SF moratorium streets: Cesar Chavez St 3rd St to Tennessee St (1000-1099), Tennessee St to Minnesota St (1100-1199) and Minnesota St to Indiana St (1200-1299), 3 segments, effective 2026-08-17, expire 2031-08-17. <a href="https://data.sf.gov/resource/5wbp-dwzt.json?streetname=CESAR%20CHAVEZ%20ST" rel="noopener" target="_blank">data.sf.gov/resource/5wbp-dwzt.json?streetname=CESAR%20CHAVEZ%20</a></li><li>[3] Public Works&#x27; Bay Shore Blvd and Cesar Chavez Pavement Renovation, Planning, 2027-11-09 to 2029-01-21, covers 5 bikeway segments on Cesar Chavez St: I-280 off-ramp/Pennsylvania Ave to Mississippi St, Mississippi St to Missouri St, Missouri St to Connecticut St, Connecticut St to Evans Ave, Evans Ave to Kansas St; project manager Paul Barradas. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=Bay%20Shore%20Blvd%20and%20Cesar%20Chavez%20Pavement%20Renovation" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=Bay%20Shore%20Blvd%20an</a></li><li>[4] Active excavation permits on the bikeway: 26EXC-01110, Anvil Builders Inc, place facilities underground (water service, sewer, electric), Tennessee St to Pennsylvania Ave, 2026-04-02 to 2027-01-31; 26EXC-02675, Mitchell Engineering, AWSS install service, Pennsylvania Ave to Evans Ave, 2026-06-06 to 2026-12-31. <a href="https://data.sf.gov/resource/smdf-6c45.json?streetname=CESAR%20CHAVEZ%20ST" rel="noopener" target="_blank">data.sf.gov/resource/smdf-6c45.json?streetname=CESAR%20CHAVEZ%20</a></li><li>[5] SF Public Works Code Sec. 2.4.21: no excavation permit on a moratorium street unless the Director grants a waiver for good cause. <a href="https://codelibrary.amlegal.com/codes/san_francisco/latest/sf_publicworks/0-0-0-183" rel="noopener" target="_blank">codelibrary.amlegal.com/codes/san_francisco/latest/sf_publicwork</a></li></ul>
+</article><article class="lead">
+<h4>Ryan Freeborn</h4>
+<p class="meta">Project Manager, WD-2922 Lincoln Way water main replacement (SFPUC Water), San Francisco Public Utilities Commission (SFPUC)</p>
+<p class="sig"><strong>Why now:</strong> SFPUC&#x27;s WD-2922 water main replacement on Lincoln Way and Irving St went into design on Aug 7, 2026. When I checked in late October, Lincoln Way&#x27;s north side from 29th to 32nd Ave was a moratorium block until July 2030.</p>
+<div class="msg"><header><span>Email &amp;middot; Lincoln Way blocks under moratorium</span><button type="button" data-copy>Copy</button></header><pre>Lincoln Way&#x27;s north side from 29th to 32nd Ave was repaved in July 2025, so it&#x27;s a moratorium block until July 2030. That&#x27;s inside the WD-2922 limits that went into design in August.
+
+Five side-street blocks west of Sunset in the second phase are under moratorium too, ending between 2027 and 2029.
+
+I lined up every WD-2922 block with its moratorium end date. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Ryan, Lincoln Way&#x27;s north side from 29th to 32nd Ave is a moratorium block until July 2030, inside WD-2922&#x27;s limits, and five side-street blocks west of Sunset are too. I lined up every WD-2922 block with its end date, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] SF dotMaps: WD-2922 8-inch Ductile Iron Water Main Replacement on Lincoln Way and Irving St from Sunset Blvd to 19th Ave, SFPUC Water, Design, 2026-08-07 to 2030-09-29 (design started Aug 7, 2026); phase on Lincoln Way from Sunset to La Playa, 2028-06-25 to 2029-11-06; project manager Ryan Freeborn. <a href="https://data.sf.gov/resource/btxj-k9uh.json?$where=name%20like%20%27WD-2922%25%27" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?$where=name%20like%20%27WD-2</a></li><li>[2] SF moratorium streets on WD-2922 blocks: Lincoln Way 29th to 30th, 30th to 31st and 31st to 32nd Ave (north side), effective 2025-07-01, expire 2030-07-01. Five side-street blocks between Lincoln Way and Irving St: 38th Ave (to 2029-07-01), 48th Ave (to 2029-06-09), 46th Ave (to 2029-01-08), 33rd Ave (to 2028-10-11), 41st Ave (to 2027-10-05). <a href="https://data.sf.gov/resource/5wbp-dwzt.json?streetname=LINCOLN%20WAY" rel="noopener" target="_blank">data.sf.gov/resource/5wbp-dwzt.json?streetname=LINCOLN%20WAY</a></li><li>[6] SF Public Works Code Sec. 2.4.21: no excavation permit on a moratorium street unless the Director grants a waiver for good cause. <a href="https://codelibrary.amlegal.com/codes/san_francisco/latest/sf_publicworks/0-0-0-183" rel="noopener" target="_blank">codelibrary.amlegal.com/codes/san_francisco/latest/sf_publicwork</a></li></ul>
+</article><article class="lead">
+<h4>Serge Terentieff</h4>
+<p class="meta">Director of Engineering and Construction, East Bay Municipal Utility District (EBMUD)</p>
+<p class="sig"><strong>Why now:</strong> EBMUD refiled its pipeline renewal program with CEQA on Aug 4, 2026, after the Alameda County filing on Jul 30. When I checked in late October, 5 of its Oakland stretches sat on blocks Oakland repaved in 2024 and 2025.</p>
+<div class="msg"><header><span>Email &amp;middot; Five Oakland renewals on moratorium streets</span><button type="button" data-copy>Copy</button></header><pre>Five stretches on your FY26 Pipeline Work Plan in Oakland, Gaskill St, Richmond Blvd, Hedge Ln and parts of Revere Ave and E 9th St, sit on blocks OakDOT repaved in 2024 and 2025.
+
+Oakland bars trenching there for five years without Public Works&#x27; permission, so each one needs an exception and a full-section patch, or a later slot. The moratoriums end in 2029 and 2030.
+
+I matched each stretch to its paving date and end date. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Serge, 5 stretches on EBMUD&#x27;s FY26 work plan in Oakland (Gaskill, Richmond Blvd, Hedge Ln, Revere, E 9th) sit on blocks OakDOT repaved in 2024-2025, under moratorium into 2029-2030. I matched each to its dates, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Serge Terentieff is EBMUD&#x27;s Director of Engineering and Construction; EBMUD&#x27;s goal is tripling its pipeline replacement rate. <a href="https://www.ebmud.com/about-us/board-directors/management/executive-leadership-team/serge-terentieff" rel="noopener" target="_blank">ebmud.com/about-us/board-directors/management/executive-leadersh</a></li><li>[2] EBMUD Notice of Exemption, Pipeline Infrastructure Renewal Project (Contra Costa County), received 8/4/2026. <a href="https://ceqanet.lci.ca.gov/2026080077" rel="noopener" target="_blank">ceqanet.lci.ca.gov/2026080077</a></li><li>[2] EBMUD&#x27;s FY26 Pipeline Work Plan (October 2025), attached to the notice, lists these Oakland stretches: Gaskill St (53rd St to 57th St); Richmond Blvd (Randwick Ave to MacArthur Blvd), south side; E 9th St (Derby Ave to Fruitvale Ave); Hedge Ln (Joaquin Miller Rd to Burdeck Dr); Revere Ave (Marlow Dr to 3378). EBMUD forecasts about 25 miles of renewal construction and about 30 miles of design in FY26. <a href="https://ceqanet.lci.ca.gov/2026071239/Attachment/q2Pbld" rel="noopener" target="_blank">ceqanet.lci.ca.gov/2026071239/Attachment/q2Pbld</a></li><li>[3] Oakland&#x27;s street layer gives each block&#x27;s last paving date (M_DATEPAVE) and moratorium end (M_DATEEND). Matched to EBMUD&#x27;s limits by street geometry, 5 stretches sit on repaved blocks: Gaskill St 5300-5699 repaved 2024-04-18, ends 2029-04-18; Richmond Blvd 3000-3449 repaved 2025-03-11, ends 2030-03-11; E 9th St 3100-3200 repaved 2024-04-18 (ends 2029-04-18) and 3201-3299 repaved 2025-11-19 (ends 2030-11-19); Hedge Ln 4900-4999 repaved 2024-02-28, ends 2029-02-28; Revere Ave 2900-3148 repaved 2024-04-30, ends 2029-04-30. <a href="https://gismaps.oaklandca.gov/server/rest/services/OaklandStreets/FeatureServer/0/query?where=NAME+IN+(%27GASKILL+ST%27,%27RICHMOND+BLVD%27,%27E+9TH+ST%27,%27HEDGE+LN%27,%27REVERE+AV%27)&amp;outFields=NAME,L_LADD,L_HADD,M_DATEPAVE,M_DATEEND&amp;f=json" rel="noopener" target="_blank">gismaps.oaklandca.gov/server/rest/services/OaklandStreets/Featur</a></li><li>[4] Oakland: no trenching or excavation on a street constructed or resurfaced within the last five years without express permission of Public Works; trench paving must match or exceed the latest resurfacing section. <a href="https://www.oaklandca.gov/Public-Safety-Streets/Streets/Street-Paving/Paving-Moratorium-and-Street-Excavation" rel="noopener" target="_blank">oaklandca.gov/Public-Safety-Streets/Streets/Street-Paving/Paving</a></li></ul>
+</article><article class="lead">
+<h4>Deanna Fraley</h4>
+<p class="meta">Public Works Director, City of Lomita</p>
+<p class="sig"><strong>Why now:</strong> Lomita filed a Notice of Exemption on Sep 17, 2026 for its Zone G Water Main Replacement: about 4,500 feet of 4- and 6-inch mains on Walnut Street, Ebony Lane and 247th Place replaced with 8-inch PVC.</p>
+<div class="msg"><header><span>Email &amp;middot; Zone G owners before design</span><button type="button" data-copy>Copy</button></header><pre>Your Zone G project replaces about 4,500 feet of old mains on Walnut Street, Ebony Lane and 247th Place, and it cleared CEQA on September 17.
+
+Before the plans are drawn, every other owner with lines in those streets has to be found and asked for records. We can have that basemap ready on day one.
+
+Want the owner list for Zone G?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Deanna, saw Zone G&#x27;s water main replacement on Walnut, Ebony and 247th cleared CEQA in September. We can put every other owner&#x27;s records for those streets on one basemap on day one. Happy to share it, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] City of Lomita, Zone G Water Main Replacement Project, NOE received 9/17/2026; contact Deanna Fraley, Public Works Director; about 4,500 linear feet of 4-inch and 6-inch mains replaced with 8-inch PVC along Walnut Street, Ebony Lane and 247th Place. <a href="https://ceqanet.lci.ca.gov/2026090776" rel="noopener" target="_blank">ceqanet.lci.ca.gov/2026090776</a></li></ul>
+</article><article class="lead">
+<h4>Jason Chou</h4>
+<p class="meta">Senior Civil Engineer, City of Mountain View</p>
+<p class="sig"><strong>Why now:</strong> Mountain View filed a Notice of Exemption on Sep 11, 2026 for the Middlefield and Moffett Sewer Replacement, which reroutes flow along Moffett Blvd to West Middlefield Rd and removes the SR 85 sewer crossings. He filed a second pipe project on Sep 25.</p>
+<div class="msg"><header><span>Email &amp;middot; Moffett to Middlefield, owners first</span><button type="button" data-copy>Copy</button></header><pre>Your Middlefield and Moffett sewer project cleared CEQA in September: new pipe linking Moffett Blvd to West Middlefield Rd, and the SR 85 crossings retired.
+
+A new alignment means finding every owner along that connection and getting their records before design. We can have that basemap on day one.
+
+Want the owner list for the new segment?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Jason, saw the Middlefield and Moffett sewer reroute cleared CEQA in September. We can put every owner&#x27;s records along the new Moffett-to-Middlefield link on one basemap on day one, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] City of Mountain View, Middlefield and Moffett Sewer Replacement Project, Project 22-42, NOE received 9/11/2026; contact Jason Chou, Senior Civil Engineer; reroutes flow along Moffett Blvd to West Middlefield Rd, eliminating the SR 85 sewer crossings. <a href="https://ceqanet.lci.ca.gov/2026090483" rel="noopener" target="_blank">ceqanet.lci.ca.gov/2026090483</a></li><li>[2] City of Mountain View, Shoreline Irrigation Main Replacement Project, NOE received 9/25/2026; contact Jason Chou, Senior Civil Engineer. <a href="https://ceqanet.lci.ca.gov/2026091138" rel="noopener" target="_blank">ceqanet.lci.ca.gov/2026091138</a></li></ul>
+</article><article class="lead">
+<h4>Erik Scheller</h4>
+<p class="meta">Principal Civil Engineer, AGS, Inc. (LEE+RO and AGS Joint Venture)</p>
+<p class="sig"><strong>Why now:</strong> On Sep 10, 2026, the Public Works Commission was asked to award AGS one of 3 as-needed geotechnical contracts at $3,000,000 each. AGS&#x27;s joint venture with LEE+RO is finishing final design for EFWS Pipeline contracts A through C, and Public Works&#x27; current repave program includes a block on Contract B&#x27;s 37th Ave line.</p>
+<div class="msg"><header><span>Email &amp;middot; Contract B and the Sunset repave</span><button type="button" data-copy>Copy</button></header><pre>Public Works&#x27; current repave program, in construction through July 2027, includes 37th Ave between Santiago and Taraval. Your joint venture&#x27;s EFWS Contract B line runs down 37th Ave and stays in design until March 2028.
+
+Once repaved, that block is a moratorium street: no excavation permit without a Director&#x27;s waiver. The block north of it already is, until January 2030.
+
+I lined up every Contract B block against moratoriums and other city projects. Want the table?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Erik, Public Works&#x27; current repave program includes 37th Ave between Santiago and Taraval, on the EFWS Contract B line, still in design. Once done it&#x27;s a moratorium block. I lined up every Contract B block against the conflicts, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] AGS team page lists Erik Scheller, PE, QSD as Principal Civil Engineer. AGS is based in San Francisco with over 25 professionals. <a href="https://www.agsinc.com/team" rel="noopener" target="_blank">agsinc.com/team</a></li><li>[2] Public Works Commission memo for Sep 10, 2026: award As-Needed Geotechnical Engineering Services, $3,000,000 each, to 3 consultants: AGS, Inc., Divis Consulting, Inc. and ENGEO Incorporated. <a href="https://sfpublicworks.org/sites/default/files/Commissions/Sept%2010%2C%202026/Item%205e_PWC%20AN%20Geotechnical%20Eng%20Svcs%20-AGS%20-award%202026-9-10%20v93.pdf" rel="noopener" target="_blank">sfpublicworks.org/sites/default/files/Commissions/Sept%2010%2C%2</a></li><li>[1] SF Board of Supervisors Resolution 315-26, adopted June 2, 2026: Amendment No. 1 to Contract PRO.0163(R), Engineering Services for the Emergency Firefighting Water System, with LEE+RO and AGS Joint Venture, adds $5,000,000 for a $13,000,000 not-to-exceed, to complete planning and final design for EFWS Pipeline contracts A through C. <a href="https://media.api.sf.gov/documents/r0315-26.pdf" rel="noopener" target="_blank">media.api.sf.gov/documents/r0315-26.pdf</a></li><li>[2] SF dotMaps coordinated-projects feed: PEFWS Pipeline Contract B - 36-inch Welded Steel Pipe (SFPUC Engineering Management Bureau), Design, 2024-04-01 to 2028-03-01, on 36th Ave (Wawona St to Sloat Blvd), 37th Ave (Irving St to Wawona St), Sloat Blvd (36th Ave to 22nd Ave) and Wawona St: 68 blocks. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=PEFWS%20Pipeline%20Contract%20B%20-%2036-inch%20Welded%20Steel%20Pipe" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=PEFWS%20Pipeline%20Cont</a></li><li>[3] Public Works&#x27; Street Resurfacing Program - BBSR Paving FY 26-27 is in construction, 2026-07-01 to 2027-07-07, on 37th Ave from Santiago St to Taraval St (CNN 1837000), a Contract B block. Various Locations Sewer Replacement No 30 is on the same block, in design 2027-04-12 to 2028-07-19. <a href="https://data.sf.gov/resource/btxj-k9uh.json?cnn=1837000" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?cnn=1837000</a></li><li>[4] SF moratorium streets (blocks paved within the last 5 years): 37th Ave, Rivera St to Santiago St (2200-2299), effective 2025-01-06, expires 2030-01-06; Wawona St at Sunset Blvd, expires 2029-09-18. <a href="https://data.sf.gov/resource/5wbp-dwzt.json?cnn=1836000" rel="noopener" target="_blank">data.sf.gov/resource/5wbp-dwzt.json?cnn=1836000</a></li><li>[5] Public Works&#x27; Sunset Irrigation Recycled Water project, in design 2027-06-29 to 2029-03-02, shares 4 Contract B blocks: Wawona St 36th Ave to Sunset Blvd and Sunset Blvd to 37th Ave, 36th Ave Wawona St to Yorba St, 37th Ave Vicente St to Wawona St, plus 2 intersections. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=Sunset%20Irrigation%20Recycled%20Water" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=Sunset%20Irrigation%20R</a></li></ul>
+</article><article class="lead">
+<h4>Nik Lyuber</h4>
+<p class="meta">Director of Engineering, Rancho California Water District</p>
+<p class="sig"><strong>Why now:</strong> RCWD filed a Notice of Exemption on Sep 8, 2026 for its Old Town Front Street Pipeline Replacement: about 1,385 feet of 24-inch steel main replaced with 12-inch PVC in Old Town Temecula.</p>
+<div class="msg"><header><span>Email &amp;middot; Front Street owners before design</span><button type="button" data-copy>Copy</button></header><pre>Your Old Town Front Street pipeline replacement cleared CEQA in September: about 1,385 feet of 24-inch steel main coming out between Rancho California Rd and Moreno Rd.
+
+Before design starts, someone has to find every owner with lines in that stretch, request their records and redraw them. We can have that basemap for Front Street on day one, with the chain of custody.
+
+Want the owner list for the stretch?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Nik, saw the Old Town Front Street pipeline replacement cleared CEQA in September. We can put every owner&#x27;s records for that stretch on one basemap on day one. Happy to share the owner list, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Rancho California Water District, Old Town Front Street Pipeline Replacement [Project No. D2605], NOE received 9/8/2026; contact Nik Lyuber, Director of Engineering; about 1,385 linear feet of 24-inch steel main replaced with 12-inch PVC; on Old Town Front St between Rancho California Rd and Moreno Rd. <a href="https://ceqanet.lci.ca.gov/2026090300" rel="noopener" target="_blank">ceqanet.lci.ca.gov/2026090300</a></li></ul>
+</article><article class="lead">
+<h4>Paul Barradas</h4>
+<p class="meta">Project Manager, Bay Shore Blvd and Cesar Chavez Pavement Renovation (SF Public Works), San Francisco Public Works</p>
+<p class="sig"><strong>Why now:</strong> SFMTA put the Cesar Chavez bikeway into design on Sep 1, 2026. 5 of its segments, Pennsylvania Ave to Kansas St, are inside his repave, planned from November 2027.</p>
+<div class="msg"><header><span>Email &amp;middot; Cesar Chavez bikeway on your repave</span><button type="button" data-copy>Copy</button></header><pre>SFMTA started designing its Cesar Chavez bikeway in September, and 5 of your repave segments on Cesar Chavez, Pennsylvania to Kansas, sit inside it. Your repave is planned from November 2027; their design runs to the end of 2028.
+
+If the striping, islands and any signal conduit go into your contract, the street opens once and stays closed to cuts after.
+
+I listed the shared segments with both schedules. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Paul, SFMTA&#x27;s Cesar Chavez bikeway went into design in September and 5 of your repave segments (Pennsylvania to Kansas) are inside it. I listed the shared segments with both schedules, if useful for packaging.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] SF dotMaps feed: Cesar Chavez Bikeway Improvements Project, SFMTA Livable Streets, Design, 2026-09-01 to 2028-12-31 (design started Sep 1, 2026), Cesar Chavez St from Kansas St to Illinois St, 23 blocks; project manager Gabe Ho. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=Cesar%20Chavez%20Bikeway%20Improvements%20Project" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=Cesar%20Chavez%20Bikewa</a></li><li>[3] Public Works&#x27; Bay Shore Blvd and Cesar Chavez Pavement Renovation, Planning, 2027-11-09 to 2029-01-21, covers 5 bikeway segments on Cesar Chavez St: I-280 off-ramp/Pennsylvania Ave to Mississippi St, Mississippi St to Missouri St, Missouri St to Connecticut St, Connecticut St to Evans Ave, Evans Ave to Kansas St; project manager Paul Barradas. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=Bay%20Shore%20Blvd%20and%20Cesar%20Chavez%20Pavement%20Renovation" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=Bay%20Shore%20Blvd%20an</a></li><li>[4] Active excavation permits on the bikeway: 26EXC-01110, Anvil Builders Inc, place facilities underground (water service, sewer, electric), Tennessee St to Pennsylvania Ave, 2026-04-02 to 2027-01-31; 26EXC-02675, Mitchell Engineering, AWSS install service, Pennsylvania Ave to Evans Ave, 2026-06-06 to 2026-12-31. <a href="https://data.sf.gov/resource/smdf-6c45.json?streetname=CESAR%20CHAVEZ%20ST" rel="noopener" target="_blank">data.sf.gov/resource/smdf-6c45.json?streetname=CESAR%20CHAVEZ%20</a></li></ul>
+</article><article class="lead">
+<h4>Jennifer Molina</h4>
+<p class="meta">Project Manager, Bikeway Hardening (SFMTA Livable Streets), San Francisco Municipal Transportation Agency (SFMTA)</p>
+<p class="sig"><strong>Why now:</strong> Public Works repaved Townsend St between 7th and 8th on Aug 10, 2026, inside the Bikeway Hardening footprint, which runs to June 2027. Blocks on 7th and 8th St in the same program sit in a Public Works repave planned from August 2028.</p>
+<div class="msg"><header><span>Email &amp;middot; Hardening blocks in a 2028 repave</span><button type="button" data-copy>Copy</button></header><pre>Three of your Bikeway Hardening blocks, 7th St at Cleveland to Folsom and Stevenson to Minna, and 8th St at Heron to Harrison, sit in Public Works&#x27; 7th, 8th and Folsom repave, planned to start August 2028.
+
+Hardening is scheduled to wrap up in June 2027, so posts and curbs set there would be worked around or reset about a year later. Doing those blocks with the repave avoids paying twice.
+
+I matched all your blocks to planned repaves. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Jennifer, three Bikeway Hardening blocks on 7th and 8th St sit in Public Works&#x27; repave planned from Aug 2028, about a year after hardening wraps. I matched all your blocks to planned repaves and moratoriums, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] SF dotMaps: Bikeway Hardening, SFMTA Livable Streets, Planning, 2025-07-01 to 2027-06-30; blocks include 7th St Cleveland St to Folsom St, 7th St Stevenson St to Minna St, 8th St Heron St to Harrison St, and Townsend St; project manager Jennifer Molina. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=Bikeway%20Hardening" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=Bikeway%20Hardening</a></li><li>[2] Public Works&#x27; 7th St, 8th St and Folsom St Pavement Renovation, Planning, 2028-08-19 to 2029-11-01, on 7th St Folsom to Cleveland, 7th St Mission to Minna and 8th St Heron to Harrison. Three hardening blocks overlap it. <a href="https://data.sf.gov/resource/btxj-k9uh.json?name=7th%20St,%208th%20St%20and%20Folsom%20St%20Pavement%20Renovation" rel="noopener" target="_blank">data.sf.gov/resource/btxj-k9uh.json?name=7th%20St,%208th%20St%20</a></li><li>[3] SF moratorium streets: Townsend St 7th St to 8th St (600-699), effective 2026-08-10, expires 2031-08-10. <a href="https://data.sf.gov/resource/5wbp-dwzt.json?streetname=TOWNSEND%20ST" rel="noopener" target="_blank">data.sf.gov/resource/5wbp-dwzt.json?streetname=TOWNSEND%20ST</a></li></ul>
+</article><article class="lead">
+<h4>Homer Arredondo</h4>
+<p class="meta">Sr. Engineering Manager, Ventura County Waterworks District No. 17</p>
+<p class="sig"><strong>Why now:</strong> The district filed a Notice of Exemption on Aug 3, 2026 for planning and design of the Bell Canyon Reservoir 3 and Creek Pipeline Replacement, a new 1.5-million-gallon reservoir and upgraded pipelines.</p>
+<div class="msg"><header><span>Email &amp;middot; Bell Canyon pipeline records, day one</span><button type="button" data-copy>Copy</button></header><pre>Your Bell Canyon Reservoir 3 and Creek Pipeline Replacement cleared CEQA for planning and design in August.
+
+Design usually starts with weeks of records research: every owner along the pipeline route, their as-builts, easements and the creek constraints. We can put all of it on one basemap for the route on day one.
+
+Want the owner and constraint list for the alignment?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Homer, saw Bell Canyon Reservoir 3 and the creek pipeline cleared CEQA for design in August. We can put every owner&#x27;s records and the creek constraints for the route on one basemap on day one, if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Ventura County Waterworks District No. 17, Bell Canyon Reservoir 3 and Creek Pipeline Replacement, NOE received 8/3/2026; contact Homer Arredondo, Sr. Engineering Manager; planning and design of a new 1.5-million-gallon reservoir and upgraded water pipelines. <a href="https://ceqanet.lci.ca.gov/2026080023" rel="noopener" target="_blank">ceqanet.lci.ca.gov/2026080023</a></li></ul>
+</article></div>
+    </div>
+    <p class="src">Copy is written as CivilGrid's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="build" data-label="Three things I&#x27;d build" data-sub="At CivilGrid">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>If I join</s></p>
+    <h2>Three things I'd build at CivilGrid.</h2>
+    <div class="three"><div class="pane"><h4>1. A design-award feed for the California AE</h4><p>Daily pulls from city council and commission agendas (Legistar, Public Works commissions, Board resolutions): each new design contract becomes an engineering-firm account with the project corridor, its moratorium blocks and other agencies&#x27; plans attached, in the AE&#x27;s queue the same week.</p></div><div class="pane"><h4>2. A CEQA trigger feed for the government BDR</h4><p>Every Western pipeline, water-main, sewer and undergrounding filing on CEQAnet, scored and routed to the San Diego BDR with the contact, the streets and a moratorium check where the city publishes one. The emails on this page, for each new filing.</p></div><div class="pane"><h4>3. A conflict report the CSM can bring to renewals</h4><p>For each enterprise utility or DOT account, a quarterly match of its published work plan against city paving and moratorium layers, like the EBMUD table here. It gives the CSM a reason to meet other departments and expand the account.</p></div></div>
+  </div>
+</section>
+
+<section class="s mid" data-key="ask" data-label="The ask" data-sub="A GTM role, or a pilot first">
+  <div class="wrap">
+    <p class="kick"><b>CivilGrid</b> <s>Shubham Sharma</s></p>
+    <h1>I'm looking for my next GTM role. I'd like to build this at CivilGrid.</h1>
+    <p class="lede">Happy to start with a 1-month pilot. My work, with live numbers:
+      <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For CivilGrid</b> &middot; <a href="https://shubhamsbuild.github.io">Shubham Sharma</a></span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 05</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
+  });
+})();
+
+})();
+</script>
+</body>
+</html>

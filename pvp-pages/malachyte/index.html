@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en" data-slide="0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Malachyte</title>
+<meta name="description" content="10 named leads with copy and three things I'd build, prepared for Malachyte.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<!--
+  Slide shell for per-company PVP pages, lifted from site/rawcanvas/index.html so
+  every /for/ page and the Raw Canvas deck read as the same artefact: one slide at
+  a time, keyboard / click / swipe, deep-linkable by hash. Filled by
+  pvp.py render_slides(); edit the shell here, the content in pvps.json.
+-->
+
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#FCFCFC; --surface:#FFFFFF; --raised:#F0F1F2;
+  --ink:#14181F; --ink2:#4E545E; --ink3:#626771;
+  --rule:#E2E4E8; --rule2:#EDEEF1;
+  --accent:#445C00; --accent-bg:#F4FFCB; --on-accent:#FCFCFC;
+  --hl:#DFFF00; --on-hl:#14181F;
+  --ok:#166534; --no:#B42318;
+  --grid:rgba(0,0,0,.04);
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}}
+:root[data-theme=dark]{
+  --bg:#0E1014; --surface:#14181F; --raised:#1B2029;
+  --ink:#F2F4F6; --ink2:#C5C9D4; --ink3:#969BA5;
+  --rule:#2A2F38; --rule2:#1C2129;
+  --accent:#DFFF00; --accent-bg:#1E2405; --on-accent:#14181F;
+  --ok:#4ADE80; --no:#F97066;
+  --grid:rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- stage ---------- */
+#stage{position:fixed;inset:0;display:grid;place-items:stretch}
+.s{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;
+  padding:clamp(60px,7vh,86px) clamp(20px,6vw,88px) clamp(76px,10vh,104px);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .34s ease,transform .34s ease,visibility .34s;
+  display:flex;flex-direction:column}
+.s[data-on]{opacity:1;visibility:visible;transform:none}
+.s::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:52px 52px}
+.wrap{width:100%;max-width:1080px;margin:auto 0}
+.s.mid .wrap{margin:auto 0}
+
+/* ---------- type ---------- */
+.kick{font:600 11px/1 var(--sans);letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--accent);margin:0 0 20px;display:flex;gap:12px;align-items:center}
+.kick b{font-weight:600}
+.kick s{text-decoration:none;color:var(--ink3);font-weight:400;letter-spacing:.8px}
+h1{font:700 clamp(34px,5.4vw,66px)/1.04 var(--sans);letter-spacing:-.025em;
+  margin:0;max-width:22ch;text-wrap:balance}
+h1.xl{font-size:clamp(42px,7.4vw,96px);max-width:16ch}
+h2{font:700 clamp(27px,3.5vw,44px)/1.1 var(--sans);letter-spacing:-.02em;
+  margin:0;max-width:26ch;text-wrap:balance}
+h3{font:600 13px/1 var(--sans);letter-spacing:.7px;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 14px}
+.lede{font:400 clamp(16px,1.55vw,20px)/1.58 var(--sans);color:var(--ink2);
+  max-width:60ch;margin:22px 0 0}
+.lede strong{color:var(--ink);font-weight:600}
+p{margin:14px 0 0;font:400 15.5px/1.62 var(--sans);color:var(--ink2);max-width:62ch}
+p strong{color:var(--ink);font-weight:600}
+.q{font:400 15px/1.6 var(--sans);color:var(--ink2);max-width:66ch;margin:0 0 26px;
+  padding:14px 0 14px 18px;border-left:2px solid var(--rule)}
+.q i{font-style:normal;color:var(--ink3)}
+mark{background:var(--accent-bg);color:var(--ink);padding:1px 5px;border-radius:3px}
+.src{margin-top:auto;padding-top:26px;font:400 11.5px/1.6 var(--mono);
+  color:var(--ink3);max-width:76ch}
+.mono{font-family:var(--mono)}
+
+/* ---------- stat blocks ---------- */
+.stats{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:30px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr))}
+.stat{background:var(--surface);padding:18px 20px 16px}
+.stat b{display:block;font:700 clamp(24px,2.9vw,36px)/1 var(--sans);
+  letter-spacing:-.02em;color:var(--ink)}
+.stat b.a{color:var(--accent)}
+.stat span{display:block;margin-top:8px;font:400 11.5px/1.45 var(--sans);color:var(--ink3)}
+
+/* ---------- generic card rows ---------- */
+.rows{display:grid;gap:10px;margin:28px 0 0}
+.row{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px}
+.row em{font-style:normal;font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--accent);background:var(--accent-bg);padding:5px 8px;border-radius:4px;
+  white-space:nowrap;margin-top:2px}
+.row p{margin:0;font-size:14.5px}
+.row p b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+
+/* ---------- interactive: staged build (Q2) ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}
+.tabs button{font:600 12px/1 var(--sans);letter-spacing:.3px;cursor:pointer;
+  padding:11px 15px;border-radius:999px;border:1px solid var(--rule);
+  background:var(--surface);color:var(--ink2);transition:.18s}
+.tabs button:hover{border-color:var(--ink3);color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{margin:18px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:24px 26px;min-height:188px}
+.panel[hidden]{display:none}
+.panel h4{margin:0 0 6px;font:700 20px/1.25 var(--sans);letter-spacing:-.015em;color:var(--ink)}
+.panel .spec{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.panel .spec code{font:500 11.5px/1 var(--mono);background:var(--raised);
+  color:var(--ink);padding:7px 10px;border-radius:5px;border:1px solid var(--rule)}
+.panel .why{margin-top:14px;font-size:14.5px}
+
+/* ---------- interactive: volume chart (Q6) ---------- */
+.chart{margin:30px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:22px 24px 16px}
+.chart .ax{display:flex;justify-content:space-between;font:400 11px/1 var(--mono);
+  color:var(--ink3);margin-bottom:12px}
+.bars{display:flex;align-items:flex-end;gap:clamp(3px,.7vw,9px);height:150px;
+  padding-bottom:20px}
+.bars button{flex:1;position:relative;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.bars i{display:block;background:var(--rule);border-radius:3px 3px 0 0;transition:.18s;
+  min-height:3px}
+.bars button:hover i,.bars button[aria-pressed=true] i{background:var(--ink3)}
+.bars button.peak i{background:var(--accent)}
+.bars button.bad i{background:var(--no)}
+.bars button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.bars u{position:absolute;inset:auto 0 -22px;text-decoration:none;
+  font:400 10.5px/1 var(--mono);color:var(--ink3);text-align:center;letter-spacing:-.2px}
+.read{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:9px;overflow:hidden;margin:14px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.read div{background:var(--raised);padding:13px 15px}
+.read div b{display:block;font:700 20px/1 var(--sans);color:var(--ink);letter-spacing:-.015em}
+.read div span{display:block;margin-top:6px;font:400 11px/1.4 var(--sans);color:var(--ink3)}
+
+/* ---------- waterfall (Q3) ---------- */
+.flow{margin:26px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:12px}
+.flow svg{display:block;width:100%;height:auto}
+.code{margin:22px 0 0;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:16px 18px;overflow-x:auto}
+.code pre{margin:0;font:400 12.5px/1.72 var(--mono);color:var(--ink2);white-space:pre}
+.code pre b{color:var(--ink);font-weight:600}
+.code pre s{text-decoration:none;color:var(--ink3)}
+.code pre u{text-decoration:none;color:var(--accent)}
+
+/* ---------- exhibits ---------- */
+.fig{margin:26px 0 0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;
+  background:var(--surface);line-height:0}
+.fig a{display:block;line-height:0}
+.fig img{display:block;width:100%;height:auto}
+.figc{margin:10px 0 0;font:400 12px/1.5 var(--mono);color:var(--ink3)}
+
+/* ---------- two-up ---------- */
+.two{display:grid;gap:22px;margin:28px 0 0;grid-template-columns:1fr 1fr}
+.pane{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px 24px}
+.pane h4{margin:0 0 10px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;color:var(--ink)}
+.pane p{margin:8px 0 0;font-size:14.5px;max-width:none}
+.pane .tag{display:inline-block;margin-bottom:12px;font:600 10.5px/1 var(--mono);
+  letter-spacing:.6px;padding:6px 9px;border-radius:4px}
+.tag.kill{background:var(--accent-bg);color:var(--accent)}
+.tag.loss{background:var(--raised);color:var(--ink3)}
+
+/* ---------- pending (awaiting a fact only Shubham has) ---------- */
+.todo{margin:28px 0 0;border:1px dashed var(--rule);border-radius:10px;
+  padding:18px 20px;background:var(--raised)}
+.todo b{display:block;font:600 12px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase;margin-bottom:8px}
+.todo p{margin:0;font-size:14.5px}
+
+/* ---------- chrome ---------- */
+#bar{position:fixed;left:0;top:0;height:2px;background:var(--accent);z-index:40;
+  width:0;transition:width .34s ease}
+#chrome{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  align-items:center;gap:14px;padding:14px clamp(20px,6vw,88px);
+  background:linear-gradient(to top,var(--bg) 58%,transparent);
+  font:400 12px/1 var(--mono);color:var(--ink3)}
+#chrome .who{margin-right:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chrome .who b{color:var(--ink2);font-weight:500}
+#chrome button{font:500 12px/1 var(--mono);cursor:pointer;color:var(--ink2);
+  background:var(--surface);border:1px solid var(--rule);border-radius:7px;
+  padding:9px 12px;transition:.16s}
+#chrome button:hover:not(:disabled){border-color:var(--ink3);color:var(--ink)}
+#chrome button:disabled{opacity:.38;cursor:default}
+#count{min-width:62px;text-align:center;font-variant-numeric:tabular-nums}
+#hint{position:fixed;right:clamp(20px,6vw,88px);top:18px;z-index:30;
+  font:400 11px/1 var(--mono);color:var(--ink3);transition:opacity .5s}
+
+/* ---------- index overlay ---------- */
+#idx{position:fixed;inset:0;z-index:50;background:var(--bg);padding:clamp(28px,6vh,64px) clamp(20px,6vw,88px);
+  overflow-y:auto;display:none}
+#idx[data-on]{display:block}
+#idx h3{margin:0 0 22px}
+#idx ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(272px,1fr))}
+#idx button{width:100%;text-align:left;cursor:pointer;background:var(--surface);
+  border:1px solid var(--rule);border-radius:10px;padding:14px 16px;transition:.16s;
+  display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:baseline}
+#idx button:hover{border-color:var(--accent);background:var(--raised)}
+#idx button em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+#idx button span{font:600 14.5px/1.35 var(--sans);color:var(--ink)}
+#idx button i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);
+  color:var(--ink3);margin-top:4px}
+
+/* Grid and flex children size to min-content by default, so one <pre> or one
+   unbreakable token inside a track pushes that track wider than the viewport and
+   the whole page scrolls sideways. min-width:0 keeps the overflow inside the
+   element that actually opted into scrolling. This is what made the Q3 service
+   slide 700px wide on a 320px phone. */
+.two>*,.rows>*,.row>*,.stats>*,.read>*,.panel,.pane,.chart,.fig{min-width:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1080px){
+  .s{padding:clamp(52px,6vh,78px) clamp(20px,5vw,56px) clamp(72px,9vh,96px)}
+}
+@media (max-width:860px){
+  .two{grid-template-columns:1fr}
+  .bars{height:118px}
+  .bars u{display:none}
+  h1{max-width:18ch}
+}
+@media (max-width:620px){
+  .s{padding:48px 20px 92px}
+  .stats{grid-template-columns:1fr 1fr}
+  /* Two up stays readable only if the figure shrinks with the box. 1,955,979 at
+     the desktop 24px floor is wider than a half-column on a small phone. */
+  .stat b{font-size:clamp(18px,5.4vw,36px)}
+  .panel{padding:18px 18px}
+  .row{grid-template-columns:1fr;gap:10px}
+  .row em{justify-self:start}
+  #hint{display:none}
+  #chrome .who{font-size:11px}
+}
+@media (max-width:460px){
+  /* The chrome bar is the one thing that must never wrap: at this width the
+     name is the only part a reader does not need. */
+  #chrome{gap:9px;padding:12px 16px}
+  #chrome .who{display:none}
+  .s{padding:44px 16px 86px}
+  .idx ol,#idx ol{grid-template-columns:1fr}
+}
+
+/* Above roughly 1600px the fixed column starts to read as a narrow strip in the
+   middle of the screen, so the measure and the display sizes both step up. */
+@media (min-width:1600px){
+  .wrap{max-width:1240px}
+}
+@media (min-width:1600px) and (min-height:1100px){
+  h1{font-size:clamp(66px,4.4vw,82px)}
+  h1.xl{font-size:clamp(96px,6.6vw,124px)}
+  h2{font-size:clamp(44px,2.9vw,54px)}
+  .lede{font-size:21px}
+  p{font-size:16.5px}
+}
+/* A laptop is short before it is narrow. 1366x768 is still the most common
+   screen a reviewer opens this on, and at the desktop rhythm almost every slide
+   needed scrolling there. Keyed on height so a tall desktop monitor keeps the
+   generous spacing. */
+@media (min-width:861px) and (max-height:1000px){
+  .s{padding-top:clamp(38px,4.6vh,58px);padding-bottom:clamp(62px,7.6vh,78px)}
+  h1{font-size:clamp(32px,4.3vw,54px)}
+  h1.xl{font-size:clamp(40px,6.2vw,76px)}
+  h2{font-size:clamp(24px,2.9vw,37px)}
+  .lede{font-size:17px;line-height:1.5;margin-top:18px}
+  p{font-size:14.5px;line-height:1.55;margin-top:11px}
+  .q{margin-bottom:20px;padding:11px 0 11px 16px;font-size:14px}
+  .kick{margin-bottom:15px}
+  .stats,.rows,.tabs,.chart,.two,.fig{margin-top:20px}
+  .rows{gap:8px}
+  .row{padding:13px 16px}
+  .stat{padding:14px 17px 13px}
+  .pane{padding:18px 20px}
+  .panel{padding:18px 21px;min-height:0;margin-top:14px}
+  .src{padding-top:18px}
+  h3{margin-bottom:10px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .s{transition:none}#bar{transition:none}
+}
+
+/* ---------- Raw Canvas additions ---------- */
+.steps{counter-reset:st;display:grid;gap:8px;margin:26px 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.step{counter-increment:st;background:var(--surface);border:1px solid var(--rule);
+  border-radius:10px;padding:14px 16px 15px;position:relative}
+.step::before{content:counter(st,decimal-leading-zero);display:block;
+  font:600 11px/1 var(--mono);color:var(--accent);margin-bottom:9px}
+.step b{display:block;font:600 14.5px/1.35 var(--sans);color:var(--ink);margin-bottom:5px}
+.step p{margin:0;font-size:13.5px;line-height:1.5}
+.step code,.tool{font:500 11px/1 var(--mono);background:var(--raised);color:var(--ink2);
+  padding:4px 6px;border-radius:4px;border:1px solid var(--rule);white-space:nowrap;
+  display:inline-block;margin:6px 4px 0 0}
+.step.hot{border-color:var(--accent)}
+.tag.as{background:var(--raised);color:var(--ink3)}
+.tag.off{background:var(--accent-bg);color:var(--accent)}
+
+.board{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:14px;margin:18px 0 0}
+.leads{display:grid;gap:6px;align-content:start}
+.leads button{all:unset;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:10px;
+  align-items:baseline;background:var(--surface);border:1px solid var(--rule);border-radius:9px;
+  padding:11px 13px;transition:.16s}
+.leads button:hover{border-color:var(--ink3)}
+.leads button[aria-pressed=true]{border-color:var(--accent);background:var(--raised)}
+.leads button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.leads em{font-style:normal;font:500 11px/1 var(--mono);color:var(--ink3)}
+.leads span{font:600 14px/1.3 var(--sans);color:var(--ink)}
+.leads i{display:block;font-style:normal;font:400 12px/1.4 var(--sans);color:var(--ink3);margin-top:3px}
+.detail{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;min-width:0}
+.detail h4{margin:0;font:700 19px/1.25 var(--sans);letter-spacing:-.012em;color:var(--ink)}
+.detail .meta{margin:6px 0 0;font:400 12.5px/1.5 var(--mono);color:var(--ink3)}
+.detail .sig{margin:14px 0 0;padding:12px 14px;border-left:2px solid var(--accent);
+  background:var(--raised);border-radius:0 8px 8px 0;font-size:14px;max-width:none}
+.msg{margin:14px 0 0;border:1px solid var(--rule);border-radius:9px;overflow:hidden}
+.msg header{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 12px;background:var(--raised);font:600 11px/1 var(--mono);letter-spacing:.5px;
+  color:var(--ink3);text-transform:uppercase}
+.msg header button{font:500 11px/1 var(--mono);cursor:pointer;color:var(--ink2);background:var(--surface);
+  border:1px solid var(--rule);border-radius:6px;padding:6px 9px;text-transform:none;letter-spacing:0}
+.msg header button:hover{color:var(--ink);border-color:var(--ink3)}
+.msg pre{margin:0;padding:13px 14px;font:400 13.5px/1.6 var(--sans);color:var(--ink);
+  white-space:pre-wrap;word-wrap:break-word}
+.detail .srcs{margin:14px 0 0;font:400 11.5px/1.7 var(--mono);color:var(--ink3);word-break:break-all}
+.detail .srcs a{color:var(--ink2)}
+.seg{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}
+.seg button{font:600 12px/1 var(--sans);cursor:pointer;padding:10px 14px;border-radius:999px;
+  border:1px solid var(--rule);background:var(--surface);color:var(--ink2)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.three{display:grid;gap:14px;margin:26px 0 0;grid-template-columns:repeat(3,1fr)}
+.three>*,.steps>*,.board>*,.leads>*{min-width:0}
+@media (max-width:980px){.three{grid-template-columns:1fr}}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.chip{font:500 11px/1 var(--mono);background:var(--accent-bg);color:var(--accent);padding:6px 9px;
+  border-radius:4px;text-decoration:none;overflow-wrap:anywhere;line-height:1.35}
+a.chip:hover{text-decoration:underline}
+.detail > article{display:none}.detail > article.on{display:block}
+.pm h3{margin:0}
+.pm .take{font-size:17px;line-height:1.5;color:var(--ink);margin:8px 0 0;max-width:60ch}
+.pm .for{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin:10px 0 0}
+details.srcs{margin:14px 0 0}
+details.srcs summary{cursor:pointer;font:500 11.5px/1.4 var(--mono);color:var(--ink3);list-style:none}
+details.srcs summary::-webkit-details-marker{display:none}
+details.srcs summary::before{content:"+ "}details.srcs[open] summary::before{content:"3  "}
+.detail h5{margin:16px 0 6px;font:600 11px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.detail p{max-width:none;font-size:14px;margin:6px 0 0}
+.ev{list-style:none;padding:0;margin:6px 0 0;font:400 11.5px/1.6 var(--mono);color:var(--ink3)}
+.ev li{margin:0 0 4px;overflow-wrap:anywhere}.ev a{color:var(--ink2)}
+.mail{background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px 18px;margin:18px 0 0}
+.mail .to{font:400 11.5px/1.5 var(--mono);color:var(--ink3);margin-bottom:6px}
+.mail .subj{font-weight:600;color:var(--ink);margin-bottom:4px}
+.mail p{max-width:none;font-size:14.5px;margin:8px 0 0}
+.asset{margin:12px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.asset-h{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 12px;font:400 11px/1.4 var(--mono);
+  color:var(--ink3);background:var(--raised);padding:8px 12px;border-bottom:1px solid var(--rule)}
+.asset-h span:first-child{color:var(--ink);font-weight:500}
+.asset-note{font:400 11.5px/1.5 var(--sans);color:var(--ink3);padding:7px 12px;margin:0;border-top:1px solid var(--rule);max-width:none}
+.tbl{width:100%;border-collapse:collapse;font:400 13px/1.45 var(--sans);color:var(--ink2)}
+.tbl th{text-align:left;font:600 10.5px/1.3 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);
+  padding:9px 12px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--rule2);vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:last-child td{border-bottom:0}.tbl td b{color:var(--ink)}
+.boxed{margin:22px 0 0;border:1px solid var(--rule);border-radius:10px;overflow-x:auto;background:var(--surface)}
+.k{display:inline-block;font:600 10.5px/1 var(--mono);padding:4px 7px;border-radius:4px;white-space:nowrap}
+.k.held{background:var(--accent-bg);color:var(--accent)}.k.killed,.k.kill{background:var(--raised);color:var(--ink3)}
+.k.maybe{background:var(--raised);color:var(--ink2)}
+.fus{display:grid;gap:10px;margin:12px 0 0;grid-template-columns:repeat(3,1fr)}
+.fu{border-left:2px solid var(--rule);padding:2px 0 2px 12px}
+.fu b{display:block;font:600 11px/1 var(--mono);color:var(--ink3);margin-bottom:6px}
+.fu p{font-size:13.5px;margin:0;max-width:none}
+.scores{display:flex;flex-wrap:wrap;gap:6px 14px;margin:16px 0 0;font:400 11px/1.4 var(--mono);color:var(--ink3)}
+.scores b{color:var(--ink)}
+.pane dl{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+.pane dt{font:600 10.5px/1 var(--mono);letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);margin-top:12px}
+.pane dd{margin:4px 0 0;line-height:1.5}
+.stat p{margin:8px 0 0;font-size:12.5px;line-height:1.5;max-width:none}
+.fus>*,.boxed,.asset,.mail{min-width:0}
+@media (max-width:860px){.fus{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="hint">&larr; &rarr; to move &middot; <b>I</b> for index</div>
+
+<main id="stage">
+<section class="s mid" data-key="start" data-label="Cover" data-sub="What&#x27;s on this page">
+  <div class="wrap">
+    <p class="kick"><b>For Malachyte</b> <s>from Shubham Sharma</s></p>
+    <h1 class="xl">Ten Shopify apparel and footwear brands you could email today.</h1>
+    <p class="lede">Three messages they'd pay to receive, ten named leads to send them to,
+      and three things I'd build at Malachyte. Every fact links to its public source.</p>
+    <p class="src">I'm looking for my next GTM role. &middot; <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+  </div>
+</section>
+
+<section class="s" data-key="messages" data-label="Three messages" data-sub="What they&#x27;d pay to receive">
+  <div class="wrap">
+    <p class="kick"><b>01</b> <s>The messages</s></p>
+    <h2>Three messages your Shopify apparel and footwear brands would pay to receive.</h2>
+    <div class="board">
+      <div class="leads"><button type="button" aria-pressed="false"><em>01</em><span>Your &#x27;gifts under 100&#x27; search, ready for Black Friday<i>For Founder or ecommerce lead of a Shopify apparel brand</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Put the Cara first in &#x27;womens chelsea boot&#x27;<i>For CEO or ecommerce lead of a Shopify footwear brand</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Two vest ads to re-point today<i>For Founder or growth lead of a Shopify brand running Meta ads</i></span></button></div>
+      <div class="detail" aria-live="polite"><article class="pm">
+<h3>Your &#x27;gifts under 100&#x27; search, ready for Black Friday</h3>
+<p class="take">What your own search returns for &#x27;gifts under 100&#x27;, and the in-stock products under $100 it should show instead.</p>
+<div class="mail"><div class="to">To: Founder or ecommerce lead of a Shopify apparel brand, Duckworth</div>
+<div class="subj">Gift searches before Black Friday</div><p>When I searched &quot;gifts under 100&quot; on duckworthco.com on Oct 29, it returned one product: the Women&#x27;s WoolCloud Vest, at $259.</p><p>That&#x27;s the phrase holiday shoppers type, and they&#x27;d leave thinking nothing fits their budget. But dozens of your products under $100 were in stock that day, from Vapor tees to sock packs.</p><p>I pulled them with prices and sizes in stock, ready to pin to that search before Black Friday. Want the list?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: In-stock Duckworth products under $100, Oct 29, 2026 &middot; first 3 of 56</span></div><table class="tbl"><tr><th>Product</th><th>Price</th><th>Variants in stock</th></tr><tr><td>Men&#x27;s Vapor Tee</td><td>$79</td><td>30 of 40</td></tr><tr><td>Women&#x27;s Vapor Tee</td><td>$79</td><td>25 of 25</td></tr><tr><td>Midweight Divide Crew Sock 6-Pack</td><td>$78</td><td>23 of 24</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] duckworthco.com search for &#x27;gifts under 100&#x27; on Oct 29, 2026: 1 result, the Women&#x27;s WoolCloud Vest at $259. <a href="https://www.duckworthco.com/search?q=gifts+under+100" rel="noopener" target="_blank">duckworthco.com/search?q=gifts+under+100</a></li><li>[2] Duckworth catalogue, Oct 29, 2026: 56 in-stock products priced under $100 (gift cards excluded), mostly sock packs and Vapor tees. Men&#x27;s Vapor Tee $79, 30 of 40 variants in stock; Women&#x27;s Vapor Tee $79, 25 of 25; Midweight Divide Crew Sock 6-Pack $78, 23 of 24; Men&#x27;s Vapor Brief $49, 23 of 25; Women&#x27;s Vapor Long Sleeve Crew $85, 17 of 25. <a href="https://www.duckworthco.com/products.json?limit=250" rel="noopener" target="_blank">duckworthco.com/products.json?limit=250</a></li><li>[3] duckworthco.com search for &#x27;gifts under 50&#x27; on Oct 29, 2026: 36 results; the predictive search lists the $259 Women&#x27;s WoolCloud Vest first and the $119 Men&#x27;s Vapor Hoody second. <a href="https://www.duckworthco.com/search/suggest.json?q=gifts+under+50&amp;resources[type]=product" rel="noopener" target="_blank">duckworthco.com/search/suggest.json?q=gifts+under+50&amp;resources[t</a></li><li>[4] Duckworth&#x27;s Meta ad for the Men&#x27;s Powder Hoody, Library ID 1131052672593417, started running Oct 14, 2026 and links to /products/mens-powder-hoody. On Oct 29 that product had 18 of 30 size-and-colour options in stock, so 12 were sold out. <a href="https://www.facebook.com/ads/library/?id=1131052672593417" rel="noopener" target="_blank">facebook.com/ads/library/?id=1131052672593417</a></li><li>[5] Malachyte&#x27;s Fun.com case study: search that rescues failed and long-tail queries in session. <a href="https://www.malachyte.com/case-studies/fun-com" rel="noopener" target="_blank">malachyte.com/case-studies/fun-com</a></li><li>[6] Malachyte&#x27;s pilot runs 21 days and is A/B tested inside its platform on Intelligems. <a href="https://www.malachyte.com/pilot-program" rel="noopener" target="_blank">malachyte.com/pilot-program</a></li></ul></details>
+</article><article class="pm">
+<h3>Put the Cara first in &#x27;womens chelsea boot&#x27;</h3>
+<p class="take">Your search ranks two 2023 boots with broken size runs above the full-size line your ads promote.</p>
+<div class="mail"><div class="to">To: CEO or ecommerce lead of a Shopify footwear brand, Nisolo</div>
+<div class="subj">Leading with the Cara in search</div><p>When I searched &quot;womens chelsea boot&quot; on nisolo.com on Oct 29, the first two results were the Eva from 2023, with two and five of 11 sizes left.</p><p>Your Cara, launched in September with all 11 sizes in stock, starts at slot three. It&#x27;s also the boot your Meta ads point to.</p><p>I pulled the first results with sizes in stock and launch dates, so you can see what to move up. Want the list?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: nisolo.com search: &#x27;womens chelsea boot&#x27;, Oct 29, 2026 &middot; first 3 of 87</span></div><table class="tbl"><tr><th>Slot</th><th>Boot</th><th>Added</th><th>Sizes in stock</th></tr><tr><td>1</td><td>Eva Everyday Chelsea Boot, Almond</td><td>Jul 2023</td><td>2 of 11</td></tr><tr><td>2</td><td>Eva Everyday Chelsea Boot, Black</td><td>Jul 2023</td><td>5 of 11</td></tr><tr><td>3</td><td>Cara Chelsea Boot, British Tan</td><td>Sep 21, 2026</td><td>11 of 11</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 4</summary><ul class="ev"><li>[1] nisolo.com search for &#x27;womens chelsea boot&#x27; on Oct 29, 2026: 87 results. Order: 1 Eva Everyday Chelsea Boot Almond, 2 Eva Everyday Chelsea Boot Black, 3-6 Cara Chelsea Boot (British Tan, Chocolate Brown, Black, Black/Black), 7-9 Go-To Lug Chelsea Boot 2.0, 10 Go-To Lug Mid; slots 11-14 are men&#x27;s Go-To Chelsea Boot 2.0 styles. <a href="https://nisolo.com/search?q=womens+chelsea+boot&amp;type=product" rel="noopener" target="_blank">nisolo.com/search?q=womens+chelsea+boot&amp;type=product</a></li><li>[2] Eva Everyday Chelsea Boot Almond: added 2023-07-27, 2 of 11 sizes in stock (8.5, 11). Eva Black: added 2023-07-27, 5 of 11 sizes. Each Cara Chelsea Boot colourway: added 2026-09-21, 11 of 11 sizes in stock, $248. <a href="https://nisolo.com/products/womens-eva-everyday-chelsea-boot-almond.js" rel="noopener" target="_blank">nisolo.com/products/womens-eva-everyday-chelsea-boot-almond.js</a></li><li>[3] Nisolo Meta ad, Library ID 2203424971056174, started Oct 8, 2026, links to the Cara Chelsea Boot Black. <a href="https://www.facebook.com/ads/library/?id=2203424971056174" rel="noopener" target="_blank">facebook.com/ads/library/?id=2203424971056174</a></li><li>[4] Malachyte&#x27;s BRUNT case study: merchandising rules (boost new arrivals, suppress out-of-stock, margin) flow across search, product pages and cart. <a href="https://www.malachyte.com/case-studies/brunt-workwear" rel="noopener" target="_blank">malachyte.com/case-studies/brunt-workwear</a></li></ul></details>
+</article><article class="pm">
+<h3>Two vest ads to re-point today</h3>
+<p class="take">Your live Meta ads, clicked through: which land on a 404, a redirect or a sold-out page, and where to send them.</p>
+<div class="mail"><div class="to">To: Founder or growth lead of a Shopify brand running Meta ads, FORLOH</div>
+<div class="subj">Two vest ads to re-point</div><p>Two of your active Meta ads, both started Aug 20, link to the Merino Hi-Loft Insulator Vest. When I clicked through on Oct 29, the women&#x27;s link opened your 404 page and the men&#x27;s link dropped people on the homepage.</p><p>Everyone those ads win lands with nothing to buy. Your Polartec fleece vests are in stock in every size, so a link swap keeps the spend working today.</p><p>I pulled both ads with their IDs, copy and landing results. Want them?</p></div>
+<div class="asset"><div class="asset-h"><span>Attached: FORLOH vest ads and where they land, Oct 29, 2026 &middot; first 3 of 2</span></div><table class="tbl"><tr><th>Library ID</th><th>Started</th><th>Headline</th><th>Links to</th><th>Result</th></tr><tr><td>1625037832618348</td><td>Aug 20, 2026</td><td>Built to Layer</td><td>/products/womens-merino-hi-loft-insulator-vest</td><td>404 page</td></tr><tr><td>930387663466658</td><td>Aug 20, 2026</td><td>Quiet Warmth</td><td>/products/mens-merino-hi-loft-insulator-vest</td><td>Redirects to homepage</td></tr></table></div>
+<details class="srcs"><summary>Sources &middot; 6</summary><ul class="ev"><li>[1] FORLOH Meta ad &#x27;Built to Layer&#x27;, Library ID 1625037832618348, active, started Aug 20, 2026, links to forloh.com/products/womens-merino-hi-loft-insulator-vest. <a href="https://www.facebook.com/ads/library/?id=1625037832618348" rel="noopener" target="_blank">facebook.com/ads/library/?id=1625037832618348</a></li><li>[2] FORLOH Meta ad &#x27;Quiet Warmth&#x27;, Library ID 930387663466658, active, started Aug 20, 2026, links to forloh.com/products/mens-merino-hi-loft-insulator-vest. <a href="https://www.facebook.com/ads/library/?id=930387663466658" rel="noopener" target="_blank">facebook.com/ads/library/?id=930387663466658</a></li><li>[3] Opened Oct 29, 2026: the women&#x27;s vest URL returns FORLOH&#x27;s 404 page; the men&#x27;s vest URL redirects to the homepage. <a href="https://forloh.com/products/womens-merino-hi-loft-insulator-vest" rel="noopener" target="_blank">forloh.com/products/womens-merino-hi-loft-insulator-vest</a></li><li>[4] FORLOH&#x27;s live catalogue on Oct 29, 2026: 66 products, none a Merino Hi-Loft Insulator Vest. Women&#x27;s Polartec Fleece Vest $129, 15 of 15 sizes in stock; Men&#x27;s Polartec 200 Fleece Vest $139, 18 of 18. 25 in-stock products are priced under $100. <a href="https://forloh.com/products.json?limit=250" rel="noopener" target="_blank">forloh.com/products.json?limit=250</a></li><li>[5] forloh.com search for &#x27;gifts under 100&#x27; on Oct 29, 2026 returns one product: the FORLOH Gift Card. <a href="https://forloh.com/search?q=gifts+under+100&amp;type=product" rel="noopener" target="_blank">forloh.com/search?q=gifts+under+100&amp;type=product</a></li><li>[6] Malachyte&#x27;s homepage: traffic source and search terms feed each visitor&#x27;s live profile. <a href="https://www.malachyte.com/" rel="noopener" target="_blank">malachyte.com/</a></li></ul></details>
+</article></div>
+    </div>
+    <p class="src">Each one was run on a real, named account. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="leads" data-label="The 10 leads" data-sub="Named, sourced, copy written">
+  <div class="wrap">
+    <p class="kick"><b>02</b> <s>The ten leads</s></p>
+    <h2>Ten leads, each with a reason to email now.</h2>
+    <div class="board">
+      <div class="leads" id="leads"><button type="button" aria-pressed="false"><em>01</em><span>Chris Riccobono<i>UNTUCKit &middot; New Gallis ad; core sizes sold out</i></span></button><button type="button" aria-pressed="false"><em>02</em><span>Dayna Quanbeck<i>Rothy&#x27;s &middot; Almond Ballet launch ads, Oct 22</i></span></button><button type="button" aria-pressed="false"><em>03</em><span>Taryn Jones Laeben<i>Nisolo &middot; Cara Chelsea ads live since Oct 8</i></span></button><button type="button" aria-pressed="false"><em>04</em><span>Matt Williams<i>Topo Designs &middot; Live ad lands on a sold-out bag</i></span></button><button type="button" aria-pressed="false"><em>05</em><span>Andy Techmanski<i>FORLOH &middot; Vest ads landing on a 404</i></span></button><button type="button" aria-pressed="false"><em>06</em><span>Nancy Green<i>Beyond Yoga &middot; CEO plans &#x27;many&#x27; new stores</i></span></button><button type="button" aria-pressed="false"><em>07</em><span>John Helle<i>Duckworth &middot; Powder Hoody ads started Oct 14</i></span></button><button type="button" aria-pressed="false"><em>08</em><span>Redouane Ramdani<i>Atorie &middot; $9.5M seed; 18 product ads live</i></span></button><button type="button" aria-pressed="false"><em>09</em><span>Angelica Munson<i>KnitWell Group &middot; New role owning personalization</i></span></button><button type="button" aria-pressed="false"><em>10</em><span>Tracy Dick<i>Shoe Station Group &middot; New CMO owning data and loyalty</i></span></button></div>
+      <div class="detail" id="detail" aria-live="polite"><article class="lead">
+<h4>Chris Riccobono</h4>
+<p class="meta">Founder, UNTUCKit</p>
+<p class="sig"><strong>Why now:</strong> Randa acquired UNTUCKit on Sep 1. A Meta ad for the Wrinkle-Free Gallis Shirt in green started Oct 26; on Oct 29, 12 of its 24 size-and-fit options were sold out, including Medium and Large in Regular Fit.</p>
+<div class="msg"><header><span>Email &amp;middot; Your Gallis ad, by size</span><button type="button" data-copy>Copy</button></header><pre>Chris, one of your newest Meta ads, for the Wrinkle-Free Gallis Shirt in green, lands on a page where, when I checked on Oct 29, 12 of its 24 size-and-fit options were sold out, including Medium and Large in Regular Fit.
+
+Those are the sizes most of that ad&#x27;s clicks will want. Slim Fit was still in stock in Small to Large.
+
+I pulled your active ads with the sizes in stock on each landing page. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Chris, congrats on the Randa deal. Your Gallis Shirt ad started Oct 26; when I checked Oct 29, 12 of 24 size-and-fit options were sold out, Medium and Large Regular included. I pulled your active ads with stock by size if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] UNTUCKit Meta ad, Library ID 1595562361651656, started Oct 26, 2026, links to the Wrinkle-Free Gallis Shirt (gallis-wf-green). <a href="https://www.facebook.com/ads/library/?id=1595562361651656" rel="noopener" target="_blank">facebook.com/ads/library/?id=1595562361651656</a></li><li>[2] Wrinkle-Free Gallis Shirt, Dark Green, $115, on Oct 29, 2026: 12 of 24 size-and-fit options sold out, including Medium / Regular Fit and Large / Regular Fit; Slim Fit in stock in Small, Medium and Large. <a href="https://www.untuckit.com/products/gallis-wf-green" rel="noopener" target="_blank">untuckit.com/products/gallis-wf-green</a></li><li>[3] Textile World, Sep 1, 2026: Randa acquired UNTUCKit; founder Chris Riccobono quoted; more than 70 stores. <a href="https://www.textileworld.com/textile-world/knitting-apparel/2026/09/randa-acquires-untuckit-brand-and-operations/" rel="noopener" target="_blank">textileworld.com/textile-world/knitting-apparel/2026/09/randa-ac</a></li></ul>
+</article><article class="lead">
+<h4>Dayna Quanbeck</h4>
+<p class="meta">CEO &amp; President, Rothy&#x27;s</p>
+<p class="sig"><strong>Why now:</strong> Rothy&#x27;s started a Meta ad for the new Almond Toe Ballet Flat on Oct 22. On Oct 29 its search for &#x27;gifts under 100&#x27; returned 2 results, both priced $100, one marked out of stock.</p>
+<div class="msg"><header><span>Email &amp;middot; Your gift search, before Black Friday</span><button type="button" data-copy>Copy</button></header><pre>Dayna, when I searched &quot;gifts under 100&quot; on rothys.com on Oct 29, it returned two results: the virtual gift card and a travel pouch set marked out of stock.
+
+Both were priced at $100, so neither was under it. Meanwhile 174 products under $100 were in stock that day, from kids&#x27; Mary Janes to the Bow Point II.
+
+I pulled the in-stock list with prices, ready to pin to that search. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Dayna, on Oct 29 rothys.com&#x27;s search for &#x27;gifts under 100&#x27; returned two items, both $100, one out of stock. 174 products under $100 were in stock that day. I pulled the list with prices, ready to pin before Black Friday.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] rothys.com search for &#x27;gifts under 100&#x27; on Oct 29, 2026: 2 results, The Virtual Gift Card $100 and The Travel Pouch Set (Toffee Chevron) $100, the second badged Out of Stock. <a href="https://rothys.com/search?q=gifts+under+100" rel="noopener" target="_blank">rothys.com/search?q=gifts+under+100</a></li><li>[2] Rothy&#x27;s catalogue, Oct 29, 2026: 749 products; 174 in stock priced under $100 (gift cards excluded), e.g. The Kids Tux Bow Mary Jane $60, The Bow Point II $99. <a href="https://rothys.com/products.json?limit=250" rel="noopener" target="_blank">rothys.com/products.json?limit=250</a></li><li>[3] Rothy&#x27;s Meta ad, Library ID 1326468979506389, started Oct 22, 2026, links to the Almond Toe Ballet Flat in black. <a href="https://www.facebook.com/ads/library/?id=1326468979506389" rel="noopener" target="_blank">facebook.com/ads/library/?id=1326468979506389</a></li><li>[4] Modern Retail, Sep 19, 2026: Dayna Quanbeck, CEO &amp; president of Rothy&#x27;s; the brand crossed $211 million in sales last year. <a href="https://www.modernretail.co/operations/how-rothys-built-a-dtc-footwear-brand-with-staying-power/" rel="noopener" target="_blank">modernretail.co/operations/how-rothys-built-a-dtc-footwear-brand</a></li><li>[5] rothys.com page source: Constructor (search) and Intelligems scripts. Malachyte&#x27;s pilot runs 21 days on Intelligems. <a href="https://rothys.com/" rel="noopener" target="_blank">rothys.com/</a></li></ul>
+</article><article class="lead">
+<h4>Taryn Jones Laeben</h4>
+<p class="meta">CEO, Nisolo</p>
+<p class="sig"><strong>Why now:</strong> Nisolo launched the Cara Chelsea Boot on Sep 21 and has run Meta ads for it since Oct 8. Its own search for &#x27;womens chelsea boot&#x27; still shows two 2023 Eva boots with broken size runs first.</p>
+<div class="msg"><header><span>Email &amp;middot; Leading with the Cara in search</span><button type="button" data-copy>Copy</button></header><pre>Taryn, when I searched &quot;womens chelsea boot&quot; on nisolo.com on Oct 29, the first two results were the Eva from 2023, with two and five of 11 sizes left.
+
+Your Cara, launched in September with all 11 sizes in stock, starts at slot three, and it&#x27;s the boot your Meta ads point to.
+
+I pulled the first results with sizes in stock and launch dates, so you can see what to move up. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Taryn, on nisolo.com &#x27;womens chelsea boot&#x27; shows the 2023 Eva first, with two and five of 11 sizes left, when I checked Oct 29. The Cara your ads promote starts at slot three. I pulled the ranked list with sizes if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] nisolo.com search for &#x27;womens chelsea boot&#x27; on Oct 29, 2026: 87 results. Order: 1 Eva Everyday Chelsea Boot Almond, 2 Eva Everyday Chelsea Boot Black, 3-6 Cara Chelsea Boot (British Tan, Chocolate Brown, Black, Black/Black), 7-9 Go-To Lug Chelsea Boot 2.0, 10 Go-To Lug Mid; slots 11-14 are men&#x27;s Go-To Chelsea Boot 2.0 styles. <a href="https://nisolo.com/search?q=womens+chelsea+boot&amp;type=product" rel="noopener" target="_blank">nisolo.com/search?q=womens+chelsea+boot&amp;type=product</a></li><li>[2] Eva Everyday Chelsea Boot Almond: added 2023-07-27, 2 of 11 sizes in stock (8.5, 11). Eva Black: added 2023-07-27, 5 of 11 sizes. Each Cara Chelsea Boot colourway: added 2026-09-21, 11 of 11 sizes in stock, $248. <a href="https://nisolo.com/products/womens-eva-everyday-chelsea-boot-almond.js" rel="noopener" target="_blank">nisolo.com/products/womens-eva-everyday-chelsea-boot-almond.js</a></li><li>[3] Nisolo Meta ad, Library ID 2203424971056174, started Oct 8, 2026, links to the Cara Chelsea Boot Black. <a href="https://www.facebook.com/ads/library/?id=2203424971056174" rel="noopener" target="_blank">facebook.com/ads/library/?id=2203424971056174</a></li><li>[4] Modern Retail, Dec 1, 2025: Taryn Jones Laeben is CEO of the leather footwear brand Nisolo. <a href="https://www.modernretail.co/operations/how-nisolos-new-ceo-plans-to-turn-the-footwear-brand-around/" rel="noopener" target="_blank">modernretail.co/operations/how-nisolos-new-ceo-plans-to-turn-the</a></li></ul>
+</article><article class="lead">
+<h4>Matt Williams</h4>
+<p class="meta">CEO, Topo Designs</p>
+<p class="sig"><strong>Why now:</strong> Topo&#x27;s Meta ad for the Mountain Cross Bag in Woodland/Terracotta started Sep 14 and is still active. On Oct 29 that page showed Sold Out, while three other colourways were in stock.</p>
+<div class="msg"><header><span>Email &amp;middot; Re-pointing your Mountain Cross Bag ad</span><button type="button" data-copy>Copy</button></header><pre>Matt, your Meta ad for the Mountain Cross Bag in Woodland/Terracotta started Sep 14 and is still running. When I clicked through on Oct 29, the page said Sold Out.
+
+Three other colourways were in stock that day, at the same $139, so the people that ad wins could still buy.
+
+I pulled your active ads with their landing pages and stock, so you can see which to re-point. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Matt, your Mountain Cross Bag ad (Woodland/Terracotta) live since Sep 14 lands on a page showing Sold Out when I checked Oct 29. Three other colourways are in stock. I pulled your active ads with landing stock if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Topo Designs Meta ad, Library ID 1091339263265816, started Sep 14, 2026, links to /products/mountain-cross-bag-woodland-terracotta. <a href="https://www.facebook.com/ads/library/?id=1091339263265816" rel="noopener" target="_blank">facebook.com/ads/library/?id=1091339263265816</a></li><li>[2] On Oct 29, 2026 the Mountain Cross Bag Woodland/Terracotta page showed Sold Out at $139. Other colourways in stock: River Blue/Brown Oak, Black/Neutral, Grid/Very Peri (3 in stock, all $139). <a href="https://topodesigns.com/products/mountain-cross-bag-woodland-terracotta" rel="noopener" target="_blank">topodesigns.com/products/mountain-cross-bag-woodland-terracotta</a></li><li>[3] BusinessDen, Jan 5, 2026: Topo signed a seven-year lease at York Street Yards; quote from CEO Matt Williams. <a href="https://businessden.com/topo-designs-opening-store-office-in-york-street-yards/" rel="noopener" target="_blank">businessden.com/topo-designs-opening-store-office-in-york-street</a></li><li>[4] topodesigns.com page source: Searchspring, Rebuy and Intelligems scripts; theme named &#x27;Northwrd | 10.21.26 | Stylux Integration&#x27;. <a href="https://topodesigns.com/" rel="noopener" target="_blank">topodesigns.com/</a></li></ul>
+</article><article class="lead">
+<h4>Andy Techmanski</h4>
+<p class="meta">Founder &amp; CEO, FORLOH</p>
+<p class="sig"><strong>Why now:</strong> Two FORLOH Meta ads started Aug 20 are still active. On Oct 29 the women&#x27;s vest link returned a 404 page and the men&#x27;s link redirected to the homepage.</p>
+<div class="msg"><header><span>Email &amp;middot; Two vest ads to re-point</span><button type="button" data-copy>Copy</button></header><pre>Andy, two of your active Meta ads, both started Aug 20, link to the Merino Hi-Loft Insulator Vest. When I clicked through on Oct 29, the women&#x27;s link opened your 404 page and the men&#x27;s dropped people on the homepage.
+
+Your Polartec fleece vests are in stock in every size, so a link swap keeps that spend working today.
+
+I pulled both ads with their IDs and landing results. Want them?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Andy, two FORLOH vest ads live since Aug 20 link to pages that, when I checked Oct 29, return a 404 or redirect home. Your Polartec vests are in stock in every size. I pulled both ads with IDs if useful.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] FORLOH Meta ad &#x27;Built to Layer&#x27;, Library ID 1625037832618348, active, started Aug 20, 2026, links to forloh.com/products/womens-merino-hi-loft-insulator-vest. <a href="https://www.facebook.com/ads/library/?id=1625037832618348" rel="noopener" target="_blank">facebook.com/ads/library/?id=1625037832618348</a></li><li>[2] FORLOH Meta ad &#x27;Quiet Warmth&#x27;, Library ID 930387663466658, active, started Aug 20, 2026, links to forloh.com/products/mens-merino-hi-loft-insulator-vest. <a href="https://www.facebook.com/ads/library/?id=930387663466658" rel="noopener" target="_blank">facebook.com/ads/library/?id=930387663466658</a></li><li>[3] Opened Oct 29, 2026: the women&#x27;s vest URL returns FORLOH&#x27;s 404 page; the men&#x27;s vest URL redirects to the homepage. <a href="https://forloh.com/products/womens-merino-hi-loft-insulator-vest" rel="noopener" target="_blank">forloh.com/products/womens-merino-hi-loft-insulator-vest</a></li><li>[4] FORLOH&#x27;s live catalogue on Oct 29, 2026: 66 products, none a Merino Hi-Loft Insulator Vest. Women&#x27;s Polartec Fleece Vest $129, 15 of 15 sizes in stock; Men&#x27;s Polartec 200 Fleece Vest $139, 18 of 18. 25 in-stock products are priced under $100. <a href="https://forloh.com/products.json?limit=250" rel="noopener" target="_blank">forloh.com/products.json?limit=250</a></li><li>[5] forloh.com search for &#x27;gifts under 100&#x27; on Oct 29, 2026 returns one product: the FORLOH Gift Card. <a href="https://forloh.com/search?q=gifts+under+100&amp;type=product" rel="noopener" target="_blank">forloh.com/search?q=gifts+under+100&amp;type=product</a></li><li>[6] theorg lists Andy Techmanski as CEO of FORLOH Inc. (page undated). He also runs his own Instagram ads tagging #forloh, one started Oct 11, 2026. <a href="https://theorg.com/org/forloh/org-chart/andy-techmanski" rel="noopener" target="_blank">theorg.com/org/forloh/org-chart/andy-techmanski</a></li></ul>
+</article><article class="lead">
+<h4>Nancy Green</h4>
+<p class="meta">CEO, Beyond Yoga</p>
+<p class="sig"><strong>Why now:</strong> Nancy Green told Retail Dive on Oct 22 that Beyond Yoga can have many stores, from 20 today, and that e-commerce lifts in markets where a store opens. Its site already runs Searchspring and Rebuy.</p>
+<div class="msg"><header><span>Email &amp;middot; Store markets, read on site</span><button type="button" data-copy>Copy</button></header><pre>Nancy, Retail Dive reported that your online sales lift in markets where you open a store, and that you&#x27;re at 20 stores with more coming.
+
+That lift shows up as visitors you&#x27;ve never seen: no login, no history. We build a live profile for each from the first click, including location, so a New York shopper&#x27;s search and recommendations change before they sign in.
+
+Want a quick read on what a first-time New York visitor sees today?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Nancy, enjoyed your Retail Dive piece on store growth and the online lift in new store markets. Those new visitors arrive with no history; we personalise search and recs from their first click, location included. Happy to share what we see.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Retail Dive, Oct 22, 2026: Beyond Yoga CEO Nancy Green; 20 stores including the New York pop-up; e-commerce lifts where it opens a store. <a href="https://www.retaildive.com/news/beyond-yoga-store-strategy-yellow-joy-ceo-nancy-green/833665/" rel="noopener" target="_blank">retaildive.com/news/beyond-yoga-store-strategy-yellow-joy-ceo-na</a></li><li>[2] beyondyoga.com page source: Searchspring and Rebuy scripts; 8 active Meta ads started Oct 5-27, 2026. <a href="https://www.facebook.com/ads/library/?active_status=active&amp;ad_type=all&amp;country=US&amp;q=beyond%20yoga&amp;search_type=keyword_unordered" rel="noopener" target="_blank">facebook.com/ads/library/?active_status=active&amp;ad_type=all&amp;count</a></li><li>[3] Malachyte&#x27;s pilot runs 21 days; its comparison page benchmarks Searchspring and Rebuy. <a href="https://www.malachyte.com/competitive-comparison" rel="noopener" target="_blank">malachyte.com/competitive-comparison</a></li></ul>
+</article><article class="lead">
+<h4>John Helle</h4>
+<p class="meta">Founder &amp; head rancher, Duckworth</p>
+<p class="sig"><strong>Why now:</strong> Duckworth started a Powder Hoody Meta ad on Oct 14 heading into gift season. On Oct 29 its search for &#x27;gifts under 100&#x27; returned one product, a $259 vest.</p>
+<div class="msg"><header><span>Email &amp;middot; Gift searches before Black Friday</span><button type="button" data-copy>Copy</button></header><pre>John, when I searched &quot;gifts under 100&quot; on duckworthco.com on Oct 29, it returned one product: the Women&#x27;s WoolCloud Vest, at $259.
+
+That&#x27;s the phrase holiday shoppers type, and they&#x27;d leave thinking nothing fits their budget. But dozens of your products under $100 were in stock, from Vapor tees to sock packs.
+
+I pulled them with prices and sizes in stock, ready to pin to that search. Want the list?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>John, on Oct 29 duckworthco.com&#x27;s search for &#x27;gifts under 100&#x27; returned one product, the $259 WoolCloud Vest, though dozens of in-stock items are under $100. I pulled them with prices and sizes, ready to pin before Black Friday.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] duckworthco.com search for &#x27;gifts under 100&#x27; on Oct 29, 2026: 1 result, the Women&#x27;s WoolCloud Vest at $259. <a href="https://www.duckworthco.com/search?q=gifts+under+100" rel="noopener" target="_blank">duckworthco.com/search?q=gifts+under+100</a></li><li>[2] Duckworth catalogue, Oct 29, 2026: 56 in-stock products priced under $100 (gift cards excluded), mostly sock packs and Vapor tees. Men&#x27;s Vapor Tee $79, 30 of 40 variants in stock; Women&#x27;s Vapor Tee $79, 25 of 25; Midweight Divide Crew Sock 6-Pack $78, 23 of 24; Men&#x27;s Vapor Brief $49, 23 of 25; Women&#x27;s Vapor Long Sleeve Crew $85, 17 of 25. <a href="https://www.duckworthco.com/products.json?limit=250" rel="noopener" target="_blank">duckworthco.com/products.json?limit=250</a></li><li>[3] Duckworth&#x27;s Meta ad for the Men&#x27;s Powder Hoody, Library ID 1131052672593417, started running Oct 14, 2026 and links to /products/mens-powder-hoody. On Oct 29 that product had 18 of 30 size-and-colour options in stock, so 12 were sold out. <a href="https://www.facebook.com/ads/library/?id=1131052672593417" rel="noopener" target="_blank">facebook.com/ads/library/?id=1131052672593417</a></li><li>[4] Duckworth journal post, Apr 24, 2026: &#x27;our founder and head rancher, John Helle&#x27;. <a href="https://www.duckworthco.com/blogs/news/forged-in-fire" rel="noopener" target="_blank">duckworthco.com/blogs/news/forged-in-fire</a></li></ul>
+</article><article class="lead">
+<h4>Redouane Ramdani</h4>
+<p class="meta">Co-founder, Atorie</p>
+<p class="sig"><strong>Why now:</strong> Atorie raised a $9.5M seed on Aug 27 and expects a run rate above $55 million this year, up from about $5 million in sales last year. Since Sep 22 it has started 18 Meta ads, each pointing to a single product page.</p>
+<div class="msg"><header><span>Email &amp;middot; After the ad click</span><button type="button" data-copy>Copy</button></header><pre>Redouane, congrats on the seed. You&#x27;ve started 18 Meta ads since Sep 22, each pointing to one product, like the Belted Wool Herringbone Coat.
+
+Most of those visitors arrive cold. If they don&#x27;t want that coat, the next thing they see decides whether they stay. We rank everything after the click by what that visitor does, from the first hover, with no login.
+
+Want to see what we&#x27;d show someone arriving from your coat ad?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Redouane, congrats on the $9.5M seed. You&#x27;re sending Meta traffic to single product pages; we personalise what those cold visitors see next, from their first click, no login. Happy to show what that looks like on one of your coat ads.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] TechCrunch, Aug 27, 2026: Atorie raised a $9.5 million seed; co-founder Redouane Ramdani; around $5 million in sales last year and an expected annualized run rate north of $55 million. <a href="https://techcrunch.com/2026/08/27/fashion-startup-atorie-raises-9-5m-to-bring-consumers-luxury-goods-without-the-markup/" rel="noopener" target="_blank">techcrunch.com/2026/08/27/fashion-startup-atorie-raises-9-5m-to-</a></li><li>[2] Meta Ad Library, Oct 29, 2026: 18 active Atorie ads linking to product pages, started Sep 22 to Oct 16, 2026, including the Belted Wool Herringbone Coat (Library ID 1382397040449433, Oct 16). <a href="https://www.facebook.com/ads/library/?active_status=active&amp;ad_type=all&amp;country=US&amp;q=atorie&amp;search_type=keyword_unordered" rel="noopener" target="_blank">facebook.com/ads/library/?active_status=active&amp;ad_type=all&amp;count</a></li><li>[3] Malachyte&#x27;s pilot runs 21 days and is A/B tested inside its platform on Intelligems. <a href="https://www.malachyte.com/pilot-program" rel="noopener" target="_blank">malachyte.com/pilot-program</a></li></ul>
+</article><article class="lead">
+<h4>Angelica Munson</h4>
+<p class="meta">Chief Digital &amp; Customer Data Officer, KnitWell Group</p>
+<p class="sig"><strong>Why now:</strong> KnitWell created her role in a Sept 22 release, covering customer data, AI-assisted marketing and personalization across Ann Taylor, LOFT, Talbots, Chico&#x27;s, White House Black Market and Soma.</p>
+<div class="msg"><header><span>Email &amp;middot; Personalising the first visit</span><button type="button" data-copy>Copy</button></header><pre>Angelica, congratulations on the new role at KnitWell. Personalization across Ann Taylor, LOFT, Talbots and the Chico&#x27;s brands usually starts from known customers.
+
+The harder part is the visitor with no login and no history, which is most of your traffic. We build a live profile for each from the first click and use it to rank search, collections and recommendations.
+
+Worth comparing what a first-time LOFT visitor sees today with what they could see?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Angelica, congrats on the chief digital and customer data role at KnitWell. We personalise search and recs for anonymous first-time visitors, no login needed, which tends to be most of a brand&#x27;s traffic. Happy to compare notes.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Retail Dive, Oct 1, 2026: KnitWell Group named Angelica Munson to the new role of chief digital and customer data officer (Sept 22 release); she oversees customer data, AI-assisted marketing and personalization. <a href="https://www.retaildive.com/news/knitwell-chief-digital-customer-data-officer-ann-taylor-chicos/831807/" rel="noopener" target="_blank">retaildive.com/news/knitwell-chief-digital-customer-data-officer</a></li></ul>
+</article><article class="lead">
+<h4>Tracy Dick</h4>
+<p class="meta">Chief Marketing Officer, Shoe Station Group</p>
+<p class="sig"><strong>Why now:</strong> Tracy Dick became CMO of Shoe Station Group on Aug 3, leading customer insights, data and analytics and loyalty. On Oct 29, shoestation.com&#x27;s search for &#x27;womens chelsea boot&#x27; showed the same London Fog Wembley rain boot as three listings in the first seven.</p>
+<div class="msg"><header><span>Email &amp;middot; Your chelsea boot results</span><button type="button" data-copy>Copy</button></header><pre>Tracy, congrats on the CMO role. When I searched &quot;womens chelsea boot&quot; on shoestation.com on Oct 29, the London Fog Wembley rain boot took three of the first seven slots, as separate listings.
+
+That&#x27;s three chances to show a different boot gone, in the middle of boot season. A rule to group colourways in search would free them today.
+
+I saved the first results page with the repeats marked. Want it?</pre></div>
+<div class="msg"><header><span>LinkedIn note</span><button type="button" data-copy>Copy</button></header><pre>Tracy, congrats on the CMO role at Shoe Station Group. On Oct 29, a search for &#x27;womens chelsea boot&#x27; on shoestation.com showed one London Fog rain boot three times in the first seven results. Happy to send the page.</pre></div>
+<h5>Sources</h5><ul class="ev"><li>[1] Retail Dive, Aug 13, 2026: Shoe Station Group appointed Tracy Dick chief marketing officer as of Aug 3; she leads brand strategy, customer insights, data and analytics, loyalty and PR. <a href="https://www.retaildive.com/news/shoe-station-names-chief-marketing-officer/827733/" rel="noopener" target="_blank">retaildive.com/news/shoe-station-names-chief-marketing-officer/8</a></li><li>[2] shoestation.com search for &#x27;womens chelsea boot&#x27; on Oct 29, 2026: 223 items; slots 5, 6 and 7 are all &#x27;Women&#x27;s London Fog Wembley Chelsea Rain Boots&#x27; as separate listings, so 3 of the first 7 are the same boot. <a href="https://www.shoestation.com/search?q=womens%20chelsea%20boot" rel="noopener" target="_blank">shoestation.com/search?q=womens%20chelsea%20boot</a></li></ul>
+</article></div>
+    </div>
+    <p class="src">Copy is written as Malachyte's rep. Nothing has been sent to anyone.</p>
+  </div>
+</section>
+
+<section class="s" data-key="build" data-label="Three things I&#x27;d build" data-sub="At Malachyte">
+  <div class="wrap">
+    <p class="kick"><b>03</b> <s>If I join</s></p>
+    <h2>Three things I'd build at Malachyte.</h2>
+    <div class="three"><div class="pane"><h4>1. An audit engine behind your Free Site Audit</h4><p>Every audit request and target account gets an automatic check of its store: gift and price-intent searches, broken size runs ranking first, and ad landing pages. Findings land in the first reply within the hour, so your VP of Sales opens with their numbers.</p></div><div class="pane"><h4>2. A weekly paid-traffic landing feed</h4><p>Scan Meta Ad Library for Shopify apparel and footwear brands, open every ad&#x27;s destination, and flag 404s, homepage redirects and sold-out pages. Accounts with a live finding go to the rep queue with the ad ID, screenshot and a drafted email.</p></div><div class="pane"><h4>3. A displacement list from page source</h4><p>Detect brands running Searchspring, Boost, Rebuy, Nosto, Fast Simon or Dynamic Yield, plus Intelligems, from their storefront code. Tier them by catalogue size and ad activity, and time a pilot offer to Q4 for the senior commercial hires you&#x27;re making.</p></div></div>
+  </div>
+</section>
+
+<section class="s mid" data-key="ask" data-label="The ask" data-sub="A GTM role, or a pilot first">
+  <div class="wrap">
+    <p class="kick"><b>Malachyte</b> <s>Shubham Sharma</s></p>
+    <h1>I'm looking for my next GTM role. I'd like to build this at Malachyte.</h1>
+    <p class="lede">Happy to start with a 1-month pilot. My work, with live numbers:
+      <a href="https://shubhamsbuild.github.io">shubhamsbuild.github.io</a></p>
+    <div class="stats"><div class="stat"><b>2.2M</b><span>emails sent across 638 client campaigns</span></div><div class="stat"><b>4,100+</b><span>positive replies for clients</span></div><div class="stat"><b>1,350+</b><span>sales calls booked for clients</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav id="chrome">
+  <span class="who"><b>For Malachyte</b> &middot; <a href="https://shubhamsbuild.github.io">Shubham Sharma</a></span>
+  <button id="menu" type="button">Index</button>
+  <button id="prev" type="button" aria-label="Previous">&larr;</button>
+  <span id="count">01 / 05</span>
+  <button id="next" type="button" aria-label="Next">&rarr;</button>
+</nav>
+
+<div id="idx" role="dialog" aria-modal="true" aria-label="Slide index">
+  <h3>Index &middot; press <span class="mono">Esc</span> to close</h3>
+  <ol id="idxlist"></ol>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var slides = Array.prototype.slice.call(document.querySelectorAll(".s"));
+var n = slides.length, at = 0;
+var bar = document.getElementById("bar"), count = document.getElementById("count");
+var prev = document.getElementById("prev"), next = document.getElementById("next");
+var idx = document.getElementById("idx"), hint = document.getElementById("hint");
+
+function pad(i){ return (i < 9 ? "0" : "") + (i + 1); }
+
+function show(i, push){
+  i = Math.max(0, Math.min(n - 1, i));
+  at = i;
+  slides.forEach(function(s, j){
+    if (j === i) s.setAttribute("data-on", "");
+    else s.removeAttribute("data-on");
+  });
+  // The slide is its own scroll container, so a long slide revisited from the
+  // index would otherwise open halfway down where it was left.
+  slides[i].scrollTop = 0;
+  document.documentElement.setAttribute("data-slide", String(i));
+  count.textContent = pad(i) + " / " + n;
+  bar.style.width = (n === 1 ? 100 : (i / (n - 1)) * 100) + "%";
+  prev.disabled = i === 0;
+  next.disabled = i === n - 1;
+  var key = slides[i].getAttribute("data-key");
+  if (push && key) history.replaceState(null, "", "#" + key);
+  if (i > 0 && hint) { hint.style.opacity = "0"; }
+}
+
+function go(d){ show(at + d, true); }
+
+// ---- index overlay
+var list = document.getElementById("idxlist");
+slides.forEach(function(s, j){
+  var li = document.createElement("li");
+  var b  = document.createElement("button");
+  b.type = "button";
+  b.innerHTML = '<em>' + pad(j) + '</em><span>' + s.getAttribute("data-label") +
+                '<i>' + (s.getAttribute("data-sub") || "") + '</i></span>';
+  b.addEventListener("click", function(){ closeIdx(); show(j, true); });
+  li.appendChild(b); list.appendChild(li);
+});
+function openIdx(){ idx.setAttribute("data-on",""); }
+function closeIdx(){ idx.removeAttribute("data-on"); }
+document.getElementById("menu").addEventListener("click", function(){
+  idx.hasAttribute("data-on") ? closeIdx() : openIdx();
+});
+
+prev.addEventListener("click", function(){ go(-1); });
+next.addEventListener("click", function(){ go(1); });
+
+// ---- keyboard
+document.addEventListener("keydown", function(e){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === "Escape"){ closeIdx(); return; }
+  if (k === "i" || k === "I"){ e.preventDefault(); idx.hasAttribute("data-on") ? closeIdx() : openIdx(); return; }
+  if (idx.hasAttribute("data-on")) return;
+  if (k === "ArrowRight" || k === "PageDown" || k === " "){ e.preventDefault(); go(1); }
+  else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (k === "Home"){ e.preventDefault(); show(0, true); }
+  else if (k === "End"){ e.preventDefault(); show(n - 1, true); }
+});
+
+// ---- swipe. Slides scroll vertically, so only a clearly horizontal drag counts.
+var sx = 0, sy = 0, tracking = false;
+document.addEventListener("touchstart", function(e){
+  if (e.touches.length !== 1) { tracking = false; return; }
+  sx = e.touches[0].clientX; sy = e.touches[0].clientY; tracking = true;
+}, {passive:true});
+document.addEventListener("touchend", function(e){
+  if (!tracking) return;
+  tracking = false;
+  var t = e.changedTouches[0];
+  var dx = t.clientX - sx, dy = t.clientY - sy;
+  if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+// ---- open on the hash, so one answer can be linked on its own
+var want = (location.hash || "").replace("#","");
+var start = 0;
+if (want) slides.forEach(function(s, j){ if (s.getAttribute("data-key") === want) start = j; });
+show(start, false);
+
+
+
+// ---- lead board: the cards are rendered server-side; this only toggles them.
+(function(){
+  // Each .board is a list of buttons and a detail pane of articles: the lead
+  // board, and on lean pages the three messages too.
+  Array.prototype.forEach.call(document.querySelectorAll('.board'), function(board){
+    var btns = Array.prototype.slice.call(board.querySelectorAll('.leads button'));
+    var cards = Array.prototype.slice.call(board.querySelectorAll('.detail > article'));
+    if (!btns.length || !cards.length) return;
+    var d = board.querySelector('.detail');
+    function pick(i, scroll){
+      cards.forEach(function(c, k){ c.classList.toggle('on', k === i); });
+      btns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
+      if (scroll && window.innerWidth < 860 && d) d.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    btns.forEach(function(b, k){ b.addEventListener('click', function(){ pick(k, true); }); });
+    pick(0, false);
+  });
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if (!b) return;
+    var t = b.closest('.msg').querySelector('pre').innerText;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(
+      function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); },
+      function(){ b.textContent = 'Select and copy'; });
+  });
+})();
+
+})();
+</script>
+</body>
+</html>
